@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 01/27/21 20:06:45 by Eclipse SUMO netconvert Version 1.8.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="node.nod.xml"/>
+        <edge-files value="edge.edg.xml"/>
+        <connection-files value="connection.con.xml"/>
+    </input>
+
+    <output>
+        <output-file value="cross.net.xml"/>
+    </output>
+
+    <report>
+        <verbose value="true"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
+
+    <edge id=":bottom-node_0" function="internal">
+        <lane id=":bottom-node_0_0" index="0" speed="3.65" length="4.67" shape="498.40,0.00 499.20,-1.20 500.00,-1.60 500.80,-1.20 501.60,0.00"/>
+    </edge>
+    <edge id=":center_0" function="internal">
+        <lane id=":center_0_0" index="0" speed="15.28" length="28.08" shape="492.00,513.60 493.00,504.16 495.20,496.64 497.40,490.79 498.40,486.40"/>
+    </edge>
+    <edge id=":center_1" function="internal">
+        <lane id=":center_1_0" index="0" speed="15.28" length="28.08" shape="513.60,508.00 504.16,507.00 496.64,504.80 490.79,502.60 486.40,501.60"/>
+    </edge>
+    <edge id=":center_2" function="internal">
+        <lane id=":center_2_0" index="0" speed="15.28" length="28.08" shape="508.00,486.40 507.00,495.84 504.80,503.36 502.60,509.21 501.60,513.60"/>
+    </edge>
+    <edge id=":center_3" function="internal">
+        <lane id=":center_3_0" index="0" speed="15.28" length="28.08" shape="486.40,492.00 495.84,493.00 503.36,495.20 509.21,497.40 513.60,498.40"/>
+    </edge>
+    <edge id=":left-node_0" function="internal">
+        <lane id=":left-node_0_0" index="0" speed="3.65" length="4.67" shape="0.00,501.60 -1.20,500.80 -1.60,500.00 -1.20,499.20 0.00,498.40"/>
+    </edge>
+    <edge id=":right-node_0" function="internal">
+        <lane id=":right-node_0_0" index="0" speed="3.65" length="4.67" shape="1000.00,498.40 1001.20,499.20 1001.60,500.00 1001.20,500.80 1000.00,501.60"/>
+    </edge>
+    <edge id=":top-node_0" function="internal">
+        <lane id=":top-node_0_0" index="0" speed="3.65" length="4.67" shape="501.60,1000.00 500.80,1001.20 500.00,1001.60 499.20,1001.20 498.40,1000.00"/>
+    </edge>
+
+    <edge id="bottom-approaching" from="bottom-node" to="center" priority="78">
+        <lane id="bottom-approaching_0" index="0" speed="19.44" length="486.40" shape="508.00,0.00 508.00,486.40"/>
+        <lane id="bottom-approaching_1" index="1" speed="19.44" length="486.40" shape="504.80,0.00 504.80,486.40"/>
+        <lane id="bottom-approaching_2" index="2" speed="19.44" length="486.40" shape="501.60,0.00 501.60,486.40"/>
+    </edge>
+    <edge id="bottom-exit" from="center" to="bottom-node" priority="46">
+        <lane id="bottom-exit_0" index="0" speed="11.11" length="486.40" shape="498.40,486.40 498.40,0.00"/>
+    </edge>
+    <edge id="left-approaching" from="left-node" to="center" priority="78">
+        <lane id="left-approaching_0" index="0" speed="19.44" length="486.40" shape="0.00,492.00 486.40,492.00"/>
+        <lane id="left-approaching_1" index="1" speed="19.44" length="486.40" shape="0.00,495.20 486.40,495.20"/>
+        <lane id="left-approaching_2" index="2" speed="19.44" length="486.40" shape="0.00,498.40 486.40,498.40"/>
+    </edge>
+    <edge id="left-exit" from="center" to="left-node" priority="46">
+        <lane id="left-exit_0" index="0" speed="11.11" length="486.40" shape="486.40,501.60 0.00,501.60"/>
+    </edge>
+    <edge id="right-approaching" from="right-node" to="center" priority="78">
+        <lane id="right-approaching_0" index="0" speed="19.44" length="486.40" shape="1000.00,508.00 513.60,508.00"/>
+        <lane id="right-approaching_1" index="1" speed="19.44" length="486.40" shape="1000.00,504.80 513.60,504.80"/>
+        <lane id="right-approaching_2" index="2" speed="19.44" length="486.40" shape="1000.00,501.60 513.60,501.60"/>
+    </edge>
+    <edge id="right-exit" from="center" to="right-node" priority="46">
+        <lane id="right-exit_0" index="0" speed="11.11" length="486.40" shape="513.60,498.40 1000.00,498.40"/>
+    </edge>
+    <edge id="top-approaching" from="top-node" to="center" priority="78">
+        <lane id="top-approaching_0" index="0" speed="19.44" length="486.40" shape="492.00,1000.00 492.00,513.60"/>
+        <lane id="top-approaching_1" index="1" speed="19.44" length="486.40" shape="495.20,1000.00 495.20,513.60"/>
+        <lane id="top-approaching_2" index="2" speed="19.44" length="486.40" shape="498.40,1000.00 498.40,513.60"/>
+    </edge>
+    <edge id="top-exit" from="center" to="top-node" priority="46">
+        <lane id="top-exit_0" index="0" speed="11.11" length="486.40" shape="501.60,513.60 501.60,1000.00"/>
+    </edge>
+
+    <tlLogic id="center" type="static" programID="0" offset="0">
+        <phase duration="40" state="GrGr"/>
+        <phase duration="5"  state="yryr"/>
+        <phase duration="40" state="rGrG"/>
+        <phase duration="5"  state="ryry"/>
+    </tlLogic>
+
+    <junction id="bottom-node" type="priority" x="500.00" y="0.00" incLanes="bottom-exit_0" intLanes=":bottom-node_0_0" shape="500.00,0.00 496.80,0.00 500.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="center" type="traffic_light" x="500.00" y="500.00" incLanes="top-approaching_0 top-approaching_1 top-approaching_2 right-approaching_0 right-approaching_1 right-approaching_2 bottom-approaching_0 bottom-approaching_1 bottom-approaching_2 left-approaching_0 left-approaching_1 left-approaching_2" intLanes=":center_0_0 :center_1_0 :center_2_0 :center_3_0" shape="490.40,513.60 503.20,513.60 504.36,511.38 505.80,510.60 507.82,510.04 510.42,509.71 513.60,509.60 513.60,496.80 511.38,495.64 510.60,494.20 510.04,492.18 509.71,489.58 509.60,486.40 496.80,486.40 495.64,488.62 494.20,489.40 492.18,489.96 489.58,490.29 486.40,490.40 486.40,503.20 488.62,504.36 489.40,505.80 489.96,507.82 490.29,510.42">
+        <request index="0" response="0000" foes="1010" cont="0"/>
+        <request index="1" response="0101" foes="0101" cont="0"/>
+        <request index="2" response="0000" foes="1010" cont="0"/>
+        <request index="3" response="0101" foes="0101" cont="0"/>
+    </junction>
+    <junction id="left-node" type="priority" x="0.00" y="500.00" incLanes="left-exit_0" intLanes=":left-node_0_0" shape="0.00,500.00 0.00,503.20 0.00,500.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="right-node" type="priority" x="1000.00" y="500.00" incLanes="right-exit_0" intLanes=":right-node_0_0" shape="1000.00,500.00 1000.00,496.80 1000.00,500.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="top-node" type="priority" x="500.00" y="1000.00" incLanes="top-exit_0" intLanes=":top-node_0_0" shape="500.00,1000.00 503.20,1000.00 500.00,1000.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="bottom-approaching" to="top-exit" fromLane="0" toLane="0" via=":center_2_0" tl="center" linkIndex="2" dir="s" state="O"/>
+    <connection from="bottom-exit" to="bottom-approaching" fromLane="0" toLane="2" via=":bottom-node_0_0" dir="t" state="M"/>
+    <connection from="left-approaching" to="right-exit" fromLane="0" toLane="0" via=":center_3_0" tl="center" linkIndex="3" dir="s" state="o"/>
+    <connection from="left-exit" to="left-approaching" fromLane="0" toLane="2" via=":left-node_0_0" dir="t" state="M"/>
+    <connection from="right-approaching" to="left-exit" fromLane="0" toLane="0" via=":center_1_0" tl="center" linkIndex="1" dir="s" state="o"/>
+    <connection from="right-exit" to="right-approaching" fromLane="0" toLane="2" via=":right-node_0_0" dir="t" state="M"/>
+    <connection from="top-approaching" to="bottom-exit" fromLane="0" toLane="0" via=":center_0_0" tl="center" linkIndex="0" dir="s" state="O"/>
+    <connection from="top-exit" to="top-approaching" fromLane="0" toLane="2" via=":top-node_0_0" dir="t" state="M"/>
+
+    <connection from=":bottom-node_0" to="bottom-approaching" fromLane="0" toLane="2" dir="t" state="M"/>
+    <connection from=":center_0" to="bottom-exit" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":center_1" to="left-exit" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":center_2" to="top-exit" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":center_3" to="right-exit" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":left-node_0" to="left-approaching" fromLane="0" toLane="2" dir="t" state="M"/>
+    <connection from=":right-node_0" to="right-approaching" fromLane="0" toLane="2" dir="t" state="M"/>
+    <connection from=":top-node_0" to="top-approaching" fromLane="0" toLane="2" dir="t" state="M"/>
+
+</net>
