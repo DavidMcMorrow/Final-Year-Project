@@ -17,6 +17,8 @@ def run():
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         print(step)
+        if(step == 20):
+            traci.vehicle.setParameter("v0", "device.toc.requestToC", 2)
 
         # det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_0")
         # for veh in det_vehs:

@@ -12,7 +12,7 @@
       		vClass="passenger" sigma="0.2" tau="0.6" length="7" decel="3.5" accel="2.0"  
       		emergencyDecel="9.0" lcAssertive="1.2" actionStepLength="0.1" speedFactor="1.1"/>
 
-    <vehicles>
+    <!-- <vehicles>
         <flow id="Car-Route-Left2Right" begin="0" end="1000" from="left-approaching" 
         to="right-exit" probability="0.5" color="1, 0, 0" type="HDV"/>
         <flow id="EV-Route-Left2Right" begin="0" end="1000" from="left-approaching" 
@@ -26,7 +26,7 @@
         <flow id="Car-Route-Left2Bottom" begin="0" end="1000" from="left-approaching" 
         to="bottom-exit" probability="0.5" color="1, 1, 1" type="HDV"/>
         <flow id="EV-Route-Left2Bottom" begin="0" end="1000" from="left-approaching" 
-        to="bottom-exit" probability="0.5" color="1, 1, 1" type="ev"/>
+        to="bottom-exit" probability="0.5" color="1, 1, 1" type="ev"/> -->
 
         <!-- <flow id="Route-Top2Left" begin="0" end="10000" from="top-approaching" to="left-exit" probability="0.5"/>
         <flow id="Route-Top2Bottom" begin="0" end="10000" from="top-approaching" to="bottom-exit" probability="0.5"/>
@@ -39,6 +39,17 @@
         <flow id="Route-Bottom2Right" begin="0" end="10000" from="bottom-approaching" to="right-exit" probability="0.5"/>
         <flow id="Route-Bottom2Top" begin="0" end="10000" from="bottom-approaching" to="top-exit" probability="0.5"/>
         <flow id="Route-Bottom2Left" begin="0" end="10000" from="bottom-approaching" to="left-exit" probability="0.5"/> -->
-    </vehicles>
+    <!-- </vehicles> -->
+
+    
+    <!-- </vehicle> -->
+    <route id="route0" edges="top-approaching bottom-exit"/>
+    <vehicle id="v0" route="route0" depart="0" type="car">
+        <param key="has.driverstate.device" value="true"/>
+
+        <param key="has.toc.device" value="true"/>
+        <param key="device.toc.automatedType" value="car" />
+        <param key="device.toc.manualType" value="ev"/>
+    </vehicle>
 </routes>
 
