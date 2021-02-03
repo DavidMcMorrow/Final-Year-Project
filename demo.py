@@ -19,15 +19,16 @@ def run():
         print(step)
         if(step == 20):
             traci.vehicle.setParameter("v0", "device.toc.requestToC", 2)
+            traci.vehicle.setRouteID("v0", "route0")
+            traci.vehicle.requestToC("v0", 200)
+           
 
-        # det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_0")
-        # for veh in det_vehs:
-        #     print(veh)
-        #     traci.vehicle.changeLane(veh, 2, 25)
+        det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_0")
+        for veh in det_vehs:
+            print(veh)
+            traci.vehicle.changeLane("v0", 2, 25)
 
-        # if step == 100:
-        #     traci.vehicle.changeTarget("1", "e9")
-        #     traci.vehicle.changeTarget("3", "e9")
+        
 
         step += 1
 

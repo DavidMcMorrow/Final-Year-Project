@@ -44,12 +44,21 @@
     
     <!-- </vehicle> -->
     <route id="route0" edges="top-approaching bottom-exit"/>
-    <vehicle id="v0" route="route0" depart="0" type="car">
+    <route id="route1" edges="top-approaching left-exit"/>
+
+    <vehicle id="v0" route="route1" depart="0" type="car">
         <param key="has.driverstate.device" value="true"/>
 
         <param key="has.toc.device" value="true"/>
         <param key="device.toc.automatedType" value="car" />
         <param key="device.toc.manualType" value="ev"/>
+        <param key="recoveryRate" value="100"/>
+        <param key="responseTime" value="5"/>
     </vehicle>
+
+    <vehicle id="v1" route="route0" depart="0" type="car">
+        <param key="has.driverstate.device" value="true"/>
+    </vehicle>
+
 </routes>
 
