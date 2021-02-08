@@ -4,6 +4,8 @@ import optparse
 from sumolib import checkBinary  # Checks for the binary in environ vars
 import traci
 
+
+
 def get_options():
     opt_parser = optparse.OptionParser()
     opt_parser.add_option("--nogui", action="store_true",
@@ -13,24 +15,37 @@ def get_options():
 
 # contains TraCI control loop
 def run():
-    step = 0
+    step = emisionCount = 0
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         print(step)
-        if(step == 20):
-            traci.vehicle.setParameter("v0", "device.toc.requestToC", 2)
-            traci.vehicle.setRouteID("v0", "route0")
-            traci.vehicle.requestToC("v0", 200)
+        #if(step == 20):
+            # traci.vehicle.setParameter("v0", "device.toc.requestToC", 2)
+            # traci.vehicle.setRouteID("v0", "route0")
+            # traci.vehicle.requestToC("v0", 200)
+            # print("ID List", traci.vehicle.getIDList())
+            # traci.vehicle.setParameter("Car-Route-Left2Right-HDV", "device.toc.requestToC", 2)
+            # traci.vehicle.setRouteID("Car-Route-Left2Right-HDV", "route0")
+            # traci.vehicle.requestToC("Car-Route-Left2Right-HDV", 200)
            
 
         det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_0")
         for veh in det_vehs:
             print(veh)
             traci.vehicle.changeLane("v0", 2, 25)
+            traci.vehicle.changeLane("Car-Route-Left2Right-HDV", 2, 25)
 
-        
+        det_leftRight = traci.inductionloop.getLastStepVehicleIDs("det_1")
+        for veh in det_leftRight:
+            print(veh)
+            # traci.vehicle.changeLane(veh, 2, 2)
+            traci.vehicle.requestToC(veh, 1)
+            emisionCount = emisionCount + traci.vehicle.getCO2Emission(veh)
+            
 
         step += 1
+
+    print("emisionCount", emisionCount)
 
     traci.close()
     sys.stdout.flush()
