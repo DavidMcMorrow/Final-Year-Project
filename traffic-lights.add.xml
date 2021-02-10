@@ -1,30 +1,22 @@
 <additional>
-  <tlLogic id="center" type="actuated" programID="my_program" offset="10">
-  	<param key="max-gap" value="3.0"/>
-  	<param key="detector-gap" value="2.0"/>
-  	<param key="passing-time" value="2.0"/>
-  	<param key="vTypes" value=""/>
-  	<param key="show-detectors" value="true"/>
-  	<param key="file" value="NULL"/>
-  	<param key="freq" value="300"/>
+  <tlLogic id="center" type="static" programID="my_program" offset="10">
+   	<phase duration="12" state="GGGrrrrrrrrr"/>
+	<phase duration="3" state="GGyrrrrrrrrr"/>
+	<phase duration="8" state="GGrrrrGGsrrr"/>
 
-   	<phase duration="12" minDur="10" maxDur="15" state="GGGrrrrrrrrr"/>
-	<phase duration="3" minDur="2" maxDur="4" state="GGyrrrrrrrrr"/>
-	<phase duration="8" minDur="5" maxDur="10" state="GGrrrrGGsrrr"/>
+	<phase duration="3" state="yyrrrrGGsrrr"/>
+	<phase duration="12" state="rrrrrrGGGrrr"/>
+	<phase duration="3" state="rrrrrryyyrrr"/> 
 
-	<phase duration="3" minDur="2" maxDur="4" state="yyrrrrGGsrrr"/>
-	<phase duration="12" minDur="10" maxDur="15" state="rrrrrrGGGrrr"/>
-	<phase duration="3" minDur="2" maxDur="4" state="rrrrrryyyrrr"/> 
-
-	<phase duration="12" minDur="10" maxDur="15" state="rrrGGGrrrrrr"/>
-	<phase duration="3" minDur="2" maxDur="4" state="rrrGGyrrrrrr"/>
-	<phase duration="8" minDur="5" maxDur="10" state="rrrGGrrrrGGs"/>  
+	<phase duration="12" state="rrrGGGrrrrrr"/>
+	<phase duration="3" state="rrrGGyrrrrrr"/>
+	<phase duration="8" state="rrrGGrrrrGGs"/>  
 	
-	<phase duration="3" minDur="2" maxDur="4"  state="rrryyrrrrGGs"/>
-	<phase duration="12" minDur="10" maxDur="15" state="rrrrrrrrrGGG"/>
-	<phase duration="3" minDur="2" maxDur="4" state="rrrrrrrrryyy"/>
+	<phase duration="3" state="rrryyrrrrGGs"/>
+	<phase duration="12" state="rrrrrrrrrGGG"/>
+	<phase duration="3" state="rrrrrrrrryyy"/>
 	
-	<phase duration="10" minDur="10" maxDur="10" state="rrrrrrrrrrrr"/>
+	<phase duration="10" state="rrrrrrrrrrrr"/>
  </tlLogic>
 
 </additional>
