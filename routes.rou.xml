@@ -3,42 +3,34 @@
    			vClass="passenger" length="5" accel="3.5" decel="2.2"
    			sigma="1.0" maxSpeed="10" />
 
-    <vType id="ev"
-      		vClass="emergency" length="7" accel="5.5" decel="2.2" sigma="1.0"
-      		maxSpeed="20" guiShape="emergency" speedFactor="2.0"
-      		minGapLat="0.2"/>
-
-    <vType id="HDV"
-      		vClass="passenger" sigma="0.2" tau="0.6" length="7" decel="3.5" accel="2.0"  
-      		emergencyDecel="9.0" lcAssertive="1.2" actionStepLength="0.1" speedFactor="1.1"/>
-
     <vehicles>
-        <flow id="Car-Route-Left2Right" begin="0" end="1000" from="left-approaching" 
-        to="right-exit" probability="0.5" color="1, 0, 0" type="HDV"/>
-        <flow id="EV-Route-Left2Right" begin="0" end="1000" from="left-approaching" 
-        to="right-exit" probability="0.5" color="1, 0, 0" type="ev"/>
-
         <flow id="Car-Route-Left2Top" begin="0" end="1000" from="left-approaching" 
-        to="top-exit" probability="0.5" color="1, 1, 0" type="HDV"/>
-        <flow id="EV-Route-Left2Top" begin="0" end="1000" from="left-approaching" 
-        to="top-exit" probability="0.5" color="1, 1, 0" type="ev"/>
-
+        to="top-exit" probability="0.5" type="car"/>
+        <flow id="Car-Route-Left2Right" begin="0" end="1000" from="left-approaching" 
+        to="right-exit" probability="0.5" type="car"/>
         <flow id="Car-Route-Left2Bottom" begin="0" end="1000" from="left-approaching" 
-        to="bottom-exit" probability="0.5" color="1, 1, 1" type="HDV"/>
-        <flow id="EV-Route-Left2Bottom" begin="0" end="1000" from="left-approaching" 
-        to="bottom-exit" probability="0.5" color="1, 1, 1" type="ev"/>
+        to="bottom-exit" probability="0.5" type="car"/>
 
-        <!-- <flow id="Route-Top2Left" begin="0" end="10000" from="top-approaching" to="left-exit" probability="0.5"/>
-        <flow id="Route-Top2Bottom" begin="0" end="10000" from="top-approaching" to="bottom-exit" probability="0.5"/>
-        <flow id="Route-Top2Right" begin="0" end="10000" from="top-approaching" to="right-exit" probability="0.5"/>
+        <flow id="Car-Route-Top2Right" begin="0" end="1000" from="top-approaching" 
+        to="right-exit" probability="0.5" type="car"/>
+        <flow id="Car-Route-Top2Bottom" begin="0" end="1000" from="top-approaching" 
+        to="bottom-exit" probability="0.5" type="car"/>
+        <flow id="Car-Route-Top2Left" begin="0" end="1000" from="top-approaching" 
+        to="left-exit" probability="0.5" type="car"/>
 
-        <flow id="Route-Right2Top" begin="0" end="10000" from="right-approaching" to="top-exit" probability="0.5"/>
-        <flow id="Route-Right2Left" begin="0" end="10000" from="right-approaching" to="left-exit" probability="0.5"/>
-        <flow id="Route-Right2Bottom" begin="0" end="10000" from="right-approaching" to="bottom-exit" probability="0.5"/>
+        <flow id="Car-Route-Right2Bottom" begin="0" end="1000" from="right-approaching" 
+        to="bottom-exit" probability="0.5" type="car"/>
+        <flow id="Car-Route-Right2Left" begin="0" end="1000" from="right-approaching" 
+        to="left-exit" probability="0.5" type="car"/>
+        <flow id="Car-Route-Right2Top" begin="0" end="1000" from="right-approaching" 
+        to="top-exit" probability="0.5" type="car"/>
 
-        <flow id="Route-Bottom2Right" begin="0" end="10000" from="bottom-approaching" to="right-exit" probability="0.5"/>
-        <flow id="Route-Bottom2Top" begin="0" end="10000" from="bottom-approaching" to="top-exit" probability="0.5"/>
-        <flow id="Route-Bottom2Left" begin="0" end="10000" from="bottom-approaching" to="left-exit" probability="0.5"/> -->
+        <flow id="Car-Route-Bottom2Left" begin="0" end="1000" from="bottom-approaching" 
+        to="bottom-exit" probability="0.5" type="car"/>
+        <flow id="Car-Route-Bottom2Top" begin="0" end="1000" from="bottom-approaching" 
+        to="top-exit" probability="0.5" type="car"/>
+        <flow id="Car-Route-Bottom2Right" begin="0" end="1000" from="bottom-approaching" 
+        to="right-exit" probability="0.5" type="car"/>        
     </vehicles>
 </routes>
 
