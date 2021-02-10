@@ -16,6 +16,11 @@ def get_options():
 # contains TraCI control loop
 def run():
     step = emisionCount = 0
+    print("Hello")
+    traci.vehicletype.setActionStepLength("HDV", 0.1, True)
+    traci.vehicletype.setActionStepLength("car", 0.1, True)
+    traci.vehicletype.setActionStepLength("ev", 0.1, True)
+    print("Hello")
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         print(step)
@@ -41,8 +46,6 @@ def run():
             # traci.vehicle.changeLane(veh, 2, 2)
             traci.vehicle.requestToC(veh, 1)
             emisionCount = emisionCount + traci.vehicle.getCO2Emission(veh)
-            
-
         step += 1
 
     print("emisionCount", emisionCount)
