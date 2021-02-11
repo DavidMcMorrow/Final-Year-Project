@@ -53,5 +53,5 @@ if __name__ == "__main__":
 
     # traci starts sumo as a subprocess and then this script connects and runs
     traci.start([sumoBinary, "-c", "intersection.sumocfg",
-                             "--tripinfo-output", "tripinfo.xml"])
+                             "--tripinfo-output", "tripinfo.xml", "--ignore-route-errors"])
     run()
