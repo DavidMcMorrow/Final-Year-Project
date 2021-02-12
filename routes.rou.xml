@@ -4,43 +4,43 @@
    			sigma="1.0" maxSpeed="10" />
 
     <vehicles>
-        <flow id="Car-Route-Left2Top" begin="0" end="100"  type="car" number="2">
+        <flow id="Car-Route-Left2Top" begin="0" end="100"  type="car" number="2" departLane="random">
             <route edges="left-approaching top-exit" />
         </flow>
-        <flow id="Car-Route-Left2Right" begin="0" end="100" type="car" number="2">
+        <flow id="Car-Route-Left2Right" begin="0" end="100" type="car" number="2" departLane="random">
             <route edges="left-approaching right-exit" />
         </flow>
-        <flow id="Car-Route-Left2Bottom" begin="0" end="100" number="2" type="car">
+        <flow id="Car-Route-Left2Bottom" begin="0" end="100" type="car" number="2" departLane="random">
             <route edges="left-approaching bottom-exit" />
         </flow>
 
-        <flow id="Car-Route-Top2Right" begin="0" end="100" type="car" number="2">
-            <route edges="top-approaching right-exit" />
+        <flow id="Car-Route-Top2Right" begin="0" end="100" type="car" number="5" departLane="random">
+            <route edges="top-approaching right-exit" color="red"/>
         </flow>
-        <flow id="Car-Route-Top2Bottom" begin="0" end="100" type="car" number="2">
-            <route edges="top-approaching bottom-exit" />
+        <flow id="Car-Route-Top2Bottom" begin="0" end="100" type="car" number="5" departLane="random">
+            <route edges="top-approaching bottom-exit" color="yellow" />
         </flow>
-        <flow id="Car-Route-Top2Left" begin="0" end="100" type="car" number="2">
-            <route edges="top-approaching closed-lane left-exit" />
+        <flow id="Car-Route-Top2Left" begin="0" end="100" type="car" number="5" departLane="random">
+            <route edges="top-approaching closed-lane left-exit" color="blue"  />
         </flow>
 
-        <flow id="Car-Route-Right2Bottom" begin="0" end="1000" type="car" number="2">
+        <flow id="Car-Route-Right2Bottom" begin="0" end="1000" type="car" number="2" departLane="random">
             <route edges="right-approaching bottom-exit" />
         </flow>
-        <flow id="Car-Route-Right2Left" begin="0" end="100" type="car" number="2">
+        <flow id="Car-Route-Right2Left" begin="0" end="100" type="car" number="2" departLane="random">
             <route edges="right-approaching closed-lane left-exit" />
         </flow>
-        <flow id="Car-Route-Right2Top" begin="0" end="1000" type="car" number="2">
+        <flow id="Car-Route-Right2Top" begin="0" end="1000" type="car" number="2" departLane="random">
             <route edges="right-approaching top-exit" />
         </flow>
 
-        <flow id="Car-Route-Bottom2Left" begin="0" end="100" type="car" number="2">
+        <flow id="Car-Route-Bottom2Left" begin="0" end="100" type="car" number="2" departLane="random">
             <route edges="bottom-approaching closed-lane left-exit" />
         </flow>
-        <flow id="Car-Route-Bottom2Top" begin="0" end="100"  type="car" number="2">
+        <flow id="Car-Route-Bottom2Top" begin="0" end="100"  type="car" number="2" departLane="random">
             <route edges="bottom-approaching top-exit" />
         </flow>
-        <flow id="Car-Route-Bottom2Right" begin="0" end="100" type="car" number="2">
+        <flow id="Car-Route-Bottom2Right" begin="0" end="100" type="car" number="2" departLane="random">
             <route edges="bottom-approaching right-exit" />
         </flow>        
 
