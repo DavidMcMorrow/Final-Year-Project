@@ -4,6 +4,9 @@ import optparse
 from sumolib import checkBinary  # Checks for the binary in environ vars
 import traci
 
+
+# netconvert intersection.netccfg
+
 def get_options():
     opt_parser = optparse.OptionParser()
     opt_parser.add_option("--nogui", action="store_true",

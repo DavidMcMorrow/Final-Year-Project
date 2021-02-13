@@ -1,5 +1,5 @@
 <additional>
-  <tlLogic id="center" type="actuated" programID="my_program" offset="10">
+  <!-- <tlLogic id="center" type="actuated" programID="my_program" offset="10">
   	<param key="max-gap" value="3.0"/>
   	<param key="detector-gap" value="2.0"/>
   	<param key="passing-time" value="2.0"/>
@@ -24,12 +24,52 @@
 	<phase duration="10" minDur="8" maxDur="12" state="rrrrrrrrrGGG"/>
 	<phase duration="5" minDur="4" maxDur="6" state="rrrrrrrrryyy"/>
 	
-	<phase duration="10" minDur="10" maxDur="10" state="rrrrrrrrrrrr"/>
+	<phase duration="10" minDur="10" maxDur="10" state="rrrrrrrrrrrr"/> -->
+
+	<!-- <phase duration="10" minDur="8" maxDur="12" state="gggrrrrrrrrr"/>
+	<phase duration="5" minDur="4" maxDur="6" state="ggyrrrrrrrrr"/>
+	<phase duration="8" minDur="5" maxDur="10" state="ggrrrrggsrrr"/>
+
+	<phase duration="5" minDur="6" maxDur="4" state="yyrrrrggsrrr"/>
+	<phase duration="10" minDur="8" maxDur="12" state="rrrrrrgggrrr"/>
+	<phase duration="5" minDur="4" maxDur="6" state="rrrrrryyyrrr"/> 
+
+	<phase duration="10" minDur="8" maxDur="12" state="rrrgggrrrrrr"/>
+	<phase duration="5" minDur="4" maxDur="6" state="rrrggyrrrrrr"/>
+	<phase duration="8" minDur="5" maxDur="10" state="rrrggrrrrggs"/>  
+	
+	<phase duration="5" minDur="4" maxDur="6"  state="rrryyrrrrggs"/>
+	<phase duration="10" minDur="8" maxDur="12" state="rrrrrrrrrggg"/>
+	<phase duration="5" minDur="4" maxDur="6" state="rrrrrrrrryyy"/>
+	
+	<phase duration="10" minDur="10" maxDur="10" state="rrrrrrrrrrrr"/> -->
+ <!-- </tlLogic> -->
+
+
+  <tlLogic id="center" type="static" programID="my_program" offset="0">
+   <phase duration="33" state="GGGrrrrrrrrrr"/>
+   <phase duration="6" state="yyyrrrrrrrrrr"/>
+	<phase duration="33" state="rrrGGGrrrrrrr"/>
+	<phase duration="6" state="rrryyyrrrrrrr"/>
+	<phase duration="33" state="rrrrrrGGGrrrr"/>
+	<phase duration="6" state="rrrrrryyyrrrr"/>
+	<phase duration="33" state="rrrrrrrrrGGGs"/>
+	<phase duration="6" state="rrrrrrrrryyyy"/>
+
  </tlLogic>
+
+
 
  <rerouter id="123" edges="closed-lane">
    <interval begin="0" end="1000">
       <closingLaneReroute id="closed-lane_0">
+	  	<param key="closingLaneReroute" value="true"/> 
+	  </closingLaneReroute>
+   </interval>
+
+   
+   <interval begin="0" end="1000">
+      <closingLaneReroute id="left-short-approaching_2">
 	  	<param key="closingLaneReroute" value="true"/> 
 	  </closingLaneReroute>
    </interval>
