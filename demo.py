@@ -3,9 +3,15 @@ import sys
 import optparse
 from sumolib import checkBinary  # Checks for the binary in environ vars
 import traci
+import importlib
+
+from Roadworks.RoadworksTMS import runRoadWorksTMS
+from Collision.CollisionTMS import runCollisionTMS
 
 
 # netconvert intersection.netccfg
+# netconvert CollisionIntersection.netccfg
+# netconvert RoadworksIntersection.netccfg
 
 def get_options():
     opt_parser = optparse.OptionParser()
@@ -14,17 +20,8 @@ def get_options():
     options, args = opt_parser.parse_args()
     return options
 
-# contains TraCI control loop
-def run():
-    step = 0
-    while traci.simulation.getMinExpectedNumber() > 0:
-        traci.simulationStep()
-        print(step)
-        step += 1
-
-    traci.close()
-    sys.stdout.flush()
-
+SCENARIO = "Roadworks"
+# SCENARIO = "Collision"
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
@@ -44,7 +41,14 @@ if __name__ == "__main__":
     else:
         sumoBinary = checkBinary('sumo-gui')
 
-    # traci starts sumo as a subprocess and then this script connects and runs
-    traci.start([sumoBinary, "-c", "intersection.sumocfg",
-                             "--tripinfo-output", "tripinfo.xml", "--ignore-route-errors"])
-    run()
+    if SCENARIO == "Roadworks":
+        # traci starts sumo as a subprocess and then this script connects and runs
+        traci.start([sumoBinary, "-c", "Roadworks/RoadworksIntersection.sumocfg",
+                             "--tripinfo-output", "RoadworksTripinfo.xml", "--ignore-route-errors"])
+        runRoadWorksTMS()
+        
+
+    if SCENARIO == "Collision":
+        traci.start([sumoBinary, "-c", "Collision/CollisionIntersection.sumocfg",
+                             "--tripinfo-output", "CollisionTripinfo.xml", "--ignore-route-errors"])
+        runCollisionTMS()
