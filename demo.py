@@ -6,6 +6,8 @@ import traci
 
 
 # netconvert intersection.netccfg
+# netconvert CollisionIntersection.netccfg
+# netconvert RoadworksIntersection.netccfg
 
 def get_options():
     opt_parser = optparse.OptionParser()
@@ -26,6 +28,9 @@ def run():
     sys.stdout.flush()
 
 
+SCENARIO = "Roadworks"
+# SCENARIO = "Collision"
+
 # we need to import some python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -44,7 +49,13 @@ if __name__ == "__main__":
     else:
         sumoBinary = checkBinary('sumo-gui')
 
-    # traci starts sumo as a subprocess and then this script connects and runs
-    traci.start([sumoBinary, "-c", "intersection.sumocfg",
-                             "--tripinfo-output", "tripinfo.xml", "--ignore-route-errors"])
-    run()
+    if SCENARIO == "Roadworks":
+        # traci starts sumo as a subprocess and then this script connects and runs
+        traci.start([sumoBinary, "-c", "Roadworks/RoadworksIntersection.sumocfg",
+                             "--tripinfo-output", "RoadworksTripinfo.xml", "--ignore-route-errors"])
+        run()
+
+    if SCENARIO == "Collision":
+        traci.start([sumoBinary, "-c", "Collision/CollisionIntersection.sumocfg",
+                             "--tripinfo-output", "CollisionTripinfo.xml", "--ignore-route-errors"])
+        run()
