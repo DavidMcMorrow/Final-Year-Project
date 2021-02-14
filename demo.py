@@ -3,6 +3,10 @@ import sys
 import optparse
 from sumolib import checkBinary  # Checks for the binary in environ vars
 import traci
+import importlib
+
+from Roadworks.RoadworksTMS import runRoadWorksTMS
+from Collision.CollisionTMS import runCollisionTMS
 
 
 # netconvert intersection.netccfg
@@ -53,9 +57,10 @@ if __name__ == "__main__":
         # traci starts sumo as a subprocess and then this script connects and runs
         traci.start([sumoBinary, "-c", "Roadworks/RoadworksIntersection.sumocfg",
                              "--tripinfo-output", "RoadworksTripinfo.xml", "--ignore-route-errors"])
-        run()
+        runRoadWorksTMS()
+        
 
     if SCENARIO == "Collision":
         traci.start([sumoBinary, "-c", "Collision/CollisionIntersection.sumocfg",
                              "--tripinfo-output", "CollisionTripinfo.xml", "--ignore-route-errors"])
-        run()
+        runCollisionTMS()
