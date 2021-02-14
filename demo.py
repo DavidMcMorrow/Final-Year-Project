@@ -20,18 +20,6 @@ def get_options():
     options, args = opt_parser.parse_args()
     return options
 
-# contains TraCI control loop
-def run():
-    step = 0
-    while traci.simulation.getMinExpectedNumber() > 0:
-        traci.simulationStep()
-        print(step)
-        step += 1
-
-    traci.close()
-    sys.stdout.flush()
-
-
 SCENARIO = "Roadworks"
 # SCENARIO = "Collision"
 
