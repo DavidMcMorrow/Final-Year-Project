@@ -8,8 +8,8 @@ import importlib
 from Roadworks.RoadworksTMS import runRoadWorksTMS
 from Collision.CollisionTMS import runCollisionTMS
 
+# https://www.eclipse.org/lists/sumo-user/msg02526.html
 
-# netconvert intersection.netccfg
 # netconvert CollisionIntersection.netccfg
 # netconvert RoadworksIntersection.netccfg
 
@@ -20,8 +20,8 @@ def get_options():
     options, args = opt_parser.parse_args()
     return options
 
-SCENARIO = "Roadworks"
-# SCENARIO = "Collision"
+# SCENARIO = "Roadworks"
+SCENARIO = "Collision"
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
