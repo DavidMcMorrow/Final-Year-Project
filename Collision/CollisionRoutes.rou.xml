@@ -1,4 +1,7 @@
 <routes>
+    <!-- <vType id="car"
+   			vClass="emergency" length="5" accel="2.5" decel="2.2"
+   			sigma="1.0" maxSpeed="10" color="green"/> -->
     <vType id="car"
    			vClass="passenger" length="5" accel="2.5" decel="2.2"
    			sigma="1.0" maxSpeed="10" color="green"/>
@@ -14,10 +17,10 @@
 
     <vehicles>
         
-        <flow id="crashed-car-lane-zero" begin="0" end="10"  type="car" number="2" departLane="random">
+        <flow id="crashed-car-lane-zero" begin="0" end="10"  type="crashedCar" number="2" departLane="random">
             <route edges="top-approaching left-exit" color="green" />
         </flow>
-        <flow id="crashed-car-lane-one" begin="0" end="10"  type="car" number="1" departLane="random">
+        <flow id="crashed-car-lane-one" begin="0" end="10"  type="crashedCar" number="2" departLane="random">
             <route edges="top-approaching left-exit" color="green" />
         </flow>
 
@@ -45,17 +48,17 @@
         <flow id="Car-Route-Right2Bottom" begin="10" end="1000" type="car" number="2" departLane="random">
             <route edges="right-approaching bottom-exit" />
         </flow>
-        <!-- <flow id="Car-Route-Right2Left" begin="10" end="100" type="car" number="2" departLane="random">
+        <flow id="Car-Route-Right2Left" begin="10" end="100" type="car" number="2" departLane="random">
             <route edges="right-approaching left-exit" />
-        </flow> -->
+        </flow>
         <flow id="Car-Route-Right2Top" begin="10" end="1000" type="car" number="2" departLane="random">
             <route edges="right-approaching top-exit" />
         </flow>
 
         
-        <flow id="Car-Route-Bottom2Left" begin="10" end="100" type="car" number="1" departLane="random">
+        <!-- <flow id="Car-Route-Bottom2Left" begin="10" end="100" type="car" number="1" departLane="random">
             <route edges="bottom-approaching left-exit" />
-        </flow>
+        </flow> -->
         <flow id="Car-Route-Bottom2Top" begin="10" end="100"  type="car" number="5" departLane="random">
             <route edges="bottom-approaching top-exit" />
         </flow>
