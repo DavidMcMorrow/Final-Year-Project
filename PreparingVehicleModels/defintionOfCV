@@ -1,0 +1,21 @@
+tau;            0.6 
+decel;          normal(3.0, 1.0);   [2.0, 4.0]
+accel;          normal(1.5, 1.0);   [0.75, 2.0]
+emergencyDecel; 9.0
+
+lcAssertive;        normal(1.15, 0.05); [1.1, 1.25]
+actionStepLength;   0.1
+
+param;  has.toc.device;             true
+param;  has.toc.manualType;         
+param;  has.toc.automatedType;      
+param;  has.toc.reponseTime;        1.5
+param;  has.toc.initialAwareness;   normal(0.7, 0.2);   [0.6, 1.0];
+param;  has.toc.recoveryRate;       normal(0.2, 0.1);   [0.1, 0.5];
+param;  has.toc.tauCACCtoACC;       normal(1.5, 0.2);   [1.1, 2.0];
+param;  has.toc.mrmDecel;           3.0
+param;  has.toc.useColorScheme;     true
+
+vClass;         passenger
+carFollowModel; Krauss
+color;          CACC
