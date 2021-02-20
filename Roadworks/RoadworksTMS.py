@@ -13,10 +13,12 @@ def runRoadWorksTMS():
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         #print(step)
-        # det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_0")
-        # for veh in det_vehs:
-        #     traci.vehicle.changeLane(veh, 0, 100)
-        #     traci.vehicle.requestToC(veh, 0)
+        det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_0")
+        for veh in det_vehs:
+            print("veh", veh)
+            print("veh", traci.vehicle.getVehicleClass(veh))
+            # traci.vehicle.changeLane(veh, 0, 100)
+            # traci.vehicle.requestToC(veh, 0)
             
         # det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_1")
         # for veh in det_vehs:

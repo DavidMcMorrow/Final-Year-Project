@@ -1,16 +1,25 @@
 netconvert <Filename>.netccfg
 
 sumo-gui <Filename>.sumocfg
-
+------------------------------------
 python createVehTypeDistribution.py <inputFileName>.txt --o <outputFileName>.add.xml --size <#ofVehicles> --name <Vehicle Type Name>
 
+python createVehTypeDistribution.py VehicleSetup/L4-CV.txt --o VehicleModels/L4-CV.add.xml --size 50 --name L4-CV
+python createVehTypeDistribution.py VehicleSetup/L2-CV.txt --o VehicleModels/L2-CV.add.xml --size 50 --name L2-CV
+
+python createVehTypeDistribution.py VehicleSetup/L4-Non-CV.txt --o VehicleModels/L4-Non-CV.add.xml --size 50 --name L4-Non-CV
+python createVehTypeDistribution.py VehicleSetup/L2-Non-CV.txt --o VehicleModels/L2-Non-CV.add.xml --size 50 --name L2-Non-CV
+
+python createVehTypeDistribution.py VehicleSetup/L0-HDV.txt --o VehicleModels/L0-HDV.add.xml --size 50 --name L0-HDV
+-------------------------------------
 python ../PreparingVehicleModels/randomTrips.py -n RoadworksIntersection.net.xml -e <number of Vehicles> --fringe-factor <prob of trip ending on end node> -r <desiredOutputFile --trip-attributes="type=\"<VehicleType>\"" --additional-file <add-file-containing-vehcile> -l
 
 
-python ../PreparingVehicleModels/randomTrips.py -n RoadworksIntersection.net.xml -e 10 --fringe-factor 10 -r Route-Files/L4-CV-Route.rou.xml --trip-attributes="type=\"L4-CV\"" -l --prefix "L4-CV-"
-python ../PreparingVehicleModels/randomTrips.py -n RoadworksIntersection.net.xml -e 10 --fringe-factor 10 -r Route-Files/L2-CV-Route.rou.xml --trip-attributes="type=\"L2-CV\"" -l --prefix "L2-CV-"
+python ../PreparingVehicleModels/randomTrips.py -n RoadworksIntersection.net.xml -e 50 --fringe-factor 10 -r Route-Files/L4-CV-Route.rou.xml --trip-attributes="type=\"L4-CV\"" -l --prefix "L4-CV-" --seed 1
+python ../PreparingVehicleModels/randomTrips.py -n RoadworksIntersection.net.xml -e 50 --fringe-factor 10 -r Route-Files/L2-CV-Route.rou.xml --trip-attributes="type=\"L2-CV\"" -l --prefix "L2-CV-" --seed 2
 
-python ../PreparingVehicleModels/randomTrips.py -n RoadworksIntersection.net.xml -e 10 --fringe-factor 10 -r Route-Files/L4-Non-CV-Route.rou.xml --trip-attributes="type=\"L4-Non-CV\"" -l --prefix "L4-Non-CV-"
-python ../PreparingVehicleModels/randomTrips.py -n RoadworksIntersection.net.xml -e 10 --fringe-factor 10 -r Route-Files/L2-Non-CV-Route.rou.xml --trip-attributes="type=\"L2-Non-CV\"" -l --prefix "L2-Non-CV-"
+python ../PreparingVehicleModels/randomTrips.py -n RoadworksIntersection.net.xml -e 50 --fringe-factor 10 -r Route-Files/L4-Non-CV-Route.rou.xml --trip-attributes="type=\"L4-Non-CV\"" -l --prefix "L4-Non-CV-" --seed 3
+python ../PreparingVehicleModels/randomTrips.py -n RoadworksIntersection.net.xml -e 50 --fringe-factor 10 -r Route-Files/L2-Non-CV-Route.rou.xml --trip-attributes="type=\"L2-Non-CV\"" -l --prefix "L2-Non-CV-" --seed 4
 
-python ../PreparingVehicleModels/randomTrips.py -n RoadworksIntersection.net.xml -e 10 --fringe-factor 10 -r Route-Files/L0-HDV-Route.rou.xml --trip-attributes="type=\"L0-HDV\"" -l --prefix "L0-HDV-"
+python ../PreparingVehicleModels/randomTrips.py -n RoadworksIntersection.net.xml -e 50 --fringe-factor 10 -r Route-Files/L0-HDV-Route.rou.xml --trip-attributes="type=\"L0-HDV\"" -l --prefix "L0-HDV-" --seed 5
+-------------------------------------
