@@ -5,6 +5,38 @@ import optparse
 from sumolib import checkBinary  # Checks for the binary in environ vars
 import traci
 import matplotlib.pyplot as plt
+import random
+
+def getVehiclesInCorrectLanes():
+    detectors = ["det_0", "det_1", "det_2"]
+    for dect in detectors:
+        det_vehs = traci.inductionloop.getLastStepVehicleIDs(dect)
+        for veh in det_vehs:
+            if(traci.vehicle.getVehicleClass(veh) == "custom2"):
+                traci.vehicle.changeLane(veh, 2, 20)
+
+def leftApproach():
+    getVehiclesInCorrectLanes()
+    det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_3")
+    for veh in det_vehs:
+        if(random.randint(0,1) == 0):
+            traci.vehicle.setVehicleClass(veh, "custom1")
+        else:
+            traci.vehicle.requestToC(veh, -10)
+
+def otherApproaches():
+    detectors = ["det_4", "det_5", "det_6"]
+    for dect in detectors:
+        det_vehs = traci.inductionloop.getLastStepVehicleIDs(dect)
+        for veh in det_vehs:
+            print("Hello", veh)
+            if(traci.vehicle.getVehicleClass(veh) == "custom1"):
+                if(random.randint(0,1) == 0):
+                    print("Hello 1")
+                    traci.vehicle.setVehicleClass(veh, "passenger")
+                else:
+                    print("Hello 2")
+                    traci.vehicle.requestToC(veh, -10)
 
 def runRoadWorksTMS():
     print("RoadWorks")
@@ -13,23 +45,9 @@ def runRoadWorksTMS():
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         #print(step)
-        det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_0")
-        for veh in det_vehs:
-            print("veh", veh)
-            print("veh", traci.vehicle.getVehicleClass(veh))
-            # traci.vehicle.changeLane(veh, 0, 100)
-            # traci.vehicle.requestToC(veh, 0)
+        leftApproach()
+        otherApproaches()
             
-        # det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_1")
-        # for veh in det_vehs:
-        #     traci.vehicle.changeLane(veh, 0, 100)
-        #     # traci.vehicle.requestToC(veh, 0)
-            
-        # det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_2")
-        # for veh in det_vehs:
-        #     traci.vehicle.changeLane(veh, 0, 100)
-        #     # traci.vehicle.requestToC(veh, 0)
-
         # det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_3")
         # for veh in det_vehs:
         #     print("veh", veh)
