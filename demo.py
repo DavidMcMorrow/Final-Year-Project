@@ -55,8 +55,8 @@ def settingUpVehicles():
                 #print("line", line)
                 os.system(line)
 
-# SCENARIO = "Roadworks"
-SCENARIO = "Collision"
+SCENARIO = "Roadworks"
+# SCENARIO = "Collision"
 
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
@@ -78,8 +78,8 @@ if __name__ == "__main__":
         sumoBinary = checkBinary('sumo-gui')
 
     if SCENARIO == "Roadworks":
-        # settingUpVehicles()
-        # flowCorrection()
+        settingUpVehicles()
+        flowCorrection()
         #traci starts sumo as a subprocess and then this script connects and runs
         traci.start([sumoBinary, "-c", "Roadworks/RoadworksIntersection.sumocfg",
                              "--tripinfo-output", "RoadworksTripinfo.xml", "--ignore-route-errors"])
