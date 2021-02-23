@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/20/21 20:26:22 by Eclipse SUMO duarouter Version 1.8.0
+<!-- generated on 02/21/21 17:50:22 by Eclipse SUMO duarouter Version 1.8.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
 
     <input>
-        <net-file value="RoadworksIntersection.net.xml"/>
+        <net-file value="Roadworks/RoadworksIntersection.net.xml"/>
         <route-files value="trips.trips.xml"/>
     </input>
 
     <output>
-        <output-file value="Route-Files/L2-CV-Route.rou.xml"/>
-        <alternatives-output value="Route-Files/L2-CV-Route.rou.alt.xml"/>
+        <output-file value="Roadworks/Route-Files/L2-CV-Route.rou.xml"/>
+        <alternatives-output value="Roadworks/Route-Files/L2-CV-Route.rou.alt.xml"/>
     </output>
 
     <time>
@@ -55,17 +55,17 @@
     </vehicle>
     <vehicle id="L2-CV-12" type="L2-CV" depart="12.00">
         <routeDistribution last="0">
-            <route cost="72.71" probability="1.00000000" edges="left-long-approaching left-short-approaching top-exit"/>
+            <route cost="72.71" probability="1.00000000" edges="left-long-approaching preparation left-short-approaching top-exit"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="L2-CV-15" type="L2-CV" depart="15.00">
         <routeDistribution last="0">
-            <route cost="70.73" probability="1.00000000" edges="left-long-approaching left-short-approaching bottom-exit"/>
+            <route cost="70.74" probability="1.00000000" edges="left-long-approaching preparation left-short-approaching bottom-exit"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="L2-CV-16" type="L2-CV" depart="16.00">
         <routeDistribution last="0">
-            <route cost="49.06" probability="1.00000000" edges="left-short-approaching top-exit"/>
+            <route cost="70.40" probability="1.00000000" edges="right-approaching top-exit"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="L2-CV-17" type="L2-CV" depart="17.00">
@@ -80,7 +80,7 @@
     </vehicle>
     <vehicle id="L2-CV-21" type="L2-CV" depart="21.00">
         <routeDistribution last="0">
-            <route cost="72.71" probability="1.00000000" edges="left-long-approaching left-short-approaching top-exit"/>
+            <route cost="72.71" probability="1.00000000" edges="left-long-approaching preparation left-short-approaching top-exit"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="L2-CV-22" type="L2-CV" depart="22.00">
@@ -90,22 +90,22 @@
     </vehicle>
     <vehicle id="L2-CV-24" type="L2-CV" depart="24.00">
         <routeDistribution last="0">
-            <route cost="70.64" probability="1.00000000" edges="left-long-approaching left-short-approaching right-exit"/>
+            <route cost="70.64" probability="1.00000000" edges="left-long-approaching preparation left-short-approaching right-exit"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="L2-CV-25" type="L2-CV" depart="25.00">
         <routeDistribution last="0">
-            <route cost="72.71" probability="1.00000000" edges="left-long-approaching left-short-approaching top-exit"/>
+            <route cost="72.71" probability="1.00000000" edges="left-long-approaching preparation left-short-approaching top-exit"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="L2-CV-26" type="L2-CV" depart="26.00">
         <routeDistribution last="0">
-            <route cost="49.06" probability="1.00000000" edges="left-short-approaching top-exit"/>
+            <route cost="57.28" probability="1.00000000" edges="preparation left-short-approaching top-exit"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="L2-CV-27" type="L2-CV" depart="27.00">
         <routeDistribution last="0">
-            <route cost="72.71" probability="1.00000000" edges="left-long-approaching left-short-approaching top-exit"/>
+            <route cost="72.71" probability="1.00000000" edges="left-long-approaching preparation left-short-approaching top-exit"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="L2-CV-28" type="L2-CV" depart="28.00">
@@ -148,14 +148,19 @@
             <route cost="72.67" probability="1.00000000" edges="top-approaching right-exit"/>
         </routeDistribution>
     </vehicle>
+    <vehicle id="L2-CV-36" type="L2-CV" depart="36.00">
+        <routeDistribution last="0">
+            <route cost="55.21" probability="1.00000000" edges="preparation left-short-approaching right-exit"/>
+        </routeDistribution>
+    </vehicle>
     <vehicle id="L2-CV-38" type="L2-CV" depart="38.00">
         <routeDistribution last="0">
-            <route cost="70.73" probability="1.00000000" edges="left-long-approaching left-short-approaching bottom-exit"/>
+            <route cost="70.74" probability="1.00000000" edges="left-long-approaching preparation left-short-approaching bottom-exit"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="L2-CV-39" type="L2-CV" depart="39.00">
         <routeDistribution last="0">
-            <route cost="49.06" probability="1.00000000" edges="left-short-approaching top-exit"/>
+            <route cost="70.40" probability="1.00000000" edges="right-approaching top-exit"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="L2-CV-40" type="L2-CV" depart="40.00">
@@ -190,12 +195,12 @@
     </vehicle>
     <vehicle id="L2-CV-46" type="L2-CV" depart="46.00">
         <routeDistribution last="0">
-            <route cost="31.40" probability="1.00000000" edges="bottom-approaching closed-lane remerging-lane"/>
+            <route cost="70.35" probability="1.00000000" edges="bottom-approaching right-exit"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="L2-CV-47" type="L2-CV" depart="47.00">
         <routeDistribution last="0">
-            <route cost="28.30" probability="1.00000000" edges="top-approaching closed-lane"/>
+            <route cost="70.66" probability="1.00000000" edges="top-approaching bottom-exit"/>
         </routeDistribution>
     </vehicle>
     <vehicle id="L2-CV-48" type="L2-CV" depart="48.00">
@@ -205,7 +210,7 @@
     </vehicle>
     <vehicle id="L2-CV-49" type="L2-CV" depart="49.00">
         <routeDistribution last="0">
-            <route cost="70.64" probability="1.00000000" edges="left-long-approaching left-short-approaching right-exit"/>
+            <route cost="70.64" probability="1.00000000" edges="left-long-approaching preparation left-short-approaching right-exit"/>
         </routeDistribution>
     </vehicle>
 </routes>
