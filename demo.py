@@ -36,7 +36,6 @@ def flowCorrection():
     
         for i in range(0, len(routes)):
             if(routes[i].getAttribute("edges") == "left-long-approaching preparation left-short-approaching top-exit"):
-                print("HEY")
                 vehicles[i].setAttribute("type", vehicleTypes[j])
                 
 
