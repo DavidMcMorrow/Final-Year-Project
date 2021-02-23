@@ -13,12 +13,14 @@ def getVehiclesInCorrectLanes():
         det_vehs = traci.inductionloop.getLastStepVehicleIDs(dect)
         for veh in det_vehs:
             if(traci.vehicle.getVehicleClass(veh) == "custom2"):
-                traci.vehicle.changeLane(veh, 2, 20)
+                # traci.vehicle.changeLane(veh, 2, 20)
+                traci.vehicle.changeTarget(veh, "preparation")
 
 def leftApproach():
     getVehiclesInCorrectLanes()
     det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_3")
     for veh in det_vehs:
+        traci.vehicle.changeTarget(veh, "top-exit")
         if(random.randint(0,1) == 0):
             traci.vehicle.setVehicleClass(veh, "custom1")
         else:
@@ -29,13 +31,10 @@ def otherApproaches():
     for dect in detectors:
         det_vehs = traci.inductionloop.getLastStepVehicleIDs(dect)
         for veh in det_vehs:
-            print("Hello", veh)
             if(traci.vehicle.getVehicleClass(veh) == "custom1"):
                 if(random.randint(0,1) == 0):
-                    print("Hello 1")
                     traci.vehicle.setVehicleClass(veh, "passenger")
                 else:
-                    print("Hello 2")
                     traci.vehicle.requestToC(veh, -10)
 
 def runRoadWorksTMS():

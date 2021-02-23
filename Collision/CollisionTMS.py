@@ -3,6 +3,9 @@ import sys
 import optparse
 from sumolib import checkBinary  # Checks for the binary in environ vars
 import traci
+# ../PreparingVehicleModels/L4-CV.add.xml, ../PreparingVehicleModels/L2-CV.add.xml, ../PreparingVehicleModels/L0-HDV.add.xml, 
+#         ../PreparingVehicleModels/L2-Non-CV.add.xml, ../PreparingVehicleModels/L4-Non-CV.add.xml"
+
 
 def runCollisionTMS():
     print("Collision")
