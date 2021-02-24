@@ -1,22 +1,4 @@
-python PreparingVehicleModels/createVehTypeDistribution.py PreparingVehicleModels/VehicleSetup/L4-CV.txt --o PreparingVehicleModels/VehicleModels/L4-CV.add.xml --size 50 --name L4-CV
-python PreparingVehicleModels/createVehTypeDistribution.py PreparingVehicleModels/VehicleSetup/L2-CV.txt --o PreparingVehicleModels/VehicleModels/L2-CV.add.xml --size 50 --name L2-CV
-
-python PreparingVehicleModels/createVehTypeDistribution.py PreparingVehicleModels/VehicleSetup/L4-Non-CV.txt --o PreparingVehicleModels/VehicleModels/L4-Non-CV.add.xml --size 50 --name L4-Non-CV
-python PreparingVehicleModels/createVehTypeDistribution.py PreparingVehicleModels/VehicleSetup/L2-Non-CV.txt --o PreparingVehicleModels/VehicleModels/L2-Non-CV.add.xml --size 50 --name L2-Non-CV
-
-python PreparingVehicleModels/createVehTypeDistribution.py PreparingVehicleModels/VehicleSetup/L4-CV-Left.txt --o PreparingVehicleModels/VehicleModels/L4-CV-Left.add.xml --size 50 --name L4-CV-Left
-python PreparingVehicleModels/createVehTypeDistribution.py PreparingVehicleModels/VehicleSetup/L2-CV-Left.txt --o PreparingVehicleModels/VehicleModels/L2-CV-Left.add.xml --size 50 --name L2-CV-Left
-
-python PreparingVehicleModels/createVehTypeDistribution.py PreparingVehicleModels/VehicleSetup/L4-Non-CV-Left.txt --o PreparingVehicleModels/VehicleModels/L4-Non-CV-Left.add.xml --size 50 --name L4-Non-CV-Left
-python PreparingVehicleModels/createVehTypeDistribution.py PreparingVehicleModels/VehicleSetup/L2-Non-CV-Left.txt --o PreparingVehicleModels/VehicleModels/L2-Non-CV-Left.add.xml --size 50 --name L2-Non-CV-Left
-
-python PreparingVehicleModels/createVehTypeDistribution.py PreparingVehicleModels/VehicleSetup/L0-HDV.txt --o PreparingVehicleModels/VehicleModels/L0-HDV.add.xml --size 50 --name L0-HDV
-
-
-python PreparingVehicleModels/randomTrips.py -n Roadworks/RoadworksIntersection.net.xml -e 50 --fringe-factor 20 -r Roadworks/Route-Files/L4-CV-Route.rou.xml --trip-attributes="type=\"L4-CV\"" -l --prefix "L4-CV-" --seed 
-python PreparingVehicleModels/randomTrips.py -n Roadworks/RoadworksIntersection.net.xml -e 50 --fringe-factor 20 -r Roadworks/Route-Files/L2-CV-Route.rou.xml --trip-attributes="type=\"L2-CV\"" -l --prefix "L2-CV-" --seed 
-
-python PreparingVehicleModels/randomTrips.py -n Roadworks/RoadworksIntersection.net.xml -e 50 --fringe-factor 20 -r Roadworks/Route-Files/L4-Non-CV-Route.rou.xml --trip-attributes="type=\"L4-Non-CV\"" -l --prefix "L4-Non-CV-" --seed 
-python PreparingVehicleModels/randomTrips.py -n Roadworks/RoadworksIntersection.net.xml -e 50 --fringe-factor 20 -r Roadworks/Route-Files/L2-Non-CV-Route.rou.xml --trip-attributes="type=\"L2-Non-CV\"" -l --prefix "L2-Non-CV-" --seed 
-
-python PreparingVehicleModels/randomTrips.py -n Roadworks/RoadworksIntersection.net.xml -e 50 --fringe-factor 20 -r Roadworks/Route-Files/L0-HDV-Route.rou.xml --trip-attributes="type=\"L0-HDV\"" -l --prefix "L0-HDV-" --seed 
+python PreparingVehicleModels/createVehTypeDistribution.py PreparingVehicleModels/VehicleSetup/L0-HDV.txt --o PreparingVehicleModels/VehicleModels/L0-HDV.add.xml --size 100 --name L0-HDV
+python PreparingVehicleModels/createVehTypeDistribution.py PreparingVehicleModels/VehicleSetup/L0-HDV-Left.txt --o PreparingVehicleModels/VehicleModels/L0-HDV-Left.add.xml --size 50 --name L0-HDV-Left
+ 
+python PreparingVehicleModels/randomTrips.py -n Roadworks/RoadworksIntersection.net.xml --fringe-factor 20 -r Roadworks/Route-Files/L0-HDV-Route.rou.xml --trip-attributes="type=\"L0-HDV\"" -l --prefix "L0-HDV-" --seed 

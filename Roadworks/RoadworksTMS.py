@@ -7,20 +7,21 @@ import traci
 import matplotlib.pyplot as plt
 import random
 
-def getVehiclesInCorrectLanes():
-    detectors = ["det_0", "det_1", "det_2"]
-    for dect in detectors:
-        det_vehs = traci.inductionloop.getLastStepVehicleIDs(dect)
-        for veh in det_vehs:
-            if(traci.vehicle.getVehicleClass(veh) == "custom2"):
-                # traci.vehicle.changeLane(veh, 2, 20)
-                traci.vehicle.changeTarget(veh, "preparation")
+# def getVehiclesInCorrectLanes():
+#     detectors = ["det_0", "det_1", "det_2"]
+#     for dect in detectors:
+#         det_vehs = traci.inductionloop.getLastStepVehicleIDs(dect)
+#         for veh in det_vehs:
+#             if(traci.vehicle.getVehicleClass(veh) == "custom2"):
+#                 # traci.vehicle.changeLane(veh, 2, 20)
+#                 # traci.vehicle.changeTarget(veh, "preparation")
+#                 print("Doing nothing")
 
 def leftApproach():
-    getVehiclesInCorrectLanes()
-    det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_3")
+    #getVehiclesInCorrectLanes()
+    det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_0")
     for veh in det_vehs:
-        traci.vehicle.changeTarget(veh, "top-exit")
+        # traci.vehicle.changeTarget(veh, "top-exit")
         if(random.randint(0,1) == 0):
             traci.vehicle.setVehicleClass(veh, "custom1")
         else:
@@ -43,9 +44,24 @@ def runRoadWorksTMS():
     
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
+        if(step%3 == 0):
+            det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_0")
+            for veh in det_vehs:
+                traci.vehicle.changeTarget(veh, "top-exit")
+                result = random.randint(0,1)
+                if(result == 0):
+                    traci.vehicle.setVehicleClass(veh, "passenger")
+
+            det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_1")
+            for veh in det_vehs:
+                traci.vehicle.changeTarget(veh, "top-exit")
+                #if(random.randint(0,1) == 0):
+                traci.vehicle.setVehicleClass(veh, "passenger")
+            
+            
         #print(step)
-        leftApproach()
-        otherApproaches()
+        #leftApproach()
+        #otherApproaches()
             
         # det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_3")
         # for veh in det_vehs:

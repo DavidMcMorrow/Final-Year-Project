@@ -24,11 +24,9 @@ def get_options():
     return options
 
 def flowCorrection():
-    files = ['Roadworks/Route-Files/L2-CV-Route.rou.xml'
-    , 'Roadworks/Route-Files/L2-Non-CV-Route.rou.xml', 'Roadworks/Route-Files/L4-Non-CV-Route.rou.xml',
-    'Roadworks/Route-Files/L4-CV-Route.rou.xml'
-    ]
-    vehicleTypes = ["L2-CV-Left", "L2-Non-CV-Left", "L4-Non-CV-Left", "L4-CV-Left"]
+    files = ['Roadworks/Route-Files/L0-HDV-Route.rou.xml']
+    #vehicleTypes = ["L2-CV-Left", "L2-Non-CV-Left", "L4-Non-CV-Left", "L4-CV-Left"]
+    vehicleTypes = ["L0-HDV-Left"]
     for j in range(0, len(files)):
         mydoc = minidom.parse(files[j])
         routes = mydoc.getElementsByTagName('route')
@@ -37,13 +35,13 @@ def flowCorrection():
         for i in range(0, len(routes)):
             if(routes[i].getAttribute("edges") == "left-long-approaching preparation left-short-approaching top-exit"):
                 vehicles[i].setAttribute("type", vehicleTypes[j])
-                
+                routes[i].setAttribute("edges", "left-long-approaching preparation")
 
         with open(files[j], "w") as fs:
             fs.write(mydoc.toxml()) 
             fs.close()  
 
-def settingUpVehicles():
+def settingUpVehicles(LOS):
     with open('PreparingVehicleModels\How to use.txt') as f:
         for line in f:
             if(line != "\n"):
@@ -51,13 +49,27 @@ def settingUpVehicles():
                 if(line.find('python PreparingVehicleModels/randomTrips.py') != -1):
                     line = line.rstrip()
                     line = line + " " + str(random.randint(0,9))
-                    
-                #print("line", line)
+                    if LOS == "A":
+                        line = line + " -p " + str(2.37)
+                    if LOS == "B":
+                        line = line + " -p " + str(1.46)
+                    if LOS == "C":
+                        line = line + " -p " + str(1.27)
+                    if LOS == "D":
+                        line = line + " -p " + str(1.18)
+                    if LOS == "Test":
+                        line = line + " -p " + str(0.7)
+                        
                 os.system(line)
 
 SCENARIO = "Roadworks"
 # SCENARIO = "Collision"
 
+# LOS = "A"
+# LOS = "B"
+# LOS = "C"
+LOS = "D"
+# LOS = "Test"
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
@@ -78,7 +90,7 @@ if __name__ == "__main__":
         sumoBinary = checkBinary('sumo-gui')
 
     if SCENARIO == "Roadworks":
-        settingUpVehicles()
+        settingUpVehicles(LOS)
         flowCorrection()
         #traci starts sumo as a subprocess and then this script connects and runs
         traci.start([sumoBinary, "-c", "Roadworks/RoadworksIntersection.sumocfg",
@@ -88,5 +100,14 @@ if __name__ == "__main__":
 
     if SCENARIO == "Collision":
         traci.start([sumoBinary, "-c", "Collision/CollisionIntersection.sumocfg",
-                             "--tripinfo-output", "CollisionTripinfo.xml", "--ignore-route-errors"])
+                             "--tripinfo-output", "CollisionTripinfo.xml", "--ignore-route-errors", "--emission-output", "TotalEmisions.xml"])
         runCollisionTMS()
+
+
+
+# Two SCENARIO
+#     Two Baselines in each
+#         3 Traffic Volumes
+#     Actual TMS
+#         3 Pentration Rates
+#             3 Volumes
