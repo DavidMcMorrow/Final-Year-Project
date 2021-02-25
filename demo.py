@@ -43,7 +43,7 @@ def flowCorrection():
             fs.write(mydoc.toxml()) 
             fs.close()  
 
-def settingUpVehicles():
+def settingUpVehicles(LOS):
     with open('PreparingVehicleModels\How to use.txt') as f:
         for line in f:
             if(line != "\n"):
@@ -51,13 +51,23 @@ def settingUpVehicles():
                 if(line.find('python PreparingVehicleModels/randomTrips.py') != -1):
                     line = line.rstrip()
                     line = line + " " + str(random.randint(0,9))
+                    if LOS == "A":
+                        line = line + " -p " + str(2.37)
+                    if LOS == "B":
+                        line = line + " -p " + str(1.46)
+                    if LOS == "C":
+                        line = line + " -p " + str(1.27)
+                    if LOS == "D":
+                        line = line + " -p " + str(1.18)
+                    if LOS == "Test":
+                        line = line + " -p " + str(0.7)
                     
-                #print("line", line)
+                print("line", line)
                 os.system(line)
 
 SCENARIO = "Roadworks"
 # SCENARIO = "Collision"
-
+LOS = "Test"
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
@@ -78,8 +88,8 @@ if __name__ == "__main__":
         sumoBinary = checkBinary('sumo-gui')
 
     if SCENARIO == "Roadworks":
-        settingUpVehicles()
-        flowCorrection()
+        settingUpVehicles(LOS)
+        #flowCorrection()
         #traci starts sumo as a subprocess and then this script connects and runs
         traci.start([sumoBinary, "-c", "Roadworks/RoadworksIntersection.sumocfg",
                              "--tripinfo-output", "RoadworksTripinfo.xml", "--ignore-route-errors"])
