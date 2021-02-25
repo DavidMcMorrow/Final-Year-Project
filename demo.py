@@ -36,6 +36,9 @@ def flowCorrection():
             if(routes[i].getAttribute("edges").startswith("p")):
                 route = "left-long-approaching " + routes[i].getAttribute("edges")
                 routes[i].setAttribute("edges", route)
+            if(routes[i].getAttribute("edges").startswith("left-short-approaching")):
+                route = "left-long-approaching preparation " + routes[i].getAttribute("edges")
+                routes[i].setAttribute("edges", route)
             if(routes[i].getAttribute("edges") == "left-long-approaching preparation left-short-approaching top-exit"):
                 vehicles[i].setAttribute("type", "L0-HDV-Left")
                 routes[i].setAttribute("edges", "left-long-approaching preparation")
@@ -56,13 +59,13 @@ def settingUpVehicles(LOS):
                     line = line.rstrip()
                     line = line + " " + str(random.randint(0,9))
                     if LOS == "A":
-                        line = line + " -p " + str(2.37)
+                        line = line + " -p " + str(1.86)
                     if LOS == "B":
-                        line = line + " -p " + str(1.46)
+                        line = line + " -p " + str(1.25)
                     if LOS == "C":
-                        line = line + " -p " + str(1.27)
+                        line = line + " -p " + str(1.07)
                     if LOS == "D":
-                        line = line + " -p " + str(1.18)
+                        line = line + " -p " + str(0.94)
                     if LOS == "Test":
                         line = line + " -p " + str(0.7)
                         
@@ -71,11 +74,11 @@ def settingUpVehicles(LOS):
 SCENARIO = "Roadworks"
 # SCENARIO = "Collision"
 
-# LOS = "A"
+LOS = "A"
 # LOS = "B"
 # LOS = "C"
 # LOS = "D"
-LOS = "Test"
+# LOS = "Test"
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
