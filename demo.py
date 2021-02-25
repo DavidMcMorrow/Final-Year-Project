@@ -11,6 +11,8 @@ import random
 from Roadworks.RoadworksTMS import runRoadWorksTMS
 from Collision.CollisionTMS import runCollisionTMS
 
+from Roadworks.BaselineHDV.BaselineHDVRoadworksTMS import runBaselineHDV
+
 # https://www.eclipse.org/lists/sumo-user/msg02526.html
 
 # netconvert CollisionIntersection.netccfg
@@ -58,6 +60,11 @@ def settingUpVehicles():
 SCENARIO = "Roadworks"
 # SCENARIO = "Collision"
 
+TYPE = "Baseline-HDV"
+# TYPE = "Baseline-AV"
+
+LOS = "A"
+
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
@@ -78,12 +85,15 @@ if __name__ == "__main__":
         sumoBinary = checkBinary('sumo-gui')
 
     if SCENARIO == "Roadworks":
-        settingUpVehicles()
-        flowCorrection()
+        if TYPE == "Baseline-HDV":
+            runBaselineHDV(sumoBinary, LOS)
+            
+        # settingUpVehicles()
+        # flowCorrection()
         #traci starts sumo as a subprocess and then this script connects and runs
-        traci.start([sumoBinary, "-c", "Roadworks/RoadworksIntersection.sumocfg",
-                             "--tripinfo-output", "RoadworksTripinfo.xml", "--ignore-route-errors"])
-        runRoadWorksTMS()
+        # traci.start([sumoBinary, "-c", "Roadworks/RoadworksIntersection.sumocfg",
+        #                      "--tripinfo-output", "RoadworksTripinfo.xml", "--ignore-route-errors"])
+        # runRoadWorksTMS()
         
 
     if SCENARIO == "Collision":
