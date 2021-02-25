@@ -47,16 +47,25 @@ def runRoadWorksTMS():
         if(step%3 == 0):
             det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_0")
             for veh in det_vehs:
-                traci.vehicle.changeTarget(veh, "top-exit")
+                traci.vehicle.setRoute(veh, ["preparation", "left-short-approaching", "top-exit"])
                 result = random.randint(0,1)
                 if(result == 0):
                     traci.vehicle.setVehicleClass(veh, "passenger")
 
             det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_1")
             for veh in det_vehs:
-                traci.vehicle.changeTarget(veh, "top-exit")
+                traci.vehicle.setRoute(veh, ["preparation", "left-short-approaching", "top-exit"])
                 #if(random.randint(0,1) == 0):
                 traci.vehicle.setVehicleClass(veh, "passenger")
+
+            detectors = ["det_2", "det_3"]
+            for det in detectors:
+                det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
+                for veh in det_vehs:       
+                    if(traci.vehicle.getRoute(veh) == ("left-long-approaching", "preparation", "left-short-approaching", "right-exit")):
+                        traci.vehicle.setVehicleClass(veh, "custom1")
+                       
+            
             
             
         #print(step)

@@ -26,16 +26,22 @@ def get_options():
 def flowCorrection():
     files = ['Roadworks/Route-Files/L0-HDV-Route.rou.xml']
     #vehicleTypes = ["L2-CV-Left", "L2-Non-CV-Left", "L4-Non-CV-Left", "L4-CV-Left"]
-    vehicleTypes = ["L0-HDV-Left"]
+    # vehicleTypes = ["L0-HDV-Left"]
     for j in range(0, len(files)):
         mydoc = minidom.parse(files[j])
         routes = mydoc.getElementsByTagName('route')
         vehicles = mydoc.getElementsByTagName('vehicle')
     
         for i in range(0, len(routes)):
+            if(routes[i].getAttribute("edges").startswith("p")):
+                route = "left-long-approaching " + routes[i].getAttribute("edges")
+                routes[i].setAttribute("edges", route)
             if(routes[i].getAttribute("edges") == "left-long-approaching preparation left-short-approaching top-exit"):
-                vehicles[i].setAttribute("type", vehicleTypes[j])
+                vehicles[i].setAttribute("type", "L0-HDV-Left")
                 routes[i].setAttribute("edges", "left-long-approaching preparation")
+            if(routes[i].getAttribute("edges") == "left-long-approaching preparation left-short-approaching bottom-exit"):
+                vehicles[i].setAttribute("type", "L0-HDV-Right")
+                # routes[i].setAttribute("edges", "left-long-approaching preparation")
 
         with open(files[j], "w") as fs:
             fs.write(mydoc.toxml()) 
@@ -68,8 +74,8 @@ SCENARIO = "Roadworks"
 # LOS = "A"
 # LOS = "B"
 # LOS = "C"
-LOS = "D"
-# LOS = "Test"
+# LOS = "D"
+LOS = "Test"
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
