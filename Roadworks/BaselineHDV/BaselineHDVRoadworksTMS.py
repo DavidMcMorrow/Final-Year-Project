@@ -86,10 +86,26 @@ def roadworksBaselineHDVTMS():
     traci.close()
     sys.stdout.flush()
 
+def alterOutputFilesNames(LOS):
+    print("here now")
+    with open("Roadworks\BaselineHDV\Output-Files\SSM-HDV.xml", 'r') as firstFile:
+        with open("Roadworks\BaselineHDV\Output-Files\LOS-A-SSM-HDV.xml", 'w') as secondFile:
+            for line in firstFile:
+                secondFile.write(line)
+
+
+
+
 def runBaselineHDV(sumoBinary, LOS):
-    settingUpVehicles(LOS)
-    flowCorrection()
+    #settingUpVehicles(LOS)
+    #flowCorrection()
+    alterOutputFilesNames(LOS)
     #traci starts sumo as a subprocess and then this script connects and runs
     traci.start([sumoBinary, "-c", "Roadworks\BaselineHDV\RoadworksBaselineHDV.sumocfg",
                 "--tripinfo-output", "Roadworks\BaselineHDV\Output-Files\RoadworksTripinfoNEW.xml", "--ignore-route-errors"])
     roadworksBaselineHDVTMS()
+    
+
+
+# automate file name creation
+# do the same for trip-info.xml

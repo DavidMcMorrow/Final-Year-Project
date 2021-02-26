@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2021-02-25 22:54:54.451241 by $Id$ v1_8_0+0044-4820708f3d
+<!-- generated on 2021-02-26 13:48:32.510448 by $Id$ v1_8_0+0044-4820708f3d
   options: -n Roadworks/RoadworksIntersection.net.xml <doubleminus>fringe-factor 40 -r Roadworks/BaselineHDV/Route-Files/L0-HDV-Route.rou.xml <doubleminus>trip-attributes=type="L0-HDV" -l <doubleminus>prefix L0-HDV- <doubleminus>seed 0 -p 1.86
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -8,7 +8,7 @@
     <trip id="L0-HDV-2" depart="3.72" from="right-approaching" to="left-exit" type="L0-HDV"/>
     <trip id="L0-HDV-3" depart="5.58" from="top-approaching" to="left-exit" type="L0-HDV"/>
     <trip id="L0-HDV-4" depart="7.44" from="left-long-approaching" to="right-exit" type="L0-HDV"/>
-    <trip id="L0-HDV-5" depart="9.30" from="top-approaching" to="right-exit" type="L0-HDV"/>
+    <trip id="L0-HDV-5" depart="9.30" from="top-approaching" to="preparation" type="L0-HDV"/>
     <trip id="L0-HDV-6" depart="11.16" from="left-long-approaching" to="top-exit" type="L0-HDV"/>
     <trip id="L0-HDV-7" depart="13.02" from="right-approaching" to="left-exit" type="L0-HDV"/>
     <trip id="L0-HDV-8" depart="14.88" from="top-approaching" to="top-exit" type="L0-HDV"/>
@@ -178,7 +178,7 @@
     <trip id="L0-HDV-172" depart="319.92" from="left-long-approaching" to="right-exit" type="L0-HDV"/>
     <trip id="L0-HDV-173" depart="321.78" from="top-approaching" to="left-exit" type="L0-HDV"/>
     <trip id="L0-HDV-174" depart="323.64" from="top-approaching" to="left-exit" type="L0-HDV"/>
-    <trip id="L0-HDV-175" depart="325.50" from="preparation" to="preparation" type="L0-HDV"/>
+    <trip id="L0-HDV-175" depart="325.50" from="left-short-approaching" to="preparation" type="L0-HDV"/>
     <trip id="L0-HDV-176" depart="327.36" from="right-approaching" to="bottom-exit" type="L0-HDV"/>
     <trip id="L0-HDV-177" depart="329.22" from="right-approaching" to="bottom-exit" type="L0-HDV"/>
     <trip id="L0-HDV-178" depart="331.08" from="left-long-approaching" to="top-exit" type="L0-HDV"/>
@@ -193,7 +193,7 @@
     <trip id="L0-HDV-187" depart="347.82" from="bottom-approaching" to="top-exit" type="L0-HDV"/>
     <trip id="L0-HDV-188" depart="349.68" from="left-long-approaching" to="bottom-exit" type="L0-HDV"/>
     <trip id="L0-HDV-189" depart="351.54" from="bottom-approaching" to="right-exit" type="L0-HDV"/>
-    <trip id="L0-HDV-190" depart="353.40" from="top-approaching" to="right-exit" type="L0-HDV"/>
+    <trip id="L0-HDV-190" depart="353.40" from="top-approaching" to="remerging-lane" type="L0-HDV"/>
     <trip id="L0-HDV-191" depart="355.26" from="top-approaching" to="preparation" type="L0-HDV"/>
     <trip id="L0-HDV-192" depart="357.12" from="right-approaching" to="right-exit" type="L0-HDV"/>
     <trip id="L0-HDV-193" depart="358.98" from="top-approaching" to="top-exit" type="L0-HDV"/>
@@ -312,7 +312,7 @@
     <trip id="L0-HDV-306" depart="569.16" from="right-approaching" to="bottom-exit" type="L0-HDV"/>
     <trip id="L0-HDV-307" depart="571.02" from="top-approaching" to="left-exit" type="L0-HDV"/>
     <trip id="L0-HDV-308" depart="572.88" from="left-long-approaching" to="right-exit" type="L0-HDV"/>
-    <trip id="L0-HDV-309" depart="574.74" from="left-long-approaching" to="top-exit" type="L0-HDV"/>
+    <trip id="L0-HDV-309" depart="574.74" from="closed-lane" to="top-exit" type="L0-HDV"/>
     <trip id="L0-HDV-310" depart="576.60" from="bottom-approaching" to="left-exit" type="L0-HDV"/>
     <trip id="L0-HDV-311" depart="578.46" from="left-long-approaching" to="right-exit" type="L0-HDV"/>
     <trip id="L0-HDV-312" depart="580.32" from="right-approaching" to="right-exit" type="L0-HDV"/>
@@ -400,7 +400,7 @@
     <trip id="L0-HDV-394" depart="732.84" from="right-approaching" to="left-exit" type="L0-HDV"/>
     <trip id="L0-HDV-395" depart="734.70" from="bottom-approaching" to="bottom-exit" type="L0-HDV"/>
     <trip id="L0-HDV-396" depart="736.56" from="top-approaching" to="bottom-exit" type="L0-HDV"/>
-    <trip id="L0-HDV-397" depart="738.42" from="right-approaching" to="left-exit" type="L0-HDV"/>
+    <trip id="L0-HDV-397" depart="738.42" from="right-approaching" to="closed-lane" type="L0-HDV"/>
     <trip id="L0-HDV-398" depart="740.28" from="left-long-approaching" to="right-exit" type="L0-HDV"/>
     <trip id="L0-HDV-399" depart="742.14" from="right-approaching" to="right-exit" type="L0-HDV"/>
     <trip id="L0-HDV-400" depart="744.00" from="right-approaching" to="top-exit" type="L0-HDV"/>
@@ -509,7 +509,7 @@
     <trip id="L0-HDV-503" depart="935.58" from="left-long-approaching" to="top-exit" type="L0-HDV"/>
     <trip id="L0-HDV-504" depart="937.44" from="bottom-approaching" to="bottom-exit" type="L0-HDV"/>
     <trip id="L0-HDV-505" depart="939.30" from="right-approaching" to="bottom-exit" type="L0-HDV"/>
-    <trip id="L0-HDV-506" depart="941.16" from="bottom-approaching" to="remerging-lane" type="L0-HDV"/>
+    <trip id="L0-HDV-506" depart="941.16" from="bottom-approaching" to="preparation" type="L0-HDV"/>
     <trip id="L0-HDV-507" depart="943.02" from="top-approaching" to="right-exit" type="L0-HDV"/>
     <trip id="L0-HDV-508" depart="944.88" from="top-approaching" to="left-exit" type="L0-HDV"/>
     <trip id="L0-HDV-509" depart="946.74" from="left-long-approaching" to="left-exit" type="L0-HDV"/>
@@ -1514,7 +1514,7 @@
     <trip id="L0-HDV-1508" depart="2804.88" from="left-long-approaching" to="right-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1509" depart="2806.74" from="left-long-approaching" to="right-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1510" depart="2808.60" from="top-approaching" to="bottom-exit" type="L0-HDV"/>
-    <trip id="L0-HDV-1511" depart="2810.46" from="top-approaching" to="remerging-lane" type="L0-HDV"/>
+    <trip id="L0-HDV-1511" depart="2810.46" from="top-approaching" to="preparation" type="L0-HDV"/>
     <trip id="L0-HDV-1512" depart="2812.32" from="bottom-approaching" to="top-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1513" depart="2814.18" from="bottom-approaching" to="bottom-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1514" depart="2816.04" from="left-long-approaching" to="right-exit" type="L0-HDV"/>
@@ -1581,7 +1581,7 @@
     <trip id="L0-HDV-1575" depart="2929.50" from="right-approaching" to="right-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1576" depart="2931.36" from="top-approaching" to="right-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1577" depart="2933.22" from="right-approaching" to="left-exit" type="L0-HDV"/>
-    <trip id="L0-HDV-1578" depart="2935.08" from="right-approaching" to="right-exit" type="L0-HDV"/>
+    <trip id="L0-HDV-1578" depart="2935.08" from="preparation" to="right-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1579" depart="2936.94" from="left-long-approaching" to="left-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1580" depart="2938.80" from="right-approaching" to="right-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1581" depart="2940.66" from="bottom-approaching" to="bottom-exit" type="L0-HDV"/>
@@ -1755,7 +1755,7 @@
     <trip id="L0-HDV-1749" depart="3253.14" from="left-long-approaching" to="bottom-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1750" depart="3255.00" from="left-long-approaching" to="top-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1751" depart="3256.86" from="top-approaching" to="top-exit" type="L0-HDV"/>
-    <trip id="L0-HDV-1752" depart="3258.72" from="top-approaching" to="preparation" type="L0-HDV"/>
+    <trip id="L0-HDV-1752" depart="3258.72" from="top-approaching" to="left-short-approaching" type="L0-HDV"/>
     <trip id="L0-HDV-1753" depart="3260.58" from="top-approaching" to="top-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1754" depart="3262.44" from="left-long-approaching" to="left-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1755" depart="3264.30" from="right-approaching" to="left-exit" type="L0-HDV"/>
@@ -1825,7 +1825,7 @@
     <trip id="L0-HDV-1819" depart="3383.34" from="bottom-approaching" to="right-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1820" depart="3385.20" from="bottom-approaching" to="bottom-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1821" depart="3387.06" from="right-approaching" to="right-exit" type="L0-HDV"/>
-    <trip id="L0-HDV-1822" depart="3388.92" from="bottom-approaching" to="right-exit" type="L0-HDV"/>
+    <trip id="L0-HDV-1822" depart="3388.92" from="closed-lane" to="right-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1823" depart="3390.78" from="top-approaching" to="top-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1824" depart="3392.64" from="bottom-approaching" to="right-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1825" depart="3394.50" from="right-approaching" to="right-exit" type="L0-HDV"/>
@@ -1863,7 +1863,7 @@
     <trip id="L0-HDV-1857" depart="3454.02" from="bottom-approaching" to="top-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1858" depart="3455.88" from="top-approaching" to="bottom-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1859" depart="3457.74" from="top-approaching" to="right-exit" type="L0-HDV"/>
-    <trip id="L0-HDV-1860" depart="3459.60" from="top-approaching" to="left-exit" type="L0-HDV"/>
+    <trip id="L0-HDV-1860" depart="3459.60" from="top-approaching" to="left-short-approaching" type="L0-HDV"/>
     <trip id="L0-HDV-1861" depart="3461.46" from="left-long-approaching" to="top-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1862" depart="3463.32" from="right-approaching" to="right-exit" type="L0-HDV"/>
     <trip id="L0-HDV-1863" depart="3465.18" from="top-approaching" to="top-exit" type="L0-HDV"/>

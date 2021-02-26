@@ -64,7 +64,9 @@ TYPE = "Baseline-HDV"
 # TYPE = "Baseline-AV"
 
 LOS = "A"
-
+# LOS = "B"
+# LOS = "C"
+# LOS = "D"
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
