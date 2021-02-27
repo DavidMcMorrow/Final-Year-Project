@@ -81,29 +81,38 @@ def roadworksBaselineHDVTMS():
                 for veh in det_vehs:       
                     if(traci.vehicle.getRoute(veh) == ("left-long-approaching", "preparation", "left-short-approaching", "right-exit")):
                         traci.vehicle.setVehicleClass(veh, "custom1")
+            
+        
         step += 1
 
-    traci.close()
+    traci.close(False)
     sys.stdout.flush()
 
-def alterOutputFilesNames(LOS):
-    print("here now")
+def alterOutputFilesNames(LOS, ITERATION):
+    safetyFile = "Roadworks\BaselineHDV\Output-Files\LOS-" + LOS + "\SSM-HDV-"+ str(ITERATION) + ".xml"
+    tripFile = "Roadworks\BaselineHDV\Output-Files\LOS-" + LOS + "\Trips-HDV-"+ str(ITERATION) + ".xml"
+    print("HERE")
     with open("Roadworks\BaselineHDV\Output-Files\SSM-HDV.xml", 'r') as firstFile:
-        with open("Roadworks\BaselineHDV\Output-Files\LOS-A-SSM-HDV.xml", 'w') as secondFile:
+        with open(safetyFile, 'w') as secondFile:
+            for line in firstFile:
+                secondFile.write(line)
+
+    with open("Roadworks\BaselineHDV\Output-Files\RoadworksTripInfo.xml", 'r') as firstFile:
+        with open(tripFile, 'w') as secondFile:
             for line in firstFile:
                 secondFile.write(line)
 
 
-
-
-def runBaselineHDV(sumoBinary, LOS):
-    #settingUpVehicles(LOS)
-    #flowCorrection()
-    alterOutputFilesNames(LOS)
+def runBaselineHDV(sumoBinary, LOS, ITERATION):
+    settingUpVehicles(LOS)
+    flowCorrection()
+    
     #traci starts sumo as a subprocess and then this script connects and runs
     traci.start([sumoBinary, "-c", "Roadworks\BaselineHDV\RoadworksBaselineHDV.sumocfg",
-                "--tripinfo-output", "Roadworks\BaselineHDV\Output-Files\RoadworksTripinfoNEW.xml", "--ignore-route-errors"])
+                "--tripinfo-output", "Roadworks\BaselineHDV\Output-Files\RoadworksTripInfo.xml", "--ignore-route-errors"])
     roadworksBaselineHDVTMS()
+    alterOutputFilesNames(LOS, ITERATION)
+    
     
 
 

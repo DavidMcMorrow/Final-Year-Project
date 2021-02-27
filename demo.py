@@ -63,10 +63,14 @@ SCENARIO = "Roadworks"
 TYPE = "Baseline-HDV"
 # TYPE = "Baseline-AV"
 
-LOS = "A"
+# LOS = "A"
 # LOS = "B"
 # LOS = "C"
-# LOS = "D"
+LOS = "D"
+
+# ITERATION = 1
+# ITERATION = 2
+ITERATION = 3
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
@@ -88,7 +92,7 @@ if __name__ == "__main__":
 
     if SCENARIO == "Roadworks":
         if TYPE == "Baseline-HDV":
-            runBaselineHDV(sumoBinary, LOS)
+            runBaselineHDV(sumoBinary, LOS, ITERATION)
             
         # settingUpVehicles()
         # flowCorrection()
