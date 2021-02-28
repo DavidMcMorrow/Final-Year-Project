@@ -12,6 +12,7 @@ from Roadworks.RoadworksTMS import runRoadWorksTMS
 from Collision.CollisionTMS import runCollisionTMS
 
 from Roadworks.BaselineHDV.BaselineHDVRoadworksTMS import runBaselineHDV
+from Roadworks.BaselineCAV.BaselineCAVRoadworksTMS import runBaselineCAV
 
 # https://www.eclipse.org/lists/sumo-user/msg02526.html
 
@@ -60,17 +61,17 @@ def settingUpVehicles():
 SCENARIO = "Roadworks"
 # SCENARIO = "Collision"
 
-TYPE = "Baseline-HDV"
-# TYPE = "Baseline-AV"
+# TYPE = "Baseline-HDV"
+TYPE = "Baseline-CAV"
 
 # LOS = "A"
-# LOS = "B"
+LOS = "B"
 # LOS = "C"
-LOS = "D"
+# LOS = "D"
 
-# ITERATION = 1
+ITERATION = 1
 # ITERATION = 2
-ITERATION = 3
+# ITERATION = 3
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
@@ -93,6 +94,9 @@ if __name__ == "__main__":
     if SCENARIO == "Roadworks":
         if TYPE == "Baseline-HDV":
             runBaselineHDV(sumoBinary, LOS, ITERATION)
+        elif TYPE == "Baseline-CAV":
+            runBaselineCAV(sumoBinary, LOS, ITERATION)
+
             
         # settingUpVehicles()
         # flowCorrection()

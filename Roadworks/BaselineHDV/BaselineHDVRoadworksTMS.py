@@ -104,10 +104,6 @@ def alterOutputFilesNames(LOS, ITERATION):
             for line in firstFile:
                 secondFile.write(line)
 
-    # with open("Roadworks\BaselineHDV\Output-Files\emisions.xml", 'r') as firstFile:
-    #     with open(tripFile, 'w') as secondFile:
-    #         for line in firstFile:
-    #             secondFile.write(line)
 
 def runBaselineHDV(sumoBinary, LOS, ITERATION):
     settingUpVehicles(LOS)
