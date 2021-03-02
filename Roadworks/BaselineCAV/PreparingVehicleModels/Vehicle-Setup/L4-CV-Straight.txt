@@ -1,5 +1,5 @@
 carFollowModel  ;   CACC
-color           ;   red
+color           ;   yellow
 vClass          ;   passenger
 
 tau             ;   0.6 
@@ -13,8 +13,8 @@ lcAssertive         ;   normal(0.85, 0.02); [0.8, 0.9]
 
 #TOC
 param;  has.toc.device                      ;   true
-param;  device.toc.manualType               ;   L0-HDV
 param;  device.toc.automatedType            ;   L4-CV-Straight
+param;  device.toc.manualType               ;   L0-HDV
 param;  device.toc.reponseTime              ;   normal(5.5, 2.05);  [2, 37.5];
 param;  device.toc.initialAwareness         ;   normal(0.45, 0.25); [0.2, 1.0];
 param;  device.toc.recoveryRate             ;   normal(0.25, 0.1);  [0.05, 0.5];
@@ -23,13 +23,14 @@ param;  device.toc.ogNewTimeHeadway         ;   1.6
 param;  device.toc.ogChangeRate             ;   0.8
 param;  device.toc.mrmDecel                 ;   3.0
 param;  device.toc.useColorScheme           ;   true
-param;  device.toc.dynamicMRMProbability    ;   0.5
-
+param;  device.toc.dynamicToCThreshold      ;   normal(11, 0.5); [9.0, 13.0]
+param;  device.toc.dynamicMRMProbability    ;   0.05
+param;  device.toc.device.toc.file          ;   Output-Files/ToC.xml
 
 
 param; has.ssm.device                   ;   true
-param; device.ssm.measures              ;   TTC DRAC PET
-param; device.ssm.thresholds            ;   3.0 3.0 2.0
+param; device.ssm.measures              ;   TTC
+param; device.ssm.thresholds            ;   3.0
 param; device.ssm.range                 ;   50.0
 param; device.ssm.extratime             ;   5.0
 param; device.ssm.file                  ;   Output-Files\L4-CV.xml

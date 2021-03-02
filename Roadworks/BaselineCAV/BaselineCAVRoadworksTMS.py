@@ -63,14 +63,14 @@ def handlingLeftApproaching(vehiclesThatTORed, listOfMRM):
     det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_0")
     for veh in det_vehs:
         traci.vehicle.setRoute(veh, ["preparation", "left-short-approaching", "top-exit"])
-        if(findValue(listOfMRM, veh) == False and (traci.vehicle.getVehicleClass(veh) != "custom1" or traci.vehicle.getVehicleClass(veh) != "passenger")):
-            result = random.randint(0,0)
-            if(result == 0):
-                traci.vehicle.setVehicleClass(veh, "custom1")
-            else:
-                print("veh LEFT", traci.vehicle.getTypeID(veh))
-                traci.vehicle.requestToC(veh, -10)
-                vehiclesThatTORed.append(veh)
+        # if(findValue(listOfMRM, veh) == False and (traci.vehicle.getVehicleClass(veh) != "custom1" or traci.vehicle.getVehicleClass(veh) != "passenger")):
+        #     result = random.randint(1,100)
+        #     if(result == 0):
+        #         traci.vehicle.setVehicleClass(veh, "custom1")
+        #     else:
+        #         print("veh LEFT", traci.vehicle.getTypeID(veh))
+                # traci.vehicle.requestToC(veh, -10)
+                # vehiclesThatTORed.append(veh)
 
 def handlingTopRightBottom(detectors, vehiclesThatTORed, listOfMRM):
     for det in detectors:
@@ -78,13 +78,17 @@ def handlingTopRightBottom(detectors, vehiclesThatTORed, listOfMRM):
         for veh in det_vehs:
             # print("veh OTHER", veh)
             if(traci.vehicle.getVehicleClass(veh) != "passenger" and findValue(listOfMRM, veh) == False):
-                result = random.randint(0,16)
+                result = random.randint(1,100)
                 if(result == 0):
                     traci.vehicle.setVehicleClass(veh, "passenger")
                 else:
-                    print("veh OTHER", traci.vehicle.getTypeID(veh))
-                    traci.vehicle.requestToC(veh, -10)
-                    vehiclesThatTORed.append(veh)
+                    # print("veh OTHER", traci.vehicle.C)
+                    # traci.vehicle.requestToC(veh, 0)
+                    # print("HELLO", traci.vehicle.getParameter(veh, "device.toc.reponseTime"))
+                    # print("HELLO", traci.vehicle.setParameter(veh, "device.toc.reponseTime", 500))
+                    print("BEFORE", traci.vehicle.getVehicleClass(veh))
+                    traci.vehicle.setParameter(veh, "device.toc.requestToC", 10)
+                    # vehiclesThatTORed.append(veh)
 
 def roadworksBaselineCAVTMS():
     print("Running Baseline")
@@ -115,7 +119,7 @@ def roadworksBaselineCAVTMS():
                     print("rand", rand)
                     if(rand == 601):
                         print("RE REQUESTED TOC")
-                        traci.vehicle.requestToC(mrm.ID, -10)
+                        # traci.vehicle.requestToC(mrm.ID, -10)
                         mrm.step = step
                 else:
                     print("REMOVING OLD MRM - 1", listOfMRM)
@@ -126,26 +130,11 @@ def roadworksBaselineCAVTMS():
         if(step%3 == 0):
             handlingLeftApproaching(vehiclesThatTORed, listOfMRM)
             handlingTopRightBottom(detectors, vehiclesThatTORed, listOfMRM)
-            
-            # for det in detectors2:
-            #     det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
-            #     for veh in det_vehs:       
-            #         if(traci.vehicle.getRoute(veh) == ("left-long-approaching", "preparation", "left-short-approaching", "right-exit")):
-            #             traci.vehicle.setVehicleClass(veh, "custom1")
-        # if(step%60 == 0):
-        #     for det in detectors:
-        #         det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
-        #         for veh in det_vehs:
-        #             if(traci.vehicle.getVehicleClass(veh) == "custom1"):
-        #                 traci.vehicle.requestToC(veh, -10)
-                        
 
-        # if(step%60 == 0):
-        #     det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_1")
-        #     for veh in det_vehs:
-        #         if(traci.vehicle.getVehicleClass(veh) == "custom2"):
-        #             traci.vehicle.requestToC(veh, -10)
-                    
+            det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_10")
+            for veh in det_vehs:
+                print("AFTER", traci.vehicle.getVehicleClass(veh))
+           
         step += 1
 
     traci.close(False)
@@ -155,8 +144,6 @@ def alterOutputFilesNames(LOS, ITERATION):
     safetyFile = "Roadworks\BaselineCAV\Output-Files\LOS-" + LOS + "\SSM-HDV-"+ str(ITERATION) + ".xml"
     tripFile = "Roadworks\BaselineCAV\Output-Files\LOS-" + LOS + "\Trips-HDV-"+ str(ITERATION) + ".xml"
     
-    
-    count = 0 
     with open("Roadworks\BaselineCAV\Output-Files\SSM-CAV.xml", 'r') as firstFile:
         with open(safetyFile, 'w') as secondFile:
             for line in firstFile:
@@ -171,7 +158,6 @@ def alterOutputFilesNames(LOS, ITERATION):
 def runBaselineCAV(sumoBinary, LOS, ITERATION):
     settingUpVehicles(LOS)
     flowCorrection()
-    
     
     #traci starts sumo as a subprocess and then this script connects and runs
     traci.start([sumoBinary, "-c", "Roadworks\BaselineCAV\RoadworksBaselineCAV.sumocfg",
