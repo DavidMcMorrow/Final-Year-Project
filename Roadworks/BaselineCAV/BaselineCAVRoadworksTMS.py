@@ -74,7 +74,7 @@ def handlingTopRightBottom(detectors, vehiclesThatTORed, listOfMRM):
                     traci.vehicle.setParameter(veh, "device.toc.requestToC", 3)
                     vehiclesThatTORed.append(veh)
 
-def roadworksBaselineCAVTMS():
+def TMS():
     print("Running Baseline")
     step = 0
     detectors = ["det_4", "det_5", "det_6"]
@@ -108,7 +108,7 @@ def alterOutputFilesNames(LOS, ITERATION):
                 secondFile.write(line)
 
 
-def runBaselineCAV(sumoBinary, LOS, ITERATION):
+def roadworksBaselineCAVTMS(sumoBinary, LOS, ITERATION):
     settingUpVehicles(LOS)
     flowCorrection()
     
@@ -117,7 +117,7 @@ def runBaselineCAV(sumoBinary, LOS, ITERATION):
                 "--tripinfo-output", "Roadworks\BaselineCAV\Output-Files\RoadworksTripInfo.xml", "--ignore-route-errors",
                 "--device.emissions.probability", "1"])
 
-    roadworksBaselineCAVTMS()
+    TMS()
     alterOutputFilesNames(LOS, ITERATION)
 
 def findValue(listOfValues, value):

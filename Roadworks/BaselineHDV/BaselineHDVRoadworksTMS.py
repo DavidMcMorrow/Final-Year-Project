@@ -57,7 +57,7 @@ def flowCorrection():
 
 
 
-def roadworksBaselineHDVTMS():
+def TMS():
     print("Running Baseline")
     step = 0
     while traci.simulation.getMinExpectedNumber() > 0:
@@ -105,7 +105,7 @@ def alterOutputFilesNames(LOS, ITERATION):
                 secondFile.write(line)
 
 
-def runBaselineHDV(sumoBinary, LOS, ITERATION):
+def roadworksBaselineHDVTMS(sumoBinary, LOS, ITERATION):
     settingUpVehicles(LOS)
     flowCorrection()
     
@@ -115,7 +115,7 @@ def runBaselineHDV(sumoBinary, LOS, ITERATION):
                 # "--emission-output", "Roadworks\BaselineHDV\Output-Files\emisions.xml",
                 "--device.emissions.probability", "1"])
 
-    roadworksBaselineHDVTMS()
+    TMS()
     alterOutputFilesNames(LOS, ITERATION)
     
     

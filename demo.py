@@ -11,8 +11,9 @@ import random
 from Roadworks.RoadworksTMS import runRoadWorksTMS
 from Collision.CollisionTMS import runCollisionTMS
 
-from Roadworks.BaselineHDV.BaselineHDVRoadworksTMS import runBaselineHDV
-from Roadworks.BaselineCAV.BaselineCAVRoadworksTMS import runBaselineCAV
+from Roadworks.BaselineHDV.BaselineHDVRoadworksTMS import roadworksBaselineHDVTMS
+from Roadworks.BaselineCAV.BaselineCAVRoadworksTMS import roadworksBaselineCAVTMS
+from Collision.BaselineHDV.BaselineHDVCollisionTMS import collisionBaselineHDVTMS
 
 # https://www.eclipse.org/lists/sumo-user/msg02526.html
 
@@ -58,11 +59,11 @@ def settingUpVehicles():
                 #print("line", line)
                 os.system(line)
 
-SCENARIO = "Roadworks"
-# SCENARIO = "Collision"
+# SCENARIO = "Roadworks"
+SCENARIO = "Collision"
 
-# TYPE = "Baseline-HDV"
-TYPE = "Baseline-CAV"
+TYPE = "Baseline-HDV"
+# TYPE = "Baseline-CAV"
 
 # LOS = "A"
 LOS = "B"
@@ -93,20 +94,12 @@ if __name__ == "__main__":
 
     if SCENARIO == "Roadworks":
         if TYPE == "Baseline-HDV":
-            runBaselineHDV(sumoBinary, LOS, ITERATION)
+            roadworksBaselineHDVTMS(sumoBinary, LOS, ITERATION)
         elif TYPE == "Baseline-CAV":
-            runBaselineCAV(sumoBinary, LOS, ITERATION)
+            roadworksBaselineCAVTMS(sumoBinary, LOS, ITERATION)
 
-            
-        # settingUpVehicles()
-        # flowCorrection()
-        #traci starts sumo as a subprocess and then this script connects and runs
-        # traci.start([sumoBinary, "-c", "Roadworks/RoadworksIntersection.sumocfg",
-        #                      "--tripinfo-output", "RoadworksTripinfo.xml", "--ignore-route-errors"])
-        # runRoadWorksTMS()
-        
-
-    if SCENARIO == "Collision":
-        traci.start([sumoBinary, "-c", "Collision/CollisionIntersection.sumocfg",
-                             "--tripinfo-output", "CollisionTripinfo.xml", "--ignore-route-errors"])
-        runCollisionTMS()
+    else:
+        if TYPE == "Baseline-HDV":
+            collisionBaselineHDVTMS(sumoBinary, LOS, ITERATION)
+        elif TYPE == "Baseline-CAV":
+            print("Still to come")
