@@ -35,8 +35,6 @@ def settingUpVehicles(LOS):
 
 def flowCorrection():
     files = ['Roadworks/BaselineCAV/Route-Files/L4-CV-Route.rou.xml']
-    #vehicleTypes = ["L2-CV-Left", "L2-Non-CV-Left", "L4-Non-CV-Left", "L4-CV-Left"]
-    # vehicleTypes = ["L0-HDV-Left"]
     for j in range(0, len(files)):
         mydoc = minidom.parse(files[j])
         routes = mydoc.getElementsByTagName('route')
@@ -63,77 +61,32 @@ def handlingLeftApproaching(vehiclesThatTORed, listOfMRM):
     det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_0")
     for veh in det_vehs:
         traci.vehicle.setRoute(veh, ["preparation", "left-short-approaching", "top-exit"])
-        # if(findValue(listOfMRM, veh) == False and (traci.vehicle.getVehicleClass(veh) != "custom1" or traci.vehicle.getVehicleClass(veh) != "passenger")):
-        #     result = random.randint(1,100)
-        #     if(result == 0):
-        #         traci.vehicle.setVehicleClass(veh, "custom1")
-        #     else:
-        #         print("veh LEFT", traci.vehicle.getTypeID(veh))
-                # traci.vehicle.requestToC(veh, -10)
-                # vehiclesThatTORed.append(veh)
 
 def handlingTopRightBottom(detectors, vehiclesThatTORed, listOfMRM):
     for det in detectors:
         det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
         for veh in det_vehs:
-            # print("veh OTHER", veh)
-            if(traci.vehicle.getVehicleClass(veh) != "passenger" and findValue(listOfMRM, veh) == False):
-                result = random.randint(1,100)
+            if findValue(vehiclesThatTORed, veh) == False:
+                result = random.randint(0,1)
                 if(result == 0):
                     traci.vehicle.setVehicleClass(veh, "passenger")
                 else:
-                    # print("veh OTHER", traci.vehicle.C)
-                    # traci.vehicle.requestToC(veh, 0)
-                    # print("HELLO", traci.vehicle.getParameter(veh, "device.toc.reponseTime"))
-                    # print("HELLO", traci.vehicle.setParameter(veh, "device.toc.reponseTime", 500))
-                    print("BEFORE", traci.vehicle.getVehicleClass(veh))
-                    traci.vehicle.setParameter(veh, "device.toc.requestToC", 10)
-                    # vehiclesThatTORed.append(veh)
+                    traci.vehicle.setParameter(veh, "device.toc.requestToC", 3)
+                    vehiclesThatTORed.append(veh)
 
 def roadworksBaselineCAVTMS():
     print("Running Baseline")
     step = 0
     detectors = ["det_4", "det_5", "det_6"]
-    detectors2 = ["det_2", "det_3"]
-    MRMdetectors = ["det_7", "det_8", "det_9"]
+    # wrongLaneDetectors = ["det_7", "det_9", "det_10", "det_11", "det_12", "det_13"]
     listOfMRM = []
     vehiclesThatTORed = []
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
-
-        if(len(vehiclesThatTORed) > 0):
-            for tor in vehiclesThatTORed:
-                if(traci.vehicle.getVehicleClass(tor) != "passenger"):
-                    print("MRM in", tor)
-                    listOfMRM.append(MRM(tor, step-1))
-
-        if(len(listOfMRM) > 0):
-            print("MRM OCCURRED")
-            for mrm in listOfMRM:
-                print("checking", mrm.ID)
-                print("traci.vehicle.getVehicleClass(mrm.ID)", traci.vehicle.getVehicleClass(mrm.ID))
-                if(traci.vehicle.getVehicleClass(mrm.ID) != "passenger"):
-                    time = step - mrm.step
-                    print("time", time)
-                    rand = random.randint(time, 601)
-                    print("rand", rand)
-                    if(rand == 601):
-                        print("RE REQUESTED TOC")
-                        # traci.vehicle.requestToC(mrm.ID, -10)
-                        mrm.step = step
-                else:
-                    print("REMOVING OLD MRM - 1", listOfMRM)
-                    listOfMRM.remove(mrm)
-                    print("REMOVING OLD MRM - 2", listOfMRM)
-        vehiclesThatTORed = []
     
         if(step%3 == 0):
             handlingLeftApproaching(vehiclesThatTORed, listOfMRM)
             handlingTopRightBottom(detectors, vehiclesThatTORed, listOfMRM)
-
-            det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_10")
-            for veh in det_vehs:
-                print("AFTER", traci.vehicle.getVehicleClass(veh))
            
         step += 1
 
@@ -169,7 +122,7 @@ def runBaselineCAV(sumoBinary, LOS, ITERATION):
 
 def findValue(listOfValues, value):
     for temp in listOfValues:
-        if temp.ID == value:
+        if temp == value:
             return True
     return False
 
