@@ -63,8 +63,8 @@ def settingUpVehicles():
 # SCENARIO = "Roadworks"
 SCENARIO = "Collision"
 
-TYPE = "Baseline-HDV"
-# TYPE = "Baseline-CAV"
+# TYPE = "Baseline-HDV"
+TYPE = "Baseline-CAV"
 
 # LOS = "A"
 LOS = "B"
