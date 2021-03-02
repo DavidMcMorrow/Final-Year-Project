@@ -59,8 +59,8 @@ def settingUpVehicles():
                 #print("line", line)
                 os.system(line)
 
-# SCENARIO = "Roadworks"
-SCENARIO = "Collision"
+SCENARIO = "Roadworks"
+# SCENARIO = "Collision"
 
 TYPE = "Baseline-HDV"
 # TYPE = "Baseline-CAV"
