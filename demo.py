@@ -14,6 +14,7 @@ from Collision.CollisionTMS import runCollisionTMS
 from Roadworks.BaselineHDV.BaselineHDVRoadworksTMS import roadworksBaselineHDVTMS
 from Roadworks.BaselineCAV.BaselineCAVRoadworksTMS import roadworksBaselineCAVTMS
 from Collision.BaselineHDV.BaselineHDVCollisionTMS import collisionBaselineHDVTMS
+from Collision.BaselineCAV.BaselineCAVCollisionTMS import collisionBaselineCAVTMS
 
 # https://www.eclipse.org/lists/sumo-user/msg02526.html
 
@@ -59,8 +60,8 @@ def settingUpVehicles():
                 #print("line", line)
                 os.system(line)
 
-SCENARIO = "Roadworks"
-# SCENARIO = "Collision"
+# SCENARIO = "Roadworks"
+SCENARIO = "Collision"
 
 TYPE = "Baseline-HDV"
 # TYPE = "Baseline-CAV"
@@ -102,4 +103,4 @@ if __name__ == "__main__":
         if TYPE == "Baseline-HDV":
             collisionBaselineHDVTMS(sumoBinary, LOS, ITERATION)
         elif TYPE == "Baseline-CAV":
-            print("Still to come")
+            collisionBaselineCAVTMS(sumoBinary, LOS, ITERATION)
