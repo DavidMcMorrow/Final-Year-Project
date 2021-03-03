@@ -50,8 +50,8 @@ def flowCorrection():
             if(routes[i].getAttribute("edges") == "left-long-approaching preparation left-short-approaching top-exit"):
                 vehicles[i].setAttribute("type", "L4-CV-Left")
                 routes[i].setAttribute("edges", "left-long-approaching preparation")
-            if(routes[i].getAttribute("edges") == "left-long-approaching preparation left-short-approaching right-exit"):
-                vehicles[i].setAttribute("type", "L4-CV-Straight")
+            if(routes[i].getAttribute("edges") == "left-long-approaching preparation left-short-approaching bottom-exit"):
+                vehicles[i].setAttribute("type", "L4-CV-Right")
 
         with open(files[j], "w") as fs:
             fs.write(mydoc.toxml()) 
@@ -66,7 +66,7 @@ def handlingTopRightBottom(detectors, vehiclesThatTORed, listOfMRM):
     for det in detectors:
         det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
         for veh in det_vehs:
-            if findValue(vehiclesThatTORed, veh) == False:
+            if findValue(vehiclesThatTORed, veh) == False and traci.vehicle.getVehicleClass(veh) != "passenger":
                 result = random.randint(0,1)
                 if(result == 0):
                     traci.vehicle.setVehicleClass(veh, "passenger")
@@ -74,11 +74,20 @@ def handlingTopRightBottom(detectors, vehiclesThatTORed, listOfMRM):
                     traci.vehicle.setParameter(veh, "device.toc.requestToC", 3)
                     vehiclesThatTORed.append(veh)
 
+def scheduleToCAfterLongDelay(delayBeforeToC, vehiclesThatTORed):
+    det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_7")
+    for veh in det_vehs:
+        if(traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1] ==  "right-exit" and traci.vehicle.getTypeID(veh)[:2] != "L0"):
+            if(traci.vehicle.getAccumulatedWaitingTime(veh) >= delayBeforeToC and findValue(vehiclesThatTORed, veh) == False):
+                traci.vehicle.requestToC(veh, 30)
+                vehiclesThatTORed.append(veh)
+
 def TMS():
     print("Running Baseline")
     step = 0
+    delayBeforeToC = 100
     detectors = ["det_4", "det_5", "det_6"]
-    # wrongLaneDetectors = ["det_7", "det_9", "det_10", "det_11", "det_12", "det_13"]
+    
     listOfMRM = []
     vehiclesThatTORed = []
     while traci.simulation.getMinExpectedNumber() > 0:
@@ -87,8 +96,11 @@ def TMS():
         if(step%3 == 0):
             handlingLeftApproaching(vehiclesThatTORed, listOfMRM)
             handlingTopRightBottom(detectors, vehiclesThatTORed, listOfMRM)
-           
+            scheduleToCAfterLongDelay(delayBeforeToC, vehiclesThatTORed)
+            vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
         step += 1
+
+        
 
     traci.close(False)
     sys.stdout.flush()
@@ -115,10 +127,16 @@ def roadworksBaselineCAVTMS(sumoBinary, LOS, ITERATION):
     #traci starts sumo as a subprocess and then this script connects and runs
     traci.start([sumoBinary, "-c", "Roadworks\BaselineCAV\RoadworksBaselineCAV.sumocfg",
                 "--tripinfo-output", "Roadworks\BaselineCAV\Output-Files\RoadworksTripInfo.xml", "--ignore-route-errors",
-                "--device.emissions.probability", "1"])
+                "--device.emissions.probability", "1", "--waiting-time-memory", "300"])
 
     TMS()
     alterOutputFilesNames(LOS, ITERATION)
+
+def removeOldToC(vehiclesThatTORed):
+    for i in range(0, len(vehiclesThatTORed)-1):
+        if(traci.vehicle.getTypeID(vehiclesThatTORed[i])[:2] == "L0"):
+            vehiclesThatTORed.pop(i)
+    return vehiclesThatTORed
 
 def findValue(listOfValues, value):
     for temp in listOfValues:

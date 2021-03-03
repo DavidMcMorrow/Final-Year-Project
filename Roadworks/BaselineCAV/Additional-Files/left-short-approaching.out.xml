@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/02/21 22:05:53 by Eclipse SUMO GUI Version 1.8.0
+<!-- generated on 03/03/21 20:37:24 by Eclipse SUMO GUI Version 1.8.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="Roadworks\BaselineCAV\../RoadworksIntersection.net.xml"/>
         <route-files value="Roadworks\BaselineCAV\Route-Files/L4-CV-Route.rou.xml"/>
-        <additional-files value="Roadworks\BaselineCAV\Additional-Files/Roadworks-Baseline-CAV-Detectors.add.xml,Roadworks\BaselineCAV\Additional-Files/Roadworks-Baseline-CAV-Rerouters.add.xml,Roadworks\BaselineCAV\../Additional-Files/Roadworks-Traffic-lights.add.xml,Roadworks\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L4-CV.add.xml,Roadworks\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L4-CV-Left.add.xml,Roadworks\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L0-HDV.add.xml,Roadworks\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L4-CV-Straight.add.xml,Roadworks\BaselineCAV\../Additional-Files/Roadworks-Traffic-Signs.add.xml"/>
+        <additional-files value="Roadworks\BaselineCAV\Additional-Files/Roadworks-Baseline-CAV-Detectors.add.xml,Roadworks\BaselineCAV\Additional-Files/Roadworks-Baseline-CAV-Rerouters.add.xml,Roadworks\BaselineCAV\../Additional-Files/Roadworks-Traffic-lights.add.xml,Roadworks\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L4-CV.add.xml,Roadworks\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L4-CV-Left.add.xml,Roadworks\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L0-HDV.add.xml,Roadworks\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L4-CV-Right.add.xml,Roadworks\BaselineCAV\../Additional-Files/Roadworks-Traffic-Signs.add.xml"/>
     </input>
 
     <output>
@@ -20,6 +20,7 @@
 
     <processing>
         <ignore-route-errors value="true"/>
+        <waiting-time-memory value="300"/>
         <default.action-step-length value="0.1"/>
     </processing>
 
@@ -28,7 +29,7 @@
     </emissions>
 
     <traci_server>
-        <remote-port value="57295"/>
+        <remote-port value="58388"/>
     </traci_server>
 
     <gui_only>
@@ -39,8 +40,12 @@
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
-    <interval begin="0.00" end="172.70" id="det_2" nVehContrib="8" flow="166.76" occupancy="2.45" speed="10.84" harmonicMeanSpeed="9.44" length="5.00" nVehEntered="8"/>
-    <interval begin="0.00" end="172.70" id="det_3" nVehContrib="5" flow="104.23" occupancy="1.01" speed="14.35" harmonicMeanSpeed="14.32" length="5.00" nVehEntered="5"/>
-    <interval begin="0.00" end="172.70" id="det_5" nVehContrib="4" flow="83.38" occupancy="57.77" speed="5.47" harmonicMeanSpeed="2.13" length="5.00" nVehEntered="5"/>
-    <interval begin="0.00" end="172.70" id="det_6" nVehContrib="6" flow="125.07" occupancy="6.73" speed="3.39" harmonicMeanSpeed="2.58" length="5.00" nVehEntered="6"/>
+    <interval begin="0.00" end="1000.00" id="det_2" nVehContrib="61" flow="219.60" occupancy="67.97" speed="3.08" harmonicMeanSpeed="0.47" length="5.00" nVehEntered="62"/>
+    <interval begin="0.00" end="1000.00" id="det_3" nVehContrib="47" flow="169.20" occupancy="7.31" speed="11.37" harmonicMeanSpeed="3.22" length="5.00" nVehEntered="47"/>
+    <interval begin="0.00" end="1000.00" id="det_5" nVehContrib="47" flow="169.20" occupancy="54.83" speed="4.30" harmonicMeanSpeed="0.47" length="5.00" nVehEntered="48"/>
+    <interval begin="0.00" end="1000.00" id="det_6" nVehContrib="44" flow="158.40" occupancy="10.01" speed="4.35" harmonicMeanSpeed="2.20" length="5.00" nVehEntered="44"/>
+    <interval begin="1000.00" end="1601.60" id="det_2" nVehContrib="57" flow="341.09" occupancy="76.80" speed="3.06" harmonicMeanSpeed="0.59" length="5.00" nVehEntered="57"/>
+    <interval begin="1000.00" end="1601.60" id="det_3" nVehContrib="37" flow="221.41" occupancy="3.39" speed="11.45" harmonicMeanSpeed="9.06" length="5.00" nVehEntered="37"/>
+    <interval begin="1000.00" end="1601.60" id="det_5" nVehContrib="34" flow="203.46" occupancy="68.39" speed="3.64" harmonicMeanSpeed="0.37" length="5.00" nVehEntered="34"/>
+    <interval begin="1000.00" end="1601.60" id="det_6" nVehContrib="21" flow="125.66" occupancy="10.38" speed="3.82" harmonicMeanSpeed="1.68" length="5.00" nVehEntered="21"/>
 </detector>
