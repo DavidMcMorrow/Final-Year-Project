@@ -53,7 +53,26 @@ def flowCorrection():
             fs.write(mydoc.toxml()) 
             fs.close()  
 
+def handlingLeftBlockedApproach():
+    det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_0")
+    for veh in det_vehs:
+        traci.vehicle.setRoute(veh, ["preparation", "left-short-approaching", "top-exit"])
+        result = random.randint(0,1)
+        if(result == 0):
+            traci.vehicle.setVehicleClass(veh, "passenger")
 
+    det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_1")
+    for veh in det_vehs:
+                traci.vehicle.setRoute(veh, ["preparation", "left-short-approaching", "top-exit"])
+                traci.vehicle.setVehicleClass(veh, "passenger")
+
+def allowingStraightVehiclesInRightLane():
+    detectors = ["det_2", "det_3"]
+    for det in detectors:
+        det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
+        for veh in det_vehs:       
+            if(traci.vehicle.getRoute(veh) == ("left-long-approaching", "preparation", "left-short-approaching", "right-exit")):
+                traci.vehicle.setVehicleClass(veh, "passenger")
 
 def TMS():
     print("Running Baseline")
@@ -61,26 +80,8 @@ def TMS():
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         if(step%3 == 0):
-            det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_0")
-            for veh in det_vehs:
-                traci.vehicle.setRoute(veh, ["preparation", "left-short-approaching", "top-exit"])
-                result = random.randint(0,1)
-                if(result == 0):
-                    traci.vehicle.setVehicleClass(veh, "passenger")
-
-            det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_1")
-            for veh in det_vehs:
-                traci.vehicle.setRoute(veh, ["preparation", "left-short-approaching", "top-exit"])
-                traci.vehicle.setVehicleClass(veh, "passenger")
-
-            detectors = ["det_2", "det_3"]
-            for det in detectors:
-                det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
-                for veh in det_vehs:       
-                    if(traci.vehicle.getRoute(veh) == ("left-long-approaching", "preparation", "left-short-approaching", "right-exit")):
-                        traci.vehicle.setVehicleClass(veh, "passenger")
-            
-        
+            handlingLeftBlockedApproach()
+            allowingStraightVehiclesInRightLane()
         step += 1
 
     traci.close(False)
@@ -89,7 +90,6 @@ def TMS():
 def alterOutputFilesNames(LOS, ITERATION):
     safetyFile = "Roadworks\BaselineHDV\Output-Files\LOS-" + LOS + "\SSM-HDV-"+ str(ITERATION) + ".xml"
     tripFile = "Roadworks\BaselineHDV\Output-Files\LOS-" + LOS + "\Trips-HDV-"+ str(ITERATION) + ".xml"
-    
     
     count = 0 
     with open("Roadworks\BaselineHDV\Output-Files\SSM-HDV.xml", 'r') as firstFile:
