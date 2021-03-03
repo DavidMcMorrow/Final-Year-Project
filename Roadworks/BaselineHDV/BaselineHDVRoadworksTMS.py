@@ -31,8 +31,6 @@ def settingUpVehicles(LOS):
 
 def flowCorrection():
     files = ['Roadworks/BaselineHDV/Route-Files/L0-HDV-Route.rou.xml']
-    #vehicleTypes = ["L2-CV-Left", "L2-Non-CV-Left", "L4-Non-CV-Left", "L4-CV-Left"]
-    # vehicleTypes = ["L0-HDV-Left"]
     for j in range(0, len(files)):
         mydoc = minidom.parse(files[j])
         routes = mydoc.getElementsByTagName('route')
@@ -48,8 +46,8 @@ def flowCorrection():
             if(routes[i].getAttribute("edges") == "left-long-approaching preparation left-short-approaching top-exit"):
                 vehicles[i].setAttribute("type", "L0-HDV-Left")
                 routes[i].setAttribute("edges", "left-long-approaching preparation")
-            if(routes[i].getAttribute("edges") == "left-long-approaching preparation left-short-approaching bottom-exit"):
-                vehicles[i].setAttribute("type", "L0-HDV-Right")
+            if(routes[i].getAttribute("edges") == "left-long-approaching preparation left-short-approaching right-exit"):
+                vehicles[i].setAttribute("type", "L0-HDV-Straight")
 
         with open(files[j], "w") as fs:
             fs.write(mydoc.toxml()) 
@@ -80,7 +78,7 @@ def TMS():
                 det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
                 for veh in det_vehs:       
                     if(traci.vehicle.getRoute(veh) == ("left-long-approaching", "preparation", "left-short-approaching", "right-exit")):
-                        traci.vehicle.setVehicleClass(veh, "custom1")
+                        traci.vehicle.setVehicleClass(veh, "passenger")
             
         
         step += 1
