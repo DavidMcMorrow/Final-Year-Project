@@ -154,7 +154,7 @@ def reRoutingVehicles(veh, edge, vehiclesApproachingClosure):
     rerouteResult = random.randint(0,3)
     if traci.vehicle.getRoute(veh)[1] == "left-exit":
         if(rerouteResult == 0):
-            directionResult = random.randint(0,3)
+            directionResult = random.randint(0,1)
             if(directionResult == 0):
                 traci.vehicle.setRoute(veh, reRouteClockWiseFirst(edge))
                 vehiclesApproachingClosure = removeVehiclesThatAreReRouter(vehiclesApproachingClosure, veh)
