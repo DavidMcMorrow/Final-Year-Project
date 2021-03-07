@@ -117,9 +117,9 @@ def TMS():
     step = 0
     vehiclesApproachingClosure = []
     vehiclesThatTORed = []
-    delayBeforeReoute = 120
-    MAJOYDELAYTRIGGEREDTOC = 20
-    DETECTINGISSUE = 3
+    delayBeforeReoute = 120 ### Needs to be considered
+    MAJOYDELAYTRIGGEREDTOC = 20 ### Needs to be considered
+    DETECTINGISSUE = 3 ### Needs to be considered
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         removeVehiclesThatPassCenter(vehiclesApproachingClosure)
@@ -174,13 +174,13 @@ def reRoutingVehicles(veh, edge, vehiclesApproachingClosure, vehiclesThatTORed, 
             directionResult = random.randint(0,1) 
             if(directionResult == 0):
                 traci.vehicle.setRoute(veh, reRouteClockWiseFirst(edge))
-                vehiclesApproachingClosure = removeVehiclesThatAreReRouter(vehiclesApproachingClosure, veh)
+                vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
             else:
                 traci.vehicle.setRoute(veh, reRouteClockWiseSecond(edge))
-                vehiclesApproachingClosure = removeVehiclesThatAreReRouter(vehiclesApproachingClosure, veh)
+                vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
     return vehiclesApproachingClosure, vehiclesThatTORed
 
-def removeVehiclesThatAreReRouter(vehiclesApproachingClosure, veh):
+def removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh):
     for waitingVehicle in vehiclesApproachingClosure:
         if(waitingVehicle == veh):
             vehiclesApproachingClosure.remove(waitingVehicle)
@@ -197,7 +197,6 @@ def findValue(listOfValues, value):
         if temp == value:
             return True
     return False
-
 
 def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
     count = 0

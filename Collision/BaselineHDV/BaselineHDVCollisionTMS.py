@@ -106,7 +106,7 @@ def farRightTopBottom(delayBeforeReoute, vehiclesApproachingClosure):
 
 def TMS():
     print("Running Baseline")
-    delayBeforeReoute = 200
+    delayBeforeReoute = 200 ### Needs to be considered
     vehiclesApproachingClosure = []
     step = 0
     while traci.simulation.getMinExpectedNumber() > 0:
@@ -151,16 +151,16 @@ def collisionBaselineHDVTMS(sumoBinary, LOS, ITERATION):
     alterOutputFilesNames(LOS, ITERATION)
 
 def reRoutingVehicles(veh, edge, vehiclesApproachingClosure):
-    rerouteResult = random.randint(0,3)
+    rerouteResult = random.randint(0,3) ## NEEDS TO BE CONSIDERED
     if traci.vehicle.getRoute(veh)[1] == "left-exit":
         if(rerouteResult == 0):
             directionResult = random.randint(0,1)
             if(directionResult == 0):
                 traci.vehicle.setRoute(veh, reRouteClockWiseFirst(edge))
-                vehiclesApproachingClosure = removeVehiclesThatAreReRouter(vehiclesApproachingClosure, veh)
+                vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
             else:
                 traci.vehicle.setRoute(veh, reRouteClockWiseSecond(edge))
-                vehiclesApproachingClosure = removeVehiclesThatAreReRouter(vehiclesApproachingClosure, veh)
+                vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
     return vehiclesApproachingClosure
 
 def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
@@ -172,9 +172,9 @@ def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
         count = count + 1
     return vehiclesApproachingClosure
 
-def removeVehiclesThatAreReRouter(vehiclesApproachingClosure, veh):
-    for i in range(0, len(vehiclesApproachingClosure)-1):
-        if(vehiclesApproachingClosure[i] == veh):
-            vehiclesApproachingClosure.pop(i)
+def removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh):
+    for waitingVehicle in vehiclesApproachingClosure:
+        if(waitingVehicle == veh):
+            vehiclesApproachingClosure.remove(waitingVehicle)
     return vehiclesApproachingClosure
 
