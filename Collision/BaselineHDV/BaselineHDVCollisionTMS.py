@@ -28,10 +28,10 @@ def settingUpVehicles(LOS):
                 os.system(line)
 
 def stoppingCrashedVehicles():
-    traci.vehicle.setStop("crashed-car-lane-zero.0", "left-exit", 25, 0, 4500)
-    traci.vehicle.setStop("crashed-car-lane-zero.1", "left-exit", 20, 0, 4500)
-    traci.vehicle.setStop("crashed-car-lane-one.0", "left-exit", 25, 1, 4500)
-    traci.vehicle.setStop("crashed-car-lane-one.1", "left-exit", 20, 1, 4500)
+    traci.vehicle.setStop("crashed-car-lane-zero.0", "left-exit", 25.5, 0, 4500)
+    traci.vehicle.setStop("crashed-car-lane-zero.1", "left-exit", 17.5, 0, 4500)
+    traci.vehicle.setStop("crashed-car-lane-one.0", "left-exit", 25.5, 1, 4500)
+    traci.vehicle.setStop("crashed-car-lane-one.1", "left-exit", 17.5, 1, 4500)
 
 def leftExit():
     det_vehs = traci.inductionloop.getLastStepVehicleIDs("left-exit_0")
@@ -55,7 +55,7 @@ def leftExit():
 def reRouteClockWiseFirst(edge):
     newRoute = []
     if(edge == "top"):
-        newRoute = ["top-approaching", "right-exit"]
+        newRoute = ["top-approaching", "bottom-exit"]
     elif(edge == "right"):
         newRoute = ["right-approaching", "bottom-exit"]
     elif(edge == "bottom"):
@@ -69,7 +69,7 @@ def reRouteClockWiseSecond(edge):
     elif(edge == "right"):
         newRoute = ["right-approaching", "top-exit"]
     elif(edge == "bottom"):
-        newRoute = ["bottom-approaching", "right-exit"]
+        newRoute = ["bottom-approaching", "top-exit"]
     return newRoute
 
 
@@ -106,7 +106,7 @@ def farRightTopBottom(delayBeforeReoute, vehiclesApproachingClosure):
 
 def TMS():
     print("Running Baseline")
-    delayBeforeReoute = 160
+    delayBeforeReoute = 200
     vehiclesApproachingClosure = []
     step = 0
     while traci.simulation.getMinExpectedNumber() > 0:
@@ -126,14 +126,29 @@ def TMS():
     traci.close(False)
     sys.stdout.flush()
 
+def alterOutputFilesNames(LOS, ITERATION):
+    safetyFile = "Collision\BaselineHDV\Output-Files\LOS-" + LOS + "\SSM-HDV-"+ str(ITERATION) + ".xml"
+    tripFile = "Collision\BaselineHDV\Output-Files\LOS-" + LOS + "\Trips-HDV-"+ str(ITERATION) + ".xml"
+    
+    with open("Collision\BaselineHDV\Output-Files\SSM-HDV.xml", 'r') as firstFile:
+        with open(safetyFile, 'w') as secondFile:
+            for line in firstFile:
+                secondFile.write(line)
+
+    with open("Collision\BaselineHDV\Output-Files\CollisionTripInfo.xml", 'r') as firstFile:
+        with open(tripFile, 'w') as secondFile:
+            for line in firstFile:
+                secondFile.write(line)
+
 def collisionBaselineHDVTMS(sumoBinary, LOS, ITERATION):
     print("here")
-    # settingUpVehicles(LOS)
+    settingUpVehicles(LOS)
     traci.start([sumoBinary, "-c", "Collision\BaselineHDV\CollisionIntersectionBaselineHDV.sumocfg",
-                                "--tripinfo-output", "Collision\BaselineHDV\Output-Files\CollisionTripinfo.xml", "--ignore-route-errors",
-                                "--waiting-time-memory", "300"])
+                                "--tripinfo-output", "Collision\BaselineHDV\Output-Files\CollisionTripinfo.xml", "--ignore-route-errors", 
+                                "--device.emissions.probability", "1", "--waiting-time-memory", "300"])
 
     TMS()
+    alterOutputFilesNames(LOS, ITERATION)
 
 def reRoutingVehicles(veh, edge, vehiclesApproachingClosure):
     rerouteResult = random.randint(0,3)
