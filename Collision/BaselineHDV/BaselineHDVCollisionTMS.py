@@ -36,14 +36,21 @@ def stoppingCrashedVehicles():
 def leftExit():
     det_vehs = traci.inductionloop.getLastStepVehicleIDs("left-exit_0")
     for veh in det_vehs:
-        traci.vehicle.changeLane(veh, 1, 1)
-        if(traci.vehicle.getVehicleClass(veh) == "passenger"):    
+        traci.vehicle.changeLane(veh, 1, 0.1)
+        if(traci.vehicle.getVehicleClass(veh) == "passenger"):   
             traci.vehicle.setVehicleClass(veh, "emergency")
 
     det_vehs = traci.inductionloop.getLastStepVehicleIDs("left-exit_1")
     for veh in det_vehs:
         if(traci.vehicle.getVehicleClass(veh) == "passenger"):
             traci.vehicle.setVehicleClass(veh, "emergency")
+
+    decectorsLaterInLeftExit = ["left-exit_2", "left-exit_3"]
+    for det in decectorsLaterInLeftExit:
+        det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
+        for veh in det_vehs:
+            if(traci.vehicle.getVehicleClass(veh) == "passenger"):
+                traci.vehicle.setVehicleClass(veh, "custom1")
 
 def reRouteClockWiseFirst(edge):
     newRoute = []
@@ -64,7 +71,6 @@ def reRouteClockWiseSecond(edge):
     elif(edge == "bottom"):
         newRoute = ["bottom-approaching", "right-exit"]
     return newRoute
-
 
 
 def closeRightTopBottom(vehiclesApproachingClosure):
@@ -95,25 +101,23 @@ def farRightTopBottom(delayBeforeReoute, vehiclesApproachingClosure):
         currentEdge = traci.vehicle.getLaneID(veh).split("-")
         if traci.vehicle.getAccumulatedWaitingTime(veh) > delayBeforeReoute:
             print("WAITED TOO LONG", veh)
-            print("WAITED TOO LONG", currentEdge[0])
-            print("WAITED TOO LONG", traci.vehicle.getRoute(veh))
             vehiclesApproachingClosure = reRoutingVehicles(veh, currentEdge[0], vehiclesApproachingClosure)
     return vehiclesApproachingClosure
 
 def TMS():
     print("Running Baseline")
-    delayBeforeReoute = 90
+    delayBeforeReoute = 160
     vehiclesApproachingClosure = []
     step = 0
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
+        vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
         if step == 1000:
             stoppingCrashedVehicles()
 
         if step > 1200:
             if step%3 == 0:
                 leftExit()
-                vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
                 vehiclesApproachingClosure = closeRightTopBottom(vehiclesApproachingClosure)
                 vehiclesApproachingClosure = farRightTopBottom(delayBeforeReoute, vehiclesApproachingClosure)
                 
@@ -126,26 +130,22 @@ def collisionBaselineHDVTMS(sumoBinary, LOS, ITERATION):
     print("here")
     # settingUpVehicles(LOS)
     traci.start([sumoBinary, "-c", "Collision\BaselineHDV\CollisionIntersectionBaselineHDV.sumocfg",
-                                "--tripinfo-output", "Collision\BaselineHDV\Output-Files\CollisionTripinfo.xml", "--ignore-route-errors"])
+                                "--tripinfo-output", "Collision\BaselineHDV\Output-Files\CollisionTripinfo.xml", "--ignore-route-errors",
+                                "--waiting-time-memory", "300"])
 
     TMS()
 
 def reRoutingVehicles(veh, edge, vehiclesApproachingClosure):
-    rerouteResult = random.randint(0,1)
-    print("Got This HEre", traci.vehicle.getRoute(veh)[1])
+    rerouteResult = random.randint(0,3)
     if traci.vehicle.getRoute(veh)[1] == "left-exit":
         if(rerouteResult == 0):
-            directionResult = random.randint(0,1)
+            directionResult = random.randint(0,3)
             if(directionResult == 0):
                 traci.vehicle.setRoute(veh, reRouteClockWiseFirst(edge))
                 vehiclesApproachingClosure = removeVehiclesThatAreReRouter(vehiclesApproachingClosure, veh)
-                print("here1", veh)
-                print("HERE1", reRouteClockWiseFirst(edge))
             else:
                 traci.vehicle.setRoute(veh, reRouteClockWiseSecond(edge))
                 vehiclesApproachingClosure = removeVehiclesThatAreReRouter(vehiclesApproachingClosure, veh)
-                print("here2", veh)
-                print("HERE2", reRouteClockWiseSecond(edge))
     return vehiclesApproachingClosure
 
 def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
