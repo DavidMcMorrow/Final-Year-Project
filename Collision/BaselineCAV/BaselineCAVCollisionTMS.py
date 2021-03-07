@@ -199,10 +199,9 @@ def findValue(listOfValues, value):
     return False
 
 def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
-    count = 0
     for vehicle in vehiclesApproachingClosure:
         temp = traci.vehicle.getLaneID(vehicle)[:7]
         if(temp == ":center"):
-            vehiclesApproachingClosure.pop(count)
-        count = count + 1
+            vehiclesApproachingClosure.remove(vehicle)
+            print("REMOVED")
     return vehiclesApproachingClosure

@@ -37,6 +37,16 @@ def flowCorrection():
         vehicles = mydoc.getElementsByTagName('vehicle')
     
         for i in range(0, len(routes)):
+
+            if(routes[i].getAttribute("edges")[:1] == "l" and routes[i].getAttribute("edges")[-1] != "t"):
+                result = random.randint(0, 2)
+                if result == 0:
+                    routes[i].setAttribute("edges", "left-long-approaching preparation left-short-approaching bottom-exit")
+                elif result == 1:
+                    routes[i].setAttribute("edges", "left-long-approaching preparation left-short-approaching right-exit")
+                else: 
+                    routes[i].setAttribute("edges", "left-long-approaching preparation left-short-approaching top-exit")
+
             if(routes[i].getAttribute("edges").startswith("p")):
                 route = "left-long-approaching " + routes[i].getAttribute("edges")
                 routes[i].setAttribute("edges", route)
@@ -48,6 +58,10 @@ def flowCorrection():
                 routes[i].setAttribute("edges", "left-long-approaching preparation")
             if(routes[i].getAttribute("edges") == "left-long-approaching preparation left-short-approaching right-exit"):
                 vehicles[i].setAttribute("type", "L0-HDV-Straight")
+
+            # print("routes[i].getAttribute(edges)[:0]", routes[i].getAttribute("edges")[:1])
+            
+
 
         with open(files[j], "w") as fs:
             fs.write(mydoc.toxml()) 
@@ -63,8 +77,9 @@ def handlingLeftBlockedApproach():
 
     det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_1")
     for veh in det_vehs:
-                traci.vehicle.setRoute(veh, ["preparation", "left-short-approaching", "top-exit"])
-                traci.vehicle.setVehicleClass(veh, "passenger")
+        print("veh", veh)
+        traci.vehicle.setRoute(veh, ["preparation", "left-short-approaching", "top-exit"])
+        traci.vehicle.setVehicleClass(veh, "passenger")
 
 def allowingStraightVehiclesInRightLane():
     detectors = ["det_2", "det_3"]
@@ -74,14 +89,52 @@ def allowingStraightVehiclesInRightLane():
             if(traci.vehicle.getRoute(veh) == ("left-long-approaching", "preparation", "left-short-approaching", "right-exit")):
                 traci.vehicle.setVehicleClass(veh, "passenger")
 
+def majorDelayDetection(delayBeforeReoute, vehiclesApproachingClosure):
+    detectors = ["left-long-approaching_0", "left-long-approaching_1", "left-long-approaching_2"]
+    for det in detectors:
+        det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
+        for veh in det_vehs:
+            temp1 = traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1]
+            temp2 = veh in vehiclesApproachingClosure
+            if ((temp1 !=  "bottom-exit") and (temp2 == False)):
+                vehiclesApproachingClosure.append(veh)
+       
+    for veh in vehiclesApproachingClosure:
+        temp1 = traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1]
+        if traci.vehicle.getAccumulatedWaitingTime(veh) > delayBeforeReoute:
+            print("WAITED TOO LONG", veh)
+            vehiclesApproachingClosure = reRoutingVehicles(veh, temp1, vehiclesApproachingClosure)
+    return vehiclesApproachingClosure
+
+def reRoutingVehicles(veh, target, vehiclesApproachingClosure):
+    rerouteResult = random.randint(0,3) ## NEED TO CONSIDER THIS PROBABILITY MORE
+    if(rerouteResult == 0):
+        traci.vehicle.setVehicleClass(veh, "passenger")
+        reRouting(target)
+        vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
+    return vehiclesApproachingClosure
+
+def reRouting(target):
+    newRoute = []
+    if(target == "top-exit"):
+        newRoute = ["left-long-approaching", "preparation", "left-short-approaching", "right-exit"]
+    elif(target == "right-exit"):
+        newRoute = ["left-long-approaching", "preparation", "left-short-approaching", "bottom-exit"]
+    return newRoute
+
 def TMS():
     print("Running Baseline")
     step = 0
+    delayBeforeReoute = 120 
+    vehiclesApproachingClosure = []
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
+        vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
+        handlingLeftBlockedApproach()
         if(step%3 == 0):
-            handlingLeftBlockedApproach()
+            
             allowingStraightVehiclesInRightLane()
+            vehiclesApproachingClosure = majorDelayDetection(delayBeforeReoute, vehiclesApproachingClosure)
         step += 1
 
     traci.close(False)
@@ -102,7 +155,6 @@ def alterOutputFilesNames(LOS, ITERATION):
             for line in firstFile:
                 secondFile.write(line)
 
-
 def roadworksBaselineHDVTMS(sumoBinary, LOS, ITERATION):
     settingUpVehicles(LOS)
     flowCorrection()
@@ -110,13 +162,23 @@ def roadworksBaselineHDVTMS(sumoBinary, LOS, ITERATION):
     #traci starts sumo as a subprocess and then this script connects and runs
     traci.start([sumoBinary, "-c", "Roadworks\BaselineHDV\RoadworksBaselineHDV.sumocfg",
                 "--tripinfo-output", "Roadworks\BaselineHDV\Output-Files\RoadworksTripInfo.xml", "--ignore-route-errors",
-                # "--emission-output", "Roadworks\BaselineHDV\Output-Files\emisions.xml",
-                "--device.emissions.probability", "1"])
+                "--device.emissions.probability", "1", "--waiting-time-memory", "300"])
 
     TMS()
     alterOutputFilesNames(LOS, ITERATION)
     
-    
+def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
+    for vehicle in vehiclesApproachingClosure:
+        temp = traci.vehicle.getLaneID(vehicle)[:7]
+        if(temp == ":center"):
+            vehiclesApproachingClosure.remove(vehicle)
+    return vehiclesApproachingClosure
+
+def removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh):
+    for waitingVehicle in vehiclesApproachingClosure:
+        if(waitingVehicle == veh):
+            vehiclesApproachingClosure.remove(waitingVehicle)
+    return vehiclesApproachingClosure
 
 
 # automate file name creation

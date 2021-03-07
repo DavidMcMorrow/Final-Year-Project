@@ -60,15 +60,15 @@ def settingUpVehicles():
                 #print("line", line)
                 os.system(line)
 
-# SCENARIO = "Roadworks"
-SCENARIO = "Collision"
+SCENARIO = "Roadworks"
+# SCENARIO = "Collision"
 
-# TYPE = "Baseline-HDV"
-TYPE = "Baseline-CAV"
+TYPE = "Baseline-HDV"
+# TYPE = "Baseline-CAV"
 
-LOS = "A"
+# LOS = "A"
 # LOS = "B"
-# LOS = "C"
+LOS = "C"
 # LOS = "D"
 
 ITERATION = 1
