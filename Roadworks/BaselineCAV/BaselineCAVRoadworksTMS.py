@@ -6,6 +6,11 @@ import optparse
 import traci
 from xml.dom import minidom
 
+sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simulation Stuff/Final-Year-Project')
+
+from generalFunctions import removeOldToC 
+
+
 class MRM:
     def __init__(self, ID, step):
         self.ID = ID
@@ -82,8 +87,6 @@ def scheduleToCAfterLongDelay(delayBeforeToC, vehiclesThatTORed):
                 traci.vehicle.requestToC(veh, 30)
                 vehiclesThatTORed.append(veh)
 
-
-
 def TMS():
     print("Running Baseline")
     step = 0
@@ -121,7 +124,6 @@ def alterOutputFilesNames(LOS, ITERATION):
             for line in firstFile:
                 secondFile.write(line)
 
-
 def roadworksBaselineCAVTMS(sumoBinary, LOS, ITERATION):
     settingUpVehicles(LOS)
     flowCorrection()
@@ -133,12 +135,6 @@ def roadworksBaselineCAVTMS(sumoBinary, LOS, ITERATION):
 
     TMS()
     alterOutputFilesNames(LOS, ITERATION)
-
-def removeOldToC(vehiclesThatTORed):
-    for i in range(0, len(vehiclesThatTORed)-1):
-        if(traci.vehicle.getTypeID(vehiclesThatTORed[i])[:2] == "L0"):
-            vehiclesThatTORed.pop(i)
-    return vehiclesThatTORed
 
 def findValue(listOfValues, value):
     for temp in listOfValues:

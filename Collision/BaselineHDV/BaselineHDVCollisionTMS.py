@@ -6,6 +6,10 @@ import optparse
 import traci
 from xml.dom import minidom
 
+sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simulation Stuff/Final-Year-Project')
+
+from generalFunctions import reRouteClockWiseFirst, reRouteClockWiseSecond
+
 def settingUpVehicles(LOS):
     with open('Collision\BaselineHDV\PreparingVehicleModels\How to use.txt') as f:
         for line in f:
@@ -52,27 +56,6 @@ def leftExit():
             if(traci.vehicle.getVehicleClass(veh) == "passenger"):
                 traci.vehicle.setVehicleClass(veh, "custom1")
 
-def reRouteClockWiseFirst(edge):
-    newRoute = []
-    if(edge == "top"):
-        newRoute = ["top-approaching", "bottom-exit"]
-    elif(edge == "right"):
-        newRoute = ["right-approaching", "bottom-exit"]
-    elif(edge == "bottom"):
-        newRoute = ["bottom-approaching", "top-exit"]
-    return newRoute
-
-def reRouteClockWiseSecond(edge):
-    newRoute = []
-    if(edge == "top"):
-        newRoute = ["top-approaching", "bottom-exit"]
-    elif(edge == "right"):
-        newRoute = ["right-approaching", "top-exit"]
-    elif(edge == "bottom"):
-        newRoute = ["bottom-approaching", "top-exit"]
-    return newRoute
-
-
 def closeRightTopBottom(vehiclesApproachingClosure):
     detectors = ["close-top-approaching_0", "close-right-approaching_1", "close-bottom-approaching_2"]
     edges = ["top", "right", "bottom"]
@@ -81,7 +64,6 @@ def closeRightTopBottom(vehiclesApproachingClosure):
         for veh in det_vehs:
             vehiclesApproachingClosure = reRoutingVehicles(veh, edges[i], vehiclesApproachingClosure)
     return vehiclesApproachingClosure  
-
 
 def farRightTopBottom(delayBeforeReoute, vehiclesApproachingClosure):
     detectors = ["far-top-approaching_0", "far-top-approaching_1", "far-top-approaching_2", 
@@ -157,10 +139,12 @@ def reRoutingVehicles(veh, edge, vehiclesApproachingClosure):
             directionResult = random.randint(0,1)
             if(directionResult == 0):
                 traci.vehicle.setRoute(veh, reRouteClockWiseFirst(edge))
-                vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
+                vehiclesApproachingClosure.remove(veh)
+                # vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
             else:
                 traci.vehicle.setRoute(veh, reRouteClockWiseSecond(edge))
-                vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
+                vehiclesApproachingClosure.remove(veh)
+                # vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
     return vehiclesApproachingClosure
 
 def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
@@ -170,9 +154,9 @@ def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
             vehiclesApproachingClosure.remove(vehicle)
     return vehiclesApproachingClosure
 
-def removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh):
-    for waitingVehicle in vehiclesApproachingClosure:
-        if(waitingVehicle == veh):
-            vehiclesApproachingClosure.remove(waitingVehicle)
-    return vehiclesApproachingClosure
+# def removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh):
+#     for waitingVehicle in vehiclesApproachingClosure:
+#         if(waitingVehicle == veh):
+#             vehiclesApproachingClosure.remove(waitingVehicle)
+#     return vehiclesApproachingClosure
 

@@ -6,6 +6,10 @@ import optparse
 import traci
 from xml.dom import minidom
 
+sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simulation Stuff/Final-Year-Project')
+
+from generalFunctions import removeOldToC, reRouteClockWiseFirst, reRouteClockWiseSecond
+
 def settingUpVehicles(LOS):
     with open('Collision\BaselineCAV\PreparingVehicleModels\How to use.txt') as f:
         for line in f:
@@ -62,26 +66,6 @@ def leftExit():
             if (traci.vehicle.getTypeID(veh)[:2] == "L4"):
                 if (traci.vehicle.getParameter(veh, "device.toc.dynamicToCThreshold") == 0):
                     traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 11)
-
-def reRouteClockWiseFirst(edge):
-    newRoute = []
-    if(edge == "top"):
-        newRoute = ["top-approaching", "bottom-exit"]
-    elif(edge == "right"):
-        newRoute = ["right-approaching", "bottom-exit"]
-    elif(edge == "bottom"):
-        newRoute = ["bottom-approaching", "top-exit"]
-    return newRoute
-
-def reRouteClockWiseSecond(edge):
-    newRoute = []
-    if(edge == "top"):
-        newRoute = ["top-approaching", "bottom-exit"]
-    elif(edge == "right"):
-        newRoute = ["right-approaching", "top-exit"]
-    elif(edge == "bottom"):
-        newRoute = ["bottom-approaching", "top-exit"]
-    return newRoute
 
 def closeRightTopBottom(vehiclesApproachingClosure, vehiclesThatTORed, DETECTINGISSUE):
     detectors = ["close-top-approaching_0", "close-right-approaching_1", "close-bottom-approaching_2"]
@@ -164,7 +148,8 @@ def alterOutputFilesNames(LOS, ITERATION):
 
 def reRoutingVehicles(veh, edge, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime):
     tocResult = random.randint(0,3) ## NEED TO CONSIDER THIS PROBABILITY MORE
-    if(tocResult != 0 and findValue(vehiclesThatTORed, veh) == False and traci.vehicle.getTypeID(veh)[:2] == "L4"):
+    temp = veh in vehiclesThatTORed
+    if(tocResult != 0 and temp == False and traci.vehicle.getTypeID(veh)[:2] == "L4"):
         traci.vehicle.requestToC(veh, ToCLeadTime)
         vehiclesThatTORed.append(veh)
 
@@ -174,23 +159,13 @@ def reRoutingVehicles(veh, edge, vehiclesApproachingClosure, vehiclesThatTORed, 
             directionResult = random.randint(0,1) 
             if(directionResult == 0):
                 traci.vehicle.setRoute(veh, reRouteClockWiseFirst(edge))
-                vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
+                vehiclesApproachingClosure.remove(veh)
+                # vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
             else:
                 traci.vehicle.setRoute(veh, reRouteClockWiseSecond(edge))
-                vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
+                vehiclesApproachingClosure.remove(veh)
+                # vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
     return vehiclesApproachingClosure, vehiclesThatTORed
-
-def removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh):
-    for waitingVehicle in vehiclesApproachingClosure:
-        if(waitingVehicle == veh):
-            vehiclesApproachingClosure.remove(waitingVehicle)
-    return vehiclesApproachingClosure
-
-def removeOldToC(vehiclesThatTORed):
-    for veh in vehiclesThatTORed:
-        if(traci.vehicle.getTypeID(veh)[:2] == "L0"):
-            vehiclesThatTORed.remove(veh)
-    return vehiclesThatTORed
 
 def findValue(listOfValues, value):
     for temp in listOfValues:
@@ -203,5 +178,10 @@ def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
         temp = traci.vehicle.getLaneID(vehicle)[:7]
         if(temp == ":center"):
             vehiclesApproachingClosure.remove(vehicle)
-            print("REMOVED")
     return vehiclesApproachingClosure
+
+# def removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh):
+#     for waitingVehicle in vehiclesApproachingClosure:
+#         if(waitingVehicle == veh):
+#             vehiclesApproachingClosure.remove(waitingVehicle)
+#     return vehiclesApproachingClosure

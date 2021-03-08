@@ -37,7 +37,6 @@ def flowCorrection():
         vehicles = mydoc.getElementsByTagName('vehicle')
     
         for i in range(0, len(routes)):
-
             if(routes[i].getAttribute("edges")[:1] == "l" and routes[i].getAttribute("edges")[-1] != "t"):
                 result = random.randint(0, 2)
                 if result == 0:
@@ -60,9 +59,6 @@ def flowCorrection():
                 vehicles[i].setAttribute("type", "L0-HDV-Straight")
 
             # print("routes[i].getAttribute(edges)[:0]", routes[i].getAttribute("edges")[:1])
-            
-
-
         with open(files[j], "w") as fs:
             fs.write(mydoc.toxml()) 
             fs.close()  
@@ -77,7 +73,6 @@ def handlingLeftBlockedApproach():
 
     det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_1")
     for veh in det_vehs:
-        print("veh", veh)
         traci.vehicle.setRoute(veh, ["preparation", "left-short-approaching", "top-exit"])
         traci.vehicle.setVehicleClass(veh, "passenger")
 
@@ -111,7 +106,8 @@ def reRoutingVehicles(veh, target, vehiclesApproachingClosure):
     if(rerouteResult == 0):
         traci.vehicle.setVehicleClass(veh, "passenger")
         reRouting(target)
-        vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
+        vehiclesApproachingClosure.remove(veh)
+        # vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
     return vehiclesApproachingClosure
 
 def reRouting(target):
@@ -130,13 +126,11 @@ def TMS():
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
-        handlingLeftBlockedApproach()
         if(step%3 == 0):
-            
+            handlingLeftBlockedApproach()
             allowingStraightVehiclesInRightLane()
             vehiclesApproachingClosure = majorDelayDetection(delayBeforeReoute, vehiclesApproachingClosure)
         step += 1
-
     traci.close(False)
     sys.stdout.flush()
 
@@ -174,11 +168,11 @@ def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
             vehiclesApproachingClosure.remove(vehicle)
     return vehiclesApproachingClosure
 
-def removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh):
-    for waitingVehicle in vehiclesApproachingClosure:
-        if(waitingVehicle == veh):
-            vehiclesApproachingClosure.remove(waitingVehicle)
-    return vehiclesApproachingClosure
+# def removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh):
+#     for waitingVehicle in vehiclesApproachingClosure:
+#         if(waitingVehicle == veh):
+#             vehiclesApproachingClosure.remove(waitingVehicle)
+#     return vehiclesApproachingClosure
 
 
 # automate file name creation
