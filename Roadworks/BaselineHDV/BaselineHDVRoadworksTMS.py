@@ -48,7 +48,6 @@ def majorDelayDetection(delayBeforeReoute, vehiclesApproachingClosure, step):
         for veh in vehiclesApproachingClosure:
             temp1 = traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1]
             if traci.vehicle.getAccumulatedWaitingTime(veh) > delayBeforeReoute:
-                print("WAITED TOO LONG", veh)
                 vehiclesApproachingClosure = reRoutingVehicles(veh, temp1, vehiclesApproachingClosure)
     return vehiclesApproachingClosure
 
@@ -56,7 +55,6 @@ def reRoutingVehicles(veh, target, vehiclesApproachingClosure):
     rerouteResult = random.randint(0,3) ## NEED TO CONSIDER THIS PROBABILITY MORE
     if(rerouteResult == 0):
         traci.vehicle.setVehicleClass(veh, "passenger")
-        print("ABOUT TO BE REROUTED")
         traci.vehicle.setRoute(veh, roadworksReRouting(target))
         vehiclesApproachingClosure.remove(veh)
     return vehiclesApproachingClosure

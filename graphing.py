@@ -40,20 +40,28 @@ def effiencyKPIs(filename):
     
     return throughput, np.mean(emissionsPerRun)
 
-def graphingKPIs(TTC, THROUGHPUT, EMISSIONS, LEVELOFSERVICE):
+# def graphingKPIs(TTC, THROUGHPUT, EMISSIONS, LEVELOFSERVICE):
+#     yAxisSafety = "Number of Incidents"
+#     yAxisCO2 = "Number of CO2"
+#     yAxisThroughPut = "ThroughPut of network"
+#     count = 0
+#     for los in LEVELOFSERVICE:
+#         titleSafety = "LOS-" + los + ": TTC"
+#         titleCO2 = "LOS-" + los + ": Total CO2 Output"
+#         titleThroughput = "LOS-" + los + ": Throughput"
+#         xAxis = "LOS"
+#         graphingFunction(xAxis, yAxisSafety, titleSafety, los, TTC[count])
+#         graphingFunction(xAxis, yAxisCO2, titleThroughput, los, THROUGHPUT[count])
+#         graphingFunction(xAxis, yAxisThroughPut, titleCO2, los, EMISSIONS[count])
+#         count = count + 1
+
+def graphingKPIs(TTC, THROUGHPUT, EMISSIONS):
     yAxisSafety = "Number of Incidents"
     yAxisCO2 = "Number of CO2"
     yAxisThroughPut = "ThroughPut of network"
     count = 0
-    for los in LEVELOFSERVICE:
-        titleSafety = "LOS-" + los + ": TTC"
-        titleCO2 = "LOS-" + los + ": Total CO2 Output"
-        titleThroughput = "LOS-" + los + ": Throughput"
-        xAxis = "LOS"
-        graphingFunction(xAxis, yAxisSafety, titleSafety, los, TTC[count])
-        graphingFunction(xAxis, yAxisCO2, titleThroughput, los, THROUGHPUT[count])
-        graphingFunction(xAxis, yAxisThroughPut, titleCO2, los, EMISSIONS[count])
-        count = count + 1
+    # for i in range(0, len(TTC)):
+        
         
 def graphingFunction(xLabel, yLabel, title, xData, yData):
     plt.bar(xData, yData, align='center', alpha=0.5)
@@ -62,15 +70,17 @@ def graphingFunction(xLabel, yLabel, title, xData, yData):
     plt.title(title)
     plt.show()
 
-
 TTC = []
 THROUGHPUT = []
 EMISSIONS = []
+tempTTC = []
+tempTHROUGHPUT = []
+tempEMISSIONS = []
 
 NUMBEROFITERATIONS = 3
 
-# SCENARIO = "Roadworks"
-SCENARIO = "Collision"
+SCENARIO = "Roadworks"
+# SCENARIO = "Collision"
 
 useCases = ["\BaselineHDV", "\BaselineCAV"]
 LEVELOFSERVICE = ["A", "B", "C", "D"]
@@ -79,13 +89,19 @@ vehicleTypes = ["HDV", "L4-CV"]
 safetyFiles, effiencyFiles = creatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes)
 
 for i in range(0, len(safetyFiles)):
-    TTC.append(safetyKPIs(safetyFiles[i]))
+    tempTTC.append(safetyKPIs(safetyFiles[i]))
     throughputTemp, emissionsTemp = effiencyKPIs(effiencyFiles[i])
-    THROUGHPUT.append(throughputTemp)
-    EMISSIONS.append(emissionsTemp)
-    print("Finished LOS ", los)
+    tempTHROUGHPUT.append(throughputTemp)
+    tempEMISSIONS.append(emissionsTemp)
+    if i % NUMBEROFITERATIONS == 0:
+        print("Finished LOS ", los)
+        TTC.append(np.mean(tempTTC))
+        THROUGHPUT.append(np.mean(tempTHROUGHPUT))
+        EMISSIONS.append(np.mean(tempEMISSIONS))
+        tempTTC, tempTHROUGHPUT, tempEMISSIONS = []
     
-# graphingKPIs(TTC, THROUGHPUT, EMISSIONS, LEVELOFSERVICE)
-# print("TTC", TTC)
-# print("Throughput", THROUGHPUT)
-# print("CO2", EMISSIONS)
+    
+graphingKPIs(TTC, THROUGHPUT, EMISSIONS, LEVELOFSERVICE)
+print("TTC", TTC)
+print("Throughput", THROUGHPUT)
+print("CO2", EMISSIONS)
