@@ -8,28 +8,8 @@ from xml.dom import minidom
 
 sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simulation Stuff/Final-Year-Project')
 
-from generalFunctions import removeOldToC, reRouteClockWiseFirst, reRouteClockWiseSecond
+from generalFunctions import removeOldToC, collisionReRouteClockWiseFirst, collisionReRouteClockWiseSecond, baselineAlterOutputFiles, settingUpVehicles
 
-def settingUpVehicles(LOS):
-    with open('Collision\BaselineCAV\PreparingVehicleModels\How to use.txt') as f:
-        for line in f:
-            if(line != "\n"):
-                line = 'cmd /c ' + line
-                if(line.find('python PreparingVehicleModels/randomTrips.py') != -1):
-                    line = line.rstrip()
-                    line = line + " " + str(random.randint(0,9))
-                    if LOS == "A":
-                        line = line + " -p " + str(1.86)
-                    if LOS == "B":
-                        line = line + " -p " + str(1.25)
-                    if LOS == "C":
-                        line = line + " -p " + str(1.07)
-                    if LOS == "D":
-                        line = line + " -p " + str(0.94)
-                    if LOS == "Test":
-                        line = line + " -p " + str(0.7)
-                        
-                os.system(line)
 
 def stoppingCrashedVehicles():
     traci.vehicle.setStop("crashed-car-lane-zero.0", "left-exit", 25.5, 0, 4500)
@@ -124,27 +104,13 @@ def TMS():
 
 def collisionBaselineCAVTMS(sumoBinary, LOS, ITERATION):
     print("here")
-    settingUpVehicles(LOS)
+    settingUpVehicles("Collision", "\BaselineCAV", LOS)
     traci.start([sumoBinary, "-c", "Collision\BaselineCAV\CollisionIntersectionBaselineCAV.sumocfg",
-                                "--tripinfo-output", "Collision\BaselineCAV\Output-Files\CollisionTripinfo.xml", "--ignore-route-errors",
+                                "--tripinfo-output", "Collision\BaselineCAV\Output-Files\Tripinfo.xml", "--ignore-route-errors",
                                 "--device.emissions.probability", "1", "--waiting-time-memory", "300"])
 
     TMS()
-    alterOutputFilesNames(LOS, ITERATION)
-
-def alterOutputFilesNames(LOS, ITERATION):
-    safetyFile = "Collision\BaselineCAV\Output-Files\LOS-" + LOS + "\SSM-HDV-"+ str(ITERATION) + ".xml"
-    tripFile = "Collision\BaselineCAV\Output-Files\LOS-" + LOS + "\Trips-HDV-"+ str(ITERATION) + ".xml"
-    
-    with open("Collision\BaselineCAV\Output-Files\L4-CV.xml", 'r') as firstFile:
-        with open(safetyFile, 'w') as secondFile:
-            for line in firstFile:
-                secondFile.write(line)
-
-    with open("Collision\BaselineCAV\Output-Files\CollisionTripInfo.xml", 'r') as firstFile:
-        with open(tripFile, 'w') as secondFile:
-            for line in firstFile:
-                secondFile.write(line)
+    baselineAlterOutputFiles("Collision", "CAV", LOS, ITERATION, ["L4-CV", "HDV"])
 
 def reRoutingVehicles(veh, edge, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime):
     tocResult = random.randint(0,3) ## NEED TO CONSIDER THIS PROBABILITY MORE
@@ -158,11 +124,11 @@ def reRoutingVehicles(veh, edge, vehiclesApproachingClosure, vehiclesThatTORed, 
         if(rerouteResult == 0):
             directionResult = random.randint(0,1) 
             if(directionResult == 0):
-                traci.vehicle.setRoute(veh, reRouteClockWiseFirst(edge))
+                traci.vehicle.setRoute(veh, collisionReRouteClockWiseFirst(edge))
                 vehiclesApproachingClosure.remove(veh)
                 # vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
             else:
-                traci.vehicle.setRoute(veh, reRouteClockWiseSecond(edge))
+                traci.vehicle.setRoute(veh, collisionReRouteClockWiseSecond(edge))
                 vehiclesApproachingClosure.remove(veh)
                 # vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
     return vehiclesApproachingClosure, vehiclesThatTORed
@@ -179,9 +145,3 @@ def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
         if(temp == ":center"):
             vehiclesApproachingClosure.remove(vehicle)
     return vehiclesApproachingClosure
-
-# def removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh):
-#     for waitingVehicle in vehiclesApproachingClosure:
-#         if(waitingVehicle == veh):
-#             vehiclesApproachingClosure.remove(waitingVehicle)
-#     return vehiclesApproachingClosure

@@ -8,28 +8,28 @@ from xml.dom import minidom
 
 sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simulation Stuff/Final-Year-Project')
 
-from generalFunctions import reRouteClockWiseFirst, reRouteClockWiseSecond
+from generalFunctions import collisionReRouteClockWiseFirst, collisionReRouteClockWiseSecond, baselineAlterOutputFiles, settingUpVehicles
 
-def settingUpVehicles(LOS):
-    with open('Collision\BaselineHDV\PreparingVehicleModels\How to use.txt') as f:
-        for line in f:
-            if(line != "\n"):
-                line = 'cmd /c ' + line
-                if(line.find('python PreparingVehicleModels/randomTrips.py') != -1):
-                    line = line.rstrip()
-                    line = line + " " + str(random.randint(0,9))
-                    if LOS == "A":
-                        line = line + " -p " + str(1.86)
-                    if LOS == "B":
-                        line = line + " -p " + str(1.25)
-                    if LOS == "C":
-                        line = line + " -p " + str(1.07)
-                    if LOS == "D":
-                        line = line + " -p " + str(0.94)
-                    if LOS == "Test":
-                        line = line + " -p " + str(0.7)
+# def settingUpVehicles(LOS):
+#     with open('Collision\BaselineHDV\PreparingVehicleModels\How to use.txt') as f:
+#         for line in f:
+#             if(line != "\n"):
+#                 line = 'cmd /c ' + line
+#                 if(line.find('python PreparingVehicleModels/randomTrips.py') != -1):
+#                     line = line.rstrip()
+#                     line = line + " " + str(random.randint(0,9))
+#                     if LOS == "A":
+#                         line = line + " -p " + str(1.86)
+#                     if LOS == "B":
+#                         line = line + " -p " + str(1.25)
+#                     if LOS == "C":
+#                         line = line + " -p " + str(1.07)
+#                     if LOS == "D":
+#                         line = line + " -p " + str(0.94)
+#                     if LOS == "Test":
+#                         line = line + " -p " + str(0.7)
                         
-                os.system(line)
+#                 os.system(line)
 
 def stoppingCrashedVehicles():
     traci.vehicle.setStop("crashed-car-lane-zero.0", "left-exit", 25.5, 0, 4500)
@@ -93,11 +93,12 @@ def TMS():
     step = 0
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
-        vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
+        
         if step == 1000:
             stoppingCrashedVehicles()
 
         if step > 1200:
+            vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
             if step%3 == 0:
                 leftExit()
                 vehiclesApproachingClosure = closeRightTopBottom(vehiclesApproachingClosure)
@@ -108,29 +109,15 @@ def TMS():
     traci.close(False)
     sys.stdout.flush()
 
-def alterOutputFilesNames(LOS, ITERATION):
-    safetyFile = "Collision\BaselineHDV\Output-Files\LOS-" + LOS + "\SSM-HDV-"+ str(ITERATION) + ".xml"
-    tripFile = "Collision\BaselineHDV\Output-Files\LOS-" + LOS + "\Trips-HDV-"+ str(ITERATION) + ".xml"
-    
-    with open("Collision\BaselineHDV\Output-Files\SSM-HDV.xml", 'r') as firstFile:
-        with open(safetyFile, 'w') as secondFile:
-            for line in firstFile:
-                secondFile.write(line)
-
-    with open("Collision\BaselineHDV\Output-Files\CollisionTripInfo.xml", 'r') as firstFile:
-        with open(tripFile, 'w') as secondFile:
-            for line in firstFile:
-                secondFile.write(line)
-
 def collisionBaselineHDVTMS(sumoBinary, LOS, ITERATION):
     print("here")
-    settingUpVehicles(LOS)
+    settingUpVehicles("Collision", "\BaselineHDV", LOS)
     traci.start([sumoBinary, "-c", "Collision\BaselineHDV\CollisionIntersectionBaselineHDV.sumocfg",
-                                "--tripinfo-output", "Collision\BaselineHDV\Output-Files\CollisionTripinfo.xml", "--ignore-route-errors", 
+                                "--tripinfo-output", "Collision\BaselineHDV\Output-Files\Tripinfo.xml", "--ignore-route-errors", 
                                 "--device.emissions.probability", "1", "--waiting-time-memory", "300"])
 
     TMS()
-    alterOutputFilesNames(LOS, ITERATION)
+    baselineAlterOutputFiles("Collision", "HDV", LOS, ITERATION, ["HDV"])
 
 def reRoutingVehicles(veh, edge, vehiclesApproachingClosure):
     rerouteResult = random.randint(0,3) ## NEEDS TO BE CONSIDERED
@@ -138,11 +125,11 @@ def reRoutingVehicles(veh, edge, vehiclesApproachingClosure):
         if(rerouteResult == 0):
             directionResult = random.randint(0,1)
             if(directionResult == 0):
-                traci.vehicle.setRoute(veh, reRouteClockWiseFirst(edge))
+                traci.vehicle.setRoute(veh, collisionReRouteClockWiseFirst(edge))
                 vehiclesApproachingClosure.remove(veh)
                 # vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
             else:
-                traci.vehicle.setRoute(veh, reRouteClockWiseSecond(edge))
+                traci.vehicle.setRoute(veh, collisionReRouteClockWiseSecond(edge))
                 vehiclesApproachingClosure.remove(veh)
                 # vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
     return vehiclesApproachingClosure

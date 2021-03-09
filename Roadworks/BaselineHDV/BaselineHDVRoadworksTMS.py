@@ -8,26 +8,30 @@ import matplotlib.pyplot as plt
 import random
 from xml.dom import minidom
 
-def settingUpVehicles(LOS):
-    with open('Roadworks\BaselineHDV\PreparingVehicleModels\How to use.txt') as f:
-        for line in f:
-            if(line != "\n"):
-                line = 'cmd /c ' + line
-                if(line.find('python PreparingVehicleModels/randomTrips.py') != -1):
-                    line = line.rstrip()
-                    line = line + " " + str(random.randint(0,9))
-                    if LOS == "A":
-                        line = line + " -p " + str(1.86)
-                    if LOS == "B":
-                        line = line + " -p " + str(1.25)
-                    if LOS == "C":
-                        line = line + " -p " + str(1.07)
-                    if LOS == "D":
-                        line = line + " -p " + str(0.94)
-                    if LOS == "Test":
-                        line = line + " -p " + str(0.7)
+sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simulation Stuff/Final-Year-Project')
+
+from generalFunctions import roadworksReRouting, baselineAlterOutputFiles, settingUpVehicles
+
+# def settingUpVehicles(LOS):
+#     with open('Roadworks\BaselineHDV\PreparingVehicleModels\How to use.txt') as f:
+#         for line in f:
+#             if(line != "\n"):
+#                 line = 'cmd /c ' + line
+#                 if(line.find('python PreparingVehicleModels/randomTrips.py') != -1):
+#                     line = line.rstrip()
+#                     line = line + " " + str(random.randint(0,9))
+#                     if LOS == "A":
+#                         line = line + " -p " + str(1.86)
+#                     if LOS == "B":
+#                         line = line + " -p " + str(1.25)
+#                     if LOS == "C":
+#                         line = line + " -p " + str(1.07)
+#                     if LOS == "D":
+#                         line = line + " -p " + str(0.94)
+#                     if LOS == "Test":
+#                         line = line + " -p " + str(0.7)
                         
-                os.system(line)
+#                 os.system(line)
 
 def flowCorrection():
     files = ['Roadworks/BaselineHDV/Route-Files/L0-HDV-Route.rou.xml']
@@ -105,18 +109,10 @@ def reRoutingVehicles(veh, target, vehiclesApproachingClosure):
     rerouteResult = random.randint(0,3) ## NEED TO CONSIDER THIS PROBABILITY MORE
     if(rerouteResult == 0):
         traci.vehicle.setVehicleClass(veh, "passenger")
-        reRouting(target)
+        traci.vehicle.setRoute(veh, roadworksReRouting(target))
         vehiclesApproachingClosure.remove(veh)
         # vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
     return vehiclesApproachingClosure
-
-def reRouting(target):
-    newRoute = []
-    if(target == "top-exit"):
-        newRoute = ["left-long-approaching", "preparation", "left-short-approaching", "right-exit"]
-    elif(target == "right-exit"):
-        newRoute = ["left-long-approaching", "preparation", "left-short-approaching", "bottom-exit"]
-    return newRoute
 
 def TMS():
     print("Running Baseline")
@@ -134,32 +130,18 @@ def TMS():
     traci.close(False)
     sys.stdout.flush()
 
-def alterOutputFilesNames(LOS, ITERATION):
-    safetyFile = "Roadworks\BaselineHDV\Output-Files\LOS-" + LOS + "\SSM-HDV-"+ str(ITERATION) + ".xml"
-    tripFile = "Roadworks\BaselineHDV\Output-Files\LOS-" + LOS + "\Trips-HDV-"+ str(ITERATION) + ".xml"
-    
-    count = 0 
-    with open("Roadworks\BaselineHDV\Output-Files\SSM-HDV.xml", 'r') as firstFile:
-        with open(safetyFile, 'w') as secondFile:
-            for line in firstFile:
-                secondFile.write(line)
-
-    with open("Roadworks\BaselineHDV\Output-Files\RoadworksTripInfo.xml", 'r') as firstFile:
-        with open(tripFile, 'w') as secondFile:
-            for line in firstFile:
-                secondFile.write(line)
-
 def roadworksBaselineHDVTMS(sumoBinary, LOS, ITERATION):
-    settingUpVehicles(LOS)
+    # settingUpVehicles(LOS)
+    settingUpVehicles("Roadworks", "\BaselineHDV", LOS)
     flowCorrection()
     
     #traci starts sumo as a subprocess and then this script connects and runs
     traci.start([sumoBinary, "-c", "Roadworks\BaselineHDV\RoadworksBaselineHDV.sumocfg",
-                "--tripinfo-output", "Roadworks\BaselineHDV\Output-Files\RoadworksTripInfo.xml", "--ignore-route-errors",
+                "--tripinfo-output", "Roadworks\BaselineHDV\Output-Files\TripInfo.xml", "--ignore-route-errors",
                 "--device.emissions.probability", "1", "--waiting-time-memory", "300"])
 
     TMS()
-    alterOutputFilesNames(LOS, ITERATION)
+    baselineAlterOutputFiles("Roadworks", "HDV", LOS, ITERATION, ["HDV"])
     
 def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
     for vehicle in vehiclesApproachingClosure:

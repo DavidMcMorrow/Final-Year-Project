@@ -34,9 +34,9 @@ SCENARIO = "Collision"
 # TYPE = "Baseline-HDV"
 TYPE = "Baseline-CAV"
 
-# LOS = "A"
+LOS = "A"
 # LOS = "B"
-LOS = "C"
+# LOS = "C"
 # LOS = "D"
 
 ITERATION = 1
