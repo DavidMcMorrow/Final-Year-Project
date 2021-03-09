@@ -58,7 +58,6 @@ def majorDelayDetection(delayBeforeReoute, vehiclesApproachingClosure, vehiclesT
         for veh in vehiclesApproachingClosure:
             temp3 = traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1]
             if(traci.vehicle.getAccumulatedWaitingTime(veh) > delayBeforeReoute):
-                print("WAITED TOO LONG", veh)
                 vehiclesApproachingClosure, vehiclesThatTORed = reRoutingVehicles(veh, temp3, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime)
     return vehiclesApproachingClosure, vehiclesThatTORed
 

@@ -82,7 +82,6 @@ def farRightTopBottom(delayBeforeReoute, vehiclesApproachingClosure):
     for veh in vehiclesApproachingClosure:
         currentEdge = traci.vehicle.getLaneID(veh).split("-")
         if traci.vehicle.getAccumulatedWaitingTime(veh) > delayBeforeReoute:
-            #print("WAITED TOO LONG", veh)
             vehiclesApproachingClosure = reRoutingVehicles(veh, currentEdge[0], vehiclesApproachingClosure)
     return vehiclesApproachingClosure
 

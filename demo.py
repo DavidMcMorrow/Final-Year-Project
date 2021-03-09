@@ -31,8 +31,8 @@ def get_options():
 SCENARIO = "Roadworks"
 # SCENARIO = "Collision"
 
-TYPE = "Baseline-HDV"
-# TYPE = "Baseline-CAV"
+# TYPE = "Baseline-HDV"
+TYPE = "Baseline-CAV"
 
 # LOS = "A"
 LOS = "B"
@@ -40,8 +40,8 @@ LOS = "B"
 # LOS = "D"
 
 # ITERATION = 1
-ITERATION = 2
-# ITERATION = 3
+# ITERATION = 2
+ITERATION = 3
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
