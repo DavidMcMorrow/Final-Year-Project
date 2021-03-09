@@ -8,7 +8,8 @@ from xml.dom import minidom
 
 sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simulation Stuff/Final-Year-Project')
 
-from generalFunctions import removeOldToC, collisionReRouteClockWiseFirst, collisionReRouteClockWiseSecond, baselineAlterOutputFiles, settingUpVehicles
+from generalFunctions import (removeOldToC, collisionReRouteClockWiseFirst, collisionReRouteClockWiseSecond, baselineAlterOutputFiles, settingUpVehicles, 
+                                removeVehiclesThatPassCenter)
 
 
 def stoppingCrashedVehicles():
@@ -53,7 +54,8 @@ def closeRightTopBottom(vehiclesApproachingClosure, vehiclesThatTORed, DETECTING
     for i in range(0, len(detectors)-1):
         det_vehs = traci.inductionloop.getLastStepVehicleIDs(detectors[i])
         for veh in det_vehs:
-            vehiclesApproachingClosure, vehiclesThatTORed = reRoutingVehicles(veh, edges[i], vehiclesApproachingClosure, vehiclesThatTORed, DETECTINGISSUE)
+            if traci.vehicle.getRoute(veh)[1] != "left-exit":
+                vehiclesApproachingClosure, vehiclesThatTORed = reRoutingVehicles(veh, edges[i], vehiclesApproachingClosure, vehiclesThatTORed, DETECTINGISSUE)
     return vehiclesApproachingClosure, vehiclesThatTORed
 
 def farRightTopBottom(delayBeforeReoute, vehiclesApproachingClosure, vehiclesThatTORed, MAJOYDELAYTRIGGEREDTOC):
@@ -86,8 +88,10 @@ def TMS():
     DETECTINGISSUE = 3 ### Needs to be considered
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
-        removeVehiclesThatPassCenter(vehiclesApproachingClosure)
+        
+        vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
         vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
+        
         if step == 1000:
             stoppingCrashedVehicles()
 
@@ -96,6 +100,7 @@ def TMS():
                 leftExit()
                 vehiclesApproachingClosure, vehiclesThatTORed = closeRightTopBottom(vehiclesApproachingClosure, vehiclesThatTORed, DETECTINGISSUE)
                 vehiclesApproachingClosure, vehiclesThatTORed = farRightTopBottom(delayBeforeReoute, vehiclesApproachingClosure, vehiclesThatTORed, MAJOYDELAYTRIGGEREDTOC)
+                
                
         step += 1
 
@@ -126,22 +131,8 @@ def reRoutingVehicles(veh, edge, vehiclesApproachingClosure, vehiclesThatTORed, 
             if(directionResult == 0):
                 traci.vehicle.setRoute(veh, collisionReRouteClockWiseFirst(edge))
                 vehiclesApproachingClosure.remove(veh)
-                # vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
             else:
                 traci.vehicle.setRoute(veh, collisionReRouteClockWiseSecond(edge))
                 vehiclesApproachingClosure.remove(veh)
-                # vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
     return vehiclesApproachingClosure, vehiclesThatTORed
 
-def findValue(listOfValues, value):
-    for temp in listOfValues:
-        if temp == value:
-            return True
-    return False
-
-def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
-    for vehicle in vehiclesApproachingClosure:
-        temp = traci.vehicle.getLaneID(vehicle)[:7]
-        if(temp == ":center"):
-            vehiclesApproachingClosure.remove(vehicle)
-    return vehiclesApproachingClosure

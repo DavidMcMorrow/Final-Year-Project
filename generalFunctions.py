@@ -1,6 +1,7 @@
 import random
 import os
 import traci
+from xml.dom import minidom
 
 def settingUpVehicles(SCENARIO, USECASEFOLDER, LOS):
     textFileToRun = SCENARIO + USECASEFOLDER + "\PreparingVehicleModels\How to use.txt"
@@ -78,4 +79,59 @@ def baselineAlterOutputFiles(SCENARIO, BASELINE, LOS, ITERATION, VEHICLETYPES):
             for line in firstFile:
                 secondFile.write(line)
 
-    
+def flowCorrection(files, vehiclesTypes, baseline):
+    print("HERERE")
+    for j in range(0, len(files)):
+        mydoc = minidom.parse(files[j])
+        routes = mydoc.getElementsByTagName('route')
+        vehicles = mydoc.getElementsByTagName('vehicle')
+
+        for i in range(0, len(routes)):
+            if(routes[i].getAttribute("edges")[:1] == "l" and routes[i].getAttribute("edges")[-1] != "t"):
+                result = random.randint(0, 2)
+                if result == 0:
+                    routes[i].setAttribute("edges", "left-long-approaching preparation left-short-approaching bottom-exit")
+                elif result == 1:
+                    routes[i].setAttribute("edges", "left-long-approaching preparation left-short-approaching right-exit")
+                else: 
+                    routes[i].setAttribute("edges", "left-long-approaching preparation left-short-approaching top-exit")
+
+            if(routes[i].getAttribute("edges").startswith("p")):
+                route = "left-long-approaching " + routes[i].getAttribute("edges")
+                routes[i].setAttribute("edges", route)
+            elif(routes[i].getAttribute("edges").startswith("left-short-approaching")):
+                route = "left-long-approaching preparation " + routes[i].getAttribute("edges")
+                routes[i].setAttribute("edges", route)
+
+            if(baseline == "HDV"):
+                if(routes[i].getAttribute("edges") == "left-long-approaching preparation left-short-approaching top-exit"):
+                    temp = vehiclesTypes[j] + "-Left"
+                    vehicles[i].setAttribute("type", temp)
+                    routes[i].setAttribute("edges", "left-long-approaching preparation")
+                elif(routes[i].getAttribute("edges") == "left-long-approaching preparation left-short-approaching right-exit"):
+                    temp = vehiclesTypes[j] + "-Straight"
+                    vehicles[i].setAttribute("type", temp)
+            else:
+                if(routes[i].getAttribute("edges") == "left-long-approaching preparation left-short-approaching top-exit"):
+                    temp = vehiclesTypes[j] + "-Left"
+                    vehicles[i].setAttribute("type", temp)
+                    routes[i].setAttribute("edges", "left-long-approaching preparation")
+                elif(routes[i].getAttribute("edges") == "left-long-approaching preparation left-short-approaching bottom-exit"):
+                    temp = vehiclesTypes[j] + "-Right"
+                    vehicles[i].setAttribute("type", temp)
+                    
+        with open(files[j], "w") as fs:
+            fs.write(mydoc.toxml()) 
+            fs.close()  
+
+def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
+    for vehicle in vehiclesApproachingClosure:
+        temp1 = vehicle in traci.vehicle.getIDList()
+        if temp1 == True:
+            temp = traci.vehicle.getLaneID(vehicle)[:7]
+            if(temp == ":center"):
+                vehiclesApproachingClosure.remove(vehicle)
+        else:
+            vehiclesApproachingClosure.remove(vehicle)
+    return vehiclesApproachingClosure
+

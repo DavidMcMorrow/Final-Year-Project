@@ -8,7 +8,7 @@ from xml.dom import minidom
 
 sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simulation Stuff/Final-Year-Project')
 
-from generalFunctions import collisionReRouteClockWiseFirst, collisionReRouteClockWiseSecond, baselineAlterOutputFiles, settingUpVehicles
+from generalFunctions import collisionReRouteClockWiseFirst, collisionReRouteClockWiseSecond, baselineAlterOutputFiles, settingUpVehicles, removeVehiclesThatPassCenter
 
 # def settingUpVehicles(LOS):
 #     with open('Collision\BaselineHDV\PreparingVehicleModels\How to use.txt') as f:
@@ -82,7 +82,7 @@ def farRightTopBottom(delayBeforeReoute, vehiclesApproachingClosure):
     for veh in vehiclesApproachingClosure:
         currentEdge = traci.vehicle.getLaneID(veh).split("-")
         if traci.vehicle.getAccumulatedWaitingTime(veh) > delayBeforeReoute:
-            print("WAITED TOO LONG", veh)
+            #print("WAITED TOO LONG", veh)
             vehiclesApproachingClosure = reRoutingVehicles(veh, currentEdge[0], vehiclesApproachingClosure)
     return vehiclesApproachingClosure
 
@@ -134,12 +134,12 @@ def reRoutingVehicles(veh, edge, vehiclesApproachingClosure):
                 # vehiclesApproachingClosure = removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh)
     return vehiclesApproachingClosure
 
-def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
-    for vehicle in vehiclesApproachingClosure:
-        temp = traci.vehicle.getLaneID(vehicle)[:7]
-        if(temp == ":center"):
-            vehiclesApproachingClosure.remove(vehicle)
-    return vehiclesApproachingClosure
+# def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
+#     for vehicle in vehiclesApproachingClosure:
+#         temp = traci.vehicle.getLaneID(vehicle)[:7]
+#         if(temp == ":center"):
+#             vehiclesApproachingClosure.remove(vehicle)
+#     return vehiclesApproachingClosure
 
 # def removeVehiclesThatAreReRouted(vehiclesApproachingClosure, veh):
 #     for waitingVehicle in vehiclesApproachingClosure:

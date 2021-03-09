@@ -8,138 +8,133 @@ from xml.dom import minidom
 
 sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simulation Stuff/Final-Year-Project')
 
-from generalFunctions import removeOldToC 
+from generalFunctions import removeOldToC, settingUpVehicles, baselineAlterOutputFiles, flowCorrection, removeVehiclesThatPassCenter, roadworksReRouting
 
 
-class MRM:
-    def __init__(self, ID, step):
-        self.ID = ID
-        self.step = step
 
-def settingUpVehicles(LOS):
-    with open('Roadworks\BaselineCAV\PreparingVehicleModels\How to use.txt') as f:
-        for line in f:
-            if(line != "\n"):
-                line = 'cmd /c ' + line
-                
-                if(line.find('python PreparingVehicleModels/randomTrips.py') != -1):
-                    line = line.rstrip()
-                    line = line + " " + str(random.randint(0,9))
-                    if LOS == "A":
-                        line = line + " -p " + str(1.86)
-                    if LOS == "B":
-                        line = line + " -p " + str(1.25)
-                    if LOS == "C":
-                        line = line + " -p " + str(1.07)
-                    if LOS == "D":
-                        line = line + " -p " + str(0.94)
-                    if LOS == "Test":
-                        line = line + " -p " + str(0.7)
-                       
-                os.system(line)
+def handlingLeftApproaching(vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC):
+    det_vehs = traci.inductionloop.getLastStepVehicleIDs("rerouting-left-vehicles")
+    for veh in det_vehs:
+        result = random.randint(0,3) ## Needs to be considered
+        if(result == 0):
+            traci.vehicle.setVehicleClass(veh, "custom1")
 
-def flowCorrection():
-    files = ['Roadworks/BaselineCAV/Route-Files/L4-CV-Route.rou.xml']
-    for j in range(0, len(files)):
-        mydoc = minidom.parse(files[j])
-        routes = mydoc.getElementsByTagName('route')
-        vehicles = mydoc.getElementsByTagName('vehicle')
-    
-        for i in range(0, len(routes)):
-            if(routes[i].getAttribute("edges").startswith("preparation")):
-                route = "left-long-approaching " + routes[i].getAttribute("edges")
-                routes[i].setAttribute("edges", route)
-            if(routes[i].getAttribute("edges").startswith("left-short-approaching")):
-                route = "left-long-approaching preparation " + routes[i].getAttribute("edges")
-                routes[i].setAttribute("edges", route)
-            if(routes[i].getAttribute("edges") == "left-long-approaching preparation left-short-approaching top-exit"):
-                vehicles[i].setAttribute("type", "L4-CV-Left")
-                routes[i].setAttribute("edges", "left-long-approaching preparation")
-            if(routes[i].getAttribute("edges") == "left-long-approaching preparation left-short-approaching bottom-exit"):
-                vehicles[i].setAttribute("type", "L4-CV-Right")
-
-        with open(files[j], "w") as fs:
-            fs.write(mydoc.toxml()) 
-            fs.close()  
-
-def handlingLeftApproaching(vehiclesThatTORed, listOfMRM):
     det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_0")
     for veh in det_vehs:
+        traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
         traci.vehicle.setRoute(veh, ["preparation", "left-short-approaching", "top-exit"])
+    
+    det_vehs = traci.inductionloop.getLastStepVehicleIDs("Issuing-ToC-in-Vehicle")
+    for veh in det_vehs:
+        temp = veh in vehiclesThatTORed
+        if(traci.vehicle.getVehicleClass(veh) == "custom2" and temp == False):
+            traci.vehicle.setParameter(veh, "device.toc.requestToC", ENCOUNTEREDCOLLISIONTOC)
+            vehiclesThatTORed.append(veh)
 
-def handlingTopRightBottom(detectors, vehiclesThatTORed, listOfMRM):
+def handlingTopRightBottom(detectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC):
     for det in detectors:
         det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
         for veh in det_vehs:
-            if findValue(vehiclesThatTORed, veh) == False and traci.vehicle.getVehicleClass(veh) != "passenger":
-                result = random.randint(0,1)
+            temp = veh in vehiclesThatTORed
+            if temp == False and traci.vehicle.getVehicleClass(veh) != "passenger":
+                result = random.randint(0,1) ## Needs to be considered
                 if(result == 0):
                     traci.vehicle.setVehicleClass(veh, "passenger")
                 else:
-                    traci.vehicle.setParameter(veh, "device.toc.requestToC", 3)
+                    traci.vehicle.setParameter(veh, "device.toc.requestToC", ENCOUNTEREDCOLLISIONTOC)
                     vehiclesThatTORed.append(veh)
 
-def scheduleToCAfterLongDelay(delayBeforeToC, vehiclesThatTORed):
-    det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_7")
-    for veh in det_vehs:
-        if(traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1] ==  "right-exit" and traci.vehicle.getTypeID(veh)[:2] != "L0"):
-            if(traci.vehicle.getAccumulatedWaitingTime(veh) >= delayBeforeToC and findValue(vehiclesThatTORed, veh) == False):
-                traci.vehicle.requestToC(veh, 30)
-                vehiclesThatTORed.append(veh)
+def majorDelayDetection(delayBeforeReoute, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime, step):
+    detectors = ["left-long-approaching_0", "left-long-approaching_1", "left-long-approaching_2"]
+    for det in detectors:
+        det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
+        for veh in det_vehs:
+            temp1 = traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1]
+            temp2 = veh in vehiclesApproachingClosure
+            if ((temp1 !=  "bottom-exit") and (temp2 == False)):
+                vehiclesApproachingClosure.append(veh)
+
+    if (step%9 == 0):
+        for veh in vehiclesApproachingClosure:
+            temp3 = traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1]
+            if(traci.vehicle.getAccumulatedWaitingTime(veh) > delayBeforeReoute):
+                print("WAITED TOO LONG", veh)
+                vehiclesApproachingClosure, vehiclesThatTORed = reRoutingVehicles(veh, temp3, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime)
+    return vehiclesApproachingClosure, vehiclesThatTORed
+
+def reRoutingVehicles(veh, target, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime):
+    tocResult = random.randint(0, 3) ## NEED TO CONSIDER THIS PROBABILITY MORE
+    temp = veh in vehiclesThatTORed
+    if(tocResult != 0 and temp == False and traci.vehicle.getTypeID(veh)[:2] == "L4"):
+        traci.vehicle.requestToC(veh, ToCLeadTime)
+        vehiclesThatTORed.append(veh)
+        
+    rerouteResult = random.randint(0, 3) ## NEED TO CONSIDER THIS PROBABILITY MORE
+    if(rerouteResult == 0):
+        traci.vehicle.setVehicleClass(veh, "passenger")
+        traci.vehicle.setRoute(veh, roadworksReRouting(target))
+        vehiclesApproachingClosure.remove(veh)
+    return vehiclesApproachingClosure, vehiclesThatTORed
 
 def TMS():
     print("Running Baseline")
     step = 0
-    delayBeforeToC = 100
     detectors = ["det_4", "det_5", "det_6"]
-    
-    listOfMRM = []
+    vehiclesApproachingClosure = []
     vehiclesThatTORed = []
+    delayBeforeReoute = 120
+    TIMETOPERFORMDELAYTOC = 30
+    ENCOUNTEREDCOLLISIONTOC = 3
+    delayBeforeToC = 20
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
+        # vehiclesApproachingClosure = removeVehiclesNoLongerPresent(vehiclesApproachingClosure)
+        # vehiclesThatTORed = removeVehiclesNoLongerPresent(vehiclesThatTORed)
+        vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
+        vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
     
-        if(step%3 == 0):
-            handlingLeftApproaching(vehiclesThatTORed, listOfMRM)
-            handlingTopRightBottom(detectors, vehiclesThatTORed, listOfMRM)
-            scheduleToCAfterLongDelay(delayBeforeToC, vehiclesThatTORed)
-            vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
-        step += 1
+        if (step%2 == 0):
+            handlingLeftApproaching(vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC)
+            
 
-        
+        if(step%3 == 0):
+            handlingTopRightBottom(detectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC)
+            vehiclesApproachingClosure, vehiclesThatTORed = majorDelayDetection(delayBeforeReoute, vehiclesApproachingClosure, vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step)
+            vehiclesThatTORed, vehiclesApproachingClosure = allowingAccessToRightLane(delayBeforeToC, TIMETOPERFORMDELAYTOC, vehiclesThatTORed, vehiclesApproachingClosure)
+
+        step += 1
 
     traci.close(False)
     sys.stdout.flush()
 
-def alterOutputFilesNames(LOS, ITERATION):
-    safetyFile = "Roadworks\BaselineCAV\Output-Files\LOS-" + LOS + "\SSM-HDV-"+ str(ITERATION) + ".xml"
-    tripFile = "Roadworks\BaselineCAV\Output-Files\LOS-" + LOS + "\Trips-HDV-"+ str(ITERATION) + ".xml"
-    
-    with open("Roadworks\BaselineCAV\Output-Files\SSM-CAV.xml", 'r') as firstFile:
-        with open(safetyFile, 'w') as secondFile:
-            for line in firstFile:
-                secondFile.write(line)
-
-    with open("Roadworks\BaselineCAV\Output-Files\RoadworksTripInfo.xml", 'r') as firstFile:
-        with open(tripFile, 'w') as secondFile:
-            for line in firstFile:
-                secondFile.write(line)
-
 def roadworksBaselineCAVTMS(sumoBinary, LOS, ITERATION):
-    settingUpVehicles(LOS)
-    flowCorrection()
+    settingUpVehicles("Roadworks", "\BaselineCAV", LOS)
+    flowCorrection(['Roadworks/BaselineCAV/Route-Files/L4-CV-Route.rou.xml'], ["L4-CV"], "CAV")
     
     #traci starts sumo as a subprocess and then this script connects and runs
     traci.start([sumoBinary, "-c", "Roadworks\BaselineCAV\RoadworksBaselineCAV.sumocfg",
-                "--tripinfo-output", "Roadworks\BaselineCAV\Output-Files\RoadworksTripInfo.xml", "--ignore-route-errors",
+                "--tripinfo-output", "Roadworks\BaselineCAV\Output-Files\TripInfo.xml", "--ignore-route-errors",
                 "--device.emissions.probability", "1", "--waiting-time-memory", "300"])
 
     TMS()
-    alterOutputFilesNames(LOS, ITERATION)
+    baselineAlterOutputFiles("Roadworks", "CAV", LOS, ITERATION, ["L4-CV", "HDV"])
 
-def findValue(listOfValues, value):
-    for temp in listOfValues:
-        if temp == value:
-            return True
-    return False
 
+def allowingAccessToRightLane(delayBeforeToC, TIMETOPERFORMDELAYTOC, vehiclesThatTORed, vehiclesApproachingClosure):
+    det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_2")
+    for veh in det_vehs:
+        temp = veh in vehiclesApproachingClosure
+        if temp == True:
+            vehiclesApproachingClosure.remove(veh)
+        if(traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1] ==  "right-exit" and traci.vehicle.getTypeID(veh)[:2] == "L4"):
+            temp = veh in vehiclesThatTORed
+            if(traci.vehicle.getAccumulatedWaitingTime(veh) >= delayBeforeToC and temp == False and traci.vehicle.getVehicleClass(veh) != "passenger"):
+                ToCResult = random.randint(0, 1)
+                if(ToCResult == 0):
+                    traci.vehicle.requestToC(veh, TIMETOPERFORMDELAYTOC)
+                    vehiclesThatTORed.append(veh)
+                else:
+                    traci.vehicle.setVehicleClass(veh, "passenger")
+
+    return vehiclesThatTORed, vehiclesApproachingClosure
 
