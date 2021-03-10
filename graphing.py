@@ -65,22 +65,22 @@ def effiencyKPIs(filename):
     
     return count, np.mean(emissionsPerRun)
 
-def intialiseAxisAndTitle(j):
+def intialiseAxisAndTitle(j, SCENARIO):
     if(j == 0):
         array = TTC
         yAxis = "Number of Safety Incidents"
-        title = "Safety"
+        title = SCENARIO + ": Safety"
     elif (j==1):
         array = THROUGHPUT
         yAxis = "Throughput of network"
-        title = "Throughput"
+        title = SCENARIO + ": Throughput"
     elif (j==2):
         array = EMISSIONS
         yAxis = "CO2"
-        title = "Environmental"
+        title = SCENARIO + ": Environmental"
     return array, yAxis, title
 
-def graphingKPIs(TTC, THROUGHPUT, EMISSIONS, vehicleTypes):
+def graphingKPIs(TTC, THROUGHPUT, EMISSIONS, vehicleTypes, SCENARIO):
     xAxis = "Level of Service"
     array = []
     for j in range(0, 3):
@@ -88,7 +88,7 @@ def graphingKPIs(TTC, THROUGHPUT, EMISSIONS, vehicleTypes):
         hdvArray = []
         l4CVArray = []
         
-        array, yAxis, title = intialiseAxisAndTitle(j)
+        array, yAxis, title = intialiseAxisAndTitle(j, SCENARIO)
 
         for i in range(0, len(array)):
             if(i == len(vehicleTypes)):
@@ -113,7 +113,6 @@ def graphingKPIs(TTC, THROUGHPUT, EMISSIONS, vehicleTypes):
         plt.title(title)
         plt.show()
 
-
 def graphingFunction(xLabel, yLabel, title, xData, yData):
     plt.bar(xData, yData, align='center', alpha=0.5)
     plt.xlabel(xLabel)
@@ -137,12 +136,11 @@ vehicleTypes = ["HDV", "L4-CV"]
 
 safetyFiles, effiencyFiles = creatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes)
 
-
 TTC, THROUGHPUT, EMISSIONS = gatheringTheData(safetyFiles, effiencyFiles)
     
 print("TTC", TTC)
 print("Throughput", THROUGHPUT)
 print("CO2", EMISSIONS)
 
-graphingKPIs(TTC, THROUGHPUT, EMISSIONS, vehicleTypes)
+graphingKPIs(TTC, THROUGHPUT, EMISSIONS, vehicleTypes, SCENARIO)
 
