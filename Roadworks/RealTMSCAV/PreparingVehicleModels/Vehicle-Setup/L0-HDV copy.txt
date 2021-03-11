@@ -1,0 +1,24 @@
+vClass          ;   passenger
+carFollowModel  ;   Krauss
+color           ;   green
+
+sigma           ;   normal(0.2, 0.5); [0.0, 1.0]
+tau             ;   normal(0.6, 0.5); [0.5, 1.6] 
+decel           ;   normal(3.5, 1.0); [2.0, 4.5]
+accel           ;   normal(2.0, 1.0); [1.0, 3.5]
+emergencyDecel  ;   9.0
+
+lcAssertive         ;   normal(1.2, 0.05);  [1.1, 1.3]
+actionStepLength    ;   0.1
+speedFactor         ;   normal(1.1, 0.2);   [0.8, 1.2]
+
+param;  has.toc.device; false
+
+param; has.ssm.device                   ;   true
+param; device.ssm.measures              ;   TTC
+param; device.ssm.thresholds            ;   3.0
+param; device.ssm.range                 ;   50.0
+param; device.ssm.extratime             ;   5.0
+param; device.ssm.file                  ;   Output-Files\SSM-HDV.xml
+param; device.ssm.trajectories          ;   false
+param; device.ssm.geo                   ;   false

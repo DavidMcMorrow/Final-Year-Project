@@ -11,7 +11,6 @@ sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simu
 from generalFunctions import removeOldToC, settingUpVehicles, baselineAlterOutputFiles, flowCorrection, removeVehiclesThatPassCenter, roadworksReRouting
 
 
-
 def handlingLeftApproaching(vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC):
     det_vehs = traci.inductionloop.getLastStepVehicleIDs("rerouting-left-vehicles")
     for veh in det_vehs:
@@ -43,6 +42,7 @@ def handlingTopRightBottom(detectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC
                 else:
                     traci.vehicle.setParameter(veh, "device.toc.requestToC", ENCOUNTEREDCOLLISIONTOC)
                     vehiclesThatTORed.append(veh)
+    return vehiclesThatTORed
 
 def majorDelayDetection(delayBeforeReoute, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime, step):
     detectors = ["left-long-approaching_0", "left-long-approaching_1", "left-long-approaching_2"]
@@ -97,7 +97,7 @@ def TMS():
             
 
         if(step%3 == 0):
-            handlingTopRightBottom(detectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC)
+            vehiclesThatTORed = handlingTopRightBottom(detectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC)
             vehiclesApproachingClosure, vehiclesThatTORed = majorDelayDetection(delayBeforeReoute, vehiclesApproachingClosure, vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step)
             vehiclesThatTORed, vehiclesApproachingClosure = allowingAccessToRightLane(delayBeforeToC, TIMETOPERFORMDELAYTOC, vehiclesThatTORed, vehiclesApproachingClosure)
 

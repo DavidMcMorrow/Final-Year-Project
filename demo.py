@@ -13,8 +13,11 @@ from Collision.CollisionTMS import runCollisionTMS
 
 from Roadworks.BaselineHDV.BaselineHDVRoadworksTMS import roadworksBaselineHDVTMS
 from Roadworks.BaselineCAV.BaselineCAVRoadworksTMS import roadworksBaselineCAVTMS
+from Roadworks.RealTMSCAV.RealCAVRoadworksTMS import roadworksRealTMSCAV
+
 from Collision.BaselineHDV.BaselineHDVCollisionTMS import collisionBaselineHDVTMS
 from Collision.BaselineCAV.BaselineCAVCollisionTMS import collisionBaselineCAVTMS
+
 
 # https://www.eclipse.org/lists/sumo-user/msg02526.html
 
@@ -32,10 +35,11 @@ SCENARIO = "Roadworks"
 # SCENARIO = "Collision"
 
 # TYPE = "Baseline-HDV"
-TYPE = "Baseline-CAV"
+# TYPE = "Baseline-CAV"
+TYPE = "TMS-CAV"
 
-# LOS = "A"
-LOS = "B"
+LOS = "A"
+# LOS = "B"
 # LOS = "C"
 # LOS = "D"
 
@@ -66,9 +70,14 @@ if __name__ == "__main__":
             roadworksBaselineHDVTMS(sumoBinary, LOS, ITERATION)
         elif TYPE == "Baseline-CAV":
             roadworksBaselineCAVTMS(sumoBinary, LOS, ITERATION)
+        elif TYPE == "TMS-CAV":
+            roadworksRealTMSCAV(sumoBinary, LOS, ITERATION)
 
     else:
         if TYPE == "Baseline-HDV":
             collisionBaselineHDVTMS(sumoBinary, LOS, ITERATION)
         elif TYPE == "Baseline-CAV":
             collisionBaselineCAVTMS(sumoBinary, LOS, ITERATION)
+        elif TYPE == "TMS-CAV":
+            # roadworksRealTMSCAV(sumoBinary, LOS, ITERATION)
+            print("Not developed yet :)")

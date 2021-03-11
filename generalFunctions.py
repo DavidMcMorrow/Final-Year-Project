@@ -135,3 +135,36 @@ def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
             vehiclesApproachingClosure.remove(vehicle)
     return vehiclesApproachingClosure
 
+
+
+### Roadworks TMS
+def roadworksTMSTopRightBottom(topBottomLeftTMSDetectors):
+    for det in topBottomLeftTMSDetectors:
+        det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
+        for veh in det_vehs:
+            route = traci.vehicle.getRoute(veh)
+            target = route[len(route) - 1]
+            if traci.vehicle.getVehicleClass(veh) != "passenger" and target == "left-exit":
+                receivedTMSResult = random.randint(0, 99) ## CONSIDER
+                if receivedTMSResult > 24:
+                    traci.vehicle.setVehicleClass(veh, "passenger")
+
+def naturalHandlingTopRightBottom(lateDetectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC):
+    for det in lateDetectors:
+        det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
+        for veh in det_vehs:
+            temp = veh in vehiclesThatTORed
+            if temp == False and traci.vehicle.getVehicleClass(veh) != "passenger":
+                result = random.randint(0, 10) ## CONSIDER
+                if(result == 0):
+                    traci.vehicle.setVehicleClass(veh, "passenger")
+                else:
+                    traci.vehicle.setParameter(veh, "device.toc.requestToC", ENCOUNTEREDCOLLISIONTOC)
+                    vehiclesThatTORed.append(veh)
+    return vehiclesThatTORed
+
+def roadworksReRoutingLeftVehicles(veh):
+    route = traci.vehicle.getRoute(veh)
+    target = route[len(route) - 1]
+    if(target == "preparation"):
+        traci.vehicle.setRoute(veh, ["preparation", "left-short-approaching", "top-exit"])
