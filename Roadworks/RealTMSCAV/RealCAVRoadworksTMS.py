@@ -14,34 +14,78 @@ def handlingTopRightBottom(lateDetectors, topBottomLeftTMSDetectors, vehiclesTha
     vehiclesThatTORed = naturalHandlingTopRightBottom(lateDetectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC)    
     return vehiclesThatTORed
 
-def handlingLeftApproaching(vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC):
+def leftUpStreamTMS(leftApproachingLastDetected):
     det_vehs = traci.inductionloop.getLastStepVehicleIDs("rerouting-left-vehicles")
     for veh in det_vehs:
-        roadworksReRoutingLeftVehicles(veh)
         vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
-        if traci.vehicle.getVehicleClass(veh) == "custom2" and vehicleType == "CV":
+        if traci.vehicle.getVehicleClass(veh) == "custom2" and vehicleType == "CV" and leftApproachingLastDetected != veh:
             receivedTMSResult = random.randint(0, 99)
-            if receivedTMSResult > 50:
+            if receivedTMSResult > 75:
+                # print("Did get TMS", veh)
+                # traci.vehicle.setParameter(veh, "dynamicToCThreshold", 0)
+                traci.vehicle.setVehicleClass(veh, "custom1")
+                roadworksReRoutingLeftVehicles(veh)
+            # else:
+                # print("Didn't get TMS", veh)
+        leftApproachingLastDetected = veh
+    return leftApproachingLastDetected
+                
+
+def standardVehicleScenarioDetection(leftApproachingLastDetected):
+    det_vehs = traci.inductionloop.getLastStepVehicleIDs("leftlaneStandardDetection")
+    for veh in det_vehs:
+        if traci.vehicle.getVehicleClass(veh) == "custom2" and leftApproachingLastDetected != veh:
+            figuredOutScenario = random.randint(0,9) ## Needs to be considered
+            if(figuredOutScenario < 3):
+                # print("Did detect blockage", veh)
+                # traci.vehicle.setParameter(veh, "dynamicToCThreshold", 0)
+                traci.vehicle.setVehicleClass(veh, "custom1")
+                roadworksReRoutingLeftVehicles(veh)
+            # else:
+                # print("Didn't detect blockage", veh)
+        leftApproachingLastDetected = veh
+    return leftApproachingLastDetected
+    
+def issuingToCToVehiclesTMS(vehiclesThatTORed, TMSISSUEDTOC, leftApproachingLastDetected):
+    det_vehs = traci.inductionloop.getLastStepVehicleIDs("issuingToCInVehicleTMS")
+    for veh in det_vehs:
+        temp = veh in vehiclesThatTORed
+        vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
+        receivedToCAdvice = random.randint(0,9)
+        if( (temp == False) and (vehicleType == "CV") and (receivedToCAdvice < 3) and (leftApproachingLastDetected != veh)):
+            # print("Received ToC Advice", veh)
+            roadworksReRoutingLeftVehicles(veh)
+            traci.vehicle.setParameter(veh, "device.toc.requestToC", TMSISSUEDTOC)
+            vehiclesThatTORed.append(veh)
+
+        if vehicleType == "HDV":
+            receivedToCAdvice = random.randint(0,9) ## Needs to be considered
+            if(receivedToCAdvice < 4 and leftApproachingLastDetected != veh):
+                roadworksReRoutingLeftVehicles(veh)
+                traci.vehicle.setVehicleClass(veh, "custom1")
+        leftApproachingLastDetected = veh
+    return vehiclesThatTORed, leftApproachingLastDetected
+
+def lateVehicleIncidentDetection(ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected):
+    det_vehs = traci.inductionloop.getLastStepVehicleIDs("allVehiclesToC")
+    for veh in det_vehs:
+        if leftApproachingLastDetected != veh:
+            vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
+            roadworksReRoutingLeftVehicles(veh)
+            if vehicleType == "HDV":
                 traci.vehicle.setVehicleClass(veh, "custom1")
             else:
-                traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
-            
-            
+                traci.vehicle.setParameter(veh, "device.toc.requestToC", ENCOUNTEREDCLOSURETOC)
+        leftApproachingLastDetected = veh
+    return leftApproachingLastDetected
 
-    # det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_0")
-    # for veh in det_vehs:
-    #     roadworksReRoutingLeftVehicles(veh)
-    #     result = random.randint(0,3) ## Needs to be considered
-    #     if(result == 0):
-    #         traci.vehicle.setVehicleClass(veh, "custom1")
-
-    # det_vehs = traci.inductionloop.getLastStepVehicleIDs("Issuing-ToC-in-Vehicle")
-    # for veh in det_vehs:
-    #     roadworksReRoutingLeftVehicles(veh)
-    #     temp = veh in vehiclesThatTORed
-    #     if(traci.vehicle.getVehicleClass(veh) == "custom2" and temp == False):
-    #         traci.vehicle.setParameter(veh, "device.toc.requestToC", ENCOUNTEREDCOLLISIONTOC)
-    #         vehiclesThatTORed.append(veh)
+def handlingLeftApproaching(vehiclesThatTORed, TMSISSUEDTOC, ENCOUNTEREDCLOSURETOC,leftApproachingLastDetected):
+    leftApproachingLastDetected[0] = leftUpStreamTMS(leftApproachingLastDetected[0])
+    leftApproachingLastDetected[1] = standardVehicleScenarioDetection(leftApproachingLastDetected[1])
+    vehiclesThatTORed, leftApproachingLastDetected[2] = issuingToCToVehiclesTMS(vehiclesThatTORed, TMSISSUEDTOC, leftApproachingLastDetected[2])
+    leftApproachingLastDetected[3] = lateVehicleIncidentDetection(ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected[3])
+    return leftApproachingLastDetected
+    
 
 def TMS():
     print("Running Baseline")
@@ -53,9 +97,11 @@ def TMS():
                                 ]
     # vehiclesApproachingClosure = []
     vehiclesThatTORed = []
+    leftApproachingLastDetected = ["n/a", "n/a", "n/a", "n/a"]
     # delayBeforeReoute = 120
     # TIMETOPERFORMDELAYTOC = 30
-    ENCOUNTEREDCOLLISIONTOC = 3 ## Needs to be considered
+    ENCOUNTEREDCLOSURETOC = 3 # CONSIDER
+    TMSISSUEDTOC = 5            # CONSIDER
     # delayBeforeToC = 20
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
@@ -64,12 +110,13 @@ def TMS():
     #     vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
         vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
     
-        if (step%2 == 0):
-            handlingLeftApproaching(vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC)
+        # if (step%2 == 0):
+            
 
         
         if(step%3 == 0):
-            vehiclesThatTORed = handlingTopRightBottom(lateDetectors, topBottomLeftTMSDetectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC)
+            leftApproachingLastDetected = handlingLeftApproaching(vehiclesThatTORed, TMSISSUEDTOC, ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected)
+            vehiclesThatTORed = handlingTopRightBottom(lateDetectors, topBottomLeftTMSDetectors, vehiclesThatTORed, ENCOUNTEREDCLOSURETOC)
     #         vehiclesApproachingClosure, vehiclesThatTORed = majorDelayDetection(delayBeforeReoute, vehiclesApproachingClosure, vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step)
             # vehiclesThatTORed, vehiclesApproachingClosure = allowingAccessToRightLane(delayBeforeToC, TIMETOPERFORMDELAYTOC, vehiclesThatTORed, vehiclesApproachingClosure)
 
