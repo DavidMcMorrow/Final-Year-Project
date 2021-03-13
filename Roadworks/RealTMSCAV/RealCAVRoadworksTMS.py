@@ -8,7 +8,8 @@ import numpy as np
 sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simulation Stuff/Final-Year-Project')
 
 from generalFunctions import (settingUpVehicles, flowCorrection, removeOldToC, roadworksTMSTopRightBottom, lateVehicleIndidentDetectionTopRightBottom, 
-roadworksReRoutingLeftVehicles, leftUpStreamTMS, standardVehicleScenarioDetection, issuingToCToVehiclesTMS, lateVehicleIncidentDetection)
+roadworksReRoutingLeftVehicles, leftUpStreamTMS, standardVehicleScenarioDetection, issuingToCToVehiclesTMS, lateVehicleIncidentDetection, removeVehiclesThatPassCenter,
+allowingAccessToRightLaneTMS, allowingAccessToRightLaneLate)
 
 def handlingTopRightBottom(topBottomRightLateDetectors, topBottomRightTMSDetectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC, topBottomRightLateLastDetected, topBottomRightTMSLastDetected):
     topBottomRightTMSLastDetected = roadworksTMSTopRightBottom(topBottomRightTMSDetectors, topBottomRightTMSLastDetected)
@@ -24,8 +25,12 @@ def handlingLeftApproaching(vehiclesThatTORed, TMSISSUEDTOC, ENCOUNTEREDCLOSURET
     vehiclesThatTORed, leftApproachingLastDetected[2] = issuingToCToVehiclesTMS(vehiclesThatTORed, TMSISSUEDTOC, leftApproachingLastDetected[2])
     leftApproachingLastDetected[3] = lateVehicleIncidentDetection(ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected[3])
     return leftApproachingLastDetected
-    
 
+def allowingAccessToRightLane(minorWaitLengthBeforeAction, vehiclesThatTORed, accessToRightLaneLastDetected, TIMETOPERFORMDELAYTOC):
+    accessToRightLaneLastDetected[0] = allowingAccessToRightLaneTMS(accessToRightLaneLastDetected[0])
+    vehiclesThatTORed, accessToRightLaneLastDetected[1] = allowingAccessToRightLaneLate(accessToRightLaneLastDetected[1], minorWaitLengthBeforeAction, vehiclesThatTORed, TIMETOPERFORMDELAYTOC)
+    return vehiclesThatTORed, accessToRightLaneLastDetected
+    
 def TMS():
     print("Running Baseline")
     step = 0
@@ -39,33 +44,31 @@ def TMS():
                                     "lateRight_0", "lateRight_1", "lateRight_2",
                                     "lateBottom_0", "lateBottom_1","lateBottom_2"
                                     ]
-    # vehiclesApproachingClosure = []
+    vehiclesApproachingMergedLanes = []
     vehiclesThatTORed = []
     leftApproachingLastDetected = ["n/a", "n/a", "n/a", "n/a"]
-    topBottomRightLateLastDetected = ["n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a",]
-    topBottomRightTMSLastDetected = ["n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a",]
+    topBottomRightLateLastDetected = ["n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a"]
+    topBottomRightTMSLastDetected = ["n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a"]
+    accessToRightLaneLastDetected = ["n/a", "n/a"]
+    minorWaitLengthBeforeAction = 20 ## Consider
+    TIMETOPERFORMDELAYTOC = 30 ## Consider
+
     # delayBeforeReoute = 120
-    # TIMETOPERFORMDELAYTOC = 30
+    
     ENCOUNTEREDCLOSURETOC = 3 # CONSIDER
     TMSISSUEDTOC = 5            # CONSIDER
-    # delayBeforeToC = 20
+    
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
-    #     # vehiclesApproachingClosure = removeVehiclesNoLongerPresent(vehiclesApproachingClosure)
-    #     # vehiclesThatTORed = removeVehiclesNoLongerPresent(vehiclesThatTORed)
-    #     vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
+        vehiclesApproachingMergedLanes = removeVehiclesThatPassCenter(vehiclesApproachingMergedLanes)
         vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
     
-        # if (step%2 == 0):
-            
-
-        
         if(step%3 == 0):
             leftApproachingLastDetected = handlingLeftApproaching(vehiclesThatTORed, TMSISSUEDTOC, ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected)
             vehiclesThatTORed, topBottomRightLateLastDetected, topBottomRightTMSLastDetected = handlingTopRightBottom(topBottomRightLateDetectors, topBottomRightTMSDetectors, vehiclesThatTORed, 
                                                                 ENCOUNTEREDCLOSURETOC, topBottomRightLateLastDetected, topBottomRightTMSLastDetected)
     #         vehiclesApproachingClosure, vehiclesThatTORed = majorDelayDetection(delayBeforeReoute, vehiclesApproachingClosure, vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step)
-            # vehiclesThatTORed, vehiclesApproachingClosure = allowingAccessToRightLane(delayBeforeToC, TIMETOPERFORMDELAYTOC, vehiclesThatTORed, vehiclesApproachingClosure)
+            vehiclesThatTORed, accessToRightLaneLastDetected = allowingAccessToRightLane(minorWaitLengthBeforeAction, vehiclesThatTORed, accessToRightLaneLastDetected, TIMETOPERFORMDELAYTOC)
 
         step += 1
 
