@@ -7,77 +7,16 @@ import numpy as np
 
 sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simulation Stuff/Final-Year-Project')
 
-from generalFunctions import settingUpVehicles, flowCorrection, removeOldToC, roadworksTMSTopRightBottom, naturalHandlingTopRightBottom, roadworksReRoutingLeftVehicles
+from generalFunctions import (settingUpVehicles, flowCorrection, removeOldToC, roadworksTMSTopRightBottom, lateVehicleIndidentDetectionTopRightBottom, 
+roadworksReRoutingLeftVehicles, leftUpStreamTMS, standardVehicleScenarioDetection, issuingToCToVehiclesTMS, lateVehicleIncidentDetection)
 
-def handlingTopRightBottom(lateDetectors, topBottomLeftTMSDetectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC):
-    roadworksTMSTopRightBottom(topBottomLeftTMSDetectors)
-    vehiclesThatTORed = naturalHandlingTopRightBottom(lateDetectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC)    
-    return vehiclesThatTORed
+def handlingTopRightBottom(topBottomRightLateDetectors, topBottomRightTMSDetectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC, topBottomRightLateLastDetected, topBottomRightTMSLastDetected):
+    topBottomRightTMSLastDetected = roadworksTMSTopRightBottom(topBottomRightTMSDetectors, topBottomRightTMSLastDetected)
+    # vehiclesThatTORed, leftApproachingLastDetected[2] = issuingToCToVehiclesTMSTopRightBottom(vehiclesThatTORed, TMSISSUEDTOC, leftApproachingLastDetected[2])
+    vehiclesThatTORed, topBottomRightLateLastDetected = lateVehicleIndidentDetectionTopRightBottom(topBottomRightLateDetectors, vehiclesThatTORed, 
+                                                        ENCOUNTEREDCOLLISIONTOC, topBottomRightLateLastDetected)    
+    return vehiclesThatTORed, topBottomRightLateLastDetected, topBottomRightTMSLastDetected
 
-def leftUpStreamTMS(leftApproachingLastDetected):
-    det_vehs = traci.inductionloop.getLastStepVehicleIDs("rerouting-left-vehicles")
-    for veh in det_vehs:
-        vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
-        if traci.vehicle.getVehicleClass(veh) == "custom2" and vehicleType == "CV" and leftApproachingLastDetected != veh:
-            receivedTMSResult = random.randint(0, 99)
-            if receivedTMSResult > 75:
-                # print("Did get TMS", veh)
-                # traci.vehicle.setParameter(veh, "dynamicToCThreshold", 0)
-                traci.vehicle.setVehicleClass(veh, "custom1")
-                roadworksReRoutingLeftVehicles(veh)
-            # else:
-                # print("Didn't get TMS", veh)
-        leftApproachingLastDetected = veh
-    return leftApproachingLastDetected
-                
-
-def standardVehicleScenarioDetection(leftApproachingLastDetected):
-    det_vehs = traci.inductionloop.getLastStepVehicleIDs("leftlaneStandardDetection")
-    for veh in det_vehs:
-        if traci.vehicle.getVehicleClass(veh) == "custom2" and leftApproachingLastDetected != veh:
-            figuredOutScenario = random.randint(0,9) ## Needs to be considered
-            if(figuredOutScenario < 3):
-                # print("Did detect blockage", veh)
-                # traci.vehicle.setParameter(veh, "dynamicToCThreshold", 0)
-                traci.vehicle.setVehicleClass(veh, "custom1")
-                roadworksReRoutingLeftVehicles(veh)
-            # else:
-                # print("Didn't detect blockage", veh)
-        leftApproachingLastDetected = veh
-    return leftApproachingLastDetected
-    
-def issuingToCToVehiclesTMS(vehiclesThatTORed, TMSISSUEDTOC, leftApproachingLastDetected):
-    det_vehs = traci.inductionloop.getLastStepVehicleIDs("issuingToCInVehicleTMS")
-    for veh in det_vehs:
-        temp = veh in vehiclesThatTORed
-        vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
-        receivedToCAdvice = random.randint(0,9)
-        if( (temp == False) and (vehicleType == "CV") and (receivedToCAdvice < 3) and (leftApproachingLastDetected != veh)):
-            # print("Received ToC Advice", veh)
-            roadworksReRoutingLeftVehicles(veh)
-            traci.vehicle.setParameter(veh, "device.toc.requestToC", TMSISSUEDTOC)
-            vehiclesThatTORed.append(veh)
-
-        if vehicleType == "HDV":
-            receivedToCAdvice = random.randint(0,9) ## Needs to be considered
-            if(receivedToCAdvice < 4 and leftApproachingLastDetected != veh):
-                roadworksReRoutingLeftVehicles(veh)
-                traci.vehicle.setVehicleClass(veh, "custom1")
-        leftApproachingLastDetected = veh
-    return vehiclesThatTORed, leftApproachingLastDetected
-
-def lateVehicleIncidentDetection(ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected):
-    det_vehs = traci.inductionloop.getLastStepVehicleIDs("allVehiclesToC")
-    for veh in det_vehs:
-        if leftApproachingLastDetected != veh:
-            vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
-            roadworksReRoutingLeftVehicles(veh)
-            if vehicleType == "HDV":
-                traci.vehicle.setVehicleClass(veh, "custom1")
-            else:
-                traci.vehicle.setParameter(veh, "device.toc.requestToC", ENCOUNTEREDCLOSURETOC)
-        leftApproachingLastDetected = veh
-    return leftApproachingLastDetected
 
 def handlingLeftApproaching(vehiclesThatTORed, TMSISSUEDTOC, ENCOUNTEREDCLOSURETOC,leftApproachingLastDetected):
     leftApproachingLastDetected[0] = leftUpStreamTMS(leftApproachingLastDetected[0])
@@ -90,14 +29,21 @@ def handlingLeftApproaching(vehiclesThatTORed, TMSISSUEDTOC, ENCOUNTEREDCLOSURET
 def TMS():
     print("Running Baseline")
     step = 0
-    lateDetectors = ["intersectionTop", "intersectionRight", "intersectionBottom"]
-    topBottomLeftTMSDetectors = ["advanceTop_0", "advanceTop_1", "advanceTop_2", 
+    
+    topBottomRightTMSDetectors = ["advanceTop_0", "advanceTop_1", "advanceTop_2", 
                                 "advanceRight_0", "advanceRight_1", "advanceRight_2", 
                                 "advanceBottom_0", "advanceBottom_1", "advanceBottom_2"
                                 ]
+
+    topBottomRightLateDetectors = ["lateTop_0", "lateTop_1", "lateTop_2",
+                                    "lateRight_0", "lateRight_1", "lateRight_2",
+                                    "lateBottom_0", "lateBottom_1","lateBottom_2"
+                                    ]
     # vehiclesApproachingClosure = []
     vehiclesThatTORed = []
     leftApproachingLastDetected = ["n/a", "n/a", "n/a", "n/a"]
+    topBottomRightLateLastDetected = ["n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a",]
+    topBottomRightTMSLastDetected = ["n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a",]
     # delayBeforeReoute = 120
     # TIMETOPERFORMDELAYTOC = 30
     ENCOUNTEREDCLOSURETOC = 3 # CONSIDER
@@ -116,7 +62,8 @@ def TMS():
         
         if(step%3 == 0):
             leftApproachingLastDetected = handlingLeftApproaching(vehiclesThatTORed, TMSISSUEDTOC, ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected)
-            vehiclesThatTORed = handlingTopRightBottom(lateDetectors, topBottomLeftTMSDetectors, vehiclesThatTORed, ENCOUNTEREDCLOSURETOC)
+            vehiclesThatTORed, topBottomRightLateLastDetected, topBottomRightTMSLastDetected = handlingTopRightBottom(topBottomRightLateDetectors, topBottomRightTMSDetectors, vehiclesThatTORed, 
+                                                                ENCOUNTEREDCLOSURETOC, topBottomRightLateLastDetected, topBottomRightTMSLastDetected)
     #         vehiclesApproachingClosure, vehiclesThatTORed = majorDelayDetection(delayBeforeReoute, vehiclesApproachingClosure, vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step)
             # vehiclesThatTORed, vehiclesApproachingClosure = allowingAccessToRightLane(delayBeforeToC, TIMETOPERFORMDELAYTOC, vehiclesThatTORed, vehiclesApproachingClosure)
 
