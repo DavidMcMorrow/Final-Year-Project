@@ -38,9 +38,9 @@ SCENARIO = "Roadworks"
 # TYPE = "Baseline-CAV"
 TYPE = "TMS-CAV"
 
-LOS = "A"
+# LOS = "A"
 # LOS = "B"
-# LOS = "C"
+LOS = "C"
 # LOS = "D"
 
 # ITERATION = 1

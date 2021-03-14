@@ -23,7 +23,7 @@ def handlingLeftApproaching(vehiclesThatTORed, TMSISSUEDTOC, ENCOUNTEREDCLOSURET
     leftApproachingLastDetected[0] = leftUpStreamTMS(leftApproachingLastDetected[0])
     leftApproachingLastDetected[1] = standardVehicleScenarioDetection(leftApproachingLastDetected[1])
     vehiclesThatTORed, leftApproachingLastDetected[2] = issuingToCToVehiclesTMS(vehiclesThatTORed, TMSISSUEDTOC, leftApproachingLastDetected[2])
-    leftApproachingLastDetected[3] = lateVehicleIncidentDetection(ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected[3])
+    leftApproachingLastDetected[3], vehiclesThatTORed = lateVehicleIncidentDetection(ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected[3], vehiclesThatTORed)
     return leftApproachingLastDetected
 
 def allowingAccessToRightLane(minorWaitLengthBeforeAction, vehiclesThatTORed, accessToRightLaneLastDetected, TIMETOPERFORMDELAYTOC):
@@ -63,7 +63,7 @@ def TMS():
         vehiclesApproachingMergedLanes = removeVehiclesThatPassCenter(vehiclesApproachingMergedLanes)
         vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
     
-        if(step%3 == 0):
+        if(step%2 == 0):
             leftApproachingLastDetected = handlingLeftApproaching(vehiclesThatTORed, TMSISSUEDTOC, ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected)
             vehiclesThatTORed, topBottomRightLateLastDetected, topBottomRightTMSLastDetected = handlingTopRightBottom(topBottomRightLateDetectors, topBottomRightTMSDetectors, vehiclesThatTORed, 
                                                                 ENCOUNTEREDCLOSURETOC, topBottomRightLateLastDetected, topBottomRightTMSLastDetected)
