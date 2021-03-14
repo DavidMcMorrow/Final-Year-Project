@@ -77,7 +77,8 @@ def TMS():
 
 def roadworksBaselineHDVTMS(sumoBinary, LOS, ITERATION):
     # settingUpVehicles(LOS)
-    settingUpVehicles("Roadworks", "\BaselineHDV", LOS)
+    rate = vehicleRates(LOS)
+    settingUpVehicles("Roadworks", "\BaselineHDV", LOS, rate)
     flowCorrection(['Roadworks/BaselineHDV/Route-Files/L0-HDV-Route.rou.xml'], ['L0-HDV'], "HDV")
     
     #traci starts sumo as a subprocess and then this script connects and runs
@@ -88,7 +89,18 @@ def roadworksBaselineHDVTMS(sumoBinary, LOS, ITERATION):
     TMS()
     baselineAlterOutputFiles("Roadworks", "HDV", LOS, ITERATION, ["HDV"])
     
-
+def vehicleRates(LOS):
+    if LOS == "A":
+        rate = [1.86]
+    if LOS == "B":
+        rate = [1.25]
+    if LOS == "C":
+        rate = [1.07]
+    if LOS == "D":
+        rate = [0.94]
+    if LOS == "Test":
+        rate = [0.7]
+    return rate
 
 # automate file name creation
 # do the same for trip-info.xml

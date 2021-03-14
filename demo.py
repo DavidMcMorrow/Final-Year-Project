@@ -14,6 +14,7 @@ from Collision.CollisionTMS import runCollisionTMS
 from Roadworks.BaselineHDV.BaselineHDVRoadworksTMS import roadworksBaselineHDVTMS
 from Roadworks.BaselineCAV.BaselineCAVRoadworksTMS import roadworksBaselineCAVTMS
 from Roadworks.RealTMSCAV.RealCAVRoadworksTMS import roadworksRealTMSCAV
+from Roadworks.RealTMSPenetration1.RealPenetration1RoadworksTMS import RoadworksRealTMSPenetration1
 
 from Collision.BaselineHDV.BaselineHDVCollisionTMS import collisionBaselineHDVTMS
 from Collision.BaselineCAV.BaselineCAVCollisionTMS import collisionBaselineCAVTMS
@@ -36,16 +37,17 @@ SCENARIO = "Roadworks"
 
 # TYPE = "Baseline-HDV"
 # TYPE = "Baseline-CAV"
-TYPE = "TMS-CAV"
+# TYPE = "TMS-CAV"
+TYPE = "Penetration1"
 
-# LOS = "A"
+LOS = "A"
 # LOS = "B"
-LOS = "C"
+# LOS = "C"
 # LOS = "D"
 
-# ITERATION = 1
+ITERATION = 1
 # ITERATION = 2
-ITERATION = 3
+# ITERATION = 3
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
@@ -72,6 +74,8 @@ if __name__ == "__main__":
             roadworksBaselineCAVTMS(sumoBinary, LOS, ITERATION)
         elif TYPE == "TMS-CAV":
             roadworksRealTMSCAV(sumoBinary, LOS, ITERATION)
+        elif TYPE == "Penetration1":
+            RoadworksRealTMSPenetration1(sumoBinary, LOS, ITERATION)
 
     else:
         if TYPE == "Baseline-HDV":

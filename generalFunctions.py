@@ -3,7 +3,8 @@ import os
 import traci
 from xml.dom import minidom
 
-def settingUpVehicles(SCENARIO, USECASEFOLDER, LOS):
+def settingUpVehicles(SCENARIO, USECASEFOLDER, LOS, rate):
+    count = 0
     textFileToRun = SCENARIO + USECASEFOLDER + "\PreparingVehicleModels\How to use.txt"
     with open(textFileToRun) as f:
         for line in f:
@@ -13,15 +14,16 @@ def settingUpVehicles(SCENARIO, USECASEFOLDER, LOS):
                     line = line.rstrip()
                     line = line + " " + str(random.randint(0,9))
                     if LOS == "A":
-                        line = line + " -p " + str(1.86)
+                        line = line + " -p " + str(rate[count])#str(1.86)
                     if LOS == "B":
-                        line = line + " -p " + str(1.25)
+                        line = line + " -p " + str(rate[count]) #str(1.25)
                     if LOS == "C":
-                        line = line + " -p " + str(1.07)
+                        line = line + " -p " + str(rate[count]) # str(1.07)
                     if LOS == "D":
-                        line = line + " -p " + str(0.94)
+                        line = line + " -p " + str(rate[count]) #str(0.94)
                     if LOS == "Test":
-                        line = line + " -p " + str(0.7)
+                        line = line + " -p " + str(rate[count]) #str(0.7)
+                    count = count + 1
     
                 os.system(line)
 
@@ -105,7 +107,7 @@ def flowCorrection(files, vehiclesTypes, baseline):
                 route = "left-long-approaching preparation " + routes[i].getAttribute("edges")
                 routes[i].setAttribute("edges", route)
 
-            if(baseline == "HDV"):
+            if(vehiclesTypes[j] == "L0-HDV"):
                 if(routes[i].getAttribute("edges") == "left-long-approaching preparation left-short-approaching top-exit"):
                     temp = vehiclesTypes[j] + "-Left-"
                     vehicles[i].setAttribute("type", temp)
@@ -137,7 +139,75 @@ def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
             vehiclesApproachingClosure.remove(vehicle)
     return vehiclesApproachingClosure
 
+def TMSAlterOutputFiles(SCENARIO, penetration, LOS, ITERATION, VEHICLETYPES):
+    for vehType in VEHICLETYPES:
+        newSafetyFile = SCENARIO + "\RealTMS" + penetration  + "\Output-Files\LOS-" + LOS + "\SSM-" + vehType + "-"+ str(ITERATION) + ".xml"        
+        oldSafetyFile = SCENARIO + "\RealTMS" + penetration + "\Output-Files\SSM-" + vehType + ".xml"
+
+        if(os.path.exists(oldSafetyFile)):
+            with open(oldSafetyFile, 'r') as firstFile:
+                with open(newSafetyFile, 'w') as secondFile:
+                    for line in firstFile:
+                        secondFile.write(line)
+    
+    newTripFile = SCENARIO + "\RealTMS" + penetration  + "\Output-Files\LOS-" + LOS + "\Trips-" + str(ITERATION) + ".xml"
+    oldTripFile = SCENARIO + "\RealTMS" + penetration + "\Output-Files\TripInfo.xml"
+
+    with open(oldTripFile, 'r') as firstFile:
+        with open(newTripFile, 'w') as secondFile:
+            for line in firstFile:
+                secondFile.write(line)
+
+# def settingUpVehiclesForPenetrationRate(SCENARIO, USECASEFOLDER, LOS):
+
+#     textFileToRun = SCENARIO + USECASEFOLDER + "\PreparingVehicleModels\How to use.txt"
+#     with open(textFileToRun) as f:
+#         for line in f:
+#             if(line != "\n"):
+#                 line = 'cmd /c ' + line
+#                 if(line.find('python PreparingVehicleModels/randomTrips.py') != -1):
+#                     line = line.rstrip()
+#                     line = line + " " + str(random.randint(0,9))
+#                     if LOS == "A":
+#                         line = line + " -p " + str(1.86)
+#                     if LOS == "B":
+#                         line = line + " -p " + str(1.25)
+#                     if LOS == "C":
+#                         line = line + " -p " + str(1.07)
+#                     if LOS == "D":
+#                         line = line + " -p " + str(0.94)
+#                     if LOS == "Test":
+#                         line = line + " -p " + str(0.7)
+    
+#                 os.system(line)
+
+
 ############################## Roadworks TMS ##############################
+############### Caller Functions ###############
+def handlingTopRightBottom(topBottomRightLateDetectors, topBottomRightTMSDetectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC, topBottomRightLateLastDetected, topBottomRightTMSLastDetected):
+    topBottomRightTMSLastDetected = roadworksTMSTopRightBottom(topBottomRightTMSDetectors, topBottomRightTMSLastDetected)
+    # vehiclesThatTORed, leftApproachingLastDetected[2] = issuingToCToVehiclesTMSTopRightBottom(vehiclesThatTORed, TMSISSUEDTOC, leftApproachingLastDetected[2])
+    vehiclesThatTORed, topBottomRightLateLastDetected = lateVehicleIndidentDetectionTopRightBottom(topBottomRightLateDetectors, vehiclesThatTORed, 
+                                                        ENCOUNTEREDCOLLISIONTOC, topBottomRightLateLastDetected)    
+    return vehiclesThatTORed, topBottomRightLateLastDetected, topBottomRightTMSLastDetected
+
+def handlingLeftApproaching(vehiclesThatTORed, TMSISSUEDTOC, ENCOUNTEREDCLOSURETOC,leftApproachingLastDetected):
+    leftApproachingLastDetected[0] = leftUpStreamTMS(leftApproachingLastDetected[0])
+    leftApproachingLastDetected[1] = standardVehicleScenarioDetection(leftApproachingLastDetected[1])
+    vehiclesThatTORed, leftApproachingLastDetected[2] = issuingToCToVehiclesTMS(vehiclesThatTORed, TMSISSUEDTOC, leftApproachingLastDetected[2])
+    leftApproachingLastDetected[3], vehiclesThatTORed = lateVehicleIncidentDetection(ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected[3], vehiclesThatTORed)
+    return leftApproachingLastDetected
+
+def allowingAccessToRightLane(minorWaitLengthBeforeAction, vehiclesThatTORed, accessToRightLaneLastDetected, TIMETOPERFORMDELAYTOC):
+    accessToRightLaneLastDetected[0] = allowingAccessToRightLaneTMS(accessToRightLaneLastDetected[0])
+    vehiclesThatTORed, accessToRightLaneLastDetected[1] = allowingAccessToRightLaneLate(accessToRightLaneLastDetected[1], minorWaitLengthBeforeAction, vehiclesThatTORed, TIMETOPERFORMDELAYTOC)
+    return vehiclesThatTORed, accessToRightLaneLastDetected
+
+def roadWorksMajorDelayDetection(delayBeforeReRoute, vehiclesApproachingClosure, vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step, majorDelayDetectionLastDetected, majorDelayDetectors):
+    vehiclesApproachingClosure, majorDelayDetectionLastDetected = addingVehicleToDelayDetection(majorDelayDetectors, vehiclesApproachingClosure, "bottom-exit", majorDelayDetectionLastDetected)
+    vehiclesApproachingClosure, vehiclesThatTORed = detectingMajorDelay(vehiclesApproachingClosure, vehiclesThatTORed, delayBeforeReRoute, TIMETOPERFORMDELAYTOC, step)
+    return vehiclesApproachingClosure, vehiclesThatTORed, majorDelayDetectionLastDetected
+
 ############### Top Right Bottom Approach ###############
 def roadworksTMSTopRightBottom(topBottomRightTMSDetectors, lastVehicleDetected):
     count = 0 
@@ -194,6 +264,7 @@ def leftUpStreamTMS(leftApproachingLastDetected):
                 # print("Did get TMS", veh)
                 traci.vehicle.setVehicleClass(veh, "custom1")
                 roadworksReRoutingLeftVehicles(veh)
+                # traci.vehicle.setParameter(veh, "dynamicToCThreshold", 0)
                 traci.vehicle.updateBestLanes(veh)
             # else:
                 # print("Didn't get TMS", veh)
@@ -255,6 +326,7 @@ def lateVehicleIncidentDetection(ENCOUNTEREDCLOSURETOC, leftApproachingLastDetec
         leftApproachingLastDetected = veh
     return leftApproachingLastDetected, vehiclesThatTORed
 
+############### Remaining functionality in left lane ###############
 def allowingAccessToRightLaneTMS(lastVehicleDetected):
     det_vehs = traci.inductionloop.getLastStepVehicleIDs("allowingRightLaneAccessTMS")
     for veh in det_vehs:
@@ -315,13 +387,13 @@ def detectingMajorDelay(vehiclesApproachingClosure, vehiclesThatTORed, delayBefo
         for veh in vehiclesApproachingClosure:
             temp3 = traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1]
             if(traci.vehicle.getAccumulatedWaitingTime(veh) > delayBeforeReRoute):
-                print("MAJOR DELAY DETECTED", veh)
+                # print("MAJOR DELAY DETECTED", veh)
                 vehiclesApproachingClosure, vehiclesThatTORed = reRoutingVehicles(veh, temp3, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime)
     return vehiclesApproachingClosure, vehiclesThatTORed
 
 def reRoutingVehicles(veh, target, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime):
     shouldBeRemoved = False
-    print("traci.vehicle.getLaneID(veh)", traci.vehicle.getLaneID(veh))
+    # print("traci.vehicle.getLaneID(veh)", traci.vehicle.getLaneID(veh))
     if traci.vehicle.getLaneID(veh) == "left-short-approaching_1" or traci.vehicle.getLaneID(veh) == "left-short-approaching_0":
         shouldBeRemoved = True
     else:
@@ -329,7 +401,7 @@ def reRoutingVehicles(veh, target, vehiclesApproachingClosure, vehiclesThatTORed
         temp = veh in vehiclesThatTORed
 
         if(tocResult > 24 and temp == False and (traci.vehicle.getTypeID(veh)[:2] == "L4" or traci.vehicle.getTypeID(veh)[:2] == "L2")):
-            print("ToC due to delay", veh)
+            # print("ToC due to delay", veh)
             traci.vehicle.requestToC(veh, ToCLeadTime)
             vehiclesThatTORed.append(veh)
             shouldBeRemoved = True
@@ -337,7 +409,7 @@ def reRoutingVehicles(veh, target, vehiclesApproachingClosure, vehiclesThatTORed
 
         rerouteResult = random.randint(0, 99) ## NEED TO CONSIDER THIS PROBABILITY MORE
         if(rerouteResult < 32):
-            print("+++ReRoute due to delay", veh)
+            # print("+++ReRoute due to delay", veh)
             traci.vehicle.setVehicleClass(veh, "passenger")
             traci.vehicle.setRoute(veh, roadworksReRouting(target))
             shouldBeRemoved = True

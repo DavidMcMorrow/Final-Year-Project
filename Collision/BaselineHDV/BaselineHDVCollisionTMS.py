@@ -110,7 +110,8 @@ def TMS():
 
 def collisionBaselineHDVTMS(sumoBinary, LOS, ITERATION):
     print("here")
-    settingUpVehicles("Collision", "\BaselineHDV", LOS)
+    rate = vehicleRates(LOS)
+    settingUpVehicles("Collision", "\BaselineHDV", LOS, rate)
     traci.start([sumoBinary, "-c", "Collision\BaselineHDV\CollisionIntersectionBaselineHDV.sumocfg",
                                 "--tripinfo-output", "Collision\BaselineHDV\Output-Files\Tripinfo.xml", "--ignore-route-errors", 
                                 "--device.emissions.probability", "1", "--waiting-time-memory", "300"])
@@ -146,3 +147,15 @@ def reRoutingVehicles(veh, edge, vehiclesApproachingClosure):
 #             vehiclesApproachingClosure.remove(waitingVehicle)
 #     return vehiclesApproachingClosure
 
+def vehicleRates(LOS):
+    if LOS == "A":
+        rate = [1.86]
+    if LOS == "B":
+        rate = [1.25]
+    if LOS == "C":
+        rate = [1.07]
+    if LOS == "D":
+        rate = [0.94]
+    if LOS == "Test":
+        rate = [0.7]
+    return rate

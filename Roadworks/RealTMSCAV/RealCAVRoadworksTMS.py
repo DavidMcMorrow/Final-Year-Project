@@ -9,31 +9,8 @@ sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simu
 
 from generalFunctions import (settingUpVehicles, flowCorrection, removeOldToC, roadworksTMSTopRightBottom, lateVehicleIndidentDetectionTopRightBottom, 
 roadworksReRoutingLeftVehicles, leftUpStreamTMS, standardVehicleScenarioDetection, issuingToCToVehiclesTMS, lateVehicleIncidentDetection, removeVehiclesThatPassCenter,
-allowingAccessToRightLaneTMS, allowingAccessToRightLaneLate, addingVehicleToDelayDetection, detectingMajorDelay)
-
-def handlingTopRightBottom(topBottomRightLateDetectors, topBottomRightTMSDetectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC, topBottomRightLateLastDetected, topBottomRightTMSLastDetected):
-    topBottomRightTMSLastDetected = roadworksTMSTopRightBottom(topBottomRightTMSDetectors, topBottomRightTMSLastDetected)
-    # vehiclesThatTORed, leftApproachingLastDetected[2] = issuingToCToVehiclesTMSTopRightBottom(vehiclesThatTORed, TMSISSUEDTOC, leftApproachingLastDetected[2])
-    vehiclesThatTORed, topBottomRightLateLastDetected = lateVehicleIndidentDetectionTopRightBottom(topBottomRightLateDetectors, vehiclesThatTORed, 
-                                                        ENCOUNTEREDCOLLISIONTOC, topBottomRightLateLastDetected)    
-    return vehiclesThatTORed, topBottomRightLateLastDetected, topBottomRightTMSLastDetected
-
-def handlingLeftApproaching(vehiclesThatTORed, TMSISSUEDTOC, ENCOUNTEREDCLOSURETOC,leftApproachingLastDetected):
-    leftApproachingLastDetected[0] = leftUpStreamTMS(leftApproachingLastDetected[0])
-    leftApproachingLastDetected[1] = standardVehicleScenarioDetection(leftApproachingLastDetected[1])
-    vehiclesThatTORed, leftApproachingLastDetected[2] = issuingToCToVehiclesTMS(vehiclesThatTORed, TMSISSUEDTOC, leftApproachingLastDetected[2])
-    leftApproachingLastDetected[3], vehiclesThatTORed = lateVehicleIncidentDetection(ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected[3], vehiclesThatTORed)
-    return leftApproachingLastDetected
-
-def allowingAccessToRightLane(minorWaitLengthBeforeAction, vehiclesThatTORed, accessToRightLaneLastDetected, TIMETOPERFORMDELAYTOC):
-    accessToRightLaneLastDetected[0] = allowingAccessToRightLaneTMS(accessToRightLaneLastDetected[0])
-    vehiclesThatTORed, accessToRightLaneLastDetected[1] = allowingAccessToRightLaneLate(accessToRightLaneLastDetected[1], minorWaitLengthBeforeAction, vehiclesThatTORed, TIMETOPERFORMDELAYTOC)
-    return vehiclesThatTORed, accessToRightLaneLastDetected
-
-def roadWorksMajorDelayDetection(delayBeforeReRoute, vehiclesApproachingClosure, vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step, majorDelayDetectionLastDetected, majorDelayDetectors):
-    vehiclesApproachingClosure, majorDelayDetectionLastDetected = addingVehicleToDelayDetection(majorDelayDetectors, vehiclesApproachingClosure, "bottom-exit", majorDelayDetectionLastDetected)
-    vehiclesApproachingClosure, vehiclesThatTORed = detectingMajorDelay(vehiclesApproachingClosure, vehiclesThatTORed, delayBeforeReRoute, TIMETOPERFORMDELAYTOC, step)
-    return vehiclesApproachingClosure, vehiclesThatTORed, majorDelayDetectionLastDetected
+allowingAccessToRightLaneTMS, allowingAccessToRightLaneLate, addingVehicleToDelayDetection, detectingMajorDelay, handlingTopRightBottom, handlingLeftApproaching,
+allowingAccessToRightLane, roadWorksMajorDelayDetection, TMSAlterOutputFiles)
     
 def TMS():
     print("Running Baseline")
@@ -69,10 +46,10 @@ def TMS():
     
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
-        vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
-        vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
-    
-        if(step%2 == 0):
+
+        if(step%3 == 0):
+            vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
+            vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
             leftApproachingLastDetected = handlingLeftApproaching(vehiclesThatTORed, TMSISSUEDTOC, ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected)
             vehiclesThatTORed, topBottomRightLateLastDetected, topBottomRightTMSLastDetected = handlingTopRightBottom(topBottomRightLateDetectors, topBottomRightTMSDetectors, vehiclesThatTORed, 
                                                                 ENCOUNTEREDCLOSURETOC, topBottomRightLateLastDetected, topBottomRightTMSLastDetected)
@@ -87,7 +64,8 @@ def TMS():
 
 def roadworksRealTMSCAV(sumoBinary, LOS, ITERATION):
     print("HERE")
-    settingUpVehicles("Roadworks", "\RealTMSCAV", LOS)
+    rate = vehicleRates(LOS)
+    settingUpVehicles("Roadworks", "\RealTMSCAV", LOS, rate)
     flowCorrection(['Roadworks/RealTMSCAV/Route-Files/L4-CV-Route.rou.xml'], ["L4-CV"], "CAV")
     
     # #traci starts sumo as a subprocess and then this script connects and runs
@@ -96,4 +74,17 @@ def roadworksRealTMSCAV(sumoBinary, LOS, ITERATION):
                 "--device.emissions.probability", "1", "--waiting-time-memory", "300"])
 
     TMS()
-    # baselineAlterOutputFiles("Roadworks", "CAV", LOS, ITERATION, ["L4-CV", "HDV"])
+    TMSAlterOutputFiles("Roadworks", "CAV", LOS, ITERATION, ["L4-CV", "HDV"])
+
+def vehicleRates(LOS):
+    if LOS == "A":
+        rate = [1.86]
+    if LOS == "B":
+        rate = [1.25]
+    if LOS == "C":
+        rate = [1.07]
+    if LOS == "D":
+        rate = [0.94]
+    if LOS == "Test":
+        rate = [0.7]
+    return rate

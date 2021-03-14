@@ -107,7 +107,8 @@ def TMS():
     sys.stdout.flush()
 
 def roadworksBaselineCAVTMS(sumoBinary, LOS, ITERATION):
-    settingUpVehicles("Roadworks", "\BaselineCAV", LOS)
+    rate = vehicleRates(LOS)
+    settingUpVehicles("Roadworks", "\BaselineCAV", LOS, rate)
     flowCorrection(['Roadworks/BaselineCAV/Route-Files/L4-CV-Route.rou.xml'], ["L4-CV"], "CAV")
     
     #traci starts sumo as a subprocess and then this script connects and runs
@@ -137,3 +138,15 @@ def allowingAccessToRightLane(delayBeforeToC, TIMETOPERFORMDELAYTOC, vehiclesTha
 
     return vehiclesThatTORed, vehiclesApproachingClosure
 
+def vehicleRates(LOS):
+    if LOS == "A":
+        rate = [1.86]
+    if LOS == "B":
+        rate = [1.25]
+    if LOS == "C":
+        rate = [1.07]
+    if LOS == "D":
+        rate = [0.94]
+    if LOS == "Test":
+        rate = [0.7]
+    return rate
