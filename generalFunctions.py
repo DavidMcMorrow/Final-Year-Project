@@ -137,7 +137,6 @@ def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
             vehiclesApproachingClosure.remove(vehicle)
     return vehiclesApproachingClosure
 
-
 ############################## Roadworks TMS ##############################
 ############### Top Right Bottom Approach ###############
 def roadworksTMSTopRightBottom(topBottomRightTMSDetectors, lastVehicleDetected):
@@ -297,5 +296,56 @@ def allowingAccessToRightLaneLate(lastVehicleDetected, delayRealisation, vehicle
                     traci.vehicle.setVehicleClass(veh, "passenger")
         lastVehicleDetected = veh
     return vehiclesThatTORed, lastVehicleDetected
+
+def addingVehicleToDelayDetection(majorDelayDetectors, vehiclesApproachingClosure, exitBeingIgnored, majorDelayDetectionLastDetected):
+    count = 0
+    for det in majorDelayDetectors:
+        det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
+        for veh in det_vehs:
+            temp1 = traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1]
+            temp2 = veh in vehiclesApproachingClosure
+            if ((temp1 != exitBeingIgnored) and (temp2 == False)):
+                vehiclesApproachingClosure.append(veh)
+            majorDelayDetectionLastDetected[count] = veh
+        count = count + 1
+    return vehiclesApproachingClosure, majorDelayDetectionLastDetected
+
+def detectingMajorDelay(vehiclesApproachingClosure, vehiclesThatTORed, delayBeforeReRoute, ToCLeadTime, step):
+    if (step%6 == 0):
+        for veh in vehiclesApproachingClosure:
+            temp3 = traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1]
+            if(traci.vehicle.getAccumulatedWaitingTime(veh) > delayBeforeReRoute):
+                print("MAJOR DELAY DETECTED", veh)
+                vehiclesApproachingClosure, vehiclesThatTORed = reRoutingVehicles(veh, temp3, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime)
+    return vehiclesApproachingClosure, vehiclesThatTORed
+
+def reRoutingVehicles(veh, target, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime):
+    shouldBeRemoved = False
+    print("traci.vehicle.getLaneID(veh)", traci.vehicle.getLaneID(veh))
+    if traci.vehicle.getLaneID(veh) == "left-short-approaching_1" or traci.vehicle.getLaneID(veh) == "left-short-approaching_0":
+        shouldBeRemoved = True
+    else:
+        tocResult = random.randint(0, 99) ## NEED TO CONSIDER THIS PROBABILITY MORE
+        temp = veh in vehiclesThatTORed
+
+        if(tocResult > 24 and temp == False and (traci.vehicle.getTypeID(veh)[:2] == "L4" or traci.vehicle.getTypeID(veh)[:2] == "L2")):
+            print("ToC due to delay", veh)
+            traci.vehicle.requestToC(veh, ToCLeadTime)
+            vehiclesThatTORed.append(veh)
+            shouldBeRemoved = True
+        
+
+        rerouteResult = random.randint(0, 99) ## NEED TO CONSIDER THIS PROBABILITY MORE
+        if(rerouteResult < 32):
+            print("+++ReRoute due to delay", veh)
+            traci.vehicle.setVehicleClass(veh, "passenger")
+            traci.vehicle.setRoute(veh, roadworksReRouting(target))
+            shouldBeRemoved = True
+            traci.vehicle.updateBestLanes(veh)
+
+    if shouldBeRemoved == True:
+        vehiclesApproachingClosure.remove(veh)
+
+    return vehiclesApproachingClosure, vehiclesThatTORed
 
 ############### ###############
