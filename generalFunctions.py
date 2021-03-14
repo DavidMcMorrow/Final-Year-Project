@@ -153,6 +153,7 @@ def roadworksTMSTopRightBottom(topBottomRightTMSDetectors, lastVehicleDetected):
                 receivedTMSResult = random.randint(0, 99) ## CONSIDER
                 if receivedTMSResult > 24:
                     traci.vehicle.setVehicleClass(veh, "passenger")
+                    
         count = count + 1
     return lastVehicleDetected
 
@@ -190,11 +191,11 @@ def leftUpStreamTMS(leftApproachingLastDetected):
         # print("vehicleType", vehicleType)
         if traci.vehicle.getVehicleClass(veh) == "custom2" and vehicleType == "CV" and leftApproachingLastDetected != veh:
             receivedTMSResult = random.randint(0, 99)
-            if receivedTMSResult > 75:
+            if receivedTMSResult > 24:
                 # print("Did get TMS", veh)
-                # traci.vehicle.setParameter(veh, "dynamicToCThreshold", 0)
                 traci.vehicle.setVehicleClass(veh, "custom1")
                 roadworksReRoutingLeftVehicles(veh)
+                traci.vehicle.updateBestLanes(veh)
             # else:
                 # print("Didn't get TMS", veh)
         leftApproachingLastDetected = veh
@@ -207,11 +208,11 @@ def standardVehicleScenarioDetection(leftApproachingLastDetected):
             figuredOutScenario = random.randint(0,9) ## Needs to be considered
             if(figuredOutScenario < 3):
                 # print("Did detect blockage", veh)
-                # traci.vehicle.setParameter(veh, "dynamicToCThreshold", 0)
                 traci.vehicle.setVehicleClass(veh, "custom1")
                 roadworksReRoutingLeftVehicles(veh)
+                traci.vehicle.updateBestLanes(veh)
             # else:
-                # print("Didn't detect blockage", veh)
+            #     print("Didn't detect blockage", veh)
         leftApproachingLastDetected = veh
     return leftApproachingLastDetected
     
@@ -227,6 +228,7 @@ def issuingToCToVehiclesTMS(vehiclesThatTORed, TMSISSUEDTOC, leftApproachingLast
             roadworksReRoutingLeftVehicles(veh)
             traci.vehicle.setParameter(veh, "device.toc.requestToC", TMSISSUEDTOC)
             vehiclesThatTORed.append(veh)
+            traci.vehicle.updateBestLanes(veh)
 
         if vehicleType == "HDV":
             receivedToCAdvice = random.randint(0,9) ## Needs to be considered
@@ -245,10 +247,12 @@ def lateVehicleIncidentDetection(ENCOUNTEREDCLOSURETOC, leftApproachingLastDetec
             temp = veh in vehiclesThatTORed
             if vehicleType == "HDV":
                 traci.vehicle.setVehicleClass(veh, "custom1")
+                traci.vehicle.updateBestLanes(veh)
             elif temp == False:
                 # print("MADE TOC", veh)
                 traci.vehicle.setParameter(veh, "device.toc.requestToC", ENCOUNTEREDCLOSURETOC)
                 vehiclesThatTORed.append(veh)
+                traci.vehicle.updateBestLanes(veh)
         leftApproachingLastDetected = veh
     return leftApproachingLastDetected, vehiclesThatTORed
 
@@ -262,10 +266,11 @@ def allowingAccessToRightLaneTMS(lastVehicleDetected):
             if target == "right-exit" and vehicleType == "CV":
                 receivedTMSResult = random.randint(0, 99) ## CONSIDER
                 if receivedTMSResult > 24:
-                    print("GOT TMS", veh)
+                    # print("GOT TMS", veh)
                     traci.vehicle.setVehicleClass(veh, "passenger")
-                else:
-                    print("MISSED TMS", veh)
+                    traci.vehicle.updateBestLanes(veh)
+                # else:
+                #     print("MISSED TMS", veh)
         lastVehicleDetected = veh
     return lastVehicleDetected
 
@@ -280,12 +285,14 @@ def allowingAccessToRightLaneLate(lastVehicleDetected, delayRealisation, vehicle
                 vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
                 scenarioRecognitionResult = random.randint(0, 99) ## CONSIDER
                 if vehicleType != "HDV" and scenarioRecognitionResult < 24:
-                     print("GOT TMS the second time", veh)
+                    #  print("GOT TMS the second time", veh)
                      traci.vehicle.setVehicleClass(veh, "passenger")
+                     traci.vehicle.updateBestLanes(veh)
                 elif vehicleType != "HDV" and scenarioRecognitionResult > 90:
-                    print("HAD TO ToC because of TMS", veh)
+                    # print("HAD TO ToC because of TMS", veh)
                     traci.vehicle.requestToC(veh, TIMETOPERFORMDELAYTOC)
                     vehiclesThatTORed.append(veh)
+                    traci.vehicle.updateBestLanes(veh)
                 elif vehicleType == "HDV" and scenarioRecognitionResult < 74:
                     traci.vehicle.setVehicleClass(veh, "passenger")
         lastVehicleDetected = veh
