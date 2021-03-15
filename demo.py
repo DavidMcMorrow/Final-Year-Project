@@ -15,6 +15,8 @@ from Roadworks.BaselineHDV.BaselineHDVRoadworksTMS import roadworksBaselineHDVTM
 from Roadworks.BaselineCAV.BaselineCAVRoadworksTMS import roadworksBaselineCAVTMS
 from Roadworks.RealTMSCAV.RealCAVRoadworksTMS import roadworksRealTMSCAV
 from Roadworks.RealTMSPenetration1.RealPenetration1RoadworksTMS import RoadworksRealTMSPenetration1
+from Roadworks.RealTMSPenetration2.RealPenetration2RoadworksTMS import RoadworksRealTMSPenetration2
+from Roadworks.RealTMSPenetration3.RealPenetration3RoadworksTMS import RoadworksRealTMSPenetration3
 
 from Collision.BaselineHDV.BaselineHDVCollisionTMS import collisionBaselineHDVTMS
 from Collision.BaselineCAV.BaselineCAVCollisionTMS import collisionBaselineCAVTMS
@@ -35,19 +37,21 @@ def get_options():
 SCENARIO = "Roadworks"
 # SCENARIO = "Collision"
 
-# TYPE = "Baseline-HDV"
+TYPE = "Baseline-HDV"
 # TYPE = "Baseline-CAV"
 # TYPE = "TMS-CAV"
-TYPE = "Penetration1"
+# TYPE = "Penetration1"
 # TYPE = "Penetration2"
+# TYPE = "Penetration3"
 
-LOS = "A"
-# LOS = "B"
+# LOS = "A"
+LOS = "B"
 # LOS = "C"
 # LOS = "D"
+# LOS = "Test"
 
-ITERATION = 1
-# ITERATION = 2
+# ITERATION = 1
+ITERATION = 2
 # ITERATION = 3
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
@@ -77,8 +81,10 @@ if __name__ == "__main__":
             roadworksRealTMSCAV(sumoBinary, LOS, ITERATION)
         elif TYPE == "Penetration1":
             RoadworksRealTMSPenetration1(sumoBinary, LOS, ITERATION)
-        # elif TYPE == "Penetration2":
-        #     RoadworksRealTMSPenetration2(sumoBinary, LOS, ITERATION)
+        elif TYPE == "Penetration2":
+            RoadworksRealTMSPenetration2(sumoBinary, LOS, ITERATION)
+        elif TYPE == "Penetration3":
+            RoadworksRealTMSPenetration3(sumoBinary, LOS, ITERATION)
 
     else:
         if TYPE == "Baseline-HDV":

@@ -10,73 +10,55 @@ from xml.dom import minidom
 
 sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simulation Stuff/Final-Year-Project')
 
-from generalFunctions import roadworksReRouting, baselineAlterOutputFiles, settingUpVehicles, flowCorrection, removeVehiclesThatPassCenter
-
-
-def handlingLeftBlockedApproach():
-    det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_0")
-    for veh in det_vehs:
-        traci.vehicle.setRoute(veh, ["preparation", "left-short-approaching", "top-exit"])
-        result = random.randint(0,1)
-        if(result == 0):
-            traci.vehicle.setVehicleClass(veh, "passenger")
-
-    det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_1")
-    for veh in det_vehs:
-        traci.vehicle.setRoute(veh, ["preparation", "left-short-approaching", "top-exit"])
-        traci.vehicle.setVehicleClass(veh, "passenger")
-
-def allowingStraightVehiclesInRightLane():
-    detectors = ["det_2", "det_3"]
-    for det in detectors:
-        det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
-        for veh in det_vehs:       
-            if(traci.vehicle.getRoute(veh) == ("left-long-approaching", "preparation", "left-short-approaching", "right-exit")):
-                traci.vehicle.setVehicleClass(veh, "passenger")
-
-def majorDelayDetection(delayBeforeReoute, vehiclesApproachingClosure, step):
-    detectors = ["left-long-approaching_0", "left-long-approaching_1", "left-long-approaching_2"]
-    for det in detectors:
-        det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
-        for veh in det_vehs:
-            temp1 = traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1]
-            temp2 = veh in vehiclesApproachingClosure
-            if ((temp1 !=  "bottom-exit") and (temp2 == False)):
-                vehiclesApproachingClosure.append(veh)
-                
-    if(step%9 == 0):
-        for veh in vehiclesApproachingClosure:
-            temp1 = traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1]
-            if traci.vehicle.getAccumulatedWaitingTime(veh) > delayBeforeReoute:
-                vehiclesApproachingClosure = reRoutingVehicles(veh, temp1, vehiclesApproachingClosure)
-    return vehiclesApproachingClosure
-
-def reRoutingVehicles(veh, target, vehiclesApproachingClosure):
-    rerouteResult = random.randint(0,3) ## NEED TO CONSIDER THIS PROBABILITY MORE
-    if(rerouteResult == 0):
-        traci.vehicle.setVehicleClass(veh, "passenger")
-        traci.vehicle.setRoute(veh, roadworksReRouting(target))
-        vehiclesApproachingClosure.remove(veh)
-    return vehiclesApproachingClosure
+from generalFunctions import (roadworksReRouting, baselineAlterOutputFiles, settingUpVehicles, flowCorrection, removeVehiclesThatPassCenter, 
+handlingLeftApproachingBaseline, handlingTopRightBottomBaseline, roadWorksMajorDelayDetectionBaseline, allowingAccessToRightLaneBaseline)
 
 def TMS():
-    print("Running Baseline")
     step = 0
-    delayBeforeReoute = 120 
+
+    topBottomRightLateDetectors = ["lateTop_0", "lateTop_1", "lateTop_2",
+                                    "lateRight_0", "lateRight_1", "lateRight_2",
+                                    "lateBottom_0", "lateBottom_1","lateBottom_2"
+                                    ]
+    
+    majorDelayDetectors = ["majorDelayDetection_0", "majorDelayDetection_1", "majorDelayDetection_2"]
+
+    # vehiclesApproachingMergedLanes = []
+    vehiclesThatTORed = []
     vehiclesApproachingClosure = []
+    leftApproachingLastDetected = ["n/a", "n/a"]
+    topBottomRightLateLastDetected = ["n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a"]
+    # topBottomRightTMSLastDetected = ["n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a"]
+    accessToRightLaneLastDetected = ["n/a"]
+    majorDelayDetectionLastDetected = ["n/a", "n/a", "n/a"]
+    minorWaitLengthBeforeAction = 20 ## Consider
+    TIMETOPERFORMDELAYTOC = 30 ## Consider
+
+    delayBeforeReRoute = 120
+    
+    ENCOUNTEREDCLOSURETOC = 3 # CONSIDER
+    
+    
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
-        vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
+
         if(step%3 == 0):
-            handlingLeftBlockedApproach()
-            allowingStraightVehiclesInRightLane()
-            vehiclesApproachingClosure = majorDelayDetection(delayBeforeReoute, vehiclesApproachingClosure, step)
+            vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
+            # vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
+            leftApproachingLastDetected = handlingLeftApproachingBaseline(vehiclesThatTORed, ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected)
+            vehiclesThatTORed, topBottomRightLateLastDetected = handlingTopRightBottomBaseline(topBottomRightLateDetectors, vehiclesThatTORed, 
+                                                                ENCOUNTEREDCLOSURETOC, topBottomRightLateLastDetected)
+            vehiclesApproachingClosure, vehiclesThatTORed, majorDelayDetectionLastDetected = roadWorksMajorDelayDetectionBaseline(delayBeforeReRoute, vehiclesApproachingClosure, 
+                                                                                            vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step, majorDelayDetectionLastDetected, majorDelayDetectors)
+            vehiclesThatTORed, accessToRightLaneLastDetected = allowingAccessToRightLaneBaseline(minorWaitLengthBeforeAction, vehiclesThatTORed, accessToRightLaneLastDetected, TIMETOPERFORMDELAYTOC)
+
         step += 1
+
     traci.close(False)
     sys.stdout.flush()
 
+
 def roadworksBaselineHDVTMS(sumoBinary, LOS, ITERATION):
-    # settingUpVehicles(LOS)
     rate = vehicleRates(LOS)
     settingUpVehicles("Roadworks", "\BaselineHDV", LOS, rate)
     flowCorrection(['Roadworks/BaselineHDV/Route-Files/L0-HDV-Route.rou.xml'], ['L0-HDV'], "HDV")
@@ -101,6 +83,3 @@ def vehicleRates(LOS):
     if LOS == "Test":
         rate = [0.7]
     return rate
-
-# automate file name creation
-# do the same for trip-info.xml

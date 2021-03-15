@@ -1,0 +1,32 @@
+vClass          ;   custom2
+carFollowModel  ;   ACC
+color           ;   orange
+
+tau             ;   0.6 
+decel           ;   normal(3.0, 1.0);   [2.0, 4.0]
+accel           ;   normal(1.5, 1.0);   [0.75, 2.0]
+emergencyDecel  ;   9.0
+
+lcAssertive         ;   normal(0.85, 0.02); [0.8, 0.9]
+actionStepLength    ;   0.1
+
+param;  has.toc.device                  ;   true
+param;  device.toc.manualType           ;   L0-HDV-
+param;  device.toc.automatedType        ;   L4-AV-Left-
+param;  device.toc.reponseTime          ;   normal(5.5, 2.05);  [2, 37.5];
+param;  device.toc.initialAwareness     ;   normal(0.45, 0.25); [0.2, 1.0];
+param;  device.toc.recoveryRate         ;   normal(0.25, 0.1);  [0.05, 0.5];
+param;  device.toc.tauCACCtoACC         ;   normal(1.5, 0.2);   [1.1, 2.0];
+param;  device.toc.ogNewTimeHeadway     ;   1.6
+param;  device.toc.ogChangeRate         ;   0.8
+param;  device.toc.mrmDecel             ;   3.0
+param;  device.toc.useColorScheme       ;   true
+
+param; has.ssm.device                   ;   true
+param; device.ssm.measures              ;   TTC
+param; device.ssm.thresholds            ;   3.0
+param; device.ssm.range                 ;   50.0
+param; device.ssm.extratime             ;   5.0
+param; device.ssm.file                  ;   Output-Files\SSM-L4-AV.xml
+param; device.ssm.trajectories          ;   false
+param; device.ssm.geo                   ;   false

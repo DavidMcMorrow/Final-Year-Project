@@ -168,9 +168,60 @@ def vehiclePenetrationRates1(LOS):
         rate = [1.76, 7, 7, 20, 20]
     if LOS == "D":
         rate = [1.57, 6.2, 6.2, 19, 19]
-    if LOS == "Test":
-        rate = [0.7]
+    # if LOS == "Test":
+    #     print("HERE")
+    #     rate = [3.1, 2.5, 2.2, 2, 2.32]
     return rate
+
+def vehiclePenetrationRates2(LOS):
+    if LOS == "A":
+        rate = [4.65, 9, 9, 18, 18]
+    if LOS == "B":
+        rate = [3.21, 6.2, 6.2, 12, 12]
+    if LOS == "C":
+        rate = [2.69, 5, 5, 11, 11]
+    if LOS == "D":
+        rate = [2.32, 4.75, 4.75, 9.5, 9.5]
+    # if LOS == "Test":
+    #     print("HERE")
+    #     rate = [3.1, 2.5, 2.2, 2, 2.35]
+    return rate
+
+def vehiclePenetrationRates3(LOS):
+    if LOS == "A":
+        rate = [18, 6, 6, 12, 12]
+    if LOS == "B":
+        rate = [12, 4.2, 4.2, 8.4, 8.4]
+    if LOS == "C":
+        rate = [11, 3.5, 3.5, 7, 7]
+    if LOS == "D":
+        rate = [9.5, 3.1, 3.1, 6.2, 6.2]
+    # if LOS == "Test":
+    #     print("HERE")
+    #     rate = [3.1, 2.5, 2.2, 2, 2.35]
+    return rate
+
+############### Roadworks Baseline Caller Functions ###############
+def handlingLeftApproachingBaseline(vehiclesThatTORed, ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected): 
+    # leftApproachingLastDetected[0] = leftUpStreamTMS(leftApproachingLastDetected[0])
+    leftApproachingLastDetected[0] = standardVehicleScenarioDetection(leftApproachingLastDetected[0])
+    # vehiclesThatTORed, leftApproachingLastDetected[2] = issuingToCToVehiclesTMS(vehiclesThatTORed, TMSISSUEDTOC, leftApproachingLastDetected[2])
+    leftApproachingLastDetected[1], vehiclesThatTORed = lateVehicleIncidentDetection(ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected[1], vehiclesThatTORed)
+    return leftApproachingLastDetected
+
+def handlingTopRightBottomBaseline(topBottomRightLateDetectors, vehiclesThatTORed, ENCOUNTEREDCLOSURETOC, topBottomRightLateLastDetected): 
+    vehiclesThatTORed, topBottomRightLateLastDetected = lateVehicleIndidentDetectionTopRightBottom(topBottomRightLateDetectors, vehiclesThatTORed, ENCOUNTEREDCLOSURETOC, topBottomRightLateLastDetected)
+    return vehiclesThatTORed, topBottomRightLateLastDetected
+
+def roadWorksMajorDelayDetectionBaseline(delayBeforeReRoute, vehiclesApproachingClosure, vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step, majorDelayDetectionLastDetected, majorDelayDetectors):
+    vehiclesApproachingClosure, majorDelayDetectionLastDetected = addingVehicleToDelayDetection(majorDelayDetectors, vehiclesApproachingClosure, "bottom-exit", majorDelayDetectionLastDetected)
+    vehiclesApproachingClosure, vehiclesThatTORed = detectingMajorDelay(vehiclesApproachingClosure, vehiclesThatTORed, delayBeforeReRoute, TIMETOPERFORMDELAYTOC, step)
+    return vehiclesApproachingClosure, vehiclesThatTORed, majorDelayDetectionLastDetected
+
+def allowingAccessToRightLaneBaseline(minorWaitLengthBeforeAction, vehiclesThatTORed, accessToRightLaneLastDetected, TIMETOPERFORMDELAYTOC):
+    # accessToRightLaneLastDetected[0] = allowingAccessToRightLaneTMS(accessToRightLaneLastDetected[0])
+    vehiclesThatTORed, accessToRightLaneLastDetected[0] = allowingAccessToRightLaneLate(accessToRightLaneLastDetected[0], minorWaitLengthBeforeAction, vehiclesThatTORed, TIMETOPERFORMDELAYTOC)
+    return vehiclesThatTORed, accessToRightLaneLastDetected
 
 
 ############################## Roadworks TMS ##############################
@@ -342,7 +393,7 @@ def allowingAccessToRightLaneLate(lastVehicleDetected, delayRealisation, vehicle
             route = traci.vehicle.getRoute(veh)
             target = route[len(route) - 1]
             vehicleClass = traci.vehicle.getVehicleClass(veh)
-            if target == "right-exit" and traci.vehicle.getAccumulatedWaitingTime(veh) >= delayRealisation and vehicleClass == "passenger":
+            if target == "right-exit" and traci.vehicle.getAccumulatedWaitingTime(veh) >= delayRealisation and vehicleClass != "passenger":
                 vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
                 scenarioRecognitionResult = random.randint(0, 99) ## CONSIDER
                 if vehicleType != "HDV" and scenarioRecognitionResult < 24:
@@ -355,7 +406,11 @@ def allowingAccessToRightLaneLate(lastVehicleDetected, delayRealisation, vehicle
                     vehiclesThatTORed.append(veh)
                     traci.vehicle.updateBestLanes(veh)
                 elif vehicleType == "HDV" and scenarioRecognitionResult < 74:
+                    print("GOT THE MESSAGE", veh)
                     traci.vehicle.setVehicleClass(veh, "passenger")
+                    traci.vehicle.updateBestLanes(veh)
+                else:
+                    print("JUST MISSED THE MESSAGE", veh)
         lastVehicleDetected = veh
     return vehiclesThatTORed, lastVehicleDetected
 

@@ -13,7 +13,7 @@ allowingAccessToRightLaneTMS, allowingAccessToRightLaneLate, addingVehicleToDela
 allowingAccessToRightLane, roadWorksMajorDelayDetection, TMSAlterOutputFiles, vehiclePenetrationRates1)
     
 def TMS():
-    print("Running Baseline")
+    print("Running Penetration Rate 1")
     step = 0
     
     topBottomRightTMSDetectors = ["advanceTop_0", "advanceTop_1", "advanceTop_2", 

@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/25/21 22:33:50 by Eclipse SUMO GUI Version 1.8.0
+<!-- generated on 03/15/21 20:41:00 by Eclipse SUMO GUI Version 1.8.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="Roadworks\BaselineHDV\../RoadworksIntersection.net.xml"/>
         <route-files value="Roadworks\BaselineHDV\Route-Files/L0-HDV-Route.rou.xml"/>
-        <additional-files value="Roadworks\BaselineHDV\../Additional-Files/Roadworks-Detectors.add.xml,Roadworks\BaselineHDV\../Additional-Files/Roadworks-Rerouters.add.xml,Roadworks\BaselineHDV\../Additional-Files/Roadworks-Traffic-lights.add.xml,Roadworks\BaselineHDV\PreparingVehicleModels/Vehicle-Models/L0-HDV.add.xml,Roadworks\BaselineHDV\PreparingVehicleModels/Vehicle-Models/L0-HDV-Right.add.xml,Roadworks\BaselineHDV\PreparingVehicleModels/Vehicle-Models/L0-HDV-Left.add.xml,Roadworks\BaselineHDV\../Additional-Files/Traffic-Signs.add.xml"/>
+        <additional-files value="Roadworks\BaselineHDV\../Additional-Files/Roadworks-Detectors.add.xml,Roadworks\BaselineHDV\Additional-Files/Roadworks-Baseline-HDV-Rerouters.add.xml,Roadworks\BaselineHDV\../Additional-Files/Roadworks-Traffic-lights.add.xml,Roadworks\BaselineHDV\PreparingVehicleModels/Vehicle-Models/L0-HDV.add.xml,Roadworks\BaselineHDV\PreparingVehicleModels/Vehicle-Models/L0-HDV-Straight.add.xml,Roadworks\BaselineHDV\PreparingVehicleModels/Vehicle-Models/L0-HDV-Left.add.xml,Roadworks\BaselineHDV\../Additional-Files/Roadworks-Traffic-Signs.add.xml"/>
     </input>
 
     <output>
-        <tripinfo-output value="Roadworks\BaselineHDV\Output-Files\RoadworksTripinfoNEW.xml"/>
+        <tripinfo-output value="Roadworks\BaselineHDV\Output-Files\TripInfo.xml"/>
     </output>
 
     <time>
@@ -20,11 +20,16 @@
 
     <processing>
         <ignore-route-errors value="true"/>
+        <waiting-time-memory value="300"/>
         <default.action-step-length value="0.1"/>
     </processing>
 
+    <emissions>
+        <device.emissions.probability value="1"/>
+    </emissions>
+
     <traci_server>
-        <remote-port value="60835"/>
+        <remote-port value="50619"/>
     </traci_server>
 
     <gui_only>
@@ -35,4 +40,14 @@
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
+    <interval begin="0.00" end="191.00" id="rerouting-left-vehicles" nVehContrib="6" flow="113.09" occupancy="0.93" speed="17.19" harmonicMeanSpeed="16.85" length="5.00" nVehEntered="6"/>
+    <interval begin="0.00" end="191.00" id="leftlaneStandardDetection" nVehContrib="6" flow="113.09" occupancy="0.93" speed="17.18" harmonicMeanSpeed="16.84" length="5.00" nVehEntered="6"/>
+    <interval begin="0.00" end="191.00" id="issuingToCInVehicleTMS" nVehContrib="5" flow="94.24" occupancy="0.75" speed="17.81" harmonicMeanSpeed="17.54" length="5.00" nVehEntered="5"/>
+    <interval begin="0.00" end="191.00" id="allVehiclesToC" nVehContrib="3" flow="56.54" occupancy="0.56" speed="19.29" harmonicMeanSpeed="19.29" length="5.00" nVehEntered="5"/>
+    <interval begin="0.00" end="191.00" id="advanceTop_0" nVehContrib="10" flow="188.48" occupancy="1.56" speed="16.96" harmonicMeanSpeed="16.78" length="5.00" nVehEntered="10"/>
+    <interval begin="0.00" end="191.00" id="advanceTop_1" nVehContrib="7" flow="131.94" occupancy="1.04" speed="17.63" harmonicMeanSpeed="17.58" length="5.00" nVehEntered="7"/>
+    <interval begin="0.00" end="191.00" id="advanceTop_2" nVehContrib="11" flow="207.33" occupancy="1.86" speed="15.79" harmonicMeanSpeed="15.49" length="5.00" nVehEntered="11"/>
+    <interval begin="0.00" end="191.00" id="lateTop_0" nVehContrib="10" flow="188.48" occupancy="3.26" speed="9.72" harmonicMeanSpeed="8.03" length="5.00" nVehEntered="10"/>
+    <interval begin="0.00" end="191.00" id="lateTop_1" nVehContrib="7" flow="131.94" occupancy="1.70" speed="11.18" harmonicMeanSpeed="10.76" length="5.00" nVehEntered="7"/>
+    <interval begin="0.00" end="191.00" id="lateTop_2" nVehContrib="10" flow="188.48" occupancy="4.28" speed="9.47" harmonicMeanSpeed="6.12" length="5.00" nVehEntered="10"/>
 </detector>
