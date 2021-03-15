@@ -10,7 +10,7 @@ sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simu
 from generalFunctions import (settingUpVehicles, flowCorrection, removeOldToC, roadworksTMSTopRightBottom, lateVehicleIndidentDetectionTopRightBottom, 
 roadworksReRoutingLeftVehicles, leftUpStreamTMS, standardVehicleScenarioDetection, issuingToCToVehiclesTMS, lateVehicleIncidentDetection, removeVehiclesThatPassCenter,
 allowingAccessToRightLaneTMS, allowingAccessToRightLaneLate, addingVehicleToDelayDetection, detectingMajorDelay, handlingTopRightBottom, handlingLeftApproaching,
-allowingAccessToRightLane, roadWorksMajorDelayDetection, TMSAlterOutputFiles)
+allowingAccessToRightLane, roadWorksMajorDelayDetection, TMSAlterOutputFiles, vehiclePenetrationRates1)
     
 def TMS():
     print("Running Baseline")
@@ -68,7 +68,7 @@ def RoadworksRealTMSPenetration1(sumoBinary, LOS, ITERATION):
             'Roadworks/RealTMSPenetration1/Route-Files/L2-CV-Route.rou.xml', 'Roadworks/RealTMSPenetration1/Route-Files/L2-AV-Route.rou.xml',
             'Roadworks/RealTMSPenetration1/Route-Files/L0-HDV-Route.rou.xml']
     vehicleTypes = ["L4-CV", "L4-AV", "L2-CV", "L2-AV", "L0-HDV"]
-    rate = vehicleRates(LOS)
+    rate = vehiclePenetrationRates1(LOS)
     settingUpVehicles("Roadworks", "\RealTMSPenetration1", LOS, rate)
     flowCorrection(files, vehicleTypes, "Penetration1")
     
@@ -80,15 +80,3 @@ def RoadworksRealTMSPenetration1(sumoBinary, LOS, ITERATION):
     TMS()
     TMSAlterOutputFiles("Roadworks", "Penetration1", LOS, ITERATION, vehicleTypes)
 
-def vehicleRates(LOS):
-    if LOS == "A":
-        rate = [3, 5.5, 4.8, 4.9, 5.4]
-    if LOS == "B":
-        rate = [4, 4, 4, 4, 4]
-    if LOS == "C":
-        rate = [3, 3, 3, 3, 3]
-    if LOS == "D":
-        rate = [2, 2, 2, 2, 2]
-    if LOS == "Test":
-        rate = [0.7]
-    return rate

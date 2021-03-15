@@ -158,28 +158,19 @@ def TMSAlterOutputFiles(SCENARIO, penetration, LOS, ITERATION, VEHICLETYPES):
             for line in firstFile:
                 secondFile.write(line)
 
-# def settingUpVehiclesForPenetrationRate(SCENARIO, USECASEFOLDER, LOS):
-
-#     textFileToRun = SCENARIO + USECASEFOLDER + "\PreparingVehicleModels\How to use.txt"
-#     with open(textFileToRun) as f:
-#         for line in f:
-#             if(line != "\n"):
-#                 line = 'cmd /c ' + line
-#                 if(line.find('python PreparingVehicleModels/randomTrips.py') != -1):
-#                     line = line.rstrip()
-#                     line = line + " " + str(random.randint(0,9))
-#                     if LOS == "A":
-#                         line = line + " -p " + str(1.86)
-#                     if LOS == "B":
-#                         line = line + " -p " + str(1.25)
-#                     if LOS == "C":
-#                         line = line + " -p " + str(1.07)
-#                     if LOS == "D":
-#                         line = line + " -p " + str(0.94)
-#                     if LOS == "Test":
-#                         line = line + " -p " + str(0.7)
-    
-#                 os.system(line)
+############### Penetration Rates ###############
+def vehiclePenetrationRates1(LOS):
+    if LOS == "A":
+        rate = [3, 12, 12, 36, 36]
+    if LOS == "B":
+        rate = [2.15, 8.4, 8.4, 26, 26]
+    if LOS == "C":
+        rate = [1.76, 7, 7, 20, 20]
+    if LOS == "D":
+        rate = [1.57, 6.2, 6.2, 19, 19]
+    if LOS == "Test":
+        rate = [0.7]
+    return rate
 
 
 ############################## Roadworks TMS ##############################
@@ -257,7 +248,6 @@ def leftUpStreamTMS(leftApproachingLastDetected):
     det_vehs = traci.inductionloop.getLastStepVehicleIDs("rerouting-left-vehicles")
     for veh in det_vehs:
         vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
-        # print("vehicleType", vehicleType)
         if traci.vehicle.getVehicleClass(veh) == "custom2" and vehicleType == "CV" and leftApproachingLastDetected != veh:
             receivedTMSResult = random.randint(0, 99)
             if receivedTMSResult > 24:

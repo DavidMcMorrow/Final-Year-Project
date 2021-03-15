@@ -39,6 +39,7 @@ SCENARIO = "Roadworks"
 # TYPE = "Baseline-CAV"
 # TYPE = "TMS-CAV"
 TYPE = "Penetration1"
+# TYPE = "Penetration2"
 
 LOS = "A"
 # LOS = "B"
@@ -76,6 +77,8 @@ if __name__ == "__main__":
             roadworksRealTMSCAV(sumoBinary, LOS, ITERATION)
         elif TYPE == "Penetration1":
             RoadworksRealTMSPenetration1(sumoBinary, LOS, ITERATION)
+        # elif TYPE == "Penetration2":
+        #     RoadworksRealTMSPenetration2(sumoBinary, LOS, ITERATION)
 
     else:
         if TYPE == "Baseline-HDV":
