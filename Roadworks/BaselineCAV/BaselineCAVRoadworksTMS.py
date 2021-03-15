@@ -8,98 +8,141 @@ from xml.dom import minidom
 
 sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simulation Stuff/Final-Year-Project')
 
-from generalFunctions import removeOldToC, settingUpVehicles, baselineAlterOutputFiles, flowCorrection, removeVehiclesThatPassCenter, roadworksReRouting
+from generalFunctions import (removeOldToC, settingUpVehicles, baselineAlterOutputFiles, flowCorrection, removeVehiclesThatPassCenter, roadworksReRouting, 
+handlingLeftApproachingBaseline, handlingTopRightBottomBaseline, allowingAccessToRightLaneBaseline, roadWorksMajorDelayDetectionBaseline)
 
 
-def handlingLeftApproaching(vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC):
-    det_vehs = traci.inductionloop.getLastStepVehicleIDs("rerouting-left-vehicles")
-    for veh in det_vehs:
-        result = random.randint(0,3) ## Needs to be considered
-        if(result == 0):
-            traci.vehicle.setVehicleClass(veh, "custom1")
+# def handlingLeftApproaching(vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC):
+#     det_vehs = traci.inductionloop.getLastStepVehicleIDs("rerouting-left-vehicles")
+#     for veh in det_vehs:
+#         result = random.randint(0,3) ## Needs to be considered
+#         if(result == 0):
+#             traci.vehicle.setVehicleClass(veh, "custom1")
 
-    det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_0")
-    for veh in det_vehs:
-        traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
-        traci.vehicle.setRoute(veh, ["preparation", "left-short-approaching", "top-exit"])
+#     det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_0")
+#     for veh in det_vehs:
+#         traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
+#         traci.vehicle.setRoute(veh, ["preparation", "left-short-approaching", "top-exit"])
     
-    det_vehs = traci.inductionloop.getLastStepVehicleIDs("Issuing-ToC-in-Vehicle")
-    for veh in det_vehs:
-        temp = veh in vehiclesThatTORed
-        if(traci.vehicle.getVehicleClass(veh) == "custom2" and temp == False):
-            traci.vehicle.setParameter(veh, "device.toc.requestToC", ENCOUNTEREDCOLLISIONTOC)
-            vehiclesThatTORed.append(veh)
+#     det_vehs = traci.inductionloop.getLastStepVehicleIDs("Issuing-ToC-in-Vehicle")
+#     for veh in det_vehs:
+#         temp = veh in vehiclesThatTORed
+#         if(traci.vehicle.getVehicleClass(veh) == "custom2" and temp == False):
+#             traci.vehicle.setParameter(veh, "device.toc.requestToC", ENCOUNTEREDCOLLISIONTOC)
+#             vehiclesThatTORed.append(veh)
 
-def handlingTopRightBottom(detectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC):
-    for det in detectors:
-        det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
-        for veh in det_vehs:
-            temp = veh in vehiclesThatTORed
-            if temp == False and traci.vehicle.getVehicleClass(veh) != "passenger":
-                result = random.randint(0,1) ## Needs to be considered
-                if(result == 0):
-                    traci.vehicle.setVehicleClass(veh, "passenger")
-                else:
-                    traci.vehicle.setParameter(veh, "device.toc.requestToC", ENCOUNTEREDCOLLISIONTOC)
-                    vehiclesThatTORed.append(veh)
-    return vehiclesThatTORed
+# def handlingTopRightBottom(detectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC):
+#     for det in detectors:
+#         det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
+#         for veh in det_vehs:
+#             temp = veh in vehiclesThatTORed
+#             if temp == False and traci.vehicle.getVehicleClass(veh) != "passenger":
+#                 result = random.randint(0,1) ## Needs to be considered
+#                 if(result == 0):
+#                     traci.vehicle.setVehicleClass(veh, "passenger")
+#                 else:
+#                     traci.vehicle.setParameter(veh, "device.toc.requestToC", ENCOUNTEREDCOLLISIONTOC)
+#                     vehiclesThatTORed.append(veh)
+#     return vehiclesThatTORed
 
-def majorDelayDetection(delayBeforeReoute, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime, step):
-    detectors = ["left-long-approaching_0", "left-long-approaching_1", "left-long-approaching_2"]
-    for det in detectors:
-        det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
-        for veh in det_vehs:
-            temp1 = traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1]
-            temp2 = veh in vehiclesApproachingClosure
-            if ((temp1 !=  "bottom-exit") and (temp2 == False)):
-                vehiclesApproachingClosure.append(veh)
+# def majorDelayDetection(delayBeforeReoute, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime, step):
+#     detectors = ["left-long-approaching_0", "left-long-approaching_1", "left-long-approaching_2"]
+#     for det in detectors:
+#         det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
+#         for veh in det_vehs:
+#             temp1 = traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1]
+#             temp2 = veh in vehiclesApproachingClosure
+#             if ((temp1 !=  "bottom-exit") and (temp2 == False)):
+#                 vehiclesApproachingClosure.append(veh)
 
-    if (step%9 == 0):
-        for veh in vehiclesApproachingClosure:
-            temp3 = traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1]
-            if(traci.vehicle.getAccumulatedWaitingTime(veh) > delayBeforeReoute):
-                vehiclesApproachingClosure, vehiclesThatTORed = reRoutingVehicles(veh, temp3, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime)
-    return vehiclesApproachingClosure, vehiclesThatTORed
+#     if (step%9 == 0):
+#         for veh in vehiclesApproachingClosure:
+#             temp3 = traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1]
+#             if(traci.vehicle.getAccumulatedWaitingTime(veh) > delayBeforeReoute):
+#                 vehiclesApproachingClosure, vehiclesThatTORed = reRoutingVehicles(veh, temp3, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime)
+#     return vehiclesApproachingClosure, vehiclesThatTORed
 
-def reRoutingVehicles(veh, target, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime):
-    tocResult = random.randint(0, 3) ## NEED TO CONSIDER THIS PROBABILITY MORE
-    temp = veh in vehiclesThatTORed
-    if(tocResult != 0 and temp == False and traci.vehicle.getTypeID(veh)[:2] == "L4"):
-        traci.vehicle.requestToC(veh, ToCLeadTime)
-        vehiclesThatTORed.append(veh)
+# def reRoutingVehicles(veh, target, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime):
+#     tocResult = random.randint(0, 3) ## NEED TO CONSIDER THIS PROBABILITY MORE
+#     temp = veh in vehiclesThatTORed
+#     if(tocResult != 0 and temp == False and traci.vehicle.getTypeID(veh)[:2] == "L4"):
+#         traci.vehicle.requestToC(veh, ToCLeadTime)
+#         vehiclesThatTORed.append(veh)
         
-    rerouteResult = random.randint(0, 3) ## NEED TO CONSIDER THIS PROBABILITY MORE
-    if(rerouteResult == 0):
-        traci.vehicle.setVehicleClass(veh, "passenger")
-        traci.vehicle.setRoute(veh, roadworksReRouting(target))
-        vehiclesApproachingClosure.remove(veh)
-    return vehiclesApproachingClosure, vehiclesThatTORed
+#     rerouteResult = random.randint(0, 3) ## NEED TO CONSIDER THIS PROBABILITY MORE
+#     if(rerouteResult == 0):
+#         traci.vehicle.setVehicleClass(veh, "passenger")
+#         traci.vehicle.setRoute(veh, roadworksReRouting(target))
+#         vehiclesApproachingClosure.remove(veh)
+#     return vehiclesApproachingClosure, vehiclesThatTORed
 
 def TMS():
-    print("Running Baseline")
-    step = 0
-    detectors = ["det_4", "det_5", "det_6"]
-    vehiclesApproachingClosure = []
-    vehiclesThatTORed = []
-    delayBeforeReoute = 120
-    TIMETOPERFORMDELAYTOC = 30
-    ENCOUNTEREDCOLLISIONTOC = 3
-    delayBeforeToC = 20
-    while traci.simulation.getMinExpectedNumber() > 0:
-        traci.simulationStep()
-        # vehiclesApproachingClosure = removeVehiclesNoLongerPresent(vehiclesApproachingClosure)
-        # vehiclesThatTORed = removeVehiclesNoLongerPresent(vehiclesThatTORed)
-        vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
-        vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
+    # print("Running Baseline")
+    # step = 0
+    # detectors = ["det_4", "det_5", "det_6"]
+    # vehiclesApproachingClosure = []
+    # vehiclesThatTORed = []
+    # delayBeforeReoute = 120
+    # TIMETOPERFORMDELAYTOC = 30
+    # ENCOUNTEREDCOLLISIONTOC = 3
+    # delayBeforeToC = 20
+    # while traci.simulation.getMinExpectedNumber() > 0:
+    #     traci.simulationStep()
+    #     # vehiclesApproachingClosure = removeVehiclesNoLongerPresent(vehiclesApproachingClosure)
+    #     # vehiclesThatTORed = removeVehiclesNoLongerPresent(vehiclesThatTORed)
+    #     vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
+    #     vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
     
-        if (step%2 == 0):
-            handlingLeftApproaching(vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC)
+    #     if (step%2 == 0):
+    #         handlingLeftApproaching(vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC)
             
 
+    #     if(step%3 == 0):
+    #         vehiclesThatTORed = handlingTopRightBottom(detectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC)
+    #         vehiclesApproachingClosure, vehiclesThatTORed = majorDelayDetection(delayBeforeReoute, vehiclesApproachingClosure, vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step)
+    #         vehiclesThatTORed, vehiclesApproachingClosure = allowingAccessToRightLane(delayBeforeToC, TIMETOPERFORMDELAYTOC, vehiclesThatTORed, vehiclesApproachingClosure)
+
+    #     step += 1
+
+    # traci.close(False)
+    # sys.stdout.flush()
+    step = 0
+
+    topBottomRightLateDetectors = ["lateTop_0", "lateTop_1", "lateTop_2",
+                                    "lateRight_0", "lateRight_1", "lateRight_2",
+                                    "lateBottom_0", "lateBottom_1","lateBottom_2"
+                                    ]
+    
+    majorDelayDetectors = ["majorDelayDetection_0", "majorDelayDetection_1", "majorDelayDetection_2"]
+
+    # vehiclesApproachingMergedLanes = []
+    vehiclesThatTORed = []
+    vehiclesApproachingClosure = []
+    leftApproachingLastDetected = ["n/a", "n/a"]
+    topBottomRightLateLastDetected = ["n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a"]
+    # topBottomRightTMSLastDetected = ["n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a"]
+    accessToRightLaneLastDetected = ["n/a"]
+    majorDelayDetectionLastDetected = ["n/a", "n/a", "n/a"]
+    minorWaitLengthBeforeAction = 20 ## Consider
+    TIMETOPERFORMDELAYTOC = 30 ## Consider
+
+    delayBeforeReRoute = 120
+    
+    ENCOUNTEREDCLOSURETOC = 3 # CONSIDER
+    
+    
+    while traci.simulation.getMinExpectedNumber() > 0:
+        traci.simulationStep()
+
         if(step%3 == 0):
-            vehiclesThatTORed = handlingTopRightBottom(detectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC)
-            vehiclesApproachingClosure, vehiclesThatTORed = majorDelayDetection(delayBeforeReoute, vehiclesApproachingClosure, vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step)
-            vehiclesThatTORed, vehiclesApproachingClosure = allowingAccessToRightLane(delayBeforeToC, TIMETOPERFORMDELAYTOC, vehiclesThatTORed, vehiclesApproachingClosure)
+            vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
+            vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
+            leftApproachingLastDetected = handlingLeftApproachingBaseline(vehiclesThatTORed, ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected)
+            vehiclesThatTORed, topBottomRightLateLastDetected = handlingTopRightBottomBaseline(topBottomRightLateDetectors, vehiclesThatTORed, 
+                                                                ENCOUNTEREDCLOSURETOC, topBottomRightLateLastDetected)
+            vehiclesApproachingClosure, vehiclesThatTORed, majorDelayDetectionLastDetected = roadWorksMajorDelayDetectionBaseline(delayBeforeReRoute, vehiclesApproachingClosure, 
+                                                                                            vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step, majorDelayDetectionLastDetected, majorDelayDetectors)
+            vehiclesThatTORed, accessToRightLaneLastDetected = allowingAccessToRightLaneBaseline(minorWaitLengthBeforeAction, vehiclesThatTORed, accessToRightLaneLastDetected, TIMETOPERFORMDELAYTOC)
 
         step += 1
 
