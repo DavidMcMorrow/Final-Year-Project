@@ -406,11 +406,11 @@ def allowingAccessToRightLaneLate(lastVehicleDetected, delayRealisation, vehicle
                     vehiclesThatTORed.append(veh)
                     traci.vehicle.updateBestLanes(veh)
                 elif vehicleType == "HDV" and scenarioRecognitionResult < 74:
-                    print("GOT THE MESSAGE", veh)
+                    # print("GOT THE MESSAGE", veh)
                     traci.vehicle.setVehicleClass(veh, "passenger")
                     traci.vehicle.updateBestLanes(veh)
-                else:
-                    print("JUST MISSED THE MESSAGE", veh)
+                # else:
+                #     print("JUST MISSED THE MESSAGE", veh)
         lastVehicleDetected = veh
     return vehiclesThatTORed, lastVehicleDetected
 
