@@ -37,8 +37,8 @@ def get_options():
 SCENARIO = "Roadworks"
 # SCENARIO = "Collision"
 
-# TYPE = "Baseline-HDV"
-TYPE = "Baseline-CAV"
+TYPE = "Baseline-HDV"
+# TYPE = "Baseline-CAV"
 # TYPE = "TMS-CAV"
 # TYPE = "Penetration1"
 # TYPE = "Penetration2"
@@ -51,8 +51,8 @@ LOS = "B"
 # LOS = "Test"
 
 # ITERATION = 1
-ITERATION = 2
-# ITERATION = 3
+# ITERATION = 2
+ITERATION = 3
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
@@ -93,4 +93,10 @@ if __name__ == "__main__":
             collisionBaselineCAVTMS(sumoBinary, LOS, ITERATION)
         elif TYPE == "TMS-CAV":
             # roadworksRealTMSCAV(sumoBinary, LOS, ITERATION)
+            print("Not developed yet :)")
+        elif TYPE == "Penetration1":
+           print("Not developed yet :)")
+        elif TYPE == "Penetration2":
+            print("Not developed yet :)")
+        elif TYPE == "Penetration3":
             print("Not developed yet :)")

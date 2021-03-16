@@ -15,7 +15,7 @@ handlingLeftApproachingBaseline, handlingTopRightBottomBaseline, roadWorksMajorD
 
 def TMS():
     step = 0
-
+    NUMBEROFVEHICLESREROUTED = 0
     topBottomRightLateDetectors = ["lateTop_0", "lateTop_1", "lateTop_2",
                                     "lateRight_0", "lateRight_1", "lateRight_2",
                                     "lateBottom_0", "lateBottom_1","lateBottom_2"
@@ -48,12 +48,12 @@ def TMS():
             leftApproachingLastDetected = handlingLeftApproachingBaseline(vehiclesThatTORed, ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected)
             vehiclesThatTORed, topBottomRightLateLastDetected = handlingTopRightBottomBaseline(topBottomRightLateDetectors, vehiclesThatTORed, 
                                                                 ENCOUNTEREDCLOSURETOC, topBottomRightLateLastDetected)
-            vehiclesApproachingClosure, vehiclesThatTORed, majorDelayDetectionLastDetected = roadWorksMajorDelayDetectionBaseline(delayBeforeReRoute, vehiclesApproachingClosure, 
-                                                                                            vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step, majorDelayDetectionLastDetected, majorDelayDetectors)
+            vehiclesApproachingClosure, vehiclesThatTORed, majorDelayDetectionLastDetected, NUMBEROFVEHICLESREROUTED = roadWorksMajorDelayDetectionBaseline(delayBeforeReRoute, vehiclesApproachingClosure, 
+                                                                                            vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step, majorDelayDetectionLastDetected, majorDelayDetectors, NUMBEROFVEHICLESREROUTED)
             vehiclesThatTORed, accessToRightLaneLastDetected = allowingAccessToRightLaneBaseline(minorWaitLengthBeforeAction, vehiclesThatTORed, accessToRightLaneLastDetected, TIMETOPERFORMDELAYTOC)
 
         step += 1
-
+    print("Final NUMBEROFVEHICLESREROUTED = ", NUMBEROFVEHICLESREROUTED)
     traci.close(False)
     sys.stdout.flush()
 
@@ -69,7 +69,7 @@ def roadworksBaselineHDVTMS(sumoBinary, LOS, ITERATION):
                 "--device.emissions.probability", "1", "--waiting-time-memory", "300"])
 
     TMS()
-    baselineAlterOutputFiles("Roadworks", "HDV", LOS, ITERATION, ["HDV"])
+    baselineAlterOutputFiles("Roadworks", "HDV", LOS, ITERATION, ["L0-HDV"])
     
 def vehicleRates(LOS):
     if LOS == "A":

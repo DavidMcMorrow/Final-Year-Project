@@ -213,10 +213,10 @@ def handlingTopRightBottomBaseline(topBottomRightLateDetectors, vehiclesThatTORe
     vehiclesThatTORed, topBottomRightLateLastDetected = lateVehicleIndidentDetectionTopRightBottom(topBottomRightLateDetectors, vehiclesThatTORed, ENCOUNTEREDCLOSURETOC, topBottomRightLateLastDetected)
     return vehiclesThatTORed, topBottomRightLateLastDetected
 
-def roadWorksMajorDelayDetectionBaseline(delayBeforeReRoute, vehiclesApproachingClosure, vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step, majorDelayDetectionLastDetected, majorDelayDetectors):
+def roadWorksMajorDelayDetectionBaseline(delayBeforeReRoute, vehiclesApproachingClosure, vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step, majorDelayDetectionLastDetected, majorDelayDetectors, NUMBEROFVEHICLESREROUTED):
     vehiclesApproachingClosure, majorDelayDetectionLastDetected = addingVehicleToDelayDetection(majorDelayDetectors, vehiclesApproachingClosure, "bottom-exit", majorDelayDetectionLastDetected)
-    vehiclesApproachingClosure, vehiclesThatTORed = detectingMajorDelay(vehiclesApproachingClosure, vehiclesThatTORed, delayBeforeReRoute, TIMETOPERFORMDELAYTOC, step)
-    return vehiclesApproachingClosure, vehiclesThatTORed, majorDelayDetectionLastDetected
+    vehiclesApproachingClosure, vehiclesThatTORed, NUMBEROFVEHICLESREROUTED = detectingMajorDelay(vehiclesApproachingClosure, vehiclesThatTORed, delayBeforeReRoute, TIMETOPERFORMDELAYTOC, step, NUMBEROFVEHICLESREROUTED)
+    return vehiclesApproachingClosure, vehiclesThatTORed, majorDelayDetectionLastDetected, NUMBEROFVEHICLESREROUTED
 
 def allowingAccessToRightLaneBaseline(minorWaitLengthBeforeAction, vehiclesThatTORed, accessToRightLaneLastDetected, TIMETOPERFORMDELAYTOC):
     # accessToRightLaneLastDetected[0] = allowingAccessToRightLaneTMS(accessToRightLaneLastDetected[0])
@@ -236,7 +236,7 @@ def handlingTopRightBottom(topBottomRightLateDetectors, topBottomRightTMSDetecto
 def handlingLeftApproaching(vehiclesThatTORed, TMSISSUEDTOC, ENCOUNTEREDCLOSURETOC,leftApproachingLastDetected):
     leftApproachingLastDetected[0] = leftUpStreamTMS(leftApproachingLastDetected[0])
     leftApproachingLastDetected[1] = standardVehicleScenarioDetection(leftApproachingLastDetected[1])
-    vehiclesThatTORed, leftApproachingLastDetected[2] = issuingToCToVehiclesTMS(vehiclesThatTORed, TMSISSUEDTOC, leftApproachingLastDetected[2])
+    # vehiclesThatTORed, leftApproachingLastDetected[2] = issuingToCToVehiclesTMS(vehiclesThatTORed, TMSISSUEDTOC, leftApproachingLastDetected[2])
     leftApproachingLastDetected[3], vehiclesThatTORed = lateVehicleIncidentDetection(ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected[3], vehiclesThatTORed)
     return leftApproachingLastDetected
 
@@ -245,14 +245,13 @@ def allowingAccessToRightLane(minorWaitLengthBeforeAction, vehiclesThatTORed, ac
     vehiclesThatTORed, accessToRightLaneLastDetected[1] = allowingAccessToRightLaneLate(accessToRightLaneLastDetected[1], minorWaitLengthBeforeAction, vehiclesThatTORed, TIMETOPERFORMDELAYTOC)
     return vehiclesThatTORed, accessToRightLaneLastDetected
 
-def roadWorksMajorDelayDetection(delayBeforeReRoute, vehiclesApproachingClosure, vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step, majorDelayDetectionLastDetected, majorDelayDetectors):
+def roadWorksMajorDelayDetection(delayBeforeReRoute, vehiclesApproachingClosure, vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step, majorDelayDetectionLastDetected, majorDelayDetectors, NUMBEROFVEHICLESREROUTED):
     vehiclesApproachingClosure, majorDelayDetectionLastDetected = addingVehicleToDelayDetection(majorDelayDetectors, vehiclesApproachingClosure, "bottom-exit", majorDelayDetectionLastDetected)
-    vehiclesApproachingClosure, vehiclesThatTORed = detectingMajorDelay(vehiclesApproachingClosure, vehiclesThatTORed, delayBeforeReRoute, TIMETOPERFORMDELAYTOC, step)
-    return vehiclesApproachingClosure, vehiclesThatTORed, majorDelayDetectionLastDetected
+    vehiclesApproachingClosure, vehiclesThatTORed, NUMBEROFVEHICLESREROUTED = detectingMajorDelay(vehiclesApproachingClosure, vehiclesThatTORed, delayBeforeReRoute, TIMETOPERFORMDELAYTOC, step, NUMBEROFVEHICLESREROUTED)
+    return vehiclesApproachingClosure, vehiclesThatTORed, majorDelayDetectionLastDetected, NUMBEROFVEHICLESREROUTED
 
 ############### Top Right Bottom Approach ###############
-def roadworksTMSTopRightBottom(topBottomRightTMSDetectors, lastVehicleDetected):
-    count = 0 
+def roadworksTMSTopRightBottom(topBottomRightTMSDetectors, lastVehicleDetected): 
     for det in topBottomRightTMSDetectors:
         det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
         for veh in det_vehs:
@@ -262,14 +261,12 @@ def roadworksTMSTopRightBottom(topBottomRightTMSDetectors, lastVehicleDetected):
             vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
             if traci.vehicle.getVehicleClass(veh) != "passenger" and target == "left-exit" and checkingPriorDetection == False and vehicleType == "CV":
                 receivedTMSResult = random.randint(0, 99) ## CONSIDER
-                if receivedTMSResult > 24:
+                if receivedTMSResult < 66:
                     traci.vehicle.setVehicleClass(veh, "passenger")
-                    
-        count = count + 1
+
     return lastVehicleDetected
 
 def lateVehicleIndidentDetectionTopRightBottom(topBottomRightLateDetectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC, lastVehicleDetected):
-    count = 0
     for det in topBottomRightLateDetectors:
         det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
         for veh in det_vehs:
@@ -278,8 +275,8 @@ def lateVehicleIndidentDetectionTopRightBottom(topBottomRightLateDetectors, vehi
             temp = veh in vehiclesThatTORed
             checkingPriorDetection = veh in lastVehicleDetected
             if temp == False and traci.vehicle.getVehicleClass(veh) != "passenger" and target == "left-exit" and checkingPriorDetection == False:
-                result = random.randint(0, 10) ## CONSIDER
-                if(result == 0):
+                result = random.randint(0, 99) ## CONSIDER
+                if(result < 25):
                     traci.vehicle.setVehicleClass(veh, "passenger")
                 else:
                     traci.vehicle.setParameter(veh, "device.toc.requestToC", ENCOUNTEREDCOLLISIONTOC)
@@ -301,7 +298,7 @@ def leftUpStreamTMS(leftApproachingLastDetected):
         vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
         if traci.vehicle.getVehicleClass(veh) == "custom2" and vehicleType == "CV" and leftApproachingLastDetected != veh:
             receivedTMSResult = random.randint(0, 99)
-            if receivedTMSResult > 24:
+            if receivedTMSResult < 66:
                 # print("Did get TMS", veh)
                 traci.vehicle.setVehicleClass(veh, "custom1")
                 roadworksReRoutingLeftVehicles(veh)
@@ -316,8 +313,8 @@ def standardVehicleScenarioDetection(leftApproachingLastDetected):
     det_vehs = traci.inductionloop.getLastStepVehicleIDs("leftlaneStandardDetection")
     for veh in det_vehs:
         if traci.vehicle.getVehicleClass(veh) == "custom2" and leftApproachingLastDetected != veh:
-            figuredOutScenario = random.randint(0,9) ## Needs to be considered
-            if(figuredOutScenario < 3):
+            figuredOutScenario = random.randint(0,99) ## Needs to be considered
+            if(figuredOutScenario < 25):
                 # print("Did detect blockage", veh)
                 traci.vehicle.setVehicleClass(veh, "custom1")
                 roadworksReRoutingLeftVehicles(veh)
@@ -377,7 +374,7 @@ def allowingAccessToRightLaneTMS(lastVehicleDetected):
             vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
             if target == "right-exit" and vehicleType == "CV":
                 receivedTMSResult = random.randint(0, 99) ## CONSIDER
-                if receivedTMSResult > 24:
+                if receivedTMSResult < 66:
                     # print("GOT TMS", veh)
                     traci.vehicle.setVehicleClass(veh, "passenger")
                     traci.vehicle.updateBestLanes(veh)
@@ -396,7 +393,7 @@ def allowingAccessToRightLaneLate(lastVehicleDetected, delayRealisation, vehicle
             if target == "right-exit" and traci.vehicle.getAccumulatedWaitingTime(veh) >= delayRealisation and vehicleClass != "passenger":
                 vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
                 scenarioRecognitionResult = random.randint(0, 99) ## CONSIDER
-                if vehicleType != "HDV" and scenarioRecognitionResult < 24:
+                if vehicleType != "HDV" and scenarioRecognitionResult < 25:
                     #  print("GOT TMS the second time", veh)
                      traci.vehicle.setVehicleClass(veh, "passenger")
                      traci.vehicle.updateBestLanes(veh)
@@ -405,7 +402,7 @@ def allowingAccessToRightLaneLate(lastVehicleDetected, delayRealisation, vehicle
                     traci.vehicle.requestToC(veh, TIMETOPERFORMDELAYTOC)
                     vehiclesThatTORed.append(veh)
                     traci.vehicle.updateBestLanes(veh)
-                elif vehicleType == "HDV" and scenarioRecognitionResult < 74:
+                elif vehicleType == "HDV" and scenarioRecognitionResult < 80:
                     # print("GOT THE MESSAGE", veh)
                     traci.vehicle.setVehicleClass(veh, "passenger")
                     traci.vehicle.updateBestLanes(veh)
@@ -427,16 +424,16 @@ def addingVehicleToDelayDetection(majorDelayDetectors, vehiclesApproachingClosur
         count = count + 1
     return vehiclesApproachingClosure, majorDelayDetectionLastDetected
 
-def detectingMajorDelay(vehiclesApproachingClosure, vehiclesThatTORed, delayBeforeReRoute, ToCLeadTime, step):
+def detectingMajorDelay(vehiclesApproachingClosure, vehiclesThatTORed, delayBeforeReRoute, ToCLeadTime, step, NUMBEROFVEHICLESREROUTED):
     if (step%6 == 0):
         for veh in vehiclesApproachingClosure:
             temp3 = traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1]
             if(traci.vehicle.getAccumulatedWaitingTime(veh) > delayBeforeReRoute):
                 # print("MAJOR DELAY DETECTED", veh)
-                vehiclesApproachingClosure, vehiclesThatTORed = reRoutingVehicles(veh, temp3, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime)
-    return vehiclesApproachingClosure, vehiclesThatTORed
+                vehiclesApproachingClosure, vehiclesThatTORed, NUMBEROFVEHICLESREROUTED = reRoutingVehicles(veh, temp3, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime, NUMBEROFVEHICLESREROUTED)
+    return vehiclesApproachingClosure, vehiclesThatTORed, NUMBEROFVEHICLESREROUTED
 
-def reRoutingVehicles(veh, target, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime):
+def reRoutingVehicles(veh, target, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime, NUMBEROFVEHICLESREROUTED):
     shouldBeRemoved = False
     # print("traci.vehicle.getLaneID(veh)", traci.vehicle.getLaneID(veh))
     if traci.vehicle.getLaneID(veh) == "left-short-approaching_1" or traci.vehicle.getLaneID(veh) == "left-short-approaching_0":
@@ -445,24 +442,28 @@ def reRoutingVehicles(veh, target, vehiclesApproachingClosure, vehiclesThatTORed
         tocResult = random.randint(0, 99) ## NEED TO CONSIDER THIS PROBABILITY MORE
         temp = veh in vehiclesThatTORed
 
-        if(tocResult > 24 and temp == False and (traci.vehicle.getTypeID(veh)[:2] == "L4" or traci.vehicle.getTypeID(veh)[:2] == "L2")):
+        if(tocResult < 40 and temp == False and (traci.vehicle.getTypeID(veh)[:2] == "L4" or traci.vehicle.getTypeID(veh)[:2] == "L2")):
             # print("ToC due to delay", veh)
             traci.vehicle.requestToC(veh, ToCLeadTime)
             vehiclesThatTORed.append(veh)
             shouldBeRemoved = True
         
-
         rerouteResult = random.randint(0, 99) ## NEED TO CONSIDER THIS PROBABILITY MORE
-        if(rerouteResult < 32):
+        if(rerouteResult < 30):
             # print("+++ReRoute due to delay", veh)
             traci.vehicle.setVehicleClass(veh, "passenger")
             traci.vehicle.setRoute(veh, roadworksReRouting(target))
+            NUMBEROFVEHICLESREROUTED = NUMBEROFVEHICLESREROUTED + 1
+            # print("NUMBEROFVEHICLESREROUTED ", NUMBEROFVEHICLESREROUTED)
             shouldBeRemoved = True
             traci.vehicle.updateBestLanes(veh)
 
     if shouldBeRemoved == True:
         vehiclesApproachingClosure.remove(veh)
 
-    return vehiclesApproachingClosure, vehiclesThatTORed
+    return vehiclesApproachingClosure, vehiclesThatTORed, NUMBEROFVEHICLESREROUTED
 
 ############### ###############
+
+############################## Collision TMS ##############################
+
