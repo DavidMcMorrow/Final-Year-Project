@@ -62,6 +62,8 @@ def roadworksReRouting(target):
         newRoute = ["left-long-approaching", "preparation", "left-short-approaching", "right-exit"]
     elif(target == "right-exit"):
         newRoute = ["left-long-approaching", "preparation", "left-short-approaching", "bottom-exit"]
+    elif(target == "preparation"):
+        newRoute = ["left-long-approaching", "preparation"]
     return newRoute
 
 def baselineAlterOutputFiles(SCENARIO, BASELINE, LOS, ITERATION, VEHICLETYPES):
@@ -451,6 +453,7 @@ def reRoutingVehicles(veh, target, vehiclesApproachingClosure, vehiclesThatTORed
         rerouteResult = random.randint(0, 99) ## NEED TO CONSIDER THIS PROBABILITY MORE
         if(rerouteResult < 30):
             # print("+++ReRoute due to delay", veh)
+            # print("Target", target)
             traci.vehicle.setVehicleClass(veh, "passenger")
             traci.vehicle.setRoute(veh, roadworksReRouting(target))
             NUMBEROFVEHICLESREROUTED = NUMBEROFVEHICLESREROUTED + 1
