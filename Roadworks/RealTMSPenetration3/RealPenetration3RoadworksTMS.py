@@ -15,7 +15,7 @@ allowingAccessToRightLane, roadWorksMajorDelayDetection, TMSAlterOutputFiles, ve
 def TMS():
     print("Running Penetration Rate 3")
     step = 0
-    
+    NUMBEROFVEHICLESREROUTED = 0
     topBottomRightTMSDetectors = ["advanceTop_0", "advanceTop_1", "advanceTop_2", 
                                 "advanceRight_0", "advanceRight_1", "advanceRight_2", 
                                 "advanceBottom_0", "advanceBottom_1", "advanceBottom_2"
@@ -53,12 +53,12 @@ def TMS():
             leftApproachingLastDetected = handlingLeftApproaching(vehiclesThatTORed, TMSISSUEDTOC, ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected)
             vehiclesThatTORed, topBottomRightLateLastDetected, topBottomRightTMSLastDetected = handlingTopRightBottom(topBottomRightLateDetectors, topBottomRightTMSDetectors, vehiclesThatTORed, 
                                                                 ENCOUNTEREDCLOSURETOC, topBottomRightLateLastDetected, topBottomRightTMSLastDetected)
-            vehiclesApproachingClosure, vehiclesThatTORed, majorDelayDetectionLastDetected = roadWorksMajorDelayDetection(delayBeforeReRoute, vehiclesApproachingClosure, vehiclesThatTORed, 
-            TIMETOPERFORMDELAYTOC, step, majorDelayDetectionLastDetected, majorDelayDetectors)
+            vehiclesApproachingClosure, vehiclesThatTORed, majorDelayDetectionLastDetected, NUMBEROFVEHICLESREROUTED = roadWorksMajorDelayDetection(delayBeforeReRoute, vehiclesApproachingClosure, vehiclesThatTORed, 
+            TIMETOPERFORMDELAYTOC, step, majorDelayDetectionLastDetected, majorDelayDetectors, NUMBEROFVEHICLESREROUTED)
             vehiclesThatTORed, accessToRightLaneLastDetected = allowingAccessToRightLane(minorWaitLengthBeforeAction, vehiclesThatTORed, accessToRightLaneLastDetected, TIMETOPERFORMDELAYTOC)
 
         step += 1
-
+    print("Final NUMBEROFVEHICLESREROUTED = ", NUMBEROFVEHICLESREROUTED)
     traci.close(False)
     sys.stdout.flush()
 
@@ -70,12 +70,16 @@ def RoadworksRealTMSPenetration3(sumoBinary, LOS, ITERATION):
     vehicleTypes = ["L4-CV", "L4-AV", "L2-CV", "L2-AV", "L0-HDV"]
     rate = vehiclePenetrationRates3(LOS)
     settingUpVehicles("Roadworks", "\RealTMSPenetration3", LOS, rate)
-    flowCorrection(files, vehicleTypes, "Penetration3")
+    flowCorrection(['Roadworks/RealTMSPenetration3/Route-Files/L4-CV-Route.rou.xml'], ["L4-CV"], "Penetration3")
+    flowCorrection(['Roadworks/RealTMSPenetration3/Route-Files/L4-AV-Route.rou.xml'], ["L4-AV"], "Penetration3")
+    flowCorrection(['Roadworks/RealTMSPenetration3/Route-Files/L2-CV-Route.rou.xml'], ["L2-CV"], "Penetration3")
+    flowCorrection(['Roadworks/RealTMSPenetration3/Route-Files/L2-AV-Route.rou.xml'], ["L2-AV"], "Penetration3")
+    flowCorrection(['Roadworks/RealTMSPenetration3/Route-Files/L0-HDV-Route.rou.xml'], ["L0-HDV"], "Penetration3")
     
     # #traci starts sumo as a subprocess and then this script connects and runs
     traci.start([sumoBinary, "-c", "Roadworks\RealTMSPenetration3\RoadworksRealTMSPenetration3.sumocfg",
                 "--tripinfo-output", "Roadworks\RealTMSPenetration3\Output-Files\TripInfo.xml", "--ignore-route-errors",
-                "--device.emissions.probability", "1", "--waiting-time-memory", "300"])
+                "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-S", "-Q"])
 
     TMS()
     TMSAlterOutputFiles("Roadworks", "Penetration3", LOS, ITERATION, vehicleTypes)

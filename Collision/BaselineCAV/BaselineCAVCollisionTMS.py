@@ -9,54 +9,47 @@ from xml.dom import minidom
 sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simulation Stuff/Final-Year-Project')
 
 from generalFunctions import (removeOldToC, collisionReRouteClockWiseFirst, collisionReRouteClockWiseSecond, baselineAlterOutputFiles, settingUpVehicles, 
-                                removeVehiclesThatPassCenter)
+                                removeVehiclesThatPassCenter, stoppingCrashedVehicles)
 
-
-def stoppingCrashedVehicles():
-    traci.vehicle.setStop("crashed-car-lane-zero.0", "left-exit", 25.5, 0, 4500)
-    traci.vehicle.setStop("crashed-car-lane-zero.1", "left-exit", 17.5, 0, 4500)
-    traci.vehicle.setStop("crashed-car-lane-one.0", "left-exit", 25.5, 1, 4500)
-    traci.vehicle.setStop("crashed-car-lane-one.1", "left-exit", 17.5, 1, 4500)
-
-def leftExit():
-    det_vehs = traci.inductionloop.getLastStepVehicleIDs("left-exit_0")
-    for veh in det_vehs:
-        if(traci.vehicle.couldChangeLane(veh, 1) == True):
-            traci.vehicle.changeLane(veh, 1, 0.1)
-        if (traci.vehicle.getVehicleClass(veh) != "emergency"):
+# def leftExit():
+#     det_vehs = traci.inductionloop.getLastStepVehicleIDs("left-exit_0")
+#     for veh in det_vehs:
+#         if(traci.vehicle.couldChangeLane(veh, 1) == True):
+#             traci.vehicle.changeLane(veh, 1, 0.1)
+#         if (traci.vehicle.getVehicleClass(veh) != "emergency"):
                
-            traci.vehicle.setVehicleClass(veh, "emergency")
-            if (traci.vehicle.getTypeID(veh)[:2] == "L4"):
-                traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
+#             traci.vehicle.setVehicleClass(veh, "emergency")
+#             if (traci.vehicle.getTypeID(veh)[:2] == "L4"):
+#                 traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
                 
 
-    det_vehs = traci.inductionloop.getLastStepVehicleIDs("left-exit_1")
-    for veh in det_vehs:
-        if(traci.vehicle.getVehicleClass(veh) != "emergency"):
-            traci.vehicle.setVehicleClass(veh, "emergency")
-            if (traci.vehicle.getTypeID(veh)[:2] == "L4"):
-                traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
+#     det_vehs = traci.inductionloop.getLastStepVehicleIDs("left-exit_1")
+#     for veh in det_vehs:
+#         if(traci.vehicle.getVehicleClass(veh) != "emergency"):
+#             traci.vehicle.setVehicleClass(veh, "emergency")
+#             if (traci.vehicle.getTypeID(veh)[:2] == "L4"):
+#                 traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
                 
-    decectorsLaterInLeftExit = ["left-exit_2", "left-exit_3"]
-    for det in decectorsLaterInLeftExit:
-        det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
-        for veh in det_vehs:
-            if (traci.vehicle.getTypeID(veh)[:2] == "L0"):
-                traci.vehicle.requestToC(veh, -1)
+#     decectorsLaterInLeftExit = ["left-exit_2", "left-exit_3"]
+#     for det in decectorsLaterInLeftExit:
+#         det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
+#         for veh in det_vehs:
+#             if (traci.vehicle.getTypeID(veh)[:2] == "L0"):
+#                 traci.vehicle.requestToC(veh, -1)
             
-            if (traci.vehicle.getTypeID(veh)[:2] == "L4"):
-                if (traci.vehicle.getParameter(veh, "device.toc.dynamicToCThreshold") == 0):
-                    traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 11)
+#             if (traci.vehicle.getTypeID(veh)[:2] == "L4"):
+#                 if (traci.vehicle.getParameter(veh, "device.toc.dynamicToCThreshold") == 0):
+#                     traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 11)
 
-def closeRightTopBottom(vehiclesApproachingClosure, vehiclesThatTORed, DETECTINGISSUE):
-    detectors = ["close-top-approaching_0", "close-right-approaching_1", "close-bottom-approaching_2"]
-    edges = ["top", "right", "bottom"]
-    for i in range(0, len(detectors)-1):
-        det_vehs = traci.inductionloop.getLastStepVehicleIDs(detectors[i])
-        for veh in det_vehs:
-            if traci.vehicle.getRoute(veh)[1] != "left-exit":
-                vehiclesApproachingClosure, vehiclesThatTORed = reRoutingVehicles(veh, edges[i], vehiclesApproachingClosure, vehiclesThatTORed, DETECTINGISSUE)
-    return vehiclesApproachingClosure, vehiclesThatTORed
+# def closeRightTopBottom(vehiclesApproachingClosure, vehiclesThatTORed, DETECTINGISSUE):
+#     detectors = ["close-top-approaching_0", "close-right-approaching_1", "close-bottom-approaching_2"]
+#     edges = ["top", "right", "bottom"]
+#     for i in range(0, len(detectors)-1):
+#         det_vehs = traci.inductionloop.getLastStepVehicleIDs(detectors[i])
+#         for veh in det_vehs:
+#             if traci.vehicle.getRoute(veh)[1] != "left-exit":
+#                 vehiclesApproachingClosure, vehiclesThatTORed = reRoutingVehicles(veh, edges[i], vehiclesApproachingClosure, vehiclesThatTORed, DETECTINGISSUE)
+#     return vehiclesApproachingClosure, vehiclesThatTORed
 
 def farRightTopBottom(delayBeforeReoute, vehiclesApproachingClosure, vehiclesThatTORed, MAJOYDELAYTRIGGEREDTOC):
     detectors = ["far-top-approaching_0", "far-top-approaching_1", "far-top-approaching_2", 

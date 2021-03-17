@@ -1,0 +1,864 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 03/17/21 01:00:51 by Eclipse SUMO GUI Version 1.8.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="Roadworks\RealTMSPenetration3\../RoadworksIntersection.net.xml"/>
+        <route-files value="Roadworks\RealTMSPenetration3\Route-Files/L4-CV-Route.rou.xml,Roadworks\RealTMSPenetration3\Route-Files/L4-AV-Route.rou.xml,Roadworks\RealTMSPenetration3\Route-Files/L2-CV-Route.rou.xml,Roadworks\RealTMSPenetration3\Route-Files/L2-AV-Route.rou.xml,Roadworks\RealTMSPenetration3\Route-Files/L0-HDV-Route.rou.xml"/>
+        <additional-files value="Roadworks\RealTMSPenetration3\../Additional-Files/Roadworks-Detectors.add.xml,Roadworks\RealTMSPenetration3\../Additional-Files/Roadworks-Rerouters.add.xml,Roadworks\RealTMSPenetration3\../Additional-Files/Roadworks-Traffic-lights.add.xml,Roadworks\RealTMSPenetration3\../Additional-Files/Roadworks-Traffic-Signs.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L4-CV.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L4-CV-Left.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L4-CV-Right.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L4-AV.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L4-AV-Left.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L4-AV-Right.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L2-CV.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L2-CV-Left.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L2-CV-Right.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L2-AV.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L2-AV-Left.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L2-AV-Right.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L0-HDV.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L0-HDV-Left.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L0-HDV-Straight.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="Roadworks\RealTMSPenetration3\Output-Files\TripInfo.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <step-length value="0.1"/>
+    </time>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+        <waiting-time-memory value="300"/>
+        <default.action-step-length value="0.1"/>
+    </processing>
+
+    <emissions>
+        <device.emissions.probability value="1"/>
+    </emissions>
+
+    <traci_server>
+        <remote-port value="64920"/>
+    </traci_server>
+
+    <gui_only>
+        <quit-on-end value="true"/>
+        <start value="true"/>
+        <tracker-interval value="0.1"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<SSMLog>
+    <conflict begin="139.20" end="153.20" ego="L0-HDV-3" foe="L4-CV-21">
+        <minTTC time="140.60" position="886.40,501.60" type="7" value="2.79"/>
+    </conflict>
+    <conflict begin="105.00" end="138.00" ego="L0-HDV-2" foe="L2-CV-5">
+        <minTTC time="107.40" position="902.31,503.66" type="11" value="2.38"/>
+    </conflict>
+    <conflict begin="105.00" end="126.30" ego="L0-HDV-2" foe="L4-AV-4">
+        <minTTC time="107.50" position="902.31,503.66" type="11" value="2.38"/>
+    </conflict>
+    <conflict begin="105.00" end="120.50" ego="L0-HDV-2" foe="L4-CV-0">
+        <minTTC time="107.60" position="903.77,503.95" type="11" value="2.23"/>
+    </conflict>
+    <conflict begin="105.00" end="135.50" ego="L0-HDV-2" foe="L4-CV-18">
+        <minTTC time="107.40" position="902.31,503.66" type="11" value="2.38"/>
+    </conflict>
+    <conflict begin="105.00" end="120.20" ego="L0-HDV-2" foe="L4-CV-6">
+        <minTTC time="107.10" position="897.34,502.67" type="11" value="2.83"/>
+    </conflict>
+    <conflict begin="105.00" end="123.20" ego="L0-HDV-2" foe="L4-CV-8">
+        <minTTC time="107.60" position="903.77,503.95" type="11" value="2.23"/>
+    </conflict>
+    <conflict begin="105.00" end="122.70" ego="L0-HDV-2" foe="L4-CV-9">
+        <minTTC time="107.10" position="897.34,502.67" type="11" value="2.83"/>
+    </conflict>
+    <conflict begin="105.50" end="140.80" ego="L0-HDV-2" foe="L4-CV-24">
+        <minTTC time="107.50" position="902.31,503.66" type="11" value="2.38"/>
+    </conflict>
+    <conflict begin="118.60" end="198.80" ego="L0-HDV-2" foe="L2-CV-7">
+        <minTTC time="120.20" position="919.60,504.80" type="3" value="1.65"/>
+    </conflict>
+    <conflict begin="130.70" end="181.90" ego="L0-HDV-2" foe="L4-CV-34">
+        <minTTC time="131.50" position="919.60,504.80" type="3" value="2.02"/>
+    </conflict>
+    <conflict begin="160.70" end="178.00" ego="L0-HDV-2" foe="L4-CV-43">
+        <minTTC time="161.00" position="919.59,504.80" type="3" value="2.47"/>
+    </conflict>
+    <conflict begin="197.20" end="208.20" ego="L0-HDV-4" foe="L2-CV-13">
+        <minTTC time="200.20" position="587.28,495.20" type="2" value="1.93"/>
+    </conflict>
+    <conflict begin="197.90" end="222.70" ego="L0-HDV-4" foe="L4-CV-39">
+        <minTTC time="202.80" position="595.00,495.20" type="2" value="1.56"/>
+    </conflict>
+    <conflict begin="207.30" end="278.90" ego="L0-HDV-5" foe="L4-CV-48">
+        <minTTC time="210.90" position="898.40,534.60" type="2" value="1.27"/>
+    </conflict>
+    <conflict begin="207.70" end="278.10" ego="L0-HDV-5" foe="L4-CV-47">
+        <minTTC time="209.70" position="898.40,527.10" type="2" value="2.35"/>
+    </conflict>
+    <conflict begin="208.60" end="256.80" ego="L0-HDV-5" foe="L4-CV-52">
+        <minTTC time="245.20" position="901.61,503.18" type="11" value="0.86"/>
+    </conflict>
+    <conflict begin="208.60" end="256.30" ego="L0-HDV-5" foe="L4-CV-55">
+        <minTTC time="245.20" position="901.61,503.18" type="11" value="0.86"/>
+    </conflict>
+    <conflict begin="217.10" end="256.80" ego="L0-HDV-5" foe="L4-CV-61">
+        <minTTC time="245.20" position="901.61,503.18" type="11" value="0.86"/>
+    </conflict>
+    <conflict begin="237.90" end="256.30" ego="L0-HDV-5" foe="L2-CV-17">
+        <minTTC time="245.20" position="901.61,503.18" type="11" value="0.86"/>
+    </conflict>
+    <conflict begin="230.80" end="287.00" ego="L0-HDV-4" foe="L2-CV-13">
+        <minTTC time="236.00" position="865.40,498.40" type="2" value="1.57"/>
+    </conflict>
+    <conflict begin="231.40" end="283.70" ego="L0-HDV-4" foe="L4-CV-44">
+        <minTTC time="234.70" position="872.90,498.40" type="2" value="2.99"/>
+    </conflict>
+    <conflict begin="253.90" end="288.10" ego="L0-HDV-6" foe="L4-CV-71">
+        <minTTC time="265.10" position="577.82,492.00" type="2" value="1.91"/>
+    </conflict>
+    <conflict begin="289.70" end="298.20" ego="L0-HDV-6" foe="L4-CV-83">
+        <minTTC time="291.40" position="595.00,492.00" type="3" value="1.54"/>
+    </conflict>
+    <conflict begin="264.50" end="299.20" ego="L0-HDV-4" foe="L2-CV-16">
+        <minTTC time="266.60" position="858.35,498.40" type="3" value="1.78"/>
+    </conflict>
+    <conflict begin="393.20" end="416.70" ego="L0-HDV-10" foe="L2-CV-22">
+        <minTTC time="397.80" position="595.00,495.20" type="2" value="1.55"/>
+    </conflict>
+    <conflict begin="399.80" end="411.30" ego="L0-HDV-10" foe="L4-CV-121">
+        <minTTC time="401.50" position="587.50,495.20" type="3" value="1.52"/>
+    </conflict>
+    <conflict begin="339.80" end="369.70" ego="L0-HDV-6" foe="L4-CV-100">
+        <minTTC time="340.00" position="595.00,492.00" type="3" value="2.97"/>
+    </conflict>
+    <conflict begin="354.20" end="388.00" ego="L0-HDV-6" foe="L4-CV-104">
+        <minTTC time="354.70" position="595.00,492.00" type="3" value="2.79"/>
+    </conflict>
+    <conflict begin="367.70" end="392.90" ego="L0-HDV-6" foe="L4-CV-108">
+        <minTTC time="368.40" position="595.00,492.00" type="3" value="2.72"/>
+    </conflict>
+    <conflict begin="418.10" end="443.10" ego="L0-HDV-6" foe="L4-CV-127">
+        <minTTC time="418.90" position="595.00,492.00" type="3" value="1.98"/>
+    </conflict>
+    <conflict begin="448.00" end="473.10" ego="L0-HDV-6" foe="L4-CV-136">
+        <minTTC time="449.60" position="595.00,492.00" type="3" value="1.63"/>
+    </conflict>
+    <conflict begin="469.50" end="492.70" ego="L0-HDV-6" foe="L4-CV-143">
+        <minTTC time="471.10" position="595.00,492.00" type="3" value="1.63"/>
+    </conflict>
+    <conflict begin="471.30" end="502.50" ego="L0-HDV-6" foe="L2-AV-12">
+        <minTTC time="472.10" position="595.00,492.00" type="3" value="2.89"/>
+    </conflict>
+    <conflict begin="456.00" end="514.50" ego="L0-HDV-12" foe="L2-CV-37">
+        <minTTC time="493.40" position="587.50,492.00" type="3" value="0.96"/>
+    </conflict>
+    <conflict begin="485.50" end="502.00" ego="L0-HDV-12" foe="L2-AV-12">
+        <minTTC time="487.90" position="580.94,492.00" type="2" value="2.16"/>
+    </conflict>
+    <conflict begin="486.80" end="515.20" ego="L0-HDV-6" foe="L0-HDV-12">
+        <minTTC time="491.40" position="595.00,492.00" type="3" value="1.27"/>
+    </conflict>
+    <conflict begin="486.80" end="515.20" ego="L0-HDV-12" foe="L0-HDV-6">
+        <minTTC time="491.40" position="595.00,492.00" type="2" value="1.27"/>
+    </conflict>
+    <conflict begin="488.60" end="521.20" ego="L0-HDV-6" foe="L2-CV-37">
+        <minTTC time="501.10" position="595.00,492.00" type="3" value="2.09"/>
+    </conflict>
+    <conflict begin="421.30" end="526.40" ego="L0-HDV-10" foe="L4-CV-108">
+        <minTTC time="426.20" position="880.40,498.40" type="2" value="1.55"/>
+    </conflict>
+    <conflict begin="433.70" end="493.50" ego="L0-HDV-10" foe="L4-CV-121">
+        <minTTC time="438.40" position="872.90,498.40" type="3" value="1.45"/>
+    </conflict>
+    <conflict begin="468.90" end="520.10" ego="L0-HDV-10" foe="L4-AV-32">
+        <minTTC time="473.60" position="872.90,498.40" type="3" value="1.16"/>
+    </conflict>
+    <conflict begin="508.00" end="584.40" ego="L0-HDV-6" foe="L4-CV-156">
+        <minTTC time="514.60" position="595.00,492.00" type="3" value="2.08"/>
+    </conflict>
+    <conflict begin="532.90" end="585.60" ego="L0-HDV-6" foe="L4-CV-164">
+        <minTTC time="534.70" position="595.00,492.00" type="3" value="1.59"/>
+    </conflict>
+    <conflict begin="534.20" end="551.40" ego="L0-HDV-6" foe="L4-CV-165">
+        <minTTC time="535.30" position="595.00,492.00" type="3" value="2.42"/>
+    </conflict>
+    <conflict begin="563.00" end="578.90" ego="L0-HDV-6" foe="L4-CV-175">
+        <minTTC time="564.30" position="595.00,492.00" type="3" value="2.22"/>
+    </conflict>
+    <conflict begin="571.80" end="583.70" ego="L0-HDV-6" foe="L4-CV-179">
+        <minTTC time="572.60" position="595.00,492.00" type="3" value="2.00"/>
+    </conflict>
+    <conflict begin="578.00" end="599.50" ego="L0-HDV-15" foe="L4-CV-156">
+        <minTTC time="582.80" position="595.00,495.20" type="2" value="1.53"/>
+    </conflict>
+    <conflict begin="534.10" end="607.50" ego="L0-HDV-13" foe="L4-CV-158">
+        <minTTC time="537.00" position="880.40,498.40" type="3" value="1.69"/>
+    </conflict>
+    <conflict begin="561.80" end="604.30" ego="L0-HDV-13" foe="L4-CV-165">
+        <minTTC time="563.70" position="880.40,498.40" type="3" value="2.37"/>
+    </conflict>
+    <conflict begin="565.50" end="604.30" ego="L0-HDV-13" foe="L4-CV-178">
+        <minTTC time="593.50" position="901.15,498.40" type="11" value="1.18"/>
+    </conflict>
+    <conflict begin="523.60" end="617.40" ego="L0-HDV-12" foe="L4-CV-150">
+        <minTTC time="533.00" position="872.90,495.20" type="3" value="2.15"/>
+    </conflict>
+    <conflict begin="525.30" end="609.30" ego="L0-HDV-12" foe="L2-AV-12">
+        <minTTC time="531.30" position="880.40,495.20" type="2" value="1.34"/>
+    </conflict>
+    <conflict begin="531.20" end="630.30" ego="L0-HDV-12" foe="L2-CV-37">
+        <minTTC time="532.80" position="872.90,495.20" type="3" value="2.89"/>
+    </conflict>
+    <conflict begin="591.10" end="642.30" ego="L0-HDV-15" foe="L2-CV-46">
+        <minTTC time="592.30" position="596.68,495.20" type="3" value="2.10"/>
+    </conflict>
+    <conflict begin="642.20" end="661.90" ego="L0-HDV-17" foe="L4-AV-50">
+        <minTTC time="645.40" position="906.37,500.57" type="11" value="2.27"/>
+    </conflict>
+    <conflict begin="642.20" end="674.60" ego="L0-HDV-17" foe="L4-CV-190">
+        <minTTC time="645.10" position="904.53,499.70" type="11" value="2.53"/>
+    </conflict>
+    <conflict begin="642.20" end="676.00" ego="L0-HDV-17" foe="L4-CV-197">
+        <minTTC time="645.10" position="904.53,499.70" type="11" value="2.53"/>
+    </conflict>
+    <conflict begin="642.20" end="698.70" ego="L0-HDV-17" foe="L4-CV-192">
+        <minTTC time="690.60" position="901.15,498.40" type="10" value="2.10"/>
+    </conflict>
+    <conflict begin="642.20" end="700.20" ego="L0-HDV-17" foe="L0-HDV-16">
+        <minTTC time="645.10" position="904.53,499.70" type="11" value="2.53"/>
+    </conflict>
+    <conflict begin="680.60" end="703.40" ego="L0-HDV-18" foe="L2-CV-49">
+        <minTTC time="685.40" position="919.60,504.80" type="2" value="1.44"/>
+    </conflict>
+    <conflict begin="659.70" end="705.10" ego="L0-HDV-17" foe="L4-CV-201">
+        <minTTC time="691.60" position="904.53,499.70" type="11" value="0.84"/>
+    </conflict>
+    <conflict begin="680.00" end="707.40" ego="L0-HDV-17" foe="L4-CV-207">
+        <minTTC time="691.20" position="904.53,499.70" type="11" value="0.73"/>
+    </conflict>
+    <conflict begin="605.70" end="725.20" ego="L0-HDV-16" foe="L4-CV-192">
+        <minTTC time="641.10" position="880.40,498.40" type="2" value="1.34"/>
+    </conflict>
+    <conflict begin="640.60" end="693.90" ego="L0-HDV-16" foe="L4-CV-189">
+        <minTTC time="645.20" position="872.90,498.40" type="3" value="1.10"/>
+    </conflict>
+    <conflict begin="657.70" end="723.20" ego="L0-HDV-16" foe="L4-CV-199">
+        <minTTC time="663.10" position="872.90,498.40" type="3" value="2.04"/>
+    </conflict>
+    <conflict begin="681.80" end="725.20" ego="L0-HDV-17" foe="L4-CV-217">
+        <minTTC time="691.40" position="904.53,499.70" type="11" value="0.73"/>
+    </conflict>
+    <conflict begin="683.90" end="724.60" ego="L0-HDV-17" foe="L4-AV-54">
+        <minTTC time="691.40" position="904.53,499.70" type="11" value="0.73"/>
+    </conflict>
+    <conflict begin="692.10" end="723.30" ego="L0-HDV-17" foe="L4-CV-218">
+        <minTTC time="695.50" position="901.61,503.18" type="12" value="2.81"/>
+    </conflict>
+    <conflict begin="704.20" end="716.50" ego="L0-HDV-17" foe="L4-CV-215">
+        <minTTC time="709.70" position="904.53,499.70" type="11" value="0.85"/>
+    </conflict>
+    <conflict begin="690.60" end="805.90" ego="L0-HDV-19" foe="L2-CV-57">
+        <minTTC time="723.20" position="898.40,529.41" type="2" value="1.73"/>
+    </conflict>
+    <conflict begin="719.60" end="805.50" ego="L0-HDV-19" foe="L4-CV-218">
+        <minTTC time="720.50" position="898.40,519.60" type="2" value="2.63"/>
+    </conflict>
+    <conflict begin="721.20" end="785.90" ego="L0-HDV-19" foe="L4-CV-229">
+        <minTTC time="773.90" position="901.61,503.18" type="11" value="0.93"/>
+    </conflict>
+    <conflict begin="731.80" end="786.00" ego="L0-HDV-19" foe="L2-CV-58">
+        <minTTC time="773.90" position="901.61,503.18" type="11" value="0.93"/>
+    </conflict>
+    <conflict begin="751.70" end="803.30" ego="L0-HDV-19" foe="L4-CV-240">
+        <minTTC time="753.50" position="898.40,525.30" type="3" value="1.71"/>
+    </conflict>
+    <conflict begin="754.50" end="785.40" ego="L0-HDV-19" foe="L2-CV-60">
+        <minTTC time="773.90" position="901.61,503.18" type="11" value="0.93"/>
+    </conflict>
+    <conflict begin="760.20" end="786.00" ego="L0-HDV-19" foe="L4-CV-242">
+        <minTTC time="760.80" position="898.40,523.34" type="3" value="2.01"/>
+    </conflict>
+    <conflict begin="833.00" end="853.00" ego="L0-HDV-22" foe="L4-CV-241">
+        <minTTC time="837.40" position="595.00,495.20" type="2" value="1.38"/>
+    </conflict>
+    <conflict begin="797.10" end="867.70" ego="L0-HDV-21" foe="L2-CV-63">
+        <minTTC time="801.80" position="895.20,519.60" type="2" value="1.80"/>
+    </conflict>
+    <conflict begin="862.90" end="925.90" ego="L0-HDV-22" foe="L4-AV-64">
+        <minTTC time="867.30" position="872.90,498.40" type="2" value="1.43"/>
+    </conflict>
+    <conflict begin="863.40" end="912.80" ego="L0-HDV-22" foe="L4-CV-255">
+        <minTTC time="866.20" position="880.40,498.40" type="2" value="2.65"/>
+    </conflict>
+    <conflict begin="884.00" end="926.90" ego="L0-HDV-22" foe="L4-CV-270">
+        <minTTC time="886.40" position="865.40,498.40" type="3" value="1.69"/>
+    </conflict>
+    <conflict begin="898.50" end="985.00" ego="L0-HDV-24" foe="L2-CV-71">
+        <minTTC time="902.80" position="904.80,483.60" type="2" value="1.34"/>
+    </conflict>
+    <conflict begin="904.00" end="983.20" ego="L0-HDV-24" foe="L4-CV-290">
+        <minTTC time="906.00" position="904.80,476.10" type="3" value="1.68"/>
+    </conflict>
+    <conflict begin="921.00" end="978.20" ego="L0-HDV-24" foe="L4-CV-297">
+        <minTTC time="921.70" position="904.80,476.10" type="3" value="2.05"/>
+    </conflict>
+    <conflict begin="927.40" end="969.10" ego="L0-HDV-24" foe="L4-CV-299">
+        <minTTC time="927.80" position="904.80,476.10" type="3" value="2.60"/>
+    </conflict>
+    <conflict begin="953.90" end="967.20" ego="L0-HDV-24" foe="L4-CV-308">
+        <minTTC time="954.80" position="903.77,503.95" type="10" value="2.78"/>
+    </conflict>
+    <conflict begin="972.20" end="987.30" ego="L0-HDV-26" foe="L4-AV-75">
+        <minTTC time="977.10" position="898.98,497.06" type="11" value="1.11"/>
+    </conflict>
+    <conflict begin="972.20" end="989.80" ego="L0-HDV-26" foe="L4-CV-295">
+        <minTTC time="977.10" position="898.98,497.06" type="11" value="1.11"/>
+    </conflict>
+    <conflict begin="972.20" end="990.80" ego="L0-HDV-26" foe="L2-AV-23">
+        <minTTC time="977.10" position="898.98,497.06" type="11" value="1.11"/>
+    </conflict>
+    <conflict begin="900.00" end="1011.10" ego="L0-HDV-25" foe="L4-CV-298">
+        <minTTC time="930.80" position="892.00,535.93" type="2" value="1.36"/>
+    </conflict>
+    <conflict begin="928.10" end="965.60" ego="L0-HDV-25" foe="L4-CV-289">
+        <minTTC time="929.60" position="892.00,526.10" type="2" value="2.44"/>
+    </conflict>
+    <conflict begin="947.60" end="991.70" ego="L0-HDV-25" foe="L4-CV-306">
+        <minTTC time="949.20" position="892.00,541.10" type="3" value="1.54"/>
+    </conflict>
+    <conflict begin="1039.40" end="1095.50" ego="L0-HDV-28" foe="L4-CV-322">
+        <minTTC time="1044.00" position="908.00,476.10" type="2" value="1.54"/>
+    </conflict>
+    <conflict begin="1039.90" end="1095.50" ego="L0-HDV-28" foe="L4-AV-80">
+        <minTTC time="1042.90" position="908.00,483.60" type="2" value="2.92"/>
+    </conflict>
+    <conflict begin="1045.10" end="1076.40" ego="L0-HDV-28" foe="L4-CV-337">
+        <minTTC time="1046.90" position="908.00,468.60" type="3" value="1.61"/>
+    </conflict>
+    <conflict begin="1108.20" end="1126.40" ego="L0-HDV-30" foe="L2-CV-84">
+        <minTTC time="1111.00" position="901.61,503.18" type="13" value="2.79"/>
+    </conflict>
+    <conflict begin="1108.20" end="1128.90" ego="L0-HDV-30" foe="L4-CV-349">
+        <minTTC time="1111.00" position="901.61,503.18" type="11" value="2.79"/>
+    </conflict>
+    <conflict begin="1108.20" end="1131.70" ego="L0-HDV-30" foe="L4-CV-353">
+        <minTTC time="1111.00" position="901.61,503.18" type="11" value="2.79"/>
+    </conflict>
+    <conflict begin="1108.20" end="1170.70" ego="L0-HDV-30" foe="L2-CV-87">
+        <minTTC time="1161.90" position="903.57,500.61" type="10" value="2.09"/>
+    </conflict>
+    <conflict begin="1108.20" end="1172.80" ego="L0-HDV-30" foe="L4-CV-350">
+        <minTTC time="1111.00" position="901.61,503.18" type="11" value="2.79"/>
+    </conflict>
+    <conflict begin="1108.20" end="1174.80" ego="L0-HDV-30" foe="L4-CV-355">
+        <minTTC time="1162.10" position="901.61,503.18" type="11" value="0.84"/>
+    </conflict>
+    <conflict begin="1111.60" end="1176.80" ego="L0-HDV-30" foe="L4-CV-360">
+        <minTTC time="1162.50" position="901.61,503.18" type="11" value="0.73"/>
+    </conflict>
+    <conflict begin="1114.10" end="1178.50" ego="L0-HDV-30" foe="L4-AV-90">
+        <minTTC time="1162.60" position="901.61,503.18" type="11" value="0.72"/>
+    </conflict>
+    <conflict begin="1127.20" end="1188.20" ego="L0-HDV-30" foe="L2-CV-91">
+        <minTTC time="1162.60" position="901.61,503.18" type="11" value="0.72"/>
+    </conflict>
+    <conflict begin="1146.50" end="1188.20" ego="L0-HDV-30" foe="L4-CV-369">
+        <minTTC time="1162.60" position="901.61,503.18" type="11" value="0.72"/>
+    </conflict>
+    <conflict begin="1148.00" end="1187.60" ego="L0-HDV-30" foe="L4-CV-372">
+        <minTTC time="1162.60" position="901.61,503.18" type="11" value="0.72"/>
+    </conflict>
+    <conflict begin="1152.30" end="1180.40" ego="L0-HDV-30" foe="L4-CV-373">
+        <minTTC time="1174.10" position="901.61,503.18" type="11" value="0.74"/>
+    </conflict>
+    <conflict begin="1147.60" end="1196.90" ego="L0-HDV-31" foe="L2-AV-31">
+        <minTTC time="1152.70" position="898.40,580.54" type="2" value="2.55"/>
+    </conflict>
+    <conflict begin="1161.70" end="1194.70" ego="L0-HDV-31" foe="L2-CV-91">
+        <minTTC time="1182.10" position="901.61,503.18" type="11" value="0.87"/>
+    </conflict>
+    <conflict begin="1161.70" end="1194.70" ego="L0-HDV-31" foe="L4-CV-369">
+        <minTTC time="1182.10" position="901.61,503.18" type="11" value="0.87"/>
+    </conflict>
+    <conflict begin="1169.40" end="1192.70" ego="L0-HDV-31" foe="L4-AV-93">
+        <minTTC time="1182.10" position="901.61,503.18" type="11" value="0.87"/>
+    </conflict>
+    <conflict begin="1172.00" end="1193.40" ego="L0-HDV-31" foe="L4-CV-380">
+        <minTTC time="1182.10" position="901.61,503.18" type="11" value="0.87"/>
+    </conflict>
+    <conflict begin="1174.70" end="1192.10" ego="L0-HDV-31" foe="L2-CV-95">
+        <minTTC time="1182.10" position="901.61,503.18" type="11" value="0.87"/>
+    </conflict>
+    <conflict begin="1175.20" end="1191.90" ego="L0-HDV-31" foe="L4-CV-379">
+        <minTTC time="1182.10" position="901.61,503.18" type="11" value="0.87"/>
+    </conflict>
+    <conflict begin="1185.10" end="1239.70" ego="L0-HDV-32" foe="L2-CV-95">
+        <minTTC time="1189.80" position="949.60,504.80" type="2" value="1.49"/>
+    </conflict>
+    <conflict begin="1185.60" end="1236.10" ego="L0-HDV-32" foe="L4-AV-95">
+        <minTTC time="1188.20" position="942.10,504.80" type="2" value="2.89"/>
+    </conflict>
+    <conflict begin="1196.60" end="1283.40" ego="L0-HDV-32" foe="L4-CV-389">
+        <minTTC time="1198.20" position="957.10,504.80" type="3" value="1.64"/>
+    </conflict>
+    <conflict begin="1205.70" end="1240.20" ego="L0-HDV-32" foe="L2-CV-98">
+        <minTTC time="1206.80" position="957.10,504.80" type="3" value="2.12"/>
+    </conflict>
+    <conflict begin="1256.00" end="1346.90" ego="L0-HDV-34" foe="L4-CV-403">
+        <minTTC time="1260.00" position="919.60,504.80" type="2" value="1.23"/>
+    </conflict>
+    <conflict begin="1266.70" end="1379.40" ego="L0-HDV-34" foe="L4-CV-412">
+        <minTTC time="1268.30" position="927.10,504.80" type="3" value="1.64"/>
+    </conflict>
+    <conflict begin="1334.90" end="1392.90" ego="L0-HDV-37" foe="L2-CV-111">
+        <minTTC time="1377.50" position="576.66,492.00" type="2" value="2.38"/>
+    </conflict>
+    <conflict begin="1373.70" end="1397.70" ego="L0-HDV-37" foe="L2-AV-35">
+        <minTTC time="1386.50" position="586.46,492.00" type="2" value="2.93"/>
+    </conflict>
+    <conflict begin="1374.40" end="1403.10" ego="L0-HDV-37" foe="L2-CV-105">
+        <minTTC time="1389.30" position="595.00,495.20" type="2" value="2.47"/>
+    </conflict>
+    <conflict begin="1381.40" end="1397.20" ego="L0-HDV-37" foe="L4-CV-448">
+        <minTTC time="1383.10" position="571.01,492.00" type="3" value="1.60"/>
+    </conflict>
+    <conflict begin="1383.00" end="1396.70" ego="L0-HDV-37" foe="L4-AV-112">
+        <minTTC time="1384.20" position="571.13,492.00" type="3" value="2.56"/>
+    </conflict>
+    <conflict begin="1405.80" end="1455.70" ego="L0-HDV-37" foe="L2-CV-111">
+        <minTTC time="1412.90" position="872.90,495.20" type="2" value="1.74"/>
+    </conflict>
+    <conflict begin="1409.00" end="1421.20" ego="L0-HDV-37" foe="L2-AV-36">
+        <minTTC time="1411.90" position="880.40,495.20" type="2" value="2.99"/>
+    </conflict>
+    <conflict begin="1505.90" end="1597.20" ego="L0-HDV-41" foe="L2-CV-122">
+        <minTTC time="1509.60" position="961.96,504.80" type="2" value="1.77"/>
+    </conflict>
+    <conflict begin="1506.50" end="1549.10" ego="L0-HDV-41" foe="L4-AV-121">
+        <minTTC time="1508.00" position="954.33,504.80" type="2" value="2.97"/>
+    </conflict>
+    <conflict begin="1619.90" end="1635.00" ego="L0-HDV-44" foe="L4-CV-527">
+        <minTTC time="1623.50" position="901.61,503.18" type="11" value="1.32"/>
+    </conflict>
+    <conflict begin="1619.90" end="1635.60" ego="L0-HDV-44" foe="L4-CV-519">
+        <minTTC time="1623.60" position="901.61,503.18" type="11" value="1.28"/>
+    </conflict>
+    <conflict begin="1619.90" end="1636.10" ego="L0-HDV-44" foe="L2-AV-43">
+        <minTTC time="1623.60" position="901.61,503.18" type="11" value="1.28"/>
+    </conflict>
+    <conflict begin="1619.90" end="1636.20" ego="L0-HDV-44" foe="L4-AV-130">
+        <minTTC time="1623.60" position="901.61,503.18" type="11" value="1.28"/>
+    </conflict>
+    <conflict begin="1653.90" end="1669.50" ego="L0-HDV-45" foe="L2-AV-43">
+        <minTTC time="1656.40" position="901.61,503.18" type="13" value="2.50"/>
+    </conflict>
+    <conflict begin="1653.90" end="1671.60" ego="L0-HDV-45" foe="L4-CV-519">
+        <minTTC time="1656.40" position="901.61,503.18" type="11" value="2.50"/>
+    </conflict>
+    <conflict begin="1653.90" end="1674.70" ego="L0-HDV-45" foe="L4-CV-527">
+        <minTTC time="1656.40" position="901.61,503.18" type="11" value="2.50"/>
+    </conflict>
+    <conflict begin="1653.90" end="1676.90" ego="L0-HDV-45" foe="L4-CV-530">
+        <minTTC time="1656.30" position="901.61,503.18" type="11" value="2.50"/>
+    </conflict>
+    <conflict begin="1653.90" end="1679.00" ego="L0-HDV-45" foe="L4-CV-536">
+        <minTTC time="1656.30" position="901.61,503.18" type="11" value="2.50"/>
+    </conflict>
+    <conflict begin="1700.80" end="1715.30" ego="L0-HDV-46" foe="L4-CV-551">
+        <minTTC time="1702.50" position="587.07,495.20" type="2" value="2.10"/>
+    </conflict>
+    <conflict begin="1701.50" end="1725.90" ego="L0-HDV-46" foe="L4-CV-535">
+        <minTTC time="1705.60" position="595.00,495.20" type="2" value="1.16"/>
+    </conflict>
+    <conflict begin="1657.60" end="1746.50" ego="L0-HDV-45" foe="L4-CV-540">
+        <minTTC time="1660.10" position="898.40,519.60" type="3" value="1.69"/>
+    </conflict>
+    <conflict begin="1659.30" end="1731.30" ego="L0-HDV-45" foe="L4-CV-541">
+        <minTTC time="1660.60" position="898.40,519.60" type="3" value="2.42"/>
+    </conflict>
+    <conflict begin="1668.40" end="1725.70" ego="L0-HDV-45" foe="L4-CV-546">
+        <minTTC time="1669.00" position="898.40,519.60" type="3" value="2.76"/>
+    </conflict>
+    <conflict begin="1671.00" end="1725.60" ego="L0-HDV-45" foe="L4-CV-545">
+        <minTTC time="1700.40" position="901.61,503.18" type="11" value="0.65"/>
+    </conflict>
+    <conflict begin="1678.40" end="1706.90" ego="L0-HDV-45" foe="L2-CV-137">
+        <minTTC time="1699.90" position="901.61,503.18" type="11" value="0.77"/>
+    </conflict>
+    <conflict begin="1681.10" end="1725.60" ego="L0-HDV-45" foe="L4-CV-548">
+        <minTTC time="1700.40" position="901.61,503.18" type="11" value="0.65"/>
+    </conflict>
+    <conflict begin="1681.80" end="1724.90" ego="L0-HDV-45" foe="L4-CV-550">
+        <minTTC time="1700.40" position="901.61,503.18" type="11" value="0.65"/>
+    </conflict>
+    <conflict begin="1697.40" end="1724.20" ego="L0-HDV-45" foe="L2-CV-139">
+        <minTTC time="1700.40" position="901.61,503.18" type="11" value="0.65"/>
+    </conflict>
+    <conflict begin="1733.90" end="1770.20" ego="L0-HDV-46" foe="L4-CV-551">
+        <minTTC time="1739.00" position="880.40,498.40" type="2" value="1.17"/>
+    </conflict>
+    <conflict begin="1736.70" end="1764.80" ego="L0-HDV-46" foe="L4-CV-568">
+        <minTTC time="1737.40" position="904.20,497.52" type="10" value="2.96"/>
+    </conflict>
+    <conflict begin="1826.30" end="1891.00" ego="L0-HDV-50" foe="L4-CV-598">
+        <minTTC time="1831.10" position="927.41,508.00" type="2" value="1.65"/>
+    </conflict>
+    <conflict begin="1767.90" end="1936.40" ego="L0-HDV-49" foe="L4-AV-147">
+        <minTTC time="1847.40" position="926.10,504.80" type="2" value="2.25"/>
+    </conflict>
+    <conflict begin="1841.70" end="1936.40" ego="L0-HDV-49" foe="L2-CV-151">
+        <minTTC time="1842.40" position="942.73,504.80" type="3" value="2.01"/>
+    </conflict>
+    <conflict begin="1986.00" end="2060.90" ego="L0-HDV-55" foe="L4-CV-662">
+        <minTTC time="2020.90" position="908.00,483.60" type="3" value="2.17"/>
+    </conflict>
+    <conflict begin="2066.90" end="2152.70" ego="L0-HDV-56" foe="L4-CV-679">
+        <minTTC time="2068.40" position="908.00,484.08" type="3" value="1.63"/>
+    </conflict>
+    <conflict begin="2083.20" end="2150.70" ego="L0-HDV-56" foe="L4-CV-683">
+        <minTTC time="2084.40" position="908.00,484.08" type="3" value="2.10"/>
+    </conflict>
+    <conflict begin="2088.30" end="2184.70" ego="L0-HDV-57" foe="L4-AV-170">
+        <minTTC time="2092.70" position="898.40,519.60" type="2" value="1.24"/>
+    </conflict>
+    <conflict begin="2124.30" end="2172.30" ego="L0-HDV-58" foe="L0-HDV-57">
+        <minTTC time="2128.40" position="906.37,500.57" type="11" value="2.87"/>
+    </conflict>
+    <conflict begin="2124.30" end="2170.20" ego="L0-HDV-58" foe="L4-AV-170">
+        <minTTC time="2128.40" position="906.37,500.57" type="11" value="2.87"/>
+    </conflict>
+    <conflict begin="2124.30" end="2198.80" ego="L0-HDV-58" foe="L2-CV-169">
+        <minTTC time="2187.50" position="904.53,499.70" type="11" value="0.90"/>
+    </conflict>
+    <conflict begin="2134.90" end="2200.40" ego="L0-HDV-57" foe="L4-CV-701">
+        <minTTC time="2136.50" position="898.40,527.10" type="3" value="1.57"/>
+    </conflict>
+    <conflict begin="2132.40" end="2250.90" ego="L0-HDV-58" foe="L4-CV-699">
+        <minTTC time="2134.30" position="919.60,501.60" type="3" value="1.63"/>
+    </conflict>
+    <conflict begin="2139.80" end="2224.30" ego="L0-HDV-58" foe="L4-CV-703">
+        <minTTC time="2141.30" position="919.60,501.60" type="3" value="2.27"/>
+    </conflict>
+    <conflict begin="2144.10" end="2204.50" ego="L0-HDV-58" foe="L2-CV-172">
+        <minTTC time="2187.40" position="904.53,499.70" type="11" value="0.91"/>
+    </conflict>
+    <conflict begin="2152.80" end="2208.00" ego="L0-HDV-58" foe="L4-CV-688">
+        <minTTC time="2187.40" position="904.53,499.70" type="11" value="0.91"/>
+    </conflict>
+    <conflict begin="2185.90" end="2210.20" ego="L0-HDV-58" foe="L4-CV-707">
+        <minTTC time="2187.60" position="904.53,499.70" type="11" value="0.90"/>
+    </conflict>
+    <conflict begin="2203.60" end="2221.20" ego="L0-HDV-58" foe="L4-CV-724">
+        <minTTC time="2205.40" position="901.61,503.18" type="12" value="2.96"/>
+    </conflict>
+    <conflict begin="2238.20" end="2260.80" ego="L0-HDV-61" foe="L4-CV-721">
+        <minTTC time="2243.30" position="595.00,495.20" type="2" value="1.76"/>
+    </conflict>
+    <conflict begin="2249.30" end="2260.10" ego="L0-HDV-61" foe="L4-CV-736">
+        <minTTC time="2249.90" position="587.50,495.20" type="3" value="2.38"/>
+    </conflict>
+    <conflict begin="2271.10" end="2310.90" ego="L0-HDV-61" foe="L4-CV-731">
+        <minTTC time="2275.80" position="857.90,498.40" type="2" value="1.80"/>
+    </conflict>
+    <conflict begin="2281.80" end="2333.80" ego="L0-HDV-61" foe="L4-CV-736">
+        <minTTC time="2283.60" position="850.40,498.40" type="3" value="1.66"/>
+    </conflict>
+    <conflict begin="2295.10" end="2389.10" ego="L0-HDV-63" foe="L4-CV-753">
+        <minTTC time="2299.80" position="895.20,527.86" type="2" value="1.32"/>
+    </conflict>
+    <conflict begin="2296.10" end="2368.60" ego="L0-HDV-63" foe="L4-CV-751">
+        <minTTC time="2298.50" position="895.20,519.60" type="2" value="2.70"/>
+    </conflict>
+    <conflict begin="2300.70" end="2389.10" ego="L0-HDV-63" foe="L4-CV-757">
+        <minTTC time="2302.60" position="895.20,534.91" type="3" value="1.66"/>
+    </conflict>
+    <conflict begin="2311.00" end="2389.10" ego="L0-HDV-63" foe="L4-CV-760">
+        <minTTC time="2312.10" position="895.20,534.60" type="3" value="2.17"/>
+    </conflict>
+    <conflict begin="2331.90" end="2367.70" ego="L0-HDV-63" foe="L4-CV-767">
+        <minTTC time="2332.40" position="895.20,534.60" type="3" value="2.49"/>
+    </conflict>
+    <conflict begin="2411.70" end="2434.50" ego="L0-HDV-66" foe="L4-AV-194">
+        <minTTC time="2415.70" position="900.54,494.99" type="11" value="2.35"/>
+    </conflict>
+    <conflict begin="2411.70" end="2437.50" ego="L0-HDV-66" foe="L4-AV-196">
+        <minTTC time="2415.70" position="900.54,494.99" type="11" value="2.35"/>
+    </conflict>
+    <conflict begin="2418.40" end="2520.50" ego="L0-HDV-66" foe="L4-CV-796">
+        <minTTC time="2419.90" position="901.60,483.60" type="3" value="1.63"/>
+    </conflict>
+    <conflict begin="2425.30" end="2472.20" ego="L0-HDV-66" foe="L4-CV-797">
+        <minTTC time="2464.90" position="898.98,497.06" type="11" value="0.98"/>
+    </conflict>
+    <conflict begin="2442.30" end="2511.40" ego="L0-HDV-66" foe="L0-HDV-67">
+        <minTTC time="2444.60" position="901.60,483.60" type="3" value="2.28"/>
+    </conflict>
+    <conflict begin="2444.90" end="2507.20" ego="L0-HDV-66" foe="L4-CV-805">
+        <minTTC time="2445.10" position="901.60,483.60" type="3" value="2.97"/>
+    </conflict>
+    <conflict begin="2452.50" end="2507.20" ego="L0-HDV-66" foe="L4-CV-795">
+        <minTTC time="2465.60" position="898.98,497.06" type="11" value="0.83"/>
+    </conflict>
+    <conflict begin="2470.90" end="2504.20" ego="L0-HDV-66" foe="L4-CV-813">
+        <minTTC time="2474.00" position="904.53,499.70" type="12" value="2.42"/>
+    </conflict>
+    <conflict begin="2415.00" end="2551.70" ego="L0-HDV-67" foe="L4-CV-805">
+        <minTTC time="2447.70" position="901.60,468.60" type="3" value="1.94"/>
+    </conflict>
+    <conflict begin="2441.90" end="2551.70" ego="L0-HDV-67" foe="L4-CV-796">
+        <minTTC time="2445.60" position="901.60,476.10" type="2" value="1.19"/>
+    </conflict>
+    <conflict begin="2442.30" end="2494.70" ego="L0-HDV-67" foe="L0-HDV-66">
+        <minTTC time="2444.60" position="901.60,483.60" type="2" value="2.28"/>
+    </conflict>
+    <conflict begin="2533.00" end="2554.30" ego="L0-HDV-69" foe="L4-CV-822">
+        <minTTC time="2538.30" position="587.50,492.00" type="2" value="1.61"/>
+    </conflict>
+    <conflict begin="2538.80" end="2559.50" ego="L0-HDV-69" foe="L4-CV-835">
+        <minTTC time="2540.20" position="580.13,492.00" type="3" value="1.68"/>
+    </conflict>
+    <conflict begin="2508.10" end="2586.90" ego="L0-HDV-68" foe="L2-CV-206">
+        <minTTC time="2509.80" position="908.00,483.60" type="3" value="1.63"/>
+    </conflict>
+    <conflict begin="2510.50" end="2586.00" ego="L0-HDV-68" foe="L4-CV-825">
+        <minTTC time="2511.10" position="908.00,483.60" type="3" value="2.69"/>
+    </conflict>
+    <conflict begin="2553.20" end="2584.00" ego="L0-HDV-68" foe="L4-CV-839">
+        <minTTC time="2554.10" position="908.00,483.60" type="3" value="2.77"/>
+    </conflict>
+    <conflict begin="2562.90" end="2587.50" ego="L0-HDV-70" foe="L2-CV-210">
+        <minTTC time="2567.30" position="579.41,492.00" type="2" value="1.26"/>
+    </conflict>
+    <conflict begin="2563.70" end="2590.90" ego="L0-HDV-70" foe="L4-CV-838">
+        <minTTC time="2577.80" position="587.50,492.00" type="2" value="1.62"/>
+    </conflict>
+    <conflict begin="2576.50" end="2590.10" ego="L0-HDV-70" foe="L4-CV-846">
+        <minTTC time="2578.50" position="579.70,492.00" type="3" value="1.81"/>
+    </conflict>
+    <conflict begin="2567.10" end="2632.70" ego="L0-HDV-69" foe="L4-CV-822">
+        <minTTC time="2572.50" position="872.86,495.20" type="2" value="1.70"/>
+    </conflict>
+    <conflict begin="2600.80" end="2661.50" ego="L0-HDV-70" foe="L2-CV-210">
+        <minTTC time="2605.60" position="857.90,495.20" type="2" value="1.24"/>
+    </conflict>
+    <conflict begin="2601.90" end="2661.50" ego="L0-HDV-70" foe="L0-HDV-69">
+        <minTTC time="2604.50" position="865.40,495.20" type="2" value="2.44"/>
+    </conflict>
+    <conflict begin="2597.40" end="2662.30" ego="L0-HDV-69" foe="L2-CV-210">
+        <minTTC time="2602.30" position="865.40,495.20" type="3" value="1.47"/>
+    </conflict>
+    <conflict begin="2601.90" end="2661.50" ego="L0-HDV-69" foe="L0-HDV-70">
+        <minTTC time="2604.50" position="865.40,495.20" type="3" value="2.44"/>
+    </conflict>
+    <conflict begin="2625.30" end="2686.50" ego="L0-HDV-72" foe="L4-CV-857">
+        <minTTC time="2678.20" position="897.04,499.75" type="10" value="2.18"/>
+    </conflict>
+    <conflict begin="2630.40" end="2746.20" ego="L0-HDV-72" foe="L4-CV-867">
+        <minTTC time="2632.50" position="901.60,483.60" type="3" value="1.70"/>
+    </conflict>
+    <conflict begin="2688.90" end="2717.00" ego="L0-HDV-72" foe="L4-CV-887">
+        <minTTC time="2690.30" position="901.19,491.86" type="3" value="2.09"/>
+    </conflict>
+    <conflict begin="2660.40" end="2756.90" ego="L0-HDV-73" foe="L4-CV-873">
+        <minTTC time="2665.00" position="919.60,508.00" type="2" value="1.42"/>
+    </conflict>
+    <conflict begin="2709.70" end="2760.40" ego="L0-HDV-73" foe="L4-CV-893">
+        <minTTC time="2711.40" position="927.10,508.00" type="3" value="1.67"/>
+    </conflict>
+    <conflict begin="2722.90" end="2738.30" ego="L0-HDV-73" foe="L2-CV-224">
+        <minTTC time="2724.10" position="924.81,508.00" type="3" value="2.63"/>
+    </conflict>
+    <conflict begin="2766.00" end="2826.50" ego="L0-HDV-76" foe="L4-CV-896">
+        <minTTC time="2770.30" position="908.00,468.60" type="2" value="1.29"/>
+    </conflict>
+    <conflict begin="2766.50" end="2825.40" ego="L0-HDV-76" foe="L2-CV-223">
+        <minTTC time="2769.10" position="908.00,476.10" type="2" value="2.57"/>
+    </conflict>
+    <conflict begin="2874.40" end="2908.00" ego="L0-HDV-78" foe="L4-CV-926">
+        <minTTC time="2878.30" position="896.44,498.40" type="11" value="2.35"/>
+    </conflict>
+    <conflict begin="2874.40" end="2912.40" ego="L0-HDV-78" foe="L2-CV-232">
+        <minTTC time="2878.30" position="896.44,498.40" type="11" value="2.35"/>
+    </conflict>
+    <conflict begin="2874.40" end="2914.90" ego="L0-HDV-78" foe="L4-CV-930">
+        <minTTC time="2878.30" position="896.44,498.40" type="11" value="2.35"/>
+    </conflict>
+    <conflict begin="2874.40" end="2916.90" ego="L0-HDV-78" foe="L2-AV-78">
+        <minTTC time="2878.30" position="896.44,498.40" type="11" value="2.35"/>
+    </conflict>
+    <conflict begin="2880.30" end="2918.50" ego="L0-HDV-79" foe="L4-CV-945">
+        <minTTC time="2884.20" position="579.86,492.00" type="2" value="1.28"/>
+    </conflict>
+    <conflict begin="2880.80" end="2914.20" ego="L0-HDV-79" foe="L4-CV-939">
+        <minTTC time="2883.10" position="587.50,492.00" type="2" value="2.43"/>
+    </conflict>
+    <conflict begin="2874.40" end="2918.80" ego="L0-HDV-78" foe="L4-CV-941">
+        <minTTC time="2878.30" position="896.44,498.40" type="11" value="2.35"/>
+    </conflict>
+    <conflict begin="2881.30" end="2919.70" ego="L0-HDV-79" foe="L4-CV-943">
+        <minTTC time="2901.90" position="595.00,495.20" type="2" value="1.70"/>
+    </conflict>
+    <conflict begin="2901.90" end="2914.40" ego="L0-HDV-79" foe="L4-CV-953">
+        <minTTC time="2904.10" position="587.50,495.20" type="3" value="1.67"/>
+    </conflict>
+    <conflict begin="2874.40" end="2930.50" ego="L0-HDV-78" foe="L4-CV-942">
+        <minTTC time="2878.30" position="897.05,498.40" type="11" value="2.42"/>
+    </conflict>
+    <conflict begin="2874.40" end="2932.20" ego="L0-HDV-78" foe="L4-CV-947">
+        <minTTC time="2878.40" position="897.05,498.40" type="11" value="2.42"/>
+    </conflict>
+    <conflict begin="2922.30" end="2955.10" ego="L0-HDV-79" foe="L4-CV-949">
+        <minTTC time="2928.80" position="864.32,495.20" type="2" value="1.48"/>
+    </conflict>
+    <conflict begin="2924.90" end="2958.70" ego="L0-HDV-79" foe="L2-CV-234">
+        <minTTC time="2926.70" position="872.90,495.20" type="2" value="2.77"/>
+    </conflict>
+    <conflict begin="2778.40" end="2962.30" ego="L0-HDV-77" foe="L2-AV-77">
+        <minTTC time="2815.50" position="892.00,527.17" type="2" value="1.31"/>
+    </conflict>
+    <conflict begin="2792.10" end="2953.00" ego="L0-HDV-77" foe="L2-CV-231">
+        <minTTC time="2815.30" position="892.00,519.60" type="2" value="2.84"/>
+    </conflict>
+    <conflict begin="2937.30" end="2983.50" ego="L0-HDV-79" foe="L4-CV-945">
+        <minTTC time="2938.90" position="857.89,495.20" type="3" value="1.68"/>
+    </conflict>
+    <conflict begin="2901.60" end="2983.80" ego="L0-HDV-78" foe="L4-AV-236">
+        <minTTC time="2906.30" position="880.40,498.40" type="3" value="1.40"/>
+    </conflict>
+    <conflict begin="2910.60" end="2975.30" ego="L0-HDV-78" foe="L4-CV-946">
+        <minTTC time="2912.80" position="880.40,498.40" type="3" value="2.38"/>
+    </conflict>
+    <conflict begin="2944.80" end="2960.50" ego="L0-HDV-78" foe="L4-CV-971">
+        <minTTC time="2945.80" position="898.98,497.06" type="10" value="2.86"/>
+    </conflict>
+    <conflict begin="3054.90" end="3114.30" ego="L0-HDV-84" foe="L4-CV-1002">
+        <minTTC time="3059.20" position="926.25,501.60" type="2" value="1.56"/>
+    </conflict>
+    <conflict begin="3055.70" end="3117.40" ego="L0-HDV-84" foe="L2-CV-248">
+        <minTTC time="3057.90" position="917.89,501.60" type="2" value="2.92"/>
+    </conflict>
+    <conflict begin="3058.70" end="3117.40" ego="L0-HDV-84" foe="L4-CV-1010">
+        <minTTC time="3060.40" position="934.85,501.60" type="3" value="1.87"/>
+    </conflict>
+    <conflict begin="3075.40" end="3102.10" ego="L0-HDV-84" foe="L4-CV-1015">
+        <minTTC time="3076.40" position="932.52,501.60" type="3" value="2.08"/>
+    </conflict>
+    <conflict begin="3090.40" end="3123.50" ego="L0-HDV-85" foe="L4-CV-1001">
+        <minTTC time="3092.30" position="897.34,502.67" type="11" value="2.93"/>
+    </conflict>
+    <conflict begin="3090.40" end="3124.90" ego="L0-HDV-85" foe="L2-CV-251">
+        <minTTC time="3093.00" position="903.77,503.95" type="11" value="2.32"/>
+    </conflict>
+    <conflict begin="3090.40" end="3126.20" ego="L0-HDV-85" foe="L4-CV-1004">
+        <minTTC time="3092.30" position="897.34,502.67" type="11" value="2.93"/>
+    </conflict>
+    <conflict begin="3090.40" end="3127.30" ego="L0-HDV-85" foe="L4-CV-1014">
+        <minTTC time="3093.00" position="903.77,503.95" type="11" value="2.32"/>
+    </conflict>
+    <conflict begin="3090.40" end="3128.30" ego="L0-HDV-85" foe="L4-CV-1005">
+        <minTTC time="3092.30" position="897.34,502.67" type="11" value="2.93"/>
+    </conflict>
+    <conflict begin="3090.40" end="3130.30" ego="L0-HDV-85" foe="L4-CV-1007">
+        <minTTC time="3092.30" position="897.34,502.67" type="11" value="2.93"/>
+    </conflict>
+    <conflict begin="3090.40" end="3130.40" ego="L0-HDV-85" foe="L4-CV-1012">
+        <minTTC time="3092.80" position="902.31,503.66" type="11" value="2.47"/>
+    </conflict>
+    <conflict begin="3090.40" end="3132.20" ego="L0-HDV-85" foe="L2-CV-252">
+        <minTTC time="3092.40" position="897.34,502.67" type="11" value="2.94"/>
+    </conflict>
+    <conflict begin="3090.40" end="3134.10" ego="L0-HDV-85" foe="L2-CV-253">
+        <minTTC time="3092.30" position="897.34,502.67" type="11" value="2.93"/>
+    </conflict>
+    <conflict begin="3090.40" end="3138.10" ego="L0-HDV-85" foe="L4-CV-1016">
+        <minTTC time="3092.40" position="897.34,502.67" type="11" value="2.94"/>
+    </conflict>
+    <conflict begin="3126.60" end="3182.10" ego="L0-HDV-86" foe="L2-CV-256">
+        <minTTC time="3130.80" position="901.60,476.90" type="2" value="1.46"/>
+    </conflict>
+    <conflict begin="3127.00" end="3160.30" ego="L0-HDV-86" foe="L2-AV-84">
+        <minTTC time="3129.40" position="901.60,484.40" type="2" value="2.75"/>
+    </conflict>
+    <conflict begin="3101.20" end="3185.30" ego="L0-HDV-85" foe="L4-CV-1023">
+        <minTTC time="3103.50" position="919.60,504.80" type="3" value="1.73"/>
+    </conflict>
+    <conflict begin="3102.80" end="3180.90" ego="L0-HDV-85" foe="L4-CV-1024">
+        <minTTC time="3104.20" position="919.60,504.80" type="3" value="2.54"/>
+    </conflict>
+    <conflict begin="3117.80" end="3179.50" ego="L0-HDV-85" foe="L4-CV-1028">
+        <minTTC time="3118.50" position="919.60,504.80" type="3" value="2.66"/>
+    </conflict>
+    <conflict begin="3139.60" end="3188.60" ego="L0-HDV-86" foe="L2-CV-259">
+        <minTTC time="3141.10" position="901.60,469.43" type="3" value="1.65"/>
+    </conflict>
+    <conflict begin="3167.60" end="3262.80" ego="L0-HDV-87" foe="L4-AV-259">
+        <minTTC time="3171.30" position="904.80,483.60" type="2" value="1.40"/>
+    </conflict>
+    <conflict begin="3196.20" end="3241.90" ego="L0-HDV-87" foe="L4-AV-261">
+        <minTTC time="3229.20" position="904.20,497.52" type="11" value="2.99"/>
+    </conflict>
+    <conflict begin="3349.20" end="3371.90" ego="L0-HDV-92" foe="L4-CV-1102">
+        <minTTC time="3354.60" position="595.00,495.20" type="2" value="1.56"/>
+    </conflict>
+    <conflict begin="3375.80" end="3420.00" ego="L0-HDV-92" foe="L4-CV-1100">
+        <minTTC time="3379.30" position="858.57,498.40" type="2" value="2.24"/>
+    </conflict>
+    <conflict begin="3276.00" end="3435.10" ego="L0-HDV-91" foe="L4-CV-1091">
+        <minTTC time="3305.50" position="930.19,504.80" type="2" value="2.12"/>
+    </conflict>
+    <conflict begin="3301.70" end="3427.60" ego="L0-HDV-91" foe="L4-CV-1087">
+        <minTTC time="3303.60" position="919.60,504.80" type="2" value="2.66"/>
+    </conflict>
+    <conflict begin="3371.30" end="3404.80" ego="L0-HDV-91" foe="L4-CV-1113">
+        <minTTC time="3373.00" position="934.60,504.80" type="3" value="1.61"/>
+    </conflict>
+    <conflict begin="3436.80" end="3463.00" ego="L0-HDV-94" foe="L4-CV-1129">
+        <minTTC time="3439.00" position="532.57,492.00" type="3" value="2.63"/>
+    </conflict>
+    <conflict begin="3439.00" end="3483.20" ego="L0-HDV-94" foe="L4-CV-1125">
+        <minTTC time="3445.00" position="587.50,492.00" type="2" value="1.25"/>
+    </conflict>
+    <conflict begin="3440.20" end="3471.20" ego="L0-HDV-94" foe="L4-CV-1102">
+        <minTTC time="3444.00" position="595.00,492.00" type="2" value="2.54"/>
+    </conflict>
+    <conflict begin="3440.20" end="3484.80" ego="L0-HDV-94" foe="L4-CV-1128">
+        <minTTC time="3472.20" position="595.00,495.20" type="2" value="1.81"/>
+    </conflict>
+    <conflict begin="3442.80" end="3476.90" ego="L0-HDV-94" foe="L4-CV-1131">
+        <minTTC time="3446.30" position="580.00,492.00" type="3" value="1.63"/>
+    </conflict>
+    <conflict begin="3447.10" end="3527.30" ego="L0-HDV-95" foe="L4-CV-1138">
+        <minTTC time="3451.40" position="950.73,504.80" type="2" value="1.74"/>
+    </conflict>
+    <conflict begin="3447.80" end="3502.10" ego="L0-HDV-95" foe="L4-CV-1137">
+        <minTTC time="3450.30" position="942.51,504.80" type="2" value="3.00"/>
+    </conflict>
+    <conflict begin="3458.40" end="3499.50" ego="L0-HDV-95" foe="L4-CV-1143">
+        <minTTC time="3460.00" position="957.13,504.80" type="3" value="1.60"/>
+    </conflict>
+    <conflict begin="3495.10" end="3579.40" ego="L0-HDV-96" foe="L4-CV-1147">
+        <minTTC time="3499.70" position="898.40,519.60" type="2" value="1.25"/>
+    </conflict>
+    <conflict begin="3599.30" end="3616.40" ego="L0-HDV-99" foe="L2-CV-295">
+        <minTTC time="3603.70" position="910.05,501.20" type="2" value="1.42"/>
+    </conflict>
+    <conflict begin="3599.30" end="3628.60" ego="L0-HDV-99" foe="L4-CV-1187">
+        <minTTC time="3603.10" position="906.37,500.57" type="11" value="2.12"/>
+    </conflict>
+    <conflict begin="3599.30" end="3630.30" ego="L0-HDV-99" foe="L4-CV-1186">
+        <minTTC time="3603.00" position="904.53,499.70" type="11" value="2.44"/>
+    </conflict>
+    <conflict begin="3599.30" end="3630.80" ego="L0-HDV-99" foe="L4-CV-1179">
+        <minTTC time="3603.00" position="904.53,499.70" type="11" value="2.44"/>
+    </conflict>
+    <conflict begin="3599.30" end="3630.90" ego="L0-HDV-99" foe="L4-AV-296">
+        <minTTC time="3603.00" position="904.53,499.70" type="11" value="2.44"/>
+    </conflict>
+    <conflict begin="3601.30" end="3627.80" ego="L0-HDV-99" foe="L4-CV-1189">
+        <minTTC time="3603.10" position="906.37,500.57" type="11" value="2.12"/>
+    </conflict>
+    <conflict begin="3556.80" end="3653.70" ego="L0-HDV-98" foe="L4-CV-1166">
+        <minTTC time="3561.00" position="926.31,504.80" type="2" value="1.68"/>
+    </conflict>
+    <conflict begin="3557.30" end="3605.60" ego="L0-HDV-98" foe="L2-CV-290">
+        <minTTC time="3559.90" position="918.81,504.80" type="2" value="2.88"/>
+    </conflict>
+    <conflict begin="3581.30" end="3653.70" ego="L0-HDV-98" foe="L2-CV-296">
+        <minTTC time="3582.90" position="933.81,504.80" type="3" value="1.57"/>
+    </conflict>
+</SSMLog>

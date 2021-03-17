@@ -20,6 +20,7 @@ from Roadworks.RealTMSPenetration3.RealPenetration3RoadworksTMS import Roadworks
 
 from Collision.BaselineHDV.BaselineHDVCollisionTMS import collisionBaselineHDVTMS
 from Collision.BaselineCAV.BaselineCAVCollisionTMS import collisionBaselineCAVTMS
+from Collision.RealTMSCAV.RealCAVCollisionTMS import collisionRealCAVTMS
 
 
 # https://www.eclipse.org/lists/sumo-user/msg02526.html
@@ -37,22 +38,28 @@ def get_options():
 SCENARIO = "Roadworks"
 # SCENARIO = "Collision"
 
+
+
 # TYPE = "Baseline-HDV"
-TYPE = "Baseline-CAV"
+# TYPE = "Baseline-CAV"
 # TYPE = "TMS-CAV"
 # TYPE = "Penetration1"
 # TYPE = "Penetration2"
 # TYPE = "Penetration3"
 
+# TYPES = ["TMS-CAV"]
+# TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV", "Penetration1", "Penetration2", "Penetration3"]
+TYPES = ["Penetration2", "Penetration3"]
+LOS = ["A", "B"]
 # LOS = "A"
-LOS = "B"
+# LOS = "B"
 # LOS = "C"
 # LOS = "D"
 # LOS = "Test"
 
 # ITERATION = 1
 # ITERATION = 2
-ITERATION = 3
+# ITERATION = 3
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
@@ -65,38 +72,72 @@ else:
 # main entry point
 if __name__ == "__main__":
     options = get_options()
-
+    # sumoBinary = checkBinary('sumo')
     # check binary
     if options.nogui:
         sumoBinary = checkBinary('sumo')
     else:
         sumoBinary = checkBinary('sumo-gui')
 
-    if SCENARIO == "Roadworks":
-        if TYPE == "Baseline-HDV":
-            roadworksBaselineHDVTMS(sumoBinary, LOS, ITERATION)
-        elif TYPE == "Baseline-CAV":
-            roadworksBaselineCAVTMS(sumoBinary, LOS, ITERATION)
-        elif TYPE == "TMS-CAV":
-            roadworksRealTMSCAV(sumoBinary, LOS, ITERATION)
-        elif TYPE == "Penetration1":
-            RoadworksRealTMSPenetration1(sumoBinary, LOS, ITERATION)
-        elif TYPE == "Penetration2":
-            RoadworksRealTMSPenetration2(sumoBinary, LOS, ITERATION)
-        elif TYPE == "Penetration3":
-            RoadworksRealTMSPenetration3(sumoBinary, LOS, ITERATION)
+    # if SCENARIO == "Roadworks":
+    #     if TYPE == "Baseline-HDV":
+    #         roadworksBaselineHDVTMS(sumoBinary, LOS, ITERATION)
+    #     elif TYPE == "Baseline-CAV":
+    #         roadworksBaselineCAVTMS(sumoBinary, LOS, ITERATION)
+    #     elif TYPE == "TMS-CAV":
+    #         roadworksRealTMSCAV(sumoBinary, LOS, ITERATION)
+    #     elif TYPE == "Penetration1":
+    #         RoadworksRealTMSPenetration1(sumoBinary, LOS, ITERATION)
+    #     elif TYPE == "Penetration2":
+    #         RoadworksRealTMSPenetration2(sumoBinary, LOS, ITERATION)
+    #     elif TYPE == "Penetration3":
+    #         RoadworksRealTMSPenetration3(sumoBinary, LOS, ITERATION)
 
-    else:
-        if TYPE == "Baseline-HDV":
-            collisionBaselineHDVTMS(sumoBinary, LOS, ITERATION)
-        elif TYPE == "Baseline-CAV":
-            collisionBaselineCAVTMS(sumoBinary, LOS, ITERATION)
-        elif TYPE == "TMS-CAV":
-            # roadworksRealTMSCAV(sumoBinary, LOS, ITERATION)
-            print("Not developed yet :)")
-        elif TYPE == "Penetration1":
-           print("Not developed yet :)")
-        elif TYPE == "Penetration2":
-            print("Not developed yet :)")
-        elif TYPE == "Penetration3":
-            print("Not developed yet :)")
+    # else:
+    #     if TYPE == "Baseline-HDV":
+    #         collisionBaselineHDVTMS(sumoBinary, LOS, ITERATION)
+    #     elif TYPE == "Baseline-CAV":
+    #         collisionBaselineCAVTMS(sumoBinary, LOS, ITERATION)
+    #     elif TYPE == "TMS-CAV":
+    #         collisionRealCAVTMS(sumoBinary, LOS, ITERATION)
+    #         # print("Not developed yet :)")
+    #     elif TYPE == "Penetration1":
+    #        print("Not developed yet :)")
+    #     elif TYPE == "Penetration2":
+    #         print("Not developed yet :)")
+    #     elif TYPE == "Penetration3":
+    #         print("Not developed yet :)")
+    for typeOfTraffic in TYPES:
+        for los in LOS:
+            for i in range(0, 4):
+                name = typeOfTraffic + " " + los + " " + str(i)
+                print("About to run ", name)
+                if SCENARIO == "Roadworks":
+                    if typeOfTraffic == "Baseline-HDV":
+                        roadworksBaselineHDVTMS(sumoBinary, los, i)
+                    elif typeOfTraffic == "Baseline-CAV":
+                        roadworksBaselineCAVTMS(sumoBinary, los, i)
+                    elif typeOfTraffic == "TMS-CAV":
+                        roadworksRealTMSCAV(sumoBinary, los, i)
+                    elif typeOfTraffic == "Penetration1":
+                        RoadworksRealTMSPenetration1(sumoBinary, los, i)
+                    elif typeOfTraffic == "Penetration2":
+                        RoadworksRealTMSPenetration2(sumoBinary, los, i)
+                    elif typeOfTraffic == "Penetration3":
+                        RoadworksRealTMSPenetration3(sumoBinary, los, i)
+
+                else:
+                    if typeOfTraffic == "Baseline-HDV":
+                        collisionBaselineHDVTMS(sumoBinary, los, i)
+                    elif typeOfTraffic == "Baseline-CAV":
+                        collisionBaselineCAVTMS(sumoBinary, los, i)
+                    elif typeOfTraffic == "TMS-CAV":
+                        collisionRealCAVTMS(sumoBinary, los, i)
+                        # print("Not developed yet :)")
+                    elif typeOfTraffic == "Penetration1":
+                       print("Not developed yet :)")
+                    elif typeOfTraffic == "Penetration2":
+                        print("Not developed yet :)")
+                    elif typeOfTraffic == "Penetration3":
+                        print("Not developed yet :)")
+                print("Finished running", name)

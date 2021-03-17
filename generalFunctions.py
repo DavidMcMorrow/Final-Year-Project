@@ -62,8 +62,8 @@ def roadworksReRouting(target):
         newRoute = ["left-long-approaching", "preparation", "left-short-approaching", "right-exit"]
     elif(target == "right-exit"):
         newRoute = ["left-long-approaching", "preparation", "left-short-approaching", "bottom-exit"]
-    elif(target == "preparation"):
-        newRoute = ["left-long-approaching", "preparation"]
+    # elif(target == "preparation"):
+    #     newRoute = ["left-long-approaching", "preparation"]
     return newRoute
 
 def baselineAlterOutputFiles(SCENARIO, BASELINE, LOS, ITERATION, VEHICLETYPES):
@@ -86,12 +86,10 @@ def baselineAlterOutputFiles(SCENARIO, BASELINE, LOS, ITERATION, VEHICLETYPES):
                 secondFile.write(line)
 
 def flowCorrection(files, vehiclesTypes, baseline):
-    print("HERERE")
     for j in range(0, len(files)):
         mydoc = minidom.parse(files[j])
         routes = mydoc.getElementsByTagName('route')
         vehicles = mydoc.getElementsByTagName('vehicle')
-
         for i in range(0, len(routes)):
             if(routes[i].getAttribute("edges")[:1] == "l" and routes[i].getAttribute("edges")[-1] != "t"):
                 result = random.randint(0, 2)
@@ -422,7 +420,13 @@ def addingVehicleToDelayDetection(majorDelayDetectors, vehiclesApproachingClosur
             temp2 = veh in vehiclesApproachingClosure
             if ((temp1 != exitBeingIgnored) and (temp2 == False)):
                 vehiclesApproachingClosure.append(veh)
+            
             majorDelayDetectionLastDetected[count] = veh
+            # target = traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1]
+            # print("target", target)
+            # if (target == "preparation"):
+            #     traci.vehicle.changeLane(veh, 2, 10)
+
         count = count + 1
     return vehiclesApproachingClosure, majorDelayDetectionLastDetected
 
@@ -451,7 +455,7 @@ def reRoutingVehicles(veh, target, vehiclesApproachingClosure, vehiclesThatTORed
             shouldBeRemoved = True
         
         rerouteResult = random.randint(0, 99) ## NEED TO CONSIDER THIS PROBABILITY MORE
-        if(rerouteResult < 30):
+        if(rerouteResult < 30 and target != "preparation"):
             # print("+++ReRoute due to delay", veh)
             # print("Target", target)
             traci.vehicle.setVehicleClass(veh, "passenger")
@@ -469,4 +473,74 @@ def reRoutingVehicles(veh, target, vehiclesApproachingClosure, vehiclesThatTORed
 ############### ###############
 
 ############################## Collision TMS ##############################
+def stoppingCrashedVehicles():
+    traci.vehicle.setStop("crashed-car-lane-zero.0", "left-exit", 25.5, 0, 4500)
+    traci.vehicle.setStop("crashed-car-lane-zero.1", "left-exit", 17.5, 0, 4500)
+    traci.vehicle.setStop("crashed-car-lane-one.0", "left-exit", 25.5, 1, 4500)
+    traci.vehicle.setStop("crashed-car-lane-one.1", "left-exit", 17.5, 1, 4500)
 
+############### Left Exit ###############
+def leftExitAfterIntersectionCollisionTMS(lastVehicleDetected):
+    lastVehicleDetected[0] = TMSRightTopBottom(lastVehicleDetected[0])
+    # standardHandlingRightTopBottom()
+    # standardSituationHandlingInLeftExit()    
+    # upwardToCDownstream()          
+
+def TMSRightTopBottom(lastVehicleDetected):
+    print("IN TMS")
+    detectors = ["TMS-top-approaching_0", "TMS-top-approaching_1", "TMS-top-approaching_2",
+                "TMS-right-approaching_0", "TMS-right-approaching_1", "TMS-right-approaching_2", 
+                "TMS-bottom-approaching_0", "TMS-bottom-approaching_1", "TMS-bottom-approaching_2"]
+    
+    for detector in detectors:
+        det_vehs = traci.inductionloop.getLastStepVehicleIDs(detector)
+        for veh in det_vehs:
+            route = traci.vehicle.getRoute(veh)
+            target = route[len(route) - 1]
+            vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
+            receivedTMSResult = random.randint(0, 99)
+            if (target == "left-exit" and vehicleType == "CV" and receivedTMSResult < 75):
+                traci.vehicle.setVehicleClass(veh, "emergency")
+            lastVehicleDetected = veh
+    return lastVehicleDetected
+
+def standardSituationHandlingInLeftExit(lastVehicleDetected):
+    det_vehs = traci.inductionloop.getLastStepVehicleIDs("left-exit_0")
+    for veh in det_vehs:
+        if(traci.vehicle.couldChangeLane(veh, 1) == True):
+            traci.vehicle.changeLane(veh, 1, 0.1)
+
+        if (traci.vehicle.getVehicleClass(veh) != "emergency"):   
+            traci.vehicle.setVehicleClass(veh, "emergency")
+            if (traci.vehicle.getTypeID(veh)[:2] == "L4"):
+                traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
+                
+    det_vehs = traci.inductionloop.getLastStepVehicleIDs("left-exit_1")
+    for veh in det_vehs:
+        if(traci.vehicle.getVehicleClass(veh) != "emergency"):
+            traci.vehicle.setVehicleClass(veh, "emergency")
+            if (traci.vehicle.getTypeID(veh)[:2] == "L4"):
+                traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
+
+def upwardToCDownstream():
+    decectorsLaterInLeftExit = ["left-exit_2", "left-exit_3"]
+    for det in decectorsLaterInLeftExit:
+        det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
+        for veh in det_vehs:
+            upwardToCResult = random.randint(0, 99)
+            if (traci.vehicle.getTypeID(veh)[:2] == "L0" and upwardToCResult < 50):
+                traci.vehicle.requestToC(veh, -1)
+            
+            if (traci.vehicle.getTypeID(veh)[:2] == "L4"):
+                if (traci.vehicle.getParameter(veh, "device.toc.dynamicToCThreshold") == 0):
+                    traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 11)
+
+def standardHandlingRightTopBottom(vehiclesApproachingClosure, vehiclesThatTORed, DETECTINGISSUE):
+    detectors = ["close-top-approaching_0", "close-right-approaching_1", "close-bottom-approaching_2"]
+    edges = ["top", "right", "bottom"]
+    for i in range(0, len(detectors)-1):
+        det_vehs = traci.inductionloop.getLastStepVehicleIDs(detectors[i])
+        for veh in det_vehs:
+            if traci.vehicle.getRoute(veh)[1] != "left-exit":
+                vehiclesApproachingClosure, vehiclesThatTORed = reRoutingVehicles(veh, edges[i], vehiclesApproachingClosure, vehiclesThatTORed, DETECTINGISSUE)
+    return vehiclesApproachingClosure, vehiclesThatTORed

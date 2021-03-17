@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/16/21 16:41:35 by Eclipse SUMO GUI Version 1.8.0
+<!-- generated on 03/17/21 14:39:23 by Eclipse SUMO GUI Version 1.8.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="Roadworks\BaselineCAV\../RoadworksIntersection.net.xml"/>
-        <route-files value="Roadworks\BaselineCAV\Route-Files/L4-CV-Route.rou.xml"/>
-        <additional-files value="Roadworks\BaselineCAV\../Additional-Files/Roadworks-Detectors.add.xml,Roadworks\BaselineCAV\../Additional-Files/Roadworks-Rerouters.add.xml,Roadworks\BaselineCAV\../Additional-Files/Roadworks-Traffic-lights.add.xml,Roadworks\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L4-CV.add.xml,Roadworks\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L4-CV-Left.add.xml,Roadworks\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L0-HDV.add.xml,Roadworks\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L4-CV-Right.add.xml,Roadworks\BaselineCAV\../Additional-Files/Roadworks-Traffic-Signs.add.xml"/>
+        <net-file value="Roadworks\RealTMSPenetration3\../RoadworksIntersection.net.xml"/>
+        <route-files value="Roadworks\RealTMSPenetration3\Route-Files/L4-CV-Route.rou.xml,Roadworks\RealTMSPenetration3\Route-Files/L4-AV-Route.rou.xml,Roadworks\RealTMSPenetration3\Route-Files/L2-CV-Route.rou.xml,Roadworks\RealTMSPenetration3\Route-Files/L2-AV-Route.rou.xml,Roadworks\RealTMSPenetration3\Route-Files/L0-HDV-Route.rou.xml"/>
+        <additional-files value="Roadworks\RealTMSPenetration3\../Additional-Files/Roadworks-Detectors.add.xml,Roadworks\RealTMSPenetration3\../Additional-Files/Roadworks-Rerouters.add.xml,Roadworks\RealTMSPenetration3\../Additional-Files/Roadworks-Traffic-lights.add.xml,Roadworks\RealTMSPenetration3\../Additional-Files/Roadworks-Traffic-Signs.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L4-CV.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L4-CV-Left.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L4-CV-Right.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L4-AV.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L4-AV-Left.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L4-AV-Right.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L2-CV.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L2-CV-Left.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L2-CV-Right.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L2-AV.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L2-AV-Left.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L2-AV-Right.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L0-HDV.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L0-HDV-Left.add.xml,Roadworks\RealTMSPenetration3\PreparingVehicleModels/Vehicle-Models/L0-HDV-Straight.add.xml"/>
     </input>
 
     <output>
-        <tripinfo-output value="Roadworks\BaselineCAV\Output-Files\TripInfo.xml"/>
+        <tripinfo-output value="Roadworks\RealTMSPenetration3\Output-Files\TripInfo.xml"/>
     </output>
 
     <time>
@@ -29,65 +29,13 @@
     </emissions>
 
     <traci_server>
-        <remote-port value="60373"/>
+        <remote-port value="59409"/>
     </traci_server>
 
     <gui_only>
+        <quit-on-end value="true"/>
+        <start value="true"/>
         <tracker-interval value="0.1"/>
     </gui_only>
 
 </configuration>
--->
-
-<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
-    <interval begin="0.00" end="1000.00" id="rerouting-left-vehicles" nVehContrib="44" flow="158.40" occupancy="1.34" speed="16.59" harmonicMeanSpeed="16.44" length="5.00" nVehEntered="44"/>
-    <interval begin="0.00" end="1000.00" id="leftlaneStandardDetection" nVehContrib="43" flow="154.80" occupancy="1.33" speed="16.60" harmonicMeanSpeed="16.46" length="5.00" nVehEntered="44"/>
-    <interval begin="0.00" end="1000.00" id="issuingToCInVehicleTMS" nVehContrib="41" flow="147.60" occupancy="7.47" speed="14.67" harmonicMeanSpeed="2.75" length="5.00" nVehEntered="41"/>
-    <interval begin="0.00" end="1000.00" id="allVehiclesToC" nVehContrib="29" flow="104.40" occupancy="36.06" speed="8.37" harmonicMeanSpeed="0.48" length="5.00" nVehEntered="34"/>
-    <interval begin="0.00" end="1000.00" id="advanceTop_0" nVehContrib="50" flow="180.00" occupancy="1.53" speed="16.76" harmonicMeanSpeed="16.32" length="5.00" nVehEntered="50"/>
-    <interval begin="0.00" end="1000.00" id="advanceTop_1" nVehContrib="48" flow="172.80" occupancy="1.48" speed="16.53" harmonicMeanSpeed="16.17" length="5.00" nVehEntered="48"/>
-    <interval begin="0.00" end="1000.00" id="advanceTop_2" nVehContrib="46" flow="165.60" occupancy="1.39" speed="16.70" harmonicMeanSpeed="16.54" length="5.00" nVehEntered="46"/>
-    <interval begin="0.00" end="1000.00" id="lateTop_0" nVehContrib="43" flow="154.80" occupancy="59.75" speed="2.72" harmonicMeanSpeed="0.40" length="5.00" nVehEntered="44"/>
-    <interval begin="0.00" end="1000.00" id="lateTop_1" nVehContrib="47" flow="169.20" occupancy="23.81" speed="6.94" harmonicMeanSpeed="0.99" length="5.00" nVehEntered="47"/>
-    <interval begin="0.00" end="1000.00" id="lateTop_2" nVehContrib="47" flow="169.20" occupancy="26.12" speed="5.59" harmonicMeanSpeed="0.94" length="5.00" nVehEntered="48"/>
-    <interval begin="1000.00" end="2000.00" id="rerouting-left-vehicles" nVehContrib="43" flow="154.80" occupancy="1.34" speed="16.29" harmonicMeanSpeed="16.09" length="5.00" nVehEntered="43"/>
-    <interval begin="1000.00" end="2000.00" id="leftlaneStandardDetection" nVehContrib="43" flow="154.80" occupancy="1.34" speed="16.29" harmonicMeanSpeed="16.09" length="5.00" nVehEntered="43"/>
-    <interval begin="1000.00" end="2000.00" id="issuingToCInVehicleTMS" nVehContrib="44" flow="158.40" occupancy="13.70" speed="12.35" harmonicMeanSpeed="1.61" length="5.00" nVehEntered="44"/>
-    <interval begin="1000.00" end="2000.00" id="allVehiclesToC" nVehContrib="36" flow="129.60" occupancy="37.18" speed="5.69" harmonicMeanSpeed="0.71" length="5.00" nVehEntered="42"/>
-    <interval begin="1000.00" end="2000.00" id="advanceTop_0" nVehContrib="45" flow="162.00" occupancy="6.10" speed="13.76" harmonicMeanSpeed="3.69" length="5.00" nVehEntered="45"/>
-    <interval begin="1000.00" end="2000.00" id="advanceTop_1" nVehContrib="41" flow="147.60" occupancy="1.25" speed="16.58" harmonicMeanSpeed="16.42" length="5.00" nVehEntered="41"/>
-    <interval begin="1000.00" end="2000.00" id="advanceTop_2" nVehContrib="62" flow="223.20" occupancy="1.87" speed="16.67" harmonicMeanSpeed="16.54" length="5.00" nVehEntered="62"/>
-    <interval begin="1000.00" end="2000.00" id="lateTop_0" nVehContrib="38" flow="136.80" occupancy="88.46" speed="2.76" harmonicMeanSpeed="0.21" length="5.00" nVehEntered="38"/>
-    <interval begin="1000.00" end="2000.00" id="lateTop_1" nVehContrib="38" flow="136.80" occupancy="14.56" speed="6.56" harmonicMeanSpeed="1.30" length="5.00" nVehEntered="38"/>
-    <interval begin="1000.00" end="2000.00" id="lateTop_2" nVehContrib="64" flow="230.40" occupancy="34.56" speed="5.43" harmonicMeanSpeed="0.90" length="5.00" nVehEntered="63"/>
-    <interval begin="2000.00" end="3000.00" id="rerouting-left-vehicles" nVehContrib="46" flow="165.60" occupancy="1.42" speed="16.36" harmonicMeanSpeed="16.19" length="5.00" nVehEntered="46"/>
-    <interval begin="2000.00" end="3000.00" id="leftlaneStandardDetection" nVehContrib="45" flow="162.00" occupancy="4.87" speed="11.74" harmonicMeanSpeed="4.62" length="5.00" nVehEntered="45"/>
-    <interval begin="2000.00" end="3000.00" id="issuingToCInVehicleTMS" nVehContrib="40" flow="144.00" occupancy="48.14" speed="3.67" harmonicMeanSpeed="0.42" length="5.00" nVehEntered="42"/>
-    <interval begin="2000.00" end="3000.00" id="allVehiclesToC" nVehContrib="30" flow="108.00" occupancy="66.18" speed="1.63" harmonicMeanSpeed="0.27" length="5.00" nVehEntered="35"/>
-    <interval begin="2000.00" end="3000.00" id="advanceTop_0" nVehContrib="34" flow="122.40" occupancy="23.70" speed="1.18" harmonicMeanSpeed="0.72" length="5.00" nVehEntered="34"/>
-    <interval begin="2000.00" end="3000.00" id="advanceTop_1" nVehContrib="48" flow="172.80" occupancy="1.49" speed="16.38" harmonicMeanSpeed="16.12" length="5.00" nVehEntered="48"/>
-    <interval begin="2000.00" end="3000.00" id="advanceTop_2" nVehContrib="47" flow="169.20" occupancy="1.40" speed="16.92" harmonicMeanSpeed="16.75" length="5.00" nVehEntered="47"/>
-    <interval begin="2000.00" end="3000.00" id="lateTop_0" nVehContrib="35" flow="126.00" occupancy="89.10" speed="2.12" harmonicMeanSpeed="0.19" length="5.00" nVehEntered="35"/>
-    <interval begin="2000.00" end="3000.00" id="lateTop_1" nVehContrib="47" flow="169.20" occupancy="21.65" speed="6.41" harmonicMeanSpeed="1.10" length="5.00" nVehEntered="48"/>
-    <interval begin="2000.00" end="3000.00" id="lateTop_2" nVehContrib="48" flow="172.80" occupancy="22.64" speed="5.87" harmonicMeanSpeed="1.06" length="5.00" nVehEntered="48"/>
-    <interval begin="3000.00" end="4000.00" id="rerouting-left-vehicles" nVehContrib="29" flow="104.40" occupancy="0.87" speed="16.82" harmonicMeanSpeed="16.69" length="5.00" nVehEntered="29"/>
-    <interval begin="3000.00" end="4000.00" id="leftlaneStandardDetection" nVehContrib="30" flow="108.00" occupancy="0.91" speed="16.63" harmonicMeanSpeed="16.49" length="5.00" nVehEntered="30"/>
-    <interval begin="3000.00" end="4000.00" id="issuingToCInVehicleTMS" nVehContrib="31" flow="111.60" occupancy="19.62" speed="5.26" harmonicMeanSpeed="0.78" length="5.00" nVehEntered="31"/>
-    <interval begin="3000.00" end="4000.00" id="allVehiclesToC" nVehContrib="22" flow="79.20" occupancy="42.13" speed="3.57" harmonicMeanSpeed="0.63" length="5.00" nVehEntered="30"/>
-    <interval begin="3000.00" end="4000.00" id="advanceTop_0" nVehContrib="39" flow="140.40" occupancy="24.11" speed="1.61" harmonicMeanSpeed="0.81" length="5.00" nVehEntered="39"/>
-    <interval begin="3000.00" end="4000.00" id="advanceTop_1" nVehContrib="34" flow="122.40" occupancy="2.96" speed="11.54" harmonicMeanSpeed="5.74" length="5.00" nVehEntered="34"/>
-    <interval begin="3000.00" end="4000.00" id="advanceTop_2" nVehContrib="32" flow="115.20" occupancy="1.04" speed="15.69" harmonicMeanSpeed="15.35" length="5.00" nVehEntered="32"/>
-    <interval begin="3000.00" end="4000.00" id="lateTop_0" nVehContrib="52" flow="187.20" occupancy="83.16" speed="2.53" harmonicMeanSpeed="0.31" length="5.00" nVehEntered="52"/>
-    <interval begin="3000.00" end="4000.00" id="lateTop_1" nVehContrib="32" flow="115.20" occupancy="36.82" speed="6.41" harmonicMeanSpeed="0.44" length="5.00" nVehEntered="33"/>
-    <interval begin="3000.00" end="4000.00" id="lateTop_2" nVehContrib="34" flow="122.40" occupancy="17.42" speed="5.75" harmonicMeanSpeed="1.62" length="5.00" nVehEntered="35"/>
-    <interval begin="4000.00" end="4308.90" id="rerouting-left-vehicles" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="4000.00" end="4308.90" id="leftlaneStandardDetection" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="4000.00" end="4308.90" id="issuingToCInVehicleTMS" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="4000.00" end="4308.90" id="allVehiclesToC" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="4000.00" end="4308.90" id="advanceTop_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="4000.00" end="4308.90" id="advanceTop_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="4000.00" end="4308.90" id="advanceTop_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="4000.00" end="4308.90" id="lateTop_0" nVehContrib="1" flow="11.65" occupancy="7.13" speed="0.07" harmonicMeanSpeed="0.07" length="5.00" nVehEntered="0"/>
-    <interval begin="4000.00" end="4308.90" id="lateTop_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="4000.00" end="4308.90" id="lateTop_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-</detector>
