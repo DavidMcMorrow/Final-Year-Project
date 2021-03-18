@@ -189,6 +189,8 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, SCENARIO):
                 "Baseline L4-CV": array[1],
                 "Real TMS L4-CV": array[2],
                 "Real TMS P1": array[3],
+                "Real TMS P2": array[4],
+                "Real TMS P3": array[5],
             }, 
             index=["A", "B"]
         )
@@ -217,8 +219,8 @@ SCENARIO = "Roadworks"
 # SCENARIO = "Collision"
 
 # useCases = ["\BaselineHDV", "\BaselineCAV"]
-useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\RealTMSPenetration1"]
-# useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\RealTMSPenetration1", "\RealTMSPenetration2", "\RealTMSPenetration3"]
+# useCases = ["\RealTMSPenetration2", "\RealTMSPenetration3"]
+useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\RealTMSPenetration1", "\RealTMSPenetration2", "\RealTMSPenetration3"]
 # LEVELOFSERVICE = ["A", "B", "C", "D"]
 LEVELOFSERVICE = ["A", "B"]
 vehicleTypes = ["HDV", "L4-CV"]
