@@ -35,78 +35,36 @@ def get_options():
     options, args = opt_parser.parse_args()
     return options
 
-SCENARIO = "Roadworks"
-# SCENARIO = "Collision"
+def runningTheScenariosDeveloping(SCENARIO, TYPE, sumoBinary, LOS, ITERATION):
+    if SCENARIO == "Roadworks":
+        if TYPE == "Baseline-HDV":
+            roadworksBaselineHDVTMS(sumoBinary, LOS, ITERATION)
+        elif TYPE == "Baseline-CAV":
+            roadworksBaselineCAVTMS(sumoBinary, LOS, ITERATION)
+        elif TYPE == "TMS-CAV":
+            roadworksRealTMSCAV(sumoBinary, LOS, ITERATION)
+        elif TYPE == "Penetration1":
+            RoadworksRealTMSPenetration1(sumoBinary, LOS, ITERATION)
+        elif TYPE == "Penetration2":
+            RoadworksRealTMSPenetration2(sumoBinary, LOS, ITERATION)
+        elif TYPE == "Penetration3":
+            RoadworksRealTMSPenetration3(sumoBinary, LOS, ITERATION)
 
-
-
-# TYPE = "Baseline-HDV"
-# TYPE = "Baseline-CAV"
-# TYPE = "TMS-CAV"
-# TYPE = "Penetration1"
-# TYPE = "Penetration2"
-# TYPE = "Penetration3"
-
-# TYPES = ["TMS-CAV"]
-# TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV", "Penetration1", "Penetration2", "Penetration3"]
-TYPES = ["Penetration2", "Penetration3"]
-LOS = ["A", "B"]
-# LOS = "A"
-# LOS = "B"
-# LOS = "C"
-# LOS = "D"
-# LOS = "Test"
-
-# ITERATION = 1
-# ITERATION = 2
-# ITERATION = 3
-
-# we need to import some python modules from the $SUMO_HOME/tools directory
-if 'SUMO_HOME' in os.environ:
-    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
-    sys.path.append(tools)
-else:
-    sys.exit("please declare environment variable 'SUMO_HOME'")
-
-
-# main entry point
-if __name__ == "__main__":
-    options = get_options()
-    # sumoBinary = checkBinary('sumo')
-    # check binary
-    if options.nogui:
-        sumoBinary = checkBinary('sumo')
     else:
-        sumoBinary = checkBinary('sumo-gui')
+        if TYPE == "Baseline-HDV":
+            collisionBaselineHDVTMS(sumoBinary, LOS, ITERATION)
+        elif TYPE == "Baseline-CAV":
+            collisionBaselineCAVTMS(sumoBinary, LOS, ITERATION)
+        elif TYPE == "TMS-CAV":
+            collisionRealCAVTMS(sumoBinary, LOS, ITERATION)
+        elif TYPE == "Penetration1":
+           print("Not developed yet :)")
+        elif TYPE == "Penetration2":
+            print("Not developed yet :)")
+        elif TYPE == "Penetration3":
+            print("Not developed yet :)")
 
-    # if SCENARIO == "Roadworks":
-    #     if TYPE == "Baseline-HDV":
-    #         roadworksBaselineHDVTMS(sumoBinary, LOS, ITERATION)
-    #     elif TYPE == "Baseline-CAV":
-    #         roadworksBaselineCAVTMS(sumoBinary, LOS, ITERATION)
-    #     elif TYPE == "TMS-CAV":
-    #         roadworksRealTMSCAV(sumoBinary, LOS, ITERATION)
-    #     elif TYPE == "Penetration1":
-    #         RoadworksRealTMSPenetration1(sumoBinary, LOS, ITERATION)
-    #     elif TYPE == "Penetration2":
-    #         RoadworksRealTMSPenetration2(sumoBinary, LOS, ITERATION)
-    #     elif TYPE == "Penetration3":
-    #         RoadworksRealTMSPenetration3(sumoBinary, LOS, ITERATION)
-
-    # else:
-    #     if TYPE == "Baseline-HDV":
-    #         collisionBaselineHDVTMS(sumoBinary, LOS, ITERATION)
-    #     elif TYPE == "Baseline-CAV":
-    #         collisionBaselineCAVTMS(sumoBinary, LOS, ITERATION)
-    #     elif TYPE == "TMS-CAV":
-    #         collisionRealCAVTMS(sumoBinary, LOS, ITERATION)
-    #         # print("Not developed yet :)")
-    #     elif TYPE == "Penetration1":
-    #        print("Not developed yet :)")
-    #     elif TYPE == "Penetration2":
-    #         print("Not developed yet :)")
-    #     elif TYPE == "Penetration3":
-    #         print("Not developed yet :)")
+def runningTheScenariosSimulation(SCENARIO, TYPE, sumoBinary, LOS, ITERATION):
     for typeOfTraffic in TYPES:
         for los in LOS:
             for i in range(0, 4):
@@ -141,3 +99,49 @@ if __name__ == "__main__":
                     elif typeOfTraffic == "Penetration3":
                         print("Not developed yet :)")
                 print("Finished running", name)
+
+# SCENARIO = "Roadworks"
+SCENARIO = "Collision"
+
+# TYPE = "Baseline-HDV"
+# TYPE = "Baseline-CAV"
+# TYPE = "TMS-CAV"
+# TYPE = "Penetration1"
+# TYPE = "Penetration2"
+# TYPE = "Penetration3"
+
+TYPES = ["TMS-CAV"]
+# TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV", "Penetration1", "Penetration2", "Penetration3"]
+# TYPES = ["Penetration2", "Penetration3"]
+LOS = ["A", "B"]
+# LOS = "A"
+# LOS = "B"
+# LOS = "C"
+# LOS = "D"
+# LOS = "Test"
+
+ITERATION = 1
+# ITERATION = 2
+# ITERATION = 3
+
+# we need to import some python modules from the $SUMO_HOME/tools directory
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+
+
+# main entry point
+if __name__ == "__main__":
+    options = get_options()
+    # sumoBinary = checkBinary('sumo')
+    # check binary
+    if options.nogui:
+        sumoBinary = checkBinary('sumo')
+    else:
+        sumoBinary = checkBinary('sumo-gui')
+
+    runningTheScenariosDeveloping(SCENARIO, TYPES[0], sumoBinary, LOS[0], ITERATION)
+    # runningTheScenariosSimulation(SCENARIO, TYPE, sumoBinary, LOS, ITERATION)
+    

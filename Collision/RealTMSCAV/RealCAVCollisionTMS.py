@@ -9,7 +9,7 @@ from xml.dom import minidom
 sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simulation Stuff/Final-Year-Project')
 
 from generalFunctions import (removeOldToC, collisionReRouteClockWiseFirst, collisionReRouteClockWiseSecond, baselineAlterOutputFiles, settingUpVehicles, 
-                                removeVehiclesThatPassCenter, stoppingCrashedVehicles, leftExitAfterIntersectionCollisionTMS)
+                                removeVehiclesThatPassCenter, stoppingCrashedVehicles, leftExitAfterIntersectionCollisionTMS, majorDelayDetection)
 
 # def closeRightTopBottom(vehiclesApproachingClosure, vehiclesThatTORed, DETECTINGISSUE):
 #     detectors = ["close-top-approaching_0", "close-right-approaching_1", "close-bottom-approaching_2"]
@@ -42,13 +42,21 @@ def farRightTopBottom(delayBeforeReoute, vehiclesApproachingClosure, vehiclesTha
     return vehiclesApproachingClosure, vehiclesThatTORed
 
 def TMS():
-    print("Running TMS CAV")
+    # print("Running TMS CAV")
+    # TMSRightTopBottomlastVehicleDetected = ["N/A", "N/A", "N/A", "N/A"]
+    TMSRightTopBottomlastVehicleDetected = ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"]
+    standardRightTopBottomLastVehicleDetected = ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"]
+    stuckInLeftExitlastVehicleDetected = ["N/A", "N/A"]
+    leftExitUpwardToClastVehicleDetected = ["N/A", "N/A"]
+    majorDelayLastVehicleDetected = ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"]
+    
     step = 0
     vehiclesApproachingClosure = []
     vehiclesThatTORed = []
     delayBeforeReoute = 120 ### Needs to be considered
     MAJOYDELAYTRIGGEREDTOC = 20 ### Needs to be considered
-    DETECTINGISSUE = 3 ### Needs to be considered
+    DETECTEDTOCTIME = 5 ### Needs to be considered
+    
     # approachingLeftLane
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
@@ -61,11 +69,14 @@ def TMS():
 
         if step > 1200:
             if step%3 == 0:
-                leftExitAfterIntersectionCollisionTMS()
+                TMSRightTopBottomlastVehicleDetected, standardRightTopBottomLastVehicleDetected, stuckInLeftExitlastVehicleDetected, leftExitUpwardToClastVehicleDetected = leftExitAfterIntersectionCollisionTMS(TMSRightTopBottomlastVehicleDetected, 
+                standardRightTopBottomLastVehicleDetected, stuckInLeftExitlastVehicleDetected, leftExitUpwardToClastVehicleDetected, DETECTEDTOCTIME)
                 # vehiclesApproachingClosure, vehiclesThatTORed = closeRightTopBottom(vehiclesApproachingClosure, vehiclesThatTORed, DETECTINGISSUE)
-                vehiclesApproachingClosure, vehiclesThatTORed = farRightTopBottom(delayBeforeReoute, vehiclesApproachingClosure, vehiclesThatTORed, MAJOYDELAYTRIGGEREDTOC)
+                # vehiclesApproachingClosure, vehiclesThatTORed = farRightTopBottom(delayBeforeReoute, vehiclesApproachingClosure, vehiclesThatTORed, MAJOYDELAYTRIGGEREDTOC)
+
+                majorDelayLastVehicleDetected = majorDelayDetection(majorDelayLastVehicleDetected)
+                ##
                 
-               
         step += 1
 
     traci.close(False)
@@ -73,15 +84,15 @@ def TMS():
     
 
 def collisionRealCAVTMS(sumoBinary, LOS, ITERATION):
-    print("here")
+    print("In collision Real TMS")
     rate = vehicleRates(LOS)
-    settingUpVehicles("Collision", "\BaselineCAV", LOS, rate)
-    traci.start([sumoBinary, "-c", "Collision\BaselineCAV\CollisionIntersectionBaselineCAV.sumocfg",
-                                "--tripinfo-output", "Collision\BaselineCAV\Output-Files\Tripinfo.xml", "--ignore-route-errors",
+    settingUpVehicles("Collision", "\RealTMSCAV", LOS, rate)
+    traci.start([sumoBinary, "-c", "Collision\RealTMSCAV\CollisionRealTMSCAV.sumocfg",
+                                "--tripinfo-output", "Collision\RealTMSCAV\Output-Files\Tripinfo.xml", "--ignore-route-errors",
                                 "--device.emissions.probability", "1", "--waiting-time-memory", "300"])
 
     TMS()
-    baselineAlterOutputFiles("Collision", "CAV", LOS, ITERATION, ["L4-CV", "HDV"])
+    # baselineAlterOutputFiles("Collision", "CAV", LOS, ITERATION, ["L4-CV", "HDV"])
 
 def reRoutingVehicles(veh, edge, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime):
     tocResult = random.randint(0,3) ## NEED TO CONSIDER THIS PROBABILITY MORE
