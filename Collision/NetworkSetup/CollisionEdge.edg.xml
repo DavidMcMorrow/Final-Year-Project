@@ -1,8 +1,10 @@
 <edges>
-    <edge id="left-approaching" from="left-node" to="center" priority="78" numLanes="3" speed="16.6667"/>
-    <edge id="left-exit" from="center" to="left-node" priority="46" numLanes="2" speed="16.6667">
-        <neigh lane="left-approaching_2"/> 
+    <edge id="left-long-approaching" from="left-node" to="split-left" priority="78" numLanes="3" speed="16.6667"/>
+    <edge id="left-short-approaching" from="split-left" to="center" priority="78" numLanes="3" speed="16.6667"/>
+    <edge id="left-exit-blockage" from="center" to="split-left" priority="46" numLanes="2" speed="16.6667">
+        <neigh lane="left-short-approaching_2"/> 
     </edge>
+    <edge id="left-exit" from="split-left" to="left-node" priority="46" numLanes="2" speed="16.6667"/>
  
     <edge id="top-approaching" from="top-node" to="center" priority="78" numLanes="3" speed="16.6667" />
     <edge id="top-exit" from="center" to="top-node" priority="46" numLanes="2" speed="16.6667" />

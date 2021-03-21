@@ -9,7 +9,8 @@ from xml.dom import minidom
 sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simulation Stuff/Final-Year-Project')
 
 from generalFunctions import (removeOldToC, collisionReRouteClockWiseFirst, collisionReRouteClockWiseSecond, baselineAlterOutputFiles, settingUpVehicles, 
-                                removeVehiclesThatPassCenter, stoppingCrashedVehicles, leftExitAfterIntersectionCollisionTMS, majorDelayDetection)
+                                removeVehiclesThatPassCenter, stoppingCrashedVehicles, leftExitAfterIntersectionCollisionTMS, majorDelayDetectionHandlingCollision,
+                                collisionFlowCorrection, clearingLeftLaneOfCVs, monitoringSeenInLeftExit)
 
 # def closeRightTopBottom(vehiclesApproachingClosure, vehiclesThatTORed, DETECTINGISSUE):
 #     detectors = ["close-top-approaching_0", "close-right-approaching_1", "close-bottom-approaching_2"]
@@ -49,50 +50,62 @@ def TMS():
     stuckInLeftExitlastVehicleDetected = ["N/A", "N/A"]
     leftExitUpwardToClastVehicleDetected = ["N/A", "N/A"]
     majorDelayLastVehicleDetected = ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"]
+    clearingCVsLastVehicleDetected = ["N/A", "N/A", "N/A"]
+    seenInLeftExit = []
     
     step = 0
     vehiclesApproachingClosure = []
     vehiclesThatTORed = []
-    delayBeforeReoute = 120 ### Needs to be considered
-    MAJOYDELAYTRIGGEREDTOC = 20 ### Needs to be considered
+    delayBeforeReRoute = 80 ### Needs to be considered
+    TIMETOPERFORMDELAYTOC = 30 ### Needs to be considered
     DETECTEDTOCTIME = 5 ### Needs to be considered
-    
+    NUMBEROFVEHICLESREROUTED = 0
+
     # approachingLeftLane
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         
-        vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
-        vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
+        # vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
+        # vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
         
         if step == 1000:
             stoppingCrashedVehicles()
 
         if step > 1200:
             if step%3 == 0:
-                TMSRightTopBottomlastVehicleDetected, standardRightTopBottomLastVehicleDetected, stuckInLeftExitlastVehicleDetected, leftExitUpwardToClastVehicleDetected = leftExitAfterIntersectionCollisionTMS(TMSRightTopBottomlastVehicleDetected, 
-                standardRightTopBottomLastVehicleDetected, stuckInLeftExitlastVehicleDetected, leftExitUpwardToClastVehicleDetected, DETECTEDTOCTIME)
+                vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
+                vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
+                seenInLeftExit = monitoringSeenInLeftExit(seenInLeftExit)
+                
+                TMSRightTopBottomlastVehicleDetected, standardRightTopBottomLastVehicleDetected, stuckInLeftExitlastVehicleDetected, leftExitUpwardToClastVehicleDetected, vehiclesApproachingClosure, seenInLeftExit = leftExitAfterIntersectionCollisionTMS(TMSRightTopBottomlastVehicleDetected, 
+                standardRightTopBottomLastVehicleDetected, stuckInLeftExitlastVehicleDetected, leftExitUpwardToClastVehicleDetected, DETECTEDTOCTIME, vehiclesApproachingClosure, seenInLeftExit)
                 # vehiclesApproachingClosure, vehiclesThatTORed = closeRightTopBottom(vehiclesApproachingClosure, vehiclesThatTORed, DETECTINGISSUE)
                 # vehiclesApproachingClosure, vehiclesThatTORed = farRightTopBottom(delayBeforeReoute, vehiclesApproachingClosure, vehiclesThatTORed, MAJOYDELAYTRIGGEREDTOC)
-
-                majorDelayLastVehicleDetected = majorDelayDetection(majorDelayLastVehicleDetected)
-                ##
                 
+                majorDelayLastVehicleDetected, vehiclesApproachingClosure, vehiclesThatTORed, NUMBEROFVEHICLESREROUTED = majorDelayDetectionHandlingCollision(majorDelayLastVehicleDetected, vehiclesApproachingClosure, 
+                vehiclesThatTORed, delayBeforeReRoute, TIMETOPERFORMDELAYTOC, step, NUMBEROFVEHICLESREROUTED)
+                ##
+                clearingCVsLastVehicleDetected = clearingLeftLaneOfCVs(clearingCVsLastVehicleDetected)
         step += 1
-
+    print("Number of Vehicles ReRouted", NUMBEROFVEHICLESREROUTED)
     traci.close(False)
     sys.stdout.flush()
     
 
 def collisionRealCAVTMS(sumoBinary, LOS, ITERATION):
+    print("----------------------------------------")
     print("In collision Real TMS")
     rate = vehicleRates(LOS)
     settingUpVehicles("Collision", "\RealTMSCAV", LOS, rate)
+    collisionFlowCorrection(['Collision/RealTMSCAV/Route-Files/L4-CV-Route.rou.xml'], ["L4-CV"])
     traci.start([sumoBinary, "-c", "Collision\RealTMSCAV\CollisionRealTMSCAV.sumocfg",
                                 "--tripinfo-output", "Collision\RealTMSCAV\Output-Files\Tripinfo.xml", "--ignore-route-errors",
                                 "--device.emissions.probability", "1", "--waiting-time-memory", "300"])
 
     TMS()
+    
     # baselineAlterOutputFiles("Collision", "CAV", LOS, ITERATION, ["L4-CV", "HDV"])
+    print("----------------------------------------")
 
 def reRoutingVehicles(veh, edge, vehiclesApproachingClosure, vehiclesThatTORed, ToCLeadTime):
     tocResult = random.randint(0,3) ## NEED TO CONSIDER THIS PROBABILITY MORE
