@@ -112,8 +112,8 @@ SCENARIO = "Collision"
 
 TYPES = ["TMS-CAV"]
 # TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV", "Penetration1", "Penetration2", "Penetration3"]
-# TYPES = ["Penetration2", "Penetration3"]
-LOS = ["A", "B"]
+# TYPES = ["Penetration2", "Penetration3"]lz
+LOS = ["C", "B"]
 # LOS = "A"
 # LOS = "B"
 # LOS = "C"

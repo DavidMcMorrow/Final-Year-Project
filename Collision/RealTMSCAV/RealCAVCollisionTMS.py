@@ -10,7 +10,7 @@ sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simu
 
 from generalFunctions import (removeOldToC, collisionReRouteClockWiseFirst, collisionReRouteClockWiseSecond, baselineAlterOutputFiles, settingUpVehicles, 
                                 removeVehiclesThatPassCenter, stoppingCrashedVehicles, leftExitAfterIntersectionCollisionTMS, majorDelayDetectionHandlingCollision,
-                                collisionFlowCorrection, clearingLeftLaneOfCVs, monitoringSeenInLeftExit)
+                                collisionFlowCorrection, clearingLeftLaneOfCVs, monitoringSeenInLeftExit, allowingAccessToRightLaneCollision)
 
 # def closeRightTopBottom(vehiclesApproachingClosure, vehiclesThatTORed, DETECTINGISSUE):
 #     detectors = ["close-top-approaching_0", "close-right-approaching_1", "close-bottom-approaching_2"]
@@ -52,6 +52,7 @@ def TMS():
     majorDelayLastVehicleDetected = ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"]
     clearingCVsLastVehicleDetected = ["N/A", "N/A", "N/A"]
     seenInLeftExit = []
+    accessToRightLaneLastDetected = ["N/A", "N/A"]
     
     step = 0
     vehiclesApproachingClosure = []
@@ -60,6 +61,8 @@ def TMS():
     TIMETOPERFORMDELAYTOC = 30 ### Needs to be considered
     DETECTEDTOCTIME = 5 ### Needs to be considered
     NUMBEROFVEHICLESREROUTED = 0
+    minorWaitLengthBeforeAction = 30
+    
 
     # approachingLeftLane
     while traci.simulation.getMinExpectedNumber() > 0:
@@ -86,6 +89,7 @@ def TMS():
                 vehiclesThatTORed, delayBeforeReRoute, TIMETOPERFORMDELAYTOC, step, NUMBEROFVEHICLESREROUTED)
                 ##
                 clearingCVsLastVehicleDetected = clearingLeftLaneOfCVs(clearingCVsLastVehicleDetected)
+                accessToRightLaneLastDetected = allowingAccessToRightLaneCollision(minorWaitLengthBeforeAction, accessToRightLaneLastDetected)
         step += 1
     print("Number of Vehicles ReRouted", NUMBEROFVEHICLESREROUTED)
     traci.close(False)

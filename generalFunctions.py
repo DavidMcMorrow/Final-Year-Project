@@ -375,7 +375,7 @@ def allowingAccessToRightLaneTMS(lastVehicleDetected):
             if target == "right-exit" and vehicleType == "CV":
                 receivedTMSResult = random.randint(0, 99) ## CONSIDER
                 if receivedTMSResult < 66:
-                    # print("GOT TMS", veh)
+                    print("GOT TMS", veh)
                     traci.vehicle.setVehicleClass(veh, "passenger")
                     traci.vehicle.updateBestLanes(veh)
                 # else:
@@ -475,11 +475,11 @@ def reRoutingVehicles(veh, target, vehiclesApproachingClosure, vehiclesThatTORed
 
 ############################## Collision TMS ##############################
 def stoppingCrashedVehicles():
-    traci.vehicle.setStop("crashed-car-lane-zero.0", "left-exit-blockage", 25.5, 0, 4500)
-    traci.vehicle.setStop("crashed-car-lane-zero.1", "left-exit-blockage", 17.5, 0, 4500)
-    traci.vehicle.setStop("crashed-car-lane-one.0", "left-exit-blockage", 25.5, 1, 4500)
-    traci.vehicle.setStop("crashed-car-lane-one.1", "left-exit-blockage", 17.5, 1, 4500)
-
+    traci.vehicle.setStop("crashed-car-lane-zero.0", "left-exit-blockage", 26.5, 0, 4500)
+    traci.vehicle.setStop("crashed-car-lane-zero.1", "left-exit-blockage", 18.5, 0, 4500)
+    traci.vehicle.setStop("crashed-car-lane-one.0", "left-exit-blockage", 26.5, 1, 4500)
+    traci.vehicle.setStop("crashed-car-lane-one.1", "left-exit-blockage", 18.5, 1, 4500)
+    
 def collisionFlowCorrection(files, vehiclesTypes):
     for j in range(0, len(files)):
         mydoc = minidom.parse(files[j])
@@ -525,6 +525,16 @@ def collisionFlowCorrection(files, vehiclesTypes):
                 temp = vehiclesTypes[j] + "-Left-"
                 vehicles[i].setAttribute("type", temp)
             
+            if vehiclesTypes[0] == "L0-HDV":
+                if(routes[i].getAttribute("edges") == "left-long-approaching left-short-approaching right-exit"):
+                    temp = vehiclesTypes[j] + "-Straight-"
+                    vehicles[i].setAttribute("type", temp)
+            
+            if vehiclesTypes[0] != "L0-HDV":
+                if(routes[i].getAttribute("edges") == "left-long-approaching left-short-approaching bottom-exit"):
+                    temp = vehiclesTypes[j] + "-Right-"
+                    vehicles[i].setAttribute("type", temp)
+            
                     
         with open(files[j], "w") as fs:
             fs.write(mydoc.toxml()) 
@@ -545,6 +555,10 @@ def majorDelayDetectionHandlingCollision(majorDelayDetectionLastDetected, vehicl
     vehiclesApproachingClosure, vehiclesThatTORed, NUMBEROFVEHICLESREROUTED = collisionDetectingMajorDelay(vehiclesApproachingClosure, vehiclesThatTORed, delayBeforeReRoute, ToCLeadTime, step, NUMBEROFVEHICLESREROUTED)
     return majorDelayDetectionLastDetected, vehiclesApproachingClosure, vehiclesThatTORed, NUMBEROFVEHICLESREROUTED
 
+def allowingAccessToRightLaneCollision(minorWaitLengthBeforeAction, accessToRightLaneLastDetected):
+    accessToRightLaneLastDetected[0] = allowingAccessToRightLaneTMS(accessToRightLaneLastDetected[0])
+    accessToRightLaneLastDetected[1] = allowingAccessToRightLaneLateCollision(accessToRightLaneLastDetected[1], minorWaitLengthBeforeAction)
+    return accessToRightLaneLastDetected
 ############### Left Exit ###############
 
 def TMSRightTopBottom(lastVehicleDetected, vehiclesApproachingClosure):
@@ -561,7 +575,7 @@ def TMSRightTopBottom(lastVehicleDetected, vehiclesApproachingClosure):
                 target = route[len(route) - 1]
                 vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
                 receivedTMSResult = random.randint(0, 99)
-                if (target == "left-exit" and vehicleType == "CV" and receivedTMSResult < 49):
+                if (target == "left-exit" and vehicleType == "CV" and receivedTMSResult < 66):
                     # print("Made emergency by TMS", veh)
                     traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
                     # traci.vehicle.setVehicleClass(veh, "emergency")
@@ -597,7 +611,6 @@ def standardHandlingRightTopBottom(lastVehicleDetected, DETECTEDTOCTIME, vehicle
                 route = traci.vehicle.getRoute(veh)
                 target = route[len(route) - 1]
                 if target == "left-exit":
-                    # vehiclesApproachingClosure, vehiclesThatTORed = reRoutingVehicles(veh, edges[i], vehiclesApproachingClosure, vehiclesThatTORed, DETECTINGISSUE)
                     detectedSituation = random.randint(0, 99)
                     if(detectedSituation < 25):
                         ## Detected the situation and decided best solution was to go for it
@@ -627,9 +640,12 @@ def standardSituationHandlingInLeftExit(stuckInLeftExitlastVehicleDetected, seen
     det_vehs = traci.inductionloop.getLastStepVehicleIDs("left-exit_0")
     for veh in det_vehs:
         # print("traci.vehicle.couldChangeLane(veh, 1)", traci.vehicle.couldChangeLane(veh, 1))
-        if(traci.vehicle.couldChangeLane(veh, 1) == True):
-            traci.vehicle.changeLane(veh, 1, 0.1)
-        # if veh != stuckInLeftExitlastVehicleDetected[0]:
+        # print("veh", veh)
+        # traci.vehicle.setStop(veh, "left-exit-blockage", 50, 0, 0.1)
+        
+        laneID = traci.vehicle.getLaneID(veh).split('-')
+        # print("laneID = traci.vehicle.getLaneID(veh).split('-')", laneID)
+        traci.vehicle.changeLane(veh, 1, 0.1)
         if (traci.vehicle.getVehicleClass(veh) != "emergency"):   
             # print("veh 1", veh)
             seenInLeftExit.append(veh)
@@ -670,7 +686,9 @@ def upwardToCDownstream(lastVehicleDetected, seenInLeftExit):
                     traci.vehicle.setVehicleClass(veh, "custom1")
                     if (traci.vehicle.getParameter(veh, "device.toc.dynamicToCThreshold") == 0):
                         traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 11)
-                if veh in seenInLeftExit == True:
+                temp = veh in seenInLeftExit
+                if temp == True:
+                    # print("OUT")
                     seenInLeftExit.remove(veh)
                 lastVehicleDetected[count] = veh
         count = count + 1
@@ -757,15 +775,41 @@ def clearingLeftLaneOfCVs(lastVehicleDetected):
     return lastVehicleDetected
 
 def monitoringSeenInLeftExit(seenInLeftExit):
-    if len(seenInLeftExit) != 0:
-        print("seenInLeftExit", seenInLeftExit)
+    # if len(seenInLeftExit) != 0:
+    #     print("seenInLeftExit", seenInLeftExit)
     for vehicle in seenInLeftExit:
-        if vehicle in traci.vehicle.getIDList() == True:
-            if(traci.vehicle.getVehicleClass(vehicle) != "emergency"):
-                traci.vehicle.setVehicleClass(vehicle, "emergency")
-        else:
+        temp1 = vehicle in traci.vehicle.getIDList()
+        if temp1 == False:
+            # print("seenInLeftExit 1", seenInLeftExit)
             seenInLeftExit.remove(vehicle)
-    print("seenInLeftExit 1", seenInLeftExit)
+        else:
+            if(traci.vehicle.getVehicleClass(vehicle) != "emergency"):
+                # print("changing its class", vehicle)
+                traci.vehicle.setVehicleClass(vehicle, "emergency")
+            laneID = traci.vehicle.getLaneID(vehicle).split('-')
+            # print("laneID[len(laneID)-1]", laneID[len(laneID)-1])
+            # print("traci.vehicle.getPosition(veh)", traci.vehicle.getPosition(vehicle)[0])
+            if(traci.vehicle.getPosition(vehicle)[0] > 873 and laneID[len(laneID)-1] == "blockage_0"):
+                traci.vehicle.changeLane(vehicle, 1, 0.1)
+                # print("veh", vehicle)
+    
     return seenInLeftExit
 
-    
+def allowingAccessToRightLaneLateCollision(lastVehicleDetected, delayRealisation):
+    det_vehs = traci.inductionloop.getLastStepVehicleIDs("allowingRightLaneAccessLate")
+    for veh in det_vehs:
+        if lastVehicleDetected != veh:
+            route = traci.vehicle.getRoute(veh)
+            target = route[len(route) - 1]
+            vehicleClass = traci.vehicle.getVehicleClass(veh)
+            if target == "right-exit" and traci.vehicle.getAccumulatedWaitingTime(veh) >= delayRealisation and vehicleClass != "passenger":
+                vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
+                scenarioRecognitionResult = random.randint(0, 99) ## CONSIDER
+                if vehicleType == "HDV" and scenarioRecognitionResult < 80:
+                    print("GOT THE MESSAGE", veh)
+                    traci.vehicle.setVehicleClass(veh, "passenger")
+                    traci.vehicle.updateBestLanes(veh)
+                else:
+                    print("JUST MISSED THE MESSAGE", veh)
+        lastVehicleDetected = veh
+    return lastVehicleDetected
