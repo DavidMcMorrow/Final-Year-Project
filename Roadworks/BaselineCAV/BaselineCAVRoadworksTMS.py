@@ -9,7 +9,7 @@ from xml.dom import minidom
 sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simulation Stuff/Final-Year-Project')
 
 from generalFunctions import (removeOldToC, settingUpVehicles, baselineAlterOutputFiles, flowCorrection, removeVehiclesThatPassCenter, roadworksReRouting, 
-handlingLeftApproachingBaseline, handlingTopRightBottomBaseline, allowingAccessToRightLaneBaseline, roadWorksMajorDelayDetectionBaseline)
+handlingLeftApproachingBaseline, handlingTopRightBottomBaseline, allowingAccessToRightLaneBaseline, roadWorksMajorDelayDetectionBaseline, handlingToCUpstreamRoadworks)
 
 
 
@@ -30,6 +30,7 @@ def TMS():
     leftApproachingLastDetected = ["n/a", "n/a"]
     topBottomRightLateLastDetected = ["n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a"]
     # topBottomRightTMSLastDetected = ["n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a"]
+    upwardToCLastDetected = ["n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a"]
     accessToRightLaneLastDetected = ["n/a"]
     majorDelayDetectionLastDetected = ["n/a", "n/a", "n/a"]
     minorWaitLengthBeforeAction = 20 ## Consider
@@ -49,10 +50,10 @@ def TMS():
             leftApproachingLastDetected = handlingLeftApproachingBaseline(vehiclesThatTORed, ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected)
             vehiclesThatTORed, topBottomRightLateLastDetected = handlingTopRightBottomBaseline(topBottomRightLateDetectors, vehiclesThatTORed, 
                                                                 ENCOUNTEREDCLOSURETOC, topBottomRightLateLastDetected)
-            vehiclesApproachingClosure, vehiclesThatTORed, majorDelayDetectionLastDetected, NUMBEROFVEHICLESREROUTED = roadWorksMajorDelayDetectionBaseline(delayBeforeReRoute, vehiclesApproachingClosure, 
-                                                                                            vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step, majorDelayDetectionLastDetected, majorDelayDetectors, NUMBEROFVEHICLESREROUTED)
+            # vehiclesApproachingClosure, vehiclesThatTORed, majorDelayDetectionLastDetected, NUMBEROFVEHICLESREROUTED = roadWorksMajorDelayDetectionBaseline(delayBeforeReRoute, vehiclesApproachingClosure, 
+            #                                                                                 vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step, majorDelayDetectionLastDetected, majorDelayDetectors, NUMBEROFVEHICLESREROUTED)
             vehiclesThatTORed, accessToRightLaneLastDetected = allowingAccessToRightLaneBaseline(minorWaitLengthBeforeAction, vehiclesThatTORed, accessToRightLaneLastDetected, TIMETOPERFORMDELAYTOC)
-
+            upwardToCLastDetected = handlingToCUpstreamRoadworks(upwardToCLastDetected)
         step += 1
     print("Final NUMBEROFVEHICLESREROUTED = ", NUMBEROFVEHICLESREROUTED)
     traci.close(False)

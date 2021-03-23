@@ -10,7 +10,7 @@ sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simu
 from generalFunctions import (settingUpVehicles, flowCorrection, removeOldToC, roadworksTMSTopRightBottom, lateVehicleIndidentDetectionTopRightBottom, 
 roadworksReRoutingLeftVehicles, leftUpStreamTMS, standardVehicleScenarioDetection, issuingToCToVehiclesTMS, lateVehicleIncidentDetection, removeVehiclesThatPassCenter,
 allowingAccessToRightLaneTMS, allowingAccessToRightLaneLate, addingVehicleToDelayDetection, detectingMajorDelay, handlingTopRightBottom, handlingLeftApproaching,
-allowingAccessToRightLane, roadWorksMajorDelayDetection, TMSAlterOutputFiles)
+allowingAccessToRightLane, roadWorksMajorDelayDetection, TMSAlterOutputFiles, handlingToCUpstreamRoadworks)
     
 def TMS():
     print("Running Baseline")
@@ -34,6 +34,7 @@ def TMS():
     leftApproachingLastDetected = ["n/a", "n/a", "n/a", "n/a"]
     topBottomRightLateLastDetected = ["n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a"]
     topBottomRightTMSLastDetected = ["n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a"]
+    upwardToCLastDetected = ["n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a"]
     accessToRightLaneLastDetected = ["n/a", "n/a"]
     majorDelayDetectionLastDetected = ["n/a", "n/a", "n/a"]
     minorWaitLengthBeforeAction = 20 ## Consider
@@ -56,7 +57,7 @@ def TMS():
             vehiclesApproachingClosure, vehiclesThatTORed, majorDelayDetectionLastDetected, NUMBEROFVEHICLESREROUTED = roadWorksMajorDelayDetection(delayBeforeReRoute, vehiclesApproachingClosure, vehiclesThatTORed, 
             TIMETOPERFORMDELAYTOC, step, majorDelayDetectionLastDetected, majorDelayDetectors, NUMBEROFVEHICLESREROUTED)
             vehiclesThatTORed, accessToRightLaneLastDetected = allowingAccessToRightLane(minorWaitLengthBeforeAction, vehiclesThatTORed, accessToRightLaneLastDetected, TIMETOPERFORMDELAYTOC)
-
+            upwardToCLastDetected = handlingToCUpstreamRoadworks(upwardToCLastDetected)
         step += 1
     print("Final NUMBEROFVEHICLESREROUTED = ", NUMBEROFVEHICLESREROUTED)
     traci.close(False)

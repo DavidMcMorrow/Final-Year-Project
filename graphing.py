@@ -33,6 +33,7 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes):
             IterationThroughputArray = []
             IterationEmmisionsArray = []        
             for i in range(0, NUMBEROFITERATIONS):
+                # print("i", i)
                 VehiclesTTCArray = []
                 VehiclesPETArray = []
                 VehiclesDRACArray = []
@@ -53,20 +54,20 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes):
 
                     safetyFiles.append(safetyFilepath)
                     effiencyFiles.append(effiencyFilepath)
-                    print("VehiclesTTCArray", VehiclesTTCArray)
+                    # print("VehiclesTTCArray", VehiclesTTCArray)
                 IterationTTCArray.append(np.mean(VehiclesTTCArray))
                 IterationDRACArray.append(np.mean(VehiclesDRACArray))
                 IterationPETArray.append(np.mean(VehiclesPETArray))
                 IterationThroughputArray.append(np.mean(VehiclesThroughputArray))
                 IterationEmmisionsArray.append(np.mean(VehiclesThroughputArray))
-                print("IterationTTCArray", IterationTTCArray)
+                # print("IterationTTCArray", IterationTTCArray)
 
             LOSTTCArray.append(np.mean(IterationTTCArray))
             LOSDRACArray.append(np.mean(IterationDRACArray))
             LOSPETArray.append(np.mean(IterationPETArray))
             LOSThroughputArray.append(np.mean(IterationThroughputArray))
             LOSEmmisionsArray.append(np.mean(IterationEmmisionsArray))
-            print("LOSTTCArray", LOSTTCArray)
+            # print("LOSTTCArray", LOSTTCArray)
 
         TTCArray.append(LOSTTCArray)
         DRACArray.append(LOSDRACArray)
@@ -99,6 +100,7 @@ def newGatheringTheData(safetyFiles, effiencyFiles):
     return TTC, THROUGHPUT, EMISSIONS
 
 def safetyKPIs(filename):
+    encounterTypes = ["2"]
     safetyIncidents = []
     print("filename", filename)
     document = minidom.parse(filename)
@@ -107,17 +109,23 @@ def safetyKPIs(filename):
     numberOfPET = 0
     TTC = document.getElementsByTagName('minTTC')
     for ttc in TTC:
-        if ttc.getAttribute("time") != "NA":
+        typeOfConflict = ttc.getAttribute("type")
+        desiredConflict = typeOfConflict in encounterTypes
+        if ttc.getAttribute("time") != "NA": #and desiredConflict == True:
             numberOfTTC = numberOfTTC + 1
 
     DRAC = document.getElementsByTagName('maxDRAC')
     for drac in DRAC:
-        if drac.getAttribute("time") != "NA":
+        typeOfConflict = ttc.getAttribute("type")
+        desiredConflict = typeOfConflict in encounterTypes
+        if drac.getAttribute("time") != "NA":# and desiredConflict == True:
             numberOfDRAC = numberOfDRAC + 1
 
     PET = document.getElementsByTagName('PET')
     for pet in PET:
-        if pet.getAttribute("time") != "NA":
+        typeOfConflict = ttc.getAttribute("type")
+        desiredConflict = typeOfConflict in encounterTypes
+        if pet.getAttribute("time") != "NA":# and desiredConflict == True:
             numberOfPET = numberOfPET + 1
 
     return numberOfTTC, numberOfDRAC, numberOfPET
@@ -186,19 +194,19 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, SCENARIO):
         plotdata = pd.DataFrame(
             {
                 "Baseline HDV": array[0],
-                "Baseline L4-CV": array[1],
-                "Real TMS L4-CV": array[2],
-                "Real TMS P1": array[3],
-                "Real TMS P2": array[4],
-                "Real TMS P3": array[5],
+                "Baseline 100% L4-CV": array[1],
+                # "Real TMS 100% L4-CV": array[2],
+                # "Real TMS P1": array[3],
+                # "Real TMS P2": array[4],
+                # "Real TMS P3": array[5],
             }, 
-            index=["A", "B"]
+            index=["A", "B", "C"]
         )
         plotdata.plot(kind='bar')
         plt.xlabel(xAxis)
         plt.ylabel(yAxis)
         plt.title(title)
-        plt.show()
+    plt.show()
 
 def graphingFunction(xLabel, yLabel, title, xData, yData):
     plt.bar(xData, yData, align='center', alpha=0.5)
@@ -213,29 +221,20 @@ PET = []
 THROUGHPUT = []
 EMISSIONS = []
 
-NUMBEROFITERATIONS = 4
+NUMBEROFITERATIONS = 1
 
 SCENARIO = "Roadworks"
 # SCENARIO = "Collision"
 
-# useCases = ["\BaselineHDV", "\BaselineCAV"]
+useCases = ["\BaselineHDV", "\BaselineCAV"]
 # useCases = ["\RealTMSPenetration2", "\RealTMSPenetration3"]
-useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\RealTMSPenetration1", "\RealTMSPenetration2", "\RealTMSPenetration3"]
+# useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\RealTMSPenetration1", "\RealTMSPenetration2", "\RealTMSPenetration3"]
 # LEVELOFSERVICE = ["A", "B", "C", "D"]
-LEVELOFSERVICE = ["A", "B"]
+LEVELOFSERVICE = ["A"]
 vehicleTypes = ["HDV", "L4-CV"]
 
 # safetyFiles, effiencyFiles = creatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes)
 safetyFiles, effiencyFiles, TTC, DRAC, PET, THROUGHPUT, EMISSIONS = newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes)
-
-print("---------------------------")
-print("Safety Files", safetyFiles[0])
-print("Effiency Files", effiencyFiles[0])
-print("Safety Files", safetyFiles[1])
-print("Effiency Files", effiencyFiles[1])
-print("Safety Files", safetyFiles[25])
-print("Effiency Files", effiencyFiles[25])
-print("---------------------------")
 
 # TTC, THROUGHPUT, EMISSIONS = gatheringTheData(safetyFiles, effiencyFiles)
     
