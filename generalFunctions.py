@@ -327,17 +327,24 @@ def standardVehicleScenarioDetection(leftApproachingLastDetected):
     det_vehs = traci.inductionloop.getLastStepVehicleIDs("leftlaneStandardDetection")
     for veh in det_vehs:
         if traci.vehicle.getVehicleClass(veh) == "custom2" and leftApproachingLastDetected != veh:
+            typeOfVehicle = traci.vehicle.getTypeID(veh)[:2]
+            # print("getTypeID", traci.vehicle.getTypeID(veh)[:2])
+            # print("veh", veh)
             figuredOutScenario = random.randint(0,99) ## Needs to be considered
-            if(figuredOutScenario < 25):
+            if(figuredOutScenario < 25 and (typeOfVehicle == "L4" or typeOfVehicle == "L2")):
                 # print("Did detect blockage", veh)
                 if traci.vehicle.getParameter(veh, "has.toc.device") == "true":
                     traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
                 traci.vehicle.setVehicleClass(veh, "custom1")
-                print("Should be rerouted", veh)
                 roadworksReRoutingLeftVehicles(veh)
                 traci.vehicle.updateBestLanes(veh)
             # else:
             #     print("Didn't detect blockage", veh)
+            elif (figuredOutScenario < 75 and typeOfVehicle == "L0"):
+                traci.vehicle.setVehicleClass(veh, "custom1")
+                roadworksReRoutingLeftVehicles(veh)
+                traci.vehicle.updateBestLanes(veh)
+
         leftApproachingLastDetected = veh
     return leftApproachingLastDetected
     
@@ -368,7 +375,6 @@ def lateVehicleIncidentDetection(ENCOUNTEREDCLOSURETOC, leftApproachingLastDetec
     for veh in det_vehs:
         if leftApproachingLastDetected != veh:
             vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
-            print("Really should be rerouted", veh)
             roadworksReRoutingLeftVehicles(veh)
             temp = veh in vehiclesThatTORed
             if vehicleType == "HDV":
