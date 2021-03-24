@@ -1,0 +1,25 @@
+python PreparingVehicleModels/createVehTypeDistribution.py Vehicle-Setup-Global/L4-CV.txt --o Roadworks/BaselinePenetration3/PreparingVehicleModels/Vehicle-Models/L4-CV.add.xml --size 100 --name L4-CV-
+python PreparingVehicleModels/createVehTypeDistribution.py Vehicle-Setup-Global/L4-CV-Left.txt --o Roadworks/BaselinePenetration3/PreparingVehicleModels/Vehicle-Models/L4-CV-Left.add.xml --size 50 --name L4-CV-Left-
+python PreparingVehicleModels/createVehTypeDistribution.py Vehicle-Setup-Global/L4-CV-Right.txt --o Roadworks/BaselinePenetration3/PreparingVehicleModels/Vehicle-Models/L4-CV-Right.add.xml --size 50 --name L4-CV-Right-
+
+python PreparingVehicleModels/createVehTypeDistribution.py Vehicle-Setup-Global/L4-AV.txt --o Roadworks/BaselinePenetration3/PreparingVehicleModels/Vehicle-Models/L4-AV.add.xml --size 100 --name L4-AV-
+python PreparingVehicleModels/createVehTypeDistribution.py Vehicle-Setup-Global/L4-AV-Left.txt --o Roadworks/BaselinePenetration3/PreparingVehicleModels/Vehicle-Models/L4-AV-Left.add.xml --size 50 --name L4-AV-Left-
+python PreparingVehicleModels/createVehTypeDistribution.py Vehicle-Setup-Global/L4-AV-Right.txt --o Roadworks/BaselinePenetration3/PreparingVehicleModels/Vehicle-Models/L4-AV-Right.add.xml --size 50 --name L4-AV-Right-
+
+python PreparingVehicleModels/createVehTypeDistribution.py Vehicle-Setup-Global/L2-CV.txt --o Roadworks/BaselinePenetration3/PreparingVehicleModels/Vehicle-Models/L2-CV.add.xml --size 100 --name L2-CV-
+python PreparingVehicleModels/createVehTypeDistribution.py Vehicle-Setup-Global/L2-CV-Left.txt --o Roadworks/BaselinePenetration3/PreparingVehicleModels/Vehicle-Models/L2-CV-Left.add.xml --size 50 --name L2-CV-Left-
+python PreparingVehicleModels/createVehTypeDistribution.py Vehicle-Setup-Global/L2-CV-Right.txt --o Roadworks/BaselinePenetration3/PreparingVehicleModels/Vehicle-Models/L2-CV-Right.add.xml --size 50 --name L2-CV-Right-
+
+python PreparingVehicleModels/createVehTypeDistribution.py Vehicle-Setup-Global/L2-AV.txt --o Roadworks/BaselinePenetration3/PreparingVehicleModels/Vehicle-Models/L2-AV.add.xml --size 100 --name L2-AV-
+python PreparingVehicleModels/createVehTypeDistribution.py Vehicle-Setup-Global/L2-AV-Left.txt --o Roadworks/BaselinePenetration3/PreparingVehicleModels/Vehicle-Models/L2-AV-Left.add.xml --size 50 --name L2-AV-Left-
+python PreparingVehicleModels/createVehTypeDistribution.py Vehicle-Setup-Global/L2-AV-Right.txt --o Roadworks/BaselinePenetration3/PreparingVehicleModels/Vehicle-Models/L2-AV-Right.add.xml --size 50 --name L2-AV-Right-
+
+python PreparingVehicleModels/createVehTypeDistribution.py Vehicle-Setup-Global/L0-HDV.txt --o Roadworks/BaselinePenetration3/PreparingVehicleModels/Vehicle-Models/L0-HDV.add.xml --size 100 --name L0-HDV-
+python PreparingVehicleModels/createVehTypeDistribution.py Vehicle-Setup-Global/L0-HDV-Left.txt --o Roadworks/BaselinePenetration3/PreparingVehicleModels/Vehicle-Models/L0-HDV-Left.add.xml --size 50 --name L0-HDV-Left-
+python PreparingVehicleModels/createVehTypeDistribution.py Vehicle-Setup-Global/L0-HDV-Straight.txt --o Roadworks/BaselinePenetration3/PreparingVehicleModels/Vehicle-Models/L0-HDV-Straight.add.xml --size 50 --name L0-HDV-Straight-
+
+python PreparingVehicleModels/randomTrips.py -n Roadworks/RoadworksIntersection.net.xml --fringe-factor 40 -r Roadworks/BaselinePenetration3/Route-Files/L4-CV-Route.rou.xml --trip-attributes="type=\"L4-CV-\"" -l --prefix "L4-CV-" --seed 
+python PreparingVehicleModels/randomTrips.py -n Roadworks/RoadworksIntersection.net.xml --fringe-factor 40 -r Roadworks/BaselinePenetration3/Route-Files/L4-AV-Route.rou.xml --trip-attributes="type=\"L4-AV-\"" -l --prefix "L4-AV-" --seed 
+python PreparingVehicleModels/randomTrips.py -n Roadworks/RoadworksIntersection.net.xml --fringe-factor 40 -r Roadworks/BaselinePenetration3/Route-Files/L2-CV-Route.rou.xml --trip-attributes="type=\"L2-CV-\"" -l --prefix "L2-CV-" --seed 
+python PreparingVehicleModels/randomTrips.py -n Roadworks/RoadworksIntersection.net.xml --fringe-factor 40 -r Roadworks/BaselinePenetration3/Route-Files/L2-AV-Route.rou.xml --trip-attributes="type=\"L2-AV-\"" -l --prefix "L2-AV-" --seed 
+python PreparingVehicleModels/randomTrips.py -n Roadworks/RoadworksIntersection.net.xml --fringe-factor 40 -r Roadworks/BaselinePenetration3/Route-Files/L0-HDV-Route.rou.xml --trip-attributes="type=\"L0-HDV-\"" -l --prefix "L0-HDV-" --seed 

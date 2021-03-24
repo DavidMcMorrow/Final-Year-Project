@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 03/24/21 19:57:57 by Eclipse SUMO GUI Version 1.8.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="Roadworks\BaselinePenetration1\../RoadworksIntersection.net.xml"/>
+        <route-files value="Roadworks\BaselinePenetration1\Route-Files/L4-CV-Route.rou.xml,Roadworks\BaselinePenetration1\Route-Files/L4-AV-Route.rou.xml,Roadworks\BaselinePenetration1\Route-Files/L2-CV-Route.rou.xml,Roadworks\BaselinePenetration1\Route-Files/L2-AV-Route.rou.xml,Roadworks\BaselinePenetration1\Route-Files/L0-HDV-Route.rou.xml"/>
+        <additional-files value="Roadworks\BaselinePenetration1\../Additional-Files/Roadworks-Detectors.add.xml,Roadworks\BaselinePenetration1\../Additional-Files/Roadworks-Rerouters.add.xml,Roadworks\BaselinePenetration1\../Additional-Files/Roadworks-Traffic-lights.add.xml,Roadworks\BaselinePenetration1\../Additional-Files/Roadworks-Traffic-Signs.add.xml,Roadworks\BaselinePenetration1\PreparingVehicleModels/Vehicle-Models/L4-CV.add.xml,Roadworks\BaselinePenetration1\PreparingVehicleModels/Vehicle-Models/L4-CV-Left.add.xml,Roadworks\BaselinePenetration1\PreparingVehicleModels/Vehicle-Models/L4-CV-Right.add.xml,Roadworks\BaselinePenetration1\PreparingVehicleModels/Vehicle-Models/L4-AV.add.xml,Roadworks\BaselinePenetration1\PreparingVehicleModels/Vehicle-Models/L4-AV-Left.add.xml,Roadworks\BaselinePenetration1\PreparingVehicleModels/Vehicle-Models/L4-AV-Right.add.xml,Roadworks\BaselinePenetration1\PreparingVehicleModels/Vehicle-Models/L2-CV.add.xml,Roadworks\BaselinePenetration1\PreparingVehicleModels/Vehicle-Models/L2-CV-Left.add.xml,Roadworks\BaselinePenetration1\PreparingVehicleModels/Vehicle-Models/L2-CV-Right.add.xml,Roadworks\BaselinePenetration1\PreparingVehicleModels/Vehicle-Models/L2-AV.add.xml,Roadworks\BaselinePenetration1\PreparingVehicleModels/Vehicle-Models/L2-AV-Left.add.xml,Roadworks\BaselinePenetration1\PreparingVehicleModels/Vehicle-Models/L2-AV-Right.add.xml,Roadworks\BaselinePenetration1\PreparingVehicleModels/Vehicle-Models/L0-HDV.add.xml,Roadworks\BaselinePenetration1\PreparingVehicleModels/Vehicle-Models/L0-HDV-Left.add.xml,Roadworks\BaselinePenetration1\PreparingVehicleModels/Vehicle-Models/L0-HDV-Straight.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="Roadworks\BaselinePenetration1\Output-Files\TripInfo.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <step-length value="0.1"/>
+    </time>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+        <waiting-time-memory value="300"/>
+        <default.action-step-length value="0.1"/>
+    </processing>
+
+    <report>
+        <no-warnings value="true"/>
+    </report>
+
+    <emissions>
+        <device.emissions.probability value="1"/>
+    </emissions>
+
+    <traci_server>
+        <remote-port value="51946"/>
+    </traci_server>
+
+    <gui_only>
+        <start value="true"/>
+        <tracker-interval value="0.1"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<SSMLog>
+    <conflict begin="61.30" end="119.70" ego="L4-AV-2" foe="L4-CV-8">
+        <minTTC time="108.10" position="903.57,500.61" type="10" value="13.80"/>
+        <maxDRAC time="108.20" position="901.61,503.18" type="11" value="0.44"/>
+        <PET time="115.36" position="901.61,503.18" type="17" value="1.37"/>
+    </conflict>
+    <conflict begin="72.50" end="130.90" ego="L4-AV-2" foe="L4-AV-3">
+        <minTTC time="108.60" position="901.61,503.18" type="11" value="0.70"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="93.40" end="130.80" ego="L4-AV-2" foe="L4-AV-5">
+        <minTTC time="108.60" position="901.61,503.18" type="11" value="0.70"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="101.60" end="130.20" ego="L4-AV-2" foe="L2-CV-6">
+        <minTTC time="108.60" position="901.61,503.18" type="11" value="0.70"/>
+        <maxDRAC time="105.00" position="902.31,503.66" type="10" value="0.25"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="103.80" end="130.20" ego="L4-AV-2" foe="L0-HDV-2">
+        <minTTC time="108.60" position="901.61,503.18" type="11" value="0.70"/>
+        <maxDRAC time="105.70" position="906.37,500.57" type="10" value="1.50"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+</SSMLog>

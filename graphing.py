@@ -226,8 +226,8 @@ EMISSIONS = []
 
 NUMBEROFITERATIONS = 1
 
-# SCENARIO = "Roadworks"
-SCENARIO = "Collision"
+SCENARIO = "Roadworks"
+# SCENARIO = "Collision"
 
 # useCases = ["\BaselineHDV", "\BaselineCAV"]
 # useCases = ["\RealTMSPenetration2", "\RealTMSPenetration3"]

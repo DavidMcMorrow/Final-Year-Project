@@ -333,6 +333,7 @@ def standardVehicleScenarioDetection(leftApproachingLastDetected):
                 if traci.vehicle.getParameter(veh, "has.toc.device") == "true":
                     traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
                 traci.vehicle.setVehicleClass(veh, "custom1")
+                print("Should be rerouted", veh)
                 roadworksReRoutingLeftVehicles(veh)
                 traci.vehicle.updateBestLanes(veh)
             # else:
@@ -367,6 +368,7 @@ def lateVehicleIncidentDetection(ENCOUNTEREDCLOSURETOC, leftApproachingLastDetec
     for veh in det_vehs:
         if leftApproachingLastDetected != veh:
             vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
+            print("Really should be rerouted", veh)
             roadworksReRoutingLeftVehicles(veh)
             temp = veh in vehiclesThatTORed
             if vehicleType == "HDV":
@@ -517,6 +519,23 @@ def handlingToCUpstreamRoadworks(lastVehicleDetected):
     return lastVehicleDetected
 ############### ###############
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ############################## Collision TMS ##############################
 def stoppingCrashedVehicles():
     traci.vehicle.setStop("crashed-car-lane-zero.0", "left-exit-blockage", 26.5, 0, 4000)
@@ -615,7 +634,6 @@ def allowingAccessToRightLaneCollision(minorWaitLengthBeforeAction, accessToRigh
     return accessToRightLaneLastDetected
 
 ############### Left Exit ###############
-
 def TMSRightTopBottom(lastVehicleDetected, vehiclesApproachingClosure):
     detectors = ["TMS-top-approaching_0", "TMS-top-approaching_1", "TMS-top-approaching_2",
                 "TMS-right-approaching_0", "TMS-right-approaching_1", "TMS-right-approaching_2", 

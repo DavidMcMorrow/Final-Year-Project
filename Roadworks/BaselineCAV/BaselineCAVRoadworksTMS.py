@@ -72,25 +72,6 @@ def roadworksBaselineCAVTMS(sumoBinary, LOS, ITERATION):
     TMS()
     baselineAlterOutputFiles("Roadworks", "CAV", LOS, ITERATION, ["L4-CV", "HDV"])
 
-
-def allowingAccessToRightLane(delayBeforeToC, TIMETOPERFORMDELAYTOC, vehiclesThatTORed, vehiclesApproachingClosure):
-    det_vehs = traci.inductionloop.getLastStepVehicleIDs("det_2")
-    for veh in det_vehs:
-        temp = veh in vehiclesApproachingClosure
-        if temp == True:
-            vehiclesApproachingClosure.remove(veh)
-        if(traci.vehicle.getRoute(veh)[len(traci.vehicle.getRoute(veh))-1] ==  "right-exit" and traci.vehicle.getTypeID(veh)[:2] == "L4"):
-            temp = veh in vehiclesThatTORed
-            if(traci.vehicle.getAccumulatedWaitingTime(veh) >= delayBeforeToC and temp == False and traci.vehicle.getVehicleClass(veh) != "passenger"):
-                ToCResult = random.randint(0, 1)
-                if(ToCResult == 0):
-                    traci.vehicle.requestToC(veh, TIMETOPERFORMDELAYTOC)
-                    vehiclesThatTORed.append(veh)
-                else:
-                    traci.vehicle.setVehicleClass(veh, "passenger")
-
-    return vehiclesThatTORed, vehiclesApproachingClosure
-
 def vehicleRates(LOS):
     if LOS == "A":
         rate = [1.86]

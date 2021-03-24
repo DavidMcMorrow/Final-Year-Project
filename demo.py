@@ -13,6 +13,9 @@ from Collision.CollisionTMS import runCollisionTMS
 
 from Roadworks.BaselineHDV.BaselineHDVRoadworksTMS import roadworksBaselineHDVTMS
 from Roadworks.BaselineCAV.BaselineCAVRoadworksTMS import roadworksBaselineCAVTMS
+from Roadworks.BaselinePenetration1.BaselinePenetration1RoadworksTMS import roadworksBaselinePenetration1
+from Roadworks.BaselinePenetration2.BaselinePenetration2RoadworksTMS import roadworksBaselinePenetration2
+from Roadworks.BaselinePenetration3.BaselinePenetration3RoadworksTMS import roadworksBaselinePenetration3
 from Roadworks.RealTMSCAV.RealCAVRoadworksTMS import roadworksRealTMSCAV
 from Roadworks.RealTMSPenetration1.RealPenetration1RoadworksTMS import RoadworksRealTMSPenetration1
 from Roadworks.RealTMSPenetration2.RealPenetration2RoadworksTMS import RoadworksRealTMSPenetration2
@@ -47,6 +50,12 @@ def runningTheScenariosDeveloping(SCENARIO, TYPE, sumoBinary, LOS, ITERATION):
             roadworksBaselineHDVTMS(sumoBinary, LOS, ITERATION)
         elif TYPE == "Baseline-CAV":
             roadworksBaselineCAVTMS(sumoBinary, LOS, ITERATION)
+        elif TYPE == "Baseline-Penetration1":
+            roadworksBaselinePenetration1(sumoBinary, LOS, ITERATION)
+        elif TYPE == "Baseline-Penetration2":
+            roadworksBaselinePenetration2(sumoBinary, LOS, ITERATION)
+        elif TYPE == "Baseline-Penetration3":
+            roadworksBaselinePenetration3(sumoBinary, LOS, ITERATION)
         elif TYPE == "TMS-CAV":
             roadworksRealTMSCAV(sumoBinary, LOS, ITERATION)
         elif TYPE == "Penetration1":
@@ -87,6 +96,12 @@ def runningTheScenariosSimulation(SCENARIO, TYPE, sumoBinary, LOS, ITERATION):
                         roadworksBaselineHDVTMS(sumoBinary, los, i)
                     elif typeOfTraffic == "Baseline-CAV":
                         roadworksBaselineCAVTMS(sumoBinary, los, i)
+                    elif typeOfTraffic == "Baseline-Penetration1":
+                        roadworksBaselinePenetration1(sumoBinary, los, i)
+                    elif typeOfTraffic == "Baseline-Penetration2":
+                        roadworksBaselinePenetration2(sumoBinary, los, i)
+                    elif typeOfTraffic == "Baseline-Penetration3":
+                        roadworksBaselinePenetration3(sumoBinary, los, i)
                     elif typeOfTraffic == "TMS-CAV":
                         roadworksRealTMSCAV(sumoBinary, los, i)
                     elif typeOfTraffic == "Penetration1":
@@ -117,8 +132,8 @@ def runningTheScenariosSimulation(SCENARIO, TYPE, sumoBinary, LOS, ITERATION):
                         collisionRealTMSPenetration3(sumoBinary, los, i)
                 print("Finished running", name)
 
-# SCENARIO = "Roadworks"
-SCENARIO = "Collision"
+SCENARIO = "Roadworks"
+# SCENARIO = "Collision"
 
 # TYPE = "Baseline-HDV"
 # TYPE = "Baseline-CAV"
@@ -127,7 +142,7 @@ SCENARIO = "Collision"
 # TYPE = "Penetration2"
 # TYPE = "Penetration3"
 
-TYPES = ["Baseline-Penetration1", "Penetration1", "Baseline-Penetration2", "Penetration2", "Baseline-Penetration3", "Penetration3"]
+TYPES = ["Baseline-Penetration1", "Baseline-Penetration2", "Baseline-Penetration3"]
 # TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV", "Baseline-Penetration1", "Penetration1", "Baseline-Penetration2", "Penetration2", "Baseline-Penetration3", "Penetration3"]
 # TYPES = ["Penetration2", "Penetration3"]
 
@@ -155,10 +170,10 @@ if __name__ == "__main__":
     options = get_options()
     sumoBinary = checkBinary('sumo')
     # check binary
-    # if options.nogui:
-    #     sumoBinary = checkBinary('sumo')
-    # else:
-    #     sumoBinary = checkBinary('sumo-gui')
+    if options.nogui:
+        sumoBinary = checkBinary('sumo')
+    else:
+        sumoBinary = checkBinary('sumo-gui')
 
     # runningTheScenariosDeveloping(SCENARIO, TYPES[0], sumoBinary, LOS[0], ITERATION)
     runningTheScenariosSimulation(SCENARIO, TYPES, sumoBinary, LOS, ITERATION)
