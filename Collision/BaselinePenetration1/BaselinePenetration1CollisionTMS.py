@@ -59,13 +59,13 @@ def TMS():
 
 def collisionBaselinePenetration1(sumoBinary, LOS, ITERATION):
     print("----------------------------------------")
-    print("HERE P1")
+    print("HERE Baseline P1")
     files = ['Collision/BaselinePenetration1/Route-Files/L4-CV-Route.rou.xml', 'Collision/BaselinePenetration1/Route-Files/L4-AV-Route.rou.xml', 
             'Collision/BaselinePenetration1/Route-Files/L2-CV-Route.rou.xml', 'Collision/BaselinePenetration1/Route-Files/L2-AV-Route.rou.xml',
             'Collision/BaselinePenetration1/Route-Files/L0-HDV-Route.rou.xml']
     vehicleTypes = ["L4-CV", "L4-AV", "L2-CV", "L2-AV", "L0-HDV"]
     rate = vehiclePenetrationRates1(LOS)
-    settingUpVehicles("Collision", "\RealTMSPenetration1", LOS, rate)
+    settingUpVehicles("Collision", "\BaselinePenetration1", LOS, rate)
     collisionFlowCorrection(['Collision/BaselinePenetration1/Route-Files/L4-CV-Route.rou.xml'], ["L4-CV"])
     collisionFlowCorrection(['Collision/BaselinePenetration1/Route-Files/L4-AV-Route.rou.xml'], ["L4-AV"])
     collisionFlowCorrection(['Collision/BaselinePenetration1/Route-Files/L2-CV-Route.rou.xml'], ["L2-CV"])

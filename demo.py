@@ -101,15 +101,20 @@ def runningTheScenariosSimulation(SCENARIO, TYPE, sumoBinary, LOS, ITERATION):
                         collisionBaselineHDVTMS(sumoBinary, los, i)
                     elif typeOfTraffic == "Baseline-CAV":
                         collisionBaselineCAVTMS(sumoBinary, los, i)
+                    elif typeOfTraffic == "Baseline-Penetration1":
+                        collisionBaselinePenetration1(sumoBinary, los, i)
+                    elif typeOfTraffic == "Baseline-Penetration2":
+                        collisionBaselinePenetration2(sumoBinary, los, i)
+                    elif typeOfTraffic == "Baseline-Penetration3":
+                        collisionBaselinePenetration3(sumoBinary, los, i)
                     elif typeOfTraffic == "TMS-CAV":
                         collisionRealCAVTMS(sumoBinary, los, i)
-                        # print("Not developed yet :)")
                     elif typeOfTraffic == "Penetration1":
-                       collisionRealTMSPenetration1(sumoBinary, LOS, ITERATION)
+                       collisionRealTMSPenetration1(sumoBinary, los, i)
                     elif typeOfTraffic == "Penetration2":
-                        collisionRealTMSPenetration2(sumoBinary, LOS, ITERATION)
+                        collisionRealTMSPenetration2(sumoBinary, los, i)
                     elif typeOfTraffic == "Penetration3":
-                        print("Not developed yet :)")
+                        collisionRealTMSPenetration3(sumoBinary, los, i)
                 print("Finished running", name)
 
 # SCENARIO = "Roadworks"
@@ -122,8 +127,8 @@ SCENARIO = "Collision"
 # TYPE = "Penetration2"
 # TYPE = "Penetration3"
 
-TYPES = ["Baseline-Penetration3", "Baseline-Penetration3"]
-# TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV", "Penetration1", "Penetration2", "Penetration3"]
+TYPES = ["Baseline-Penetration1", "Penetration1", "Baseline-Penetration2", "Penetration2", "Baseline-Penetration3", "Penetration3"]
+# TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV", "Baseline-Penetration1", "Penetration1", "Baseline-Penetration2", "Penetration2", "Baseline-Penetration3", "Penetration3"]
 # TYPES = ["Penetration2", "Penetration3"]
 
 LOS = ["A"]
@@ -150,11 +155,11 @@ if __name__ == "__main__":
     options = get_options()
     sumoBinary = checkBinary('sumo')
     # check binary
-    if options.nogui:
-        sumoBinary = checkBinary('sumo')
-    else:
-        sumoBinary = checkBinary('sumo-gui')
+    # if options.nogui:
+    #     sumoBinary = checkBinary('sumo')
+    # else:
+    #     sumoBinary = checkBinary('sumo-gui')
 
-    runningTheScenariosDeveloping(SCENARIO, TYPES[0], sumoBinary, LOS[0], ITERATION)
-    # runningTheScenariosSimulation(SCENARIO, TYPES, sumoBinary, LOS, ITERATION)
+    # runningTheScenariosDeveloping(SCENARIO, TYPES[0], sumoBinary, LOS[0], ITERATION)
+    runningTheScenariosSimulation(SCENARIO, TYPES, sumoBinary, LOS, ITERATION)
     

@@ -2,6 +2,7 @@ import random
 import os
 import traci
 from xml.dom import minidom
+import time
 
 def settingUpVehicles(SCENARIO, USECASEFOLDER, LOS, rate):
     count = 0
@@ -67,6 +68,7 @@ def roadworksReRouting(target):
     return newRoute
 
 def baselineAlterOutputFiles(SCENARIO, BASELINE, LOS, ITERATION, VEHICLETYPES):
+    time.sleep(10)
     for vehType in VEHICLETYPES:
         newSafetyFile = SCENARIO + "\Baseline" + BASELINE  + "\Output-Files\LOS-" + LOS + "\SSM-" + vehType + "-"+ str(ITERATION) + ".xml"        
         oldSafetyFile = SCENARIO + "\Baseline" + BASELINE + "\Output-Files\SSM-" + vehType + ".xml"
@@ -147,6 +149,7 @@ def removeVehiclesThatPassCenter(vehiclesApproachingClosure):
     return vehiclesApproachingClosure
 
 def TMSAlterOutputFiles(SCENARIO, penetration, LOS, ITERATION, VEHICLETYPES):
+    time.sleep(10)
     for vehType in VEHICLETYPES:
         newSafetyFile = SCENARIO + "\RealTMS" + penetration  + "\Output-Files\LOS-" + LOS + "\SSM-" + vehType + "-"+ str(ITERATION) + ".xml"        
         oldSafetyFile = SCENARIO + "\RealTMS" + penetration + "\Output-Files\SSM-" + vehType + ".xml"

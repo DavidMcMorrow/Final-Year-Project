@@ -65,7 +65,7 @@ def collisionRealCAVTMS(sumoBinary, LOS, ITERATION):
     collisionFlowCorrection(['Collision/RealTMSCAV/Route-Files/L4-CV-Route.rou.xml'], ["L4-CV"])
     traci.start([sumoBinary, "-c", "Collision\RealTMSCAV\CollisionRealTMSCAV.sumocfg",
                                 "--tripinfo-output", "Collision\RealTMSCAV\Output-Files\Tripinfo.xml", "--ignore-route-errors",
-                                "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-S", "-Q"])
+                                "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-S", "-Q", "-W"])
 
     TMS()
     vehicleTypes = ["L4-CV", "HDV"]

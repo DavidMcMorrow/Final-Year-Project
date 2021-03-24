@@ -75,7 +75,7 @@ def collisionRealTMSPenetration3(sumoBinary, LOS, ITERATION):
     # #traci starts sumo as a subprocess and then this script connects and runs
     traci.start([sumoBinary, "-c", "Collision\RealTMSPenetration3\CollisionRealTMSPenetration3.sumocfg",
                 "--tripinfo-output", "Collision\RealTMSPenetration3\Output-Files\TripInfo.xml", "--ignore-route-errors",
-                "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-S"])
+                "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-S", "-Q", "-W"])
 
     TMS()
     TMSAlterOutputFiles("Collision", "Penetration3", LOS, ITERATION, vehicleTypes)

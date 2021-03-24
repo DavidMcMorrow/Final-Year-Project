@@ -33,7 +33,7 @@ def TMS():
     NUMBEROFVEHICLESREROUTED = 0
     minorWaitLengthBeforeAction = 30
     
-    while traci.simulation.getMinExpectedNumber() > 0 or step < 42500:
+    while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         if step == 1000:
             stoppingCrashedVehicles()
