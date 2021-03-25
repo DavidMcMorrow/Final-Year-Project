@@ -38,7 +38,7 @@ def TMS():
 
     delayBeforeReRoute = 120
     
-    ENCOUNTEREDCLOSURETOC = 3 # CONSIDER
+    ENCOUNTEREDCLOSURETOC = 1 # CONSIDER
     
     
     while traci.simulation.getMinExpectedNumber() > 0:
@@ -48,8 +48,7 @@ def TMS():
             vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
             vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
             leftApproachingLastDetected = handlingLeftApproachingBaseline(vehiclesThatTORed, ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected)
-            vehiclesThatTORed, topBottomRightLateLastDetected = handlingTopRightBottomBaseline(topBottomRightLateDetectors, vehiclesThatTORed, 
-                                                                ENCOUNTEREDCLOSURETOC, topBottomRightLateLastDetected)
+            vehiclesThatTORed, topBottomRightLateLastDetected = handlingTopRightBottomBaseline(topBottomRightLateDetectors, vehiclesThatTORed, ENCOUNTEREDCLOSURETOC, topBottomRightLateLastDetected)
             # vehiclesApproachingClosure, vehiclesThatTORed, majorDelayDetectionLastDetected, NUMBEROFVEHICLESREROUTED = roadWorksMajorDelayDetectionBaseline(delayBeforeReRoute, vehiclesApproachingClosure, 
             #                                                                                 vehiclesThatTORed, TIMETOPERFORMDELAYTOC, step, majorDelayDetectionLastDetected, majorDelayDetectors, NUMBEROFVEHICLESREROUTED)
             vehiclesThatTORed, accessToRightLaneLastDetected = allowingAccessToRightLaneBaseline(minorWaitLengthBeforeAction, vehiclesThatTORed, accessToRightLaneLastDetected, TIMETOPERFORMDELAYTOC)
@@ -67,7 +66,7 @@ def roadworksBaselineCAVTMS(sumoBinary, LOS, ITERATION):
     #traci starts sumo as a subprocess and then this script connects and runs
     traci.start([sumoBinary, "-c", "Roadworks\BaselineCAV\RoadworksBaselineCAV.sumocfg",
                 "--tripinfo-output", "Roadworks\BaselineCAV\Output-Files\TripInfo.xml", "--ignore-route-errors",
-                "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-S", "-Q"])
+                "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-S", "-Q", "-W"])
 
     TMS()
     baselineAlterOutputFiles("Roadworks", "CAV", LOS, ITERATION, ["L4-CV", "HDV"])

@@ -72,7 +72,7 @@ def roadworksRealTMSCAV(sumoBinary, LOS, ITERATION):
     # #traci starts sumo as a subprocess and then this script connects and runs
     traci.start([sumoBinary, "-c", "Roadworks\RealTMSCAV\RoadworksRealTMSCAV.sumocfg",
                 "--tripinfo-output", "Roadworks\RealTMSCAV\Output-Files\TripInfo.xml", "--ignore-route-errors",
-                "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-S", "-Q"])
+                "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-S", "-Q", "-W"])
 
     TMS()
     TMSAlterOutputFiles("Roadworks", "CAV", LOS, ITERATION, ["L4-CV", "HDV"])

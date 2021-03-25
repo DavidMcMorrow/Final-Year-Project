@@ -80,7 +80,7 @@ def RoadworksRealTMSPenetration2(sumoBinary, LOS, ITERATION):
     # #traci starts sumo as a subprocess and then this script connects and runs
     traci.start([sumoBinary, "-c", "Roadworks\RealTMSPenetration2\RoadworksRealTMSPenetration2.sumocfg",
                 "--tripinfo-output", "Roadworks\RealTMSPenetration2\Output-Files\TripInfo.xml", "--ignore-route-errors",
-                "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-S", "-Q"])
+                "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-S", "-Q", "-W"])
 
     TMS()
     TMSAlterOutputFiles("Roadworks", "Penetration2", LOS, ITERATION, vehicleTypes)
