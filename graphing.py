@@ -196,8 +196,8 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, SCENARIO):
                 "Baseline P3": array[7],
                 "Real TMS P3": array[8],
             }, 
-            #index=["A", "B", "C"]
-            index=["B"]
+            index=["A", "B", "C", "D"]
+            # index=["B"]
         )
         plotdata.plot(kind='bar')
         plt.xlabel(xAxis)
@@ -223,13 +223,13 @@ NUMBEROFITERATIONS = 1
 SCENARIO = "Roadworks"
 # SCENARIO = "Collision"
 
-useCases = ["\BaselinePenetration1"]
+# useCases = ["\BaselinePenetration1"]
 useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
             "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
 # useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
 #             "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
-# LEVELOFSERVICE = ["A", "B", "C", "D"]
-LEVELOFSERVICE = ["B"]
+LEVELOFSERVICE = ["A", "B", "C", "D"]
+# LEVELOFSERVICE = ["A"]
 vehicleTypes = ["HDV", "L4-CV"]
 
 # safetyFiles, effiencyFiles = creatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes)

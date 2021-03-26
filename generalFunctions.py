@@ -167,6 +167,13 @@ def TMSAlterOutputFiles(SCENARIO, penetration, LOS, ITERATION, VEHICLETYPES):
         with open(newTripFile, 'w') as secondFile:
             for line in firstFile:
                 secondFile.write(line)
+############### ###############
+
+
+
+
+
+
 
 ############### Penetration Rates ###############
 def vehiclePenetrationRates1(LOS):
@@ -210,6 +217,15 @@ def vehiclePenetrationRates3(LOS):
     #     print("HERE")
     #     rate = [3.1, 2.5, 2.2, 2, 2.35]
     return rate
+############### ###############
+
+
+
+
+
+
+
+
 
 ############### Roadworks Baseline Caller Functions ###############
 def handlingLeftApproachingBaseline(vehiclesThatTORed, ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected): 
@@ -232,15 +248,14 @@ def allowingAccessToRightLaneBaseline(minorWaitLengthBeforeAction, vehiclesThatT
     # accessToRightLaneLastDetected[0] = allowingAccessToRightLaneTMS(accessToRightLaneLastDetected[0])
     vehiclesThatTORed, accessToRightLaneLastDetected[0] = allowingAccessToRightLaneLate(accessToRightLaneLastDetected[0], minorWaitLengthBeforeAction, vehiclesThatTORed, TIMETOPERFORMDELAYTOC)
     return vehiclesThatTORed, accessToRightLaneLastDetected
-
+############### ###############
 
 ############################## Roadworks TMS ##############################
 ############### Caller Functions ###############
 def handlingTopRightBottom(topBottomRightLateDetectors, topBottomRightTMSDetectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC, topBottomRightLateLastDetected, topBottomRightTMSLastDetected):
     topBottomRightTMSLastDetected = roadworksTMSTopRightBottom(topBottomRightTMSDetectors, topBottomRightTMSLastDetected)
     # vehiclesThatTORed, leftApproachingLastDetected[2] = issuingToCToVehiclesTMSTopRightBottom(vehiclesThatTORed, TMSISSUEDTOC, leftApproachingLastDetected[2])
-    vehiclesThatTORed, topBottomRightLateLastDetected = lateVehicleIndidentDetectionTopRightBottom(topBottomRightLateDetectors, vehiclesThatTORed, 
-                                                        ENCOUNTEREDCOLLISIONTOC, topBottomRightLateLastDetected)    
+    vehiclesThatTORed, topBottomRightLateLastDetected = lateVehicleIndidentDetectionTopRightBottom(topBottomRightLateDetectors, vehiclesThatTORed, ENCOUNTEREDCOLLISIONTOC, topBottomRightLateLastDetected)    
     return vehiclesThatTORed, topBottomRightLateLastDetected, topBottomRightTMSLastDetected
 
 def handlingLeftApproaching(vehiclesThatTORed, TMSISSUEDTOC, ENCOUNTEREDCLOSURETOC,leftApproachingLastDetected):
@@ -331,6 +346,7 @@ def standardVehicleScenarioDetection(leftApproachingLastDetected):
             # print("getTypeID", traci.vehicle.getTypeID(veh)[:2])
             # print("veh", veh)
             figuredOutScenario = random.randint(0,99) ## Needs to be considered
+            # print("figuredOutScenario", figuredOutScenario)
             if(figuredOutScenario < 25 and (typeOfVehicle == "L4" or typeOfVehicle == "L2")):
                 # print("Did detect blockage", veh)
                 if traci.vehicle.getParameter(veh, "has.toc.device") == "true":
@@ -379,7 +395,7 @@ def lateVehicleIncidentDetection(ENCOUNTEREDCLOSURETOC, leftApproachingLastDetec
             temp = veh in vehiclesThatTORed
             if vehicleType == "HDV":
                 traci.vehicle.setVehicleClass(veh, "custom1")
-                traci.vehicle.updateBestLanes(veh)
+            traci.vehicle.updateBestLanes(veh)
             # elif temp == False:
             #     # print("MADE TOC", veh)
             #     traci.vehicle.setParameter(veh, "device.toc.requestToC", ENCOUNTEREDCLOSURETOC)
@@ -510,9 +526,9 @@ def handlingToCUpstreamRoadworks(lastVehicleDetected):
                 if (traci.vehicle.getTypeID(veh)[:2] == "L0" and upwardToCResult < 75 and traci.vehicle.getParameter(veh, "has.toc.device") == "true"):
                     # print("upward ToC", veh)
                     traci.vehicle.requestToC(veh, -1)
-                elif traci.vehicle.getTypeID(veh)[:2] == "L0":
-                    # print("HDV Class change", veh)
-                    traci.vehicle.setVehicleClass(veh, "passenger")
+                # elif traci.vehicle.getTypeID(veh)[:2] == "L0":
+                #     # print("HDV Class change", veh)
+                #     traci.vehicle.setVehicleClass(veh, "passenger")
                 vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
                 
                 if (traci.vehicle.getTypeID(veh)[:2] == "L4" or traci.vehicle.getTypeID(veh)[:2] == "L2"):
@@ -524,6 +540,15 @@ def handlingToCUpstreamRoadworks(lastVehicleDetected):
         count = count + 1
     return lastVehicleDetected
 ############### ###############
+
+
+
+
+
+
+
+
+
 
 
 
@@ -619,7 +644,7 @@ def leftExitAfterIntersectionCollisionTMSBaseline(standardRightTopBottomLastVehi
     stuckInLeftExitlastVehicleDetected, seenInLeftExit = standardSituationHandlingInLeftExit(stuckInLeftExitlastVehicleDetected, seenInLeftExit)  
     leftExitUpwardToClastVehicleDetected, seenInLeftExit = upwardToCDownstream(leftExitUpwardToClastVehicleDetected, seenInLeftExit)      
     return standardRightTopBottomLastVehicleDetected, stuckInLeftExitlastVehicleDetected, leftExitUpwardToClastVehicleDetected, vehiclesApproachingClosure, seenInLeftExit
-
+##### Here 25th
 def leftExitAfterIntersectionCollisionTMS(TMSRightTopBottomlastVehicleDetected, standardRightTopBottomLastVehicleDetected, stuckInLeftExitlastVehicleDetected, leftExitUpwardToClastVehicleDetected, DETECTEDTOCTIME, vehiclesApproachingClosure, seenInLeftExit):
     TMSRightTopBottomlastVehicleDetected, vehiclesApproachingClosure = TMSRightTopBottom(TMSRightTopBottomlastVehicleDetected, vehiclesApproachingClosure)
     standardRightTopBottomLastVehicleDetected, vehiclesApproachingClosure = standardHandlingRightTopBottom(standardRightTopBottomLastVehicleDetected, DETECTEDTOCTIME, vehiclesApproachingClosure)
@@ -761,7 +786,7 @@ def upwardToCDownstream(lastVehicleDetected, seenInLeftExit):
                 if (traci.vehicle.getTypeID(veh)[:2] == "L0" and upwardToCResult < 75 and veh[:2] != "L0"):
                     # print("upward ToC", veh)
                     traci.vehicle.requestToC(veh, -1)
-                elif traci.vehicle.getTypeID(veh)[:2] == "L0":
+                elif veh[:2] == "L0":
                     # print("HDV Class change", veh)
                     traci.vehicle.setVehicleClass(veh, "passenger")
                 # vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
@@ -771,6 +796,7 @@ def upwardToCDownstream(lastVehicleDetected, seenInLeftExit):
                     traci.vehicle.setVehicleClass(veh, "custom1")
                     if (traci.vehicle.getParameter(veh, "device.toc.dynamicToCThreshold") == 0):
                         traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 11)
+                
                 temp = veh in seenInLeftExit
                 if temp == True:
                     # print("OUT")

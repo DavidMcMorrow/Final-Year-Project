@@ -142,11 +142,12 @@ SCENARIO = "Roadworks"
 # TYPE = "Penetration2"
 # TYPE = "Penetration3"
 
-# TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV"]
-TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV", "Baseline-Penetration1", "Penetration1", "Baseline-Penetration2", "Penetration2", "Baseline-Penetration3", "Penetration3"]
-# TYPES = ["Penetration2", "Penetration3"]
+TYPES = ["Baseline-Penetration1"]
+# TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV", "Baseline-Penetration1", "Penetration1", "Baseline-Penetration2", "Penetration2", "Baseline-Penetration3", "Penetration3"]
+# TYPES = ["Penetration2"]
 
-LOS = ["B"]
+# LOS = ["A", "B", "C", "D"]
+LOS = ["C"]
 # LOS = "A"
 # LOS = "B"
 # LOS = "C"
@@ -170,11 +171,11 @@ if __name__ == "__main__":
     options = get_options()
     sumoBinary = checkBinary('sumo')
     # check binary
-    # if options.nogui:
-    #     sumoBinary = checkBinary('sumo')
-    # else:
-    #     sumoBinary = checkBinary('sumo-gui')
+    if options.nogui:
+        sumoBinary = checkBinary('sumo')
+    else:
+        sumoBinary = checkBinary('sumo-gui')
 
-    # runningTheScenariosDeveloping(SCENARIO, TYPES[0], sumoBinary, LOS[0], ITERATION)
-    runningTheScenariosSimulation(SCENARIO, TYPES, sumoBinary, LOS, ITERATION)
+    runningTheScenariosDeveloping(SCENARIO, TYPES[0], sumoBinary, LOS[0], ITERATION)
+    # runningTheScenariosSimulation(SCENARIO, TYPES, sumoBinary, LOS, ITERATION)
     
