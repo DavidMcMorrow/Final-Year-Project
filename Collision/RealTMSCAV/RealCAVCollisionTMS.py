@@ -12,7 +12,7 @@ from generalFunctions import (removeOldToC, collisionReRouteClockWiseFirst, coll
                                 removeVehiclesThatPassCenter, stoppingCrashedVehicles, leftExitAfterIntersectionCollisionTMS, majorDelayDetectionHandlingCollision,
                                 collisionFlowCorrection, clearingLeftLaneOfCVs, monitoringSeenInLeftExit, allowingAccessToRightLaneCollision, TMSAlterOutputFiles)
 
-def TMS():
+def TMS(REROUTINGBOOLEAN):
     # print("Running TMS CAV")
     # TMSRightTopBottomlastVehicleDetected = ["N/A", "N/A", "N/A", "N/A"]
     TMSRightTopBottomlastVehicleDetected = ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"]
@@ -51,6 +51,10 @@ def TMS():
                 # vehiclesThatTORed, delayBeforeReRoute, TIMETOPERFORMDELAYTOC, step, NUMBEROFVEHICLESREROUTED)
                 clearingCVsLastVehicleDetected = clearingLeftLaneOfCVs(clearingCVsLastVehicleDetected)
                 accessToRightLaneLastDetected = allowingAccessToRightLaneCollision(minorWaitLengthBeforeAction, accessToRightLaneLastDetected)
+                if REROUTINGBOOLEAN == True:
+                    majorDelayLastVehicleDetected, vehiclesApproachingClosure, vehiclesThatTORed, NUMBEROFVEHICLESREROUTED = majorDelayDetectionHandlingCollision(majorDelayLastVehicleDetected, vehiclesApproachingClosure, 
+                    vehiclesThatTORed, delayBeforeReRoute, TIMETOPERFORMDELAYTOC, step, NUMBEROFVEHICLESREROUTED)
+                
         step += 1
     print("Number of Vehicles ReRouted", NUMBEROFVEHICLESREROUTED)
     traci.close(False)
@@ -67,7 +71,7 @@ def collisionRealCAVTMS(sumoBinary, LOS, ITERATION):
                                 "--tripinfo-output", "Collision\RealTMSCAV\Output-Files\Tripinfo.xml", "--ignore-route-errors",
                                 "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-S", "-Q", "-W"])
 
-    TMS()
+    TMS(REROUTINGBOOLEAN)
     vehicleTypes = ["L4-CV", "HDV"]
     TMSAlterOutputFiles("Collision", "CAV", LOS, ITERATION, vehicleTypes)
     print("----------------------------------------")

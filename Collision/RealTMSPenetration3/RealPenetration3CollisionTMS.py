@@ -13,7 +13,7 @@ from generalFunctions import (removeOldToC, collisionReRouteClockWiseFirst, coll
                                 collisionFlowCorrection, clearingLeftLaneOfCVs, monitoringSeenInLeftExit, allowingAccessToRightLaneCollision, vehiclePenetrationRates3,
                                 TMSAlterOutputFiles)
 
-def TMS():
+def TMS(REROUTINGBOOLEAN):
     print("Running TMS P3")
     TMSRightTopBottomlastVehicleDetected = ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"]
     standardRightTopBottomLastVehicleDetected = ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"]
@@ -41,7 +41,7 @@ def TMS():
         if step > 1200 and step < 42000:
             if step%3 == 0:
                 vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
-                vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
+                # vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
                 seenInLeftExit = monitoringSeenInLeftExit(seenInLeftExit)
                 
                 TMSRightTopBottomlastVehicleDetected, standardRightTopBottomLastVehicleDetected, stuckInLeftExitlastVehicleDetected, leftExitUpwardToClastVehicleDetected, vehiclesApproachingClosure, seenInLeftExit = leftExitAfterIntersectionCollisionTMS(TMSRightTopBottomlastVehicleDetected, 
@@ -51,13 +51,17 @@ def TMS():
                 # vehiclesThatTORed, delayBeforeReRoute, TIMETOPERFORMDELAYTOC, step, NUMBEROFVEHICLESREROUTED)
                 clearingCVsLastVehicleDetected = clearingLeftLaneOfCVs(clearingCVsLastVehicleDetected)
                 accessToRightLaneLastDetected = allowingAccessToRightLaneCollision(minorWaitLengthBeforeAction, accessToRightLaneLastDetected)
+                if REROUTINGBOOLEAN == True:
+                    majorDelayLastVehicleDetected, vehiclesApproachingClosure, vehiclesThatTORed, NUMBEROFVEHICLESREROUTED = majorDelayDetectionHandlingCollision(majorDelayLastVehicleDetected, vehiclesApproachingClosure, 
+                    vehiclesThatTORed, delayBeforeReRoute, TIMETOPERFORMDELAYTOC, step, NUMBEROFVEHICLESREROUTED)
+                
         step += 1
     # print("Number of Vehicles ReRouted", NUMBEROFVEHICLESREROUTED)
     traci.close(False)
     sys.stdout.flush()
     
 
-def collisionRealTMSPenetration3(sumoBinary, LOS, ITERATION):
+def collisionRealTMSPenetration3(sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN):
     print("----------------------------------------")
     print("HERE P1")
     files = ['Collision/RealTMSPenetration3/Route-Files/L4-CV-Route.rou.xml', 'Collision/RealTMSPenetration3/Route-Files/L4-AV-Route.rou.xml', 
@@ -77,5 +81,5 @@ def collisionRealTMSPenetration3(sumoBinary, LOS, ITERATION):
                 "--tripinfo-output", "Collision\RealTMSPenetration3\Output-Files\TripInfo.xml", "--ignore-route-errors",
                 "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-S", "-Q", "-W"])
 
-    TMS()
+    TMS(REROUTINGBOOLEAN)
     TMSAlterOutputFiles("Collision", "Penetration3", LOS, ITERATION, vehicleTypes)

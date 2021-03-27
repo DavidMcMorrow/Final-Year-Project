@@ -10,9 +10,9 @@ sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simu
 
 from generalFunctions import (removeOldToC, collisionReRouteClockWiseFirst, collisionReRouteClockWiseSecond, baselineAlterOutputFiles, settingUpVehicles, 
                                 removeVehiclesThatPassCenter, stoppingCrashedVehicles, collisionFlowCorrection, allowingAccessToRightLaneCollisionBaseline,
-                                monitoringSeenInLeftExit, leftExitAfterIntersectionCollisionTMSBaseline)
+                                monitoringSeenInLeftExit, leftExitAfterIntersectionCollisionTMSBaseline, collisionReRouting)
 
-def TMS():
+def TMS(REROUTINGBOOLEAN):
     print("Running Baseline")
     step = 0
     delayBeforeReoute = 200 ### Needs to be considered
@@ -30,7 +30,7 @@ def TMS():
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         
-        # vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
+        vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
         # vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
         
         if step == 1000:
@@ -49,12 +49,15 @@ def TMS():
                 # vehiclesThatTORed, delayBeforeReRoute, TIMETOPERFORMDELAYTOC, step, NUMBEROFVEHICLESREROUTED)
                 # clearingCVsLastVehicleDetected = clearingLeftLaneOfCVs(clearingCVsLastVehicleDetected)
                 accessToRightLaneLastDetected = allowingAccessToRightLaneCollisionBaseline(minorWaitLengthBeforeAction, accessToRightLaneLastDetected)
+                if REROUTINGBOOLEAN == True:
+                    majorDelayLastVehicleDetected, vehiclesApproachingClosure, vehiclesThatTORed, NUMBEROFVEHICLESREROUTED = majorDelayDetectionHandlingCollision(majorDelayLastVehicleDetected, vehiclesApproachingClosure, 
+                    vehiclesThatTORed, delayBeforeReRoute, TIMETOPERFORMDELAYTOC, step, NUMBEROFVEHICLESREROUTED)
         step += 1
 
     traci.close(False)
     sys.stdout.flush()
 
-def collisionBaselineCAVTMS(sumoBinary, LOS, ITERATION):
+def collisionBaselineCAVTMS(sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN):
     print("here")
     rate = vehicleRates(LOS)
     settingUpVehicles("Collision", "\BaselineCAV", LOS, rate)
@@ -63,7 +66,7 @@ def collisionBaselineCAVTMS(sumoBinary, LOS, ITERATION):
                                 "--tripinfo-output", "Collision\BaselineCAV\Output-Files\Tripinfo.xml", "--ignore-route-errors",
                                 "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-S", "-Q", "-W"])
 
-    TMS()
+    TMS(REROUTINGBOOLEAN)
     baselineAlterOutputFiles("Collision", "CAV", LOS, ITERATION, ["L4-CV", "L0-HDV"])
 
 def vehicleRates(LOS):

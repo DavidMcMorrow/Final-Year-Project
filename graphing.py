@@ -54,24 +54,24 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes):
 
                     safetyFiles.append(safetyFilepath)
                     effiencyFiles.append(effiencyFilepath)
-                    print("VehiclesTTCArray", VehiclesTTCArray)
-                    print("VehiclesThroughputArray", VehiclesThroughputArray)
+                    # print("VehiclesTTCArray", VehiclesTTCArray)
+                    # print("VehiclesThroughputArray", VehiclesThroughputArray)
 
                 IterationTTCArray.append(np.sum(VehiclesTTCArray))
                 IterationDRACArray.append(np.sum(VehiclesDRACArray))
                 IterationPETArray.append(np.sum(VehiclesPETArray))
                 IterationThroughputArray.append(np.mean(VehiclesThroughputArray))
                 IterationEmmisionsArray.append(np.mean(VehiclesEmmisionsArray))
-                print("IterationTTCArray", IterationTTCArray)
-                print("IterationThroughputArray", IterationThroughputArray)
+                # print("IterationTTCArray", IterationTTCArray)
+                # print("IterationThroughputArray", IterationThroughputArray)
 
             LOSTTCArray.append(np.mean(IterationTTCArray))
             LOSDRACArray.append(np.mean(IterationDRACArray))
             LOSPETArray.append(np.mean(IterationPETArray))
             LOSThroughputArray.append(np.mean(IterationThroughputArray))
             LOSEmmisionsArray.append(np.mean(IterationEmmisionsArray))
-            print("LOSTTCArray", LOSTTCArray)
-            print("LOSThroughputArray", LOSThroughputArray)
+            # print("LOSTTCArray", LOSTTCArray)
+            # print("LOSThroughputArray", LOSThroughputArray)
 
         TTCArray.append(LOSTTCArray)
         DRACArray.append(LOSDRACArray)
@@ -186,15 +186,17 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, SCENARIO):
         
         plotdata = pd.DataFrame(
             {
-                "Baseline HDV": array[0],
-                "Baseline 100% L4-CV": array[1],
-                "Real TMS 100% L4-CV": array[2],
-                "Baseline P1": array[3],
-                "Real TMS P1": array[4],
-                "Baseline P2": array[5],
-                "Real TMS P2": array[6],
-                "Baseline P3": array[7],
-                "Real TMS P3": array[8],
+                # "Baseline HDV": array[0],
+                # "Baseline 100% L4-CV": array[1],
+                # "Real TMS 100% L4-CV": array[2],
+                # "Baseline P1": array[3],
+                # "Real TMS P1": array[4],
+                # "Baseline P2": array[5],
+                # "Real TMS P2": array[6],
+                # "Baseline P3": array[7],
+                # "Real TMS P3": array[8],
+                "Baseline P2": array[0],
+                "Real TMS P2": array[1],
             }, 
             index=["A", "B", "C", "D"]
             # index=["B"]
@@ -220,16 +222,16 @@ EMISSIONS = []
 
 NUMBEROFITERATIONS = 1
 
-SCENARIO = "Roadworks"
-# SCENARIO = "Collision"
+# SCENARIO = "Roadworks"
+SCENARIO = "Collision"
 
-# useCases = ["\BaselinePenetration1"]
-useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
-            "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
+useCases = ["\BaselinePenetration2", "\RealTMSPenetration2",]
 # useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
 #             "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
-LEVELOFSERVICE = ["A", "B", "C", "D"]
-# LEVELOFSERVICE = ["A"]
+# useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
+#             "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
+# LEVELOFSERVICE = ["A", "B", "C", "D"]
+LEVELOFSERVICE = ["A"]
 vehicleTypes = ["HDV", "L4-CV"]
 
 # safetyFiles, effiencyFiles = creatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes)

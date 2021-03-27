@@ -44,7 +44,7 @@ def get_options():
     options, args = opt_parser.parse_args()
     return options
 
-def runningTheScenariosDeveloping(SCENARIO, TYPE, sumoBinary, LOS, ITERATION):
+def runningTheScenariosDeveloping(SCENARIO, TYPE, sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN):
     if SCENARIO == "Roadworks":
         if TYPE == "Baseline-HDV":
             roadworksBaselineHDVTMS(sumoBinary, LOS, ITERATION)
@@ -67,25 +67,25 @@ def runningTheScenariosDeveloping(SCENARIO, TYPE, sumoBinary, LOS, ITERATION):
 
     else:
         if TYPE == "Baseline-HDV":
-            collisionBaselineHDVTMS(sumoBinary, LOS, ITERATION)
+            collisionBaselineHDVTMS(sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN)
         elif TYPE == "Baseline-CAV":
-            collisionBaselineCAVTMS(sumoBinary, LOS, ITERATION)
+            collisionBaselineCAVTMS(sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN)
         elif TYPE == "Baseline-Penetration1":
-            collisionBaselinePenetration1(sumoBinary, LOS, ITERATION)
+            collisionBaselinePenetration1(sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN)
         elif TYPE == "Baseline-Penetration2":
-            collisionBaselinePenetration2(sumoBinary, LOS, ITERATION)
+            collisionBaselinePenetration2(sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN)
         elif TYPE == "Baseline-Penetration3":
-            collisionBaselinePenetration3(sumoBinary, LOS, ITERATION)
+            collisionBaselinePenetration3(sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN)
         elif TYPE == "TMS-CAV":
-            collisionRealCAVTMS(sumoBinary, LOS, ITERATION)
+            collisionRealCAVTMS(sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN)
         elif TYPE == "Penetration1":
-           collisionRealTMSPenetration1(sumoBinary, LOS, ITERATION)
+           collisionRealTMSPenetration1(sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN)
         elif TYPE == "Penetration2":
-            collisionRealTMSPenetration2(sumoBinary, LOS, ITERATION)
+            collisionRealTMSPenetration2(sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN)
         elif TYPE == "Penetration3":
-            collisionRealTMSPenetration3(sumoBinary, LOS, ITERATION)
+            collisionRealTMSPenetration3(sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN)
 
-def runningTheScenariosSimulation(SCENARIO, TYPE, sumoBinary, LOS, ITERATION):
+def runningTheScenariosSimulation(SCENARIO, TYPE, sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN):
     for typeOfTraffic in TYPES:
         for los in LOS:
             for i in range(0, ITERATION):
@@ -113,27 +113,27 @@ def runningTheScenariosSimulation(SCENARIO, TYPE, sumoBinary, LOS, ITERATION):
 
                 else:
                     if typeOfTraffic == "Baseline-HDV":
-                        collisionBaselineHDVTMS(sumoBinary, los, i)
+                        collisionBaselineHDVTMS(sumoBinary, los, i, REROUTINGBOOLEAN)
                     elif typeOfTraffic == "Baseline-CAV":
-                        collisionBaselineCAVTMS(sumoBinary, los, i)
+                        collisionBaselineCAVTMS(sumoBinary, los, i, REROUTINGBOOLEAN)
                     elif typeOfTraffic == "Baseline-Penetration1":
-                        collisionBaselinePenetration1(sumoBinary, los, i)
+                        collisionBaselinePenetration1(sumoBinary, los, i, REROUTINGBOOLEAN)
                     elif typeOfTraffic == "Baseline-Penetration2":
-                        collisionBaselinePenetration2(sumoBinary, los, i)
+                        collisionBaselinePenetration2(sumoBinary, los, i, REROUTINGBOOLEAN)
                     elif typeOfTraffic == "Baseline-Penetration3":
-                        collisionBaselinePenetration3(sumoBinary, los, i)
+                        collisionBaselinePenetration3(sumoBinary, los, i, REROUTINGBOOLEAN)
                     elif typeOfTraffic == "TMS-CAV":
-                        collisionRealCAVTMS(sumoBinary, los, i)
+                        collisionRealCAVTMS(sumoBinary, los, i, REROUTINGBOOLEAN)
                     elif typeOfTraffic == "Penetration1":
-                       collisionRealTMSPenetration1(sumoBinary, los, i)
+                       collisionRealTMSPenetration1(sumoBinary, los, i, REROUTINGBOOLEAN)
                     elif typeOfTraffic == "Penetration2":
-                        collisionRealTMSPenetration2(sumoBinary, los, i)
+                        collisionRealTMSPenetration2(sumoBinary, los, i, REROUTINGBOOLEAN)
                     elif typeOfTraffic == "Penetration3":
-                        collisionRealTMSPenetration3(sumoBinary, los, i)
+                        collisionRealTMSPenetration3(sumoBinary, los, i, REROUTINGBOOLEAN)
                 print("Finished running", name)
 
-SCENARIO = "Roadworks"
-# SCENARIO = "Collision"
+# SCENARIO = "Roadworks"
+SCENARIO = "Collision"
 
 # TYPE = "Baseline-HDV"
 # TYPE = "Baseline-CAV"
@@ -142,12 +142,12 @@ SCENARIO = "Roadworks"
 # TYPE = "Penetration2"
 # TYPE = "Penetration3"
 
-TYPES = ["Baseline-Penetration1"]
+# TYPES = ["Penetration3"]
 # TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV", "Baseline-Penetration1", "Penetration1", "Baseline-Penetration2", "Penetration2", "Baseline-Penetration3", "Penetration3"]
 # TYPES = ["Penetration2"]
 
-# LOS = ["A", "B", "C", "D"]
-LOS = ["C"]
+LOS = ["B"]
+# LOS = ["A"]
 # LOS = "A"
 # LOS = "B"
 # LOS = "C"
@@ -157,6 +157,8 @@ LOS = ["C"]
 ITERATION = 1
 # ITERATION = 2
 # ITERATION = 3
+
+REROUTINGBOOLEAN = True
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
@@ -169,13 +171,13 @@ else:
 # main entry point
 if __name__ == "__main__":
     options = get_options()
-    sumoBinary = checkBinary('sumo')
+    # sumoBinary = checkBinary('sumo')
     # check binary
     if options.nogui:
         sumoBinary = checkBinary('sumo')
     else:
         sumoBinary = checkBinary('sumo-gui')
 
-    runningTheScenariosDeveloping(SCENARIO, TYPES[0], sumoBinary, LOS[0], ITERATION)
-    # runningTheScenariosSimulation(SCENARIO, TYPES, sumoBinary, LOS, ITERATION)
+    runningTheScenariosDeveloping(SCENARIO, TYPES[0], sumoBinary, LOS[0], ITERATION, REROUTINGBOOLEAN)
+    # runningTheScenariosSimulation(SCENARIO, TYPES, sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN)
     
