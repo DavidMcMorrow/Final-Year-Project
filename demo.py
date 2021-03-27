@@ -143,10 +143,10 @@ SCENARIO = "Collision"
 # TYPE = "Penetration3"
 
 # TYPES = ["Penetration3"]
-# TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV", "Baseline-Penetration1", "Penetration1", "Baseline-Penetration2", "Penetration2", "Baseline-Penetration3", "Penetration3"]
+TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV", "Baseline-Penetration1", "Penetration1", "Baseline-Penetration2", "Penetration2", "Baseline-Penetration3", "Penetration3"]
 # TYPES = ["Penetration2"]
 
-LOS = ["B"]
+LOS = ["A", "B"]
 # LOS = ["A"]
 # LOS = "A"
 # LOS = "B"
@@ -158,7 +158,7 @@ ITERATION = 1
 # ITERATION = 2
 # ITERATION = 3
 
-REROUTINGBOOLEAN = True
+REROUTINGBOOLEAN = False
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
@@ -171,13 +171,13 @@ else:
 # main entry point
 if __name__ == "__main__":
     options = get_options()
-    # sumoBinary = checkBinary('sumo')
+    sumoBinary = checkBinary('sumo')
     # check binary
-    if options.nogui:
-        sumoBinary = checkBinary('sumo')
-    else:
-        sumoBinary = checkBinary('sumo-gui')
+    # if options.nogui:
+    #     sumoBinary = checkBinary('sumo')
+    # else:
+    #     sumoBinary = checkBinary('sumo-gui')
 
-    runningTheScenariosDeveloping(SCENARIO, TYPES[0], sumoBinary, LOS[0], ITERATION, REROUTINGBOOLEAN)
-    # runningTheScenariosSimulation(SCENARIO, TYPES, sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN)
+    # runningTheScenariosDeveloping(SCENARIO, TYPES[0], sumoBinary, LOS[0], ITERATION, REROUTINGBOOLEAN)
+    runningTheScenariosSimulation(SCENARIO, TYPES, sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN)
     
