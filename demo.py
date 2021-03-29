@@ -135,28 +135,16 @@ def runningTheScenariosSimulation(SCENARIO, TYPE, sumoBinary, LOS, ITERATION, RE
 # SCENARIO = "Roadworks"
 SCENARIO = "Collision"
 
-# TYPE = "Baseline-HDV"
-# TYPE = "Baseline-CAV"
-# TYPE = "TMS-CAV"
-# TYPE = "Penetration1"
-# TYPE = "Penetration2"
-# TYPE = "Penetration3"
-
-# TYPES = ["Penetration3"]
 TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV", "Baseline-Penetration1", "Penetration1", "Baseline-Penetration2", "Penetration2", "Baseline-Penetration3", "Penetration3"]
 # TYPES = ["Penetration2"]
 
+# LOS = ["A", "B", "C", "D"]
 LOS = ["A", "B"]
-# LOS = ["A"]
-# LOS = "A"
-# LOS = "B"
-# LOS = "C"
-# LOS = "D"
-# LOS = "Test"
 
-ITERATION = 1
+
+# ITERATION = 1
 # ITERATION = 2
-# ITERATION = 3
+ITERATION = 3
 
 REROUTINGBOOLEAN = False
 

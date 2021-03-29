@@ -25,6 +25,9 @@ def settingUpVehicles(SCENARIO, USECASEFOLDER, LOS, rate):
                     if LOS == "Test":
                         line = line + " -p " + str(rate[count]) #str(0.7)
                     count = count + 1
+                    # print("------------")
+                    # print("line = ", line)
+                    # print("------------")
     
                 os.system(line)
 
@@ -178,13 +181,13 @@ def TMSAlterOutputFiles(SCENARIO, penetration, LOS, ITERATION, VEHICLETYPES):
 ############### Penetration Rates ###############
 def vehiclePenetrationRates1(LOS):
     if LOS == "A":
-        rate = [3, 12, 12, 36, 36]
+        rate = [36, 36, 12, 12, 3]
     if LOS == "B":
-        rate = [2.15, 8.4, 8.4, 26, 26]
+        rate = [26, 26, 8.4, 8.4, 2.15]
     if LOS == "C":
-        rate = [1.76, 7, 7, 20, 20]
+        rate = [20, 20, 7, 7, 1.76]
     if LOS == "D":
-        rate = [1.57, 6.2, 6.2, 19, 19]
+        rate = [19, 19, 6.2, 6.2, 1.57]
     # if LOS == "Test":
     #     print("HERE")
     #     rate = [3.1, 2.5, 2.2, 2, 2.32]
@@ -192,13 +195,13 @@ def vehiclePenetrationRates1(LOS):
 
 def vehiclePenetrationRates2(LOS):
     if LOS == "A":
-        rate = [4.65, 9, 9, 18, 18]
+        rate = [18, 18, 9, 9, 4.65]
     if LOS == "B":
-        rate = [3.21, 6.2, 6.2, 12, 12]
+        rate = [12, 12, 6.2, 6.2, 3.21]
     if LOS == "C":
-        rate = [2.69, 5, 5, 11, 11]
+        rate = [11, 11, 5, 5, 2.69]
     if LOS == "D":
-        rate = [2.32, 4.75, 4.75, 9.5, 9.5]
+        rate = [9.5, 9.5, 4.75, 4.75, 2.32]
     # if LOS == "Test":
     #     print("HERE")
     #     rate = [3.1, 2.5, 2.2, 2, 2.35]
@@ -206,13 +209,13 @@ def vehiclePenetrationRates2(LOS):
 
 def vehiclePenetrationRates3(LOS):
     if LOS == "A":
-        rate = [18, 6, 6, 12, 12]
+        rate = [12, 12, 6, 6, 18]
     if LOS == "B":
-        rate = [12, 4.2, 4.2, 8.4, 8.4]
+        rate = [8.4, 8.4, 4.2, 4.2, 12]
     if LOS == "C":
-        rate = [11, 3.5, 3.5, 7, 7]
+        rate = [7, 7, 3.5, 3.5, 11]
     if LOS == "D":
-        rate = [9.5, 3.1, 3.1, 6.2, 6.2]
+        rate = [6.2, 6.2, 3.1, 3.1, 9.5]
     # if LOS == "Test":
     #     print("HERE")
     #     rate = [3.1, 2.5, 2.2, 2, 2.35]
@@ -266,7 +269,7 @@ def handlingLeftApproaching(vehiclesThatTORed, TMSISSUEDTOC, ENCOUNTEREDCLOSURET
     return leftApproachingLastDetected
 
 def allowingAccessToRightLane(minorWaitLengthBeforeAction, vehiclesThatTORed, accessToRightLaneLastDetected, TIMETOPERFORMDELAYTOC):
-    accessToRightLaneLastDetected[0] = allowingAccessToRightLaneTMS(accessToRightLaneLastDetected[0])
+    accessToRightLaneLastDetected = allowingAccessToRightLaneTMS(accessToRightLaneLastDetected)
     vehiclesThatTORed, accessToRightLaneLastDetected[1] = allowingAccessToRightLaneLate(accessToRightLaneLastDetected[1], minorWaitLengthBeforeAction, vehiclesThatTORed, TIMETOPERFORMDELAYTOC)
     return vehiclesThatTORed, accessToRightLaneLastDetected
 
@@ -286,7 +289,7 @@ def roadworksTMSTopRightBottom(topBottomRightTMSDetectors, lastVehicleDetected):
             vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
             if traci.vehicle.getVehicleClass(veh) != "passenger" and target == "left-exit" and checkingPriorDetection == False and vehicleType == "CV":
                 receivedTMSResult = random.randint(0, 99) ## CONSIDER
-                if receivedTMSResult < 90:
+                if receivedTMSResult < 66:
                     traci.vehicle.setVehicleClass(veh, "passenger")
 
     return lastVehicleDetected
@@ -327,7 +330,7 @@ def leftUpStreamTMS(leftApproachingLastDetected):
         vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
         if traci.vehicle.getVehicleClass(veh) == "custom2" and vehicleType == "CV" and leftApproachingLastDetected != veh:
             receivedTMSResult = random.randint(0, 99)
-            if receivedTMSResult < 90:
+            if receivedTMSResult < 66:
                 # print("Did get TMS", veh)
                 traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
                 traci.vehicle.setVehicleClass(veh, "custom1")
@@ -406,21 +409,25 @@ def lateVehicleIncidentDetection(ENCOUNTEREDCLOSURETOC, leftApproachingLastDetec
 
 ############### Remaining functionality in left lane ###############
 def allowingAccessToRightLaneTMS(lastVehicleDetected):
-    det_vehs = traci.inductionloop.getLastStepVehicleIDs("allowingRightLaneAccessTMS")
-    for veh in det_vehs:
-        if lastVehicleDetected != veh:
-            route = traci.vehicle.getRoute(veh)
-            target = route[len(route) - 1]
-            vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
-            if target == "right-exit" and vehicleType == "CV":
-                receivedTMSResult = random.randint(0, 99) ## CONSIDER
-                if receivedTMSResult < 90:
-                    # print("GOT TMS", veh)
-                    traci.vehicle.setVehicleClass(veh, "passenger")
-                    traci.vehicle.updateBestLanes(veh)
-                # else:
-                #     print("MISSED TMS", veh)
-        lastVehicleDetected = veh
+    detectors = ["allowingRightLaneAccessTMS", "allowingRightLaneAccess2TMS"]
+    count = 0
+    for det in detectors:
+        det_vehs = traci.inductionloop.getLastStepVehicleIDs(det)
+        for veh in det_vehs:
+            if lastVehicleDetected[count] != veh:
+                route = traci.vehicle.getRoute(veh)
+                target = route[len(route) - 1]
+                vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
+                if target == "right-exit" and vehicleType == "CV":
+                    receivedTMSResult = random.randint(0, 99) ## CONSIDER
+                    if receivedTMSResult < 66:
+                        # print("GOT TMS", veh)
+                        traci.vehicle.setVehicleClass(veh, "passenger")
+                        traci.vehicle.updateBestLanes(veh)
+                    # else:
+                    #     print("MISSED TMS", veh)
+                lastVehicleDetected[count] = veh
+        count = count + 1
     return lastVehicleDetected
 
 def allowingAccessToRightLaneLate(lastVehicleDetected, delayRealisation, vehiclesThatTORed, TIMETOPERFORMDELAYTOC):
@@ -660,8 +667,8 @@ def majorDelayDetectionHandlingCollision(majorDelayDetectionLastDetected, vehicl
     return majorDelayDetectionLastDetected, vehiclesApproachingClosure, vehiclesThatTORed, NUMBEROFVEHICLESREROUTED
 
 def allowingAccessToRightLaneCollision(minorWaitLengthBeforeAction, accessToRightLaneLastDetected):
-    accessToRightLaneLastDetected[0] = allowingAccessToRightLaneTMS(accessToRightLaneLastDetected[0])
-    accessToRightLaneLastDetected[1] = allowingAccessToRightLaneLateCollision(accessToRightLaneLastDetected[1], minorWaitLengthBeforeAction)
+    accessToRightLaneLastDetected = allowingAccessToRightLaneTMS(accessToRightLaneLastDetected)
+    accessToRightLaneLastDetected[2] = allowingAccessToRightLaneLateCollision(accessToRightLaneLastDetected[2], minorWaitLengthBeforeAction)
     return accessToRightLaneLastDetected
 
 ############### Left Exit ###############
@@ -679,7 +686,7 @@ def TMSRightTopBottom(lastVehicleDetected, vehiclesApproachingClosure):
                 target = route[len(route) - 1]
                 vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
                 receivedTMSResult = random.randint(0, 99)
-                if (target == "left-exit" and vehicleType == "CV" and receivedTMSResult < 90):
+                if (target == "left-exit" and vehicleType == "CV" and receivedTMSResult < 66):
                     # print("Got TMS", veh)
                     traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)                        
         count = count + 1
@@ -884,8 +891,8 @@ def clearingLeftLaneOfCVs(lastVehicleDetected):
             if lastVehicleDetected[count] != veh:
                 vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
                 if traci.vehicle.getVehicleClass(veh) == "custom2" and vehicleType == "CV":
-                    receivedTMSResult = random.randint(0, 99)
-                    if receivedTMSResult < 90:
+                    receivedTMSResult = random.randint(0, 66)
+                    if receivedTMSResult < 75:
                         # print("TMS", veh)
                         traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
                         traci.vehicle.setVehicleClass(veh, "custom1")

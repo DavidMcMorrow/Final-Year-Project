@@ -12,6 +12,16 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes):
     PETArray = []
     ThroughputArray = []
     EmmisionsArray = []
+    DurationArray = []
+    WaitingTimesArray = []
+
+    StdTTCArray = []
+    StdDRACArray = []
+    StdPETArray = []
+    StdThroughputArray = []
+    StdEmmisionsArray = []
+    StdDurationArray = []
+    StdWaitingTimesArray = []
 
     for case in useCases:
         LOSTTCArray = []
@@ -19,6 +29,17 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes):
         LOSPETArray = []
         LOSThroughputArray = []
         LOSEmmisionsArray = []
+        LOSWaitingTimesArray = []
+        LOSDurationArray = []
+
+        LOSTTCArrayStd = []
+        LOSDRACArrayStd = []
+        LOSPETArrayStd = []
+        LOSThroughputArrayStd = []
+        LOSEmmisionsArrayStd = []
+        LOSWaitingTimesArrayStd = []
+        LOSDurationArrayStd = []
+        
         if case == "\BaselineHDV":
             vehicleTypes = ["L0-HDV"]
         elif case == "\BaselineCAV" or case == "\RealTMSCAV":
@@ -31,14 +52,18 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes):
             IterationDRACArray = []
             IterationPETArray = []
             IterationThroughputArray = []
-            IterationEmmisionsArray = []        
+            IterationEmmisionsArray = []
+            IterationWaitingTimes = []
+            IterationDuration = []      
             for i in range(0, NUMBEROFITERATIONS):
                 # print("i", i)
                 VehiclesTTCArray = []
                 VehiclesPETArray = []
                 VehiclesDRACArray = []
                 VehiclesThroughputArray = []
-                VehiclesEmmisionsArray = [] 
+                VehiclesEmmisionsArray = []
+                VehiclesWaitingTimes = []
+                VehiclesDuration = []
                 for types in vehicleTypes:
                     safetyFilepath = SCENARIO + case + "\Output-Files\LOS-" + los + "\SSM-" + types + "-" + str(i) + ".xml"
                     effiencyFilepath = SCENARIO + case + "\Output-Files\LOS-" + los + "\Trips-" + str(i) + ".xml"
@@ -48,38 +73,72 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes):
                     VehiclesDRACArray.append(tempDRAC)
                     VehiclesPETArray.append(tempPET)
 
-                    tempThroughput, tempEmmisions = effiencyKPIs(effiencyFilepath)
+                    tempThroughput, tempEmmisions, VehiclesWaitingTimes, VehiclesDuration = effiencyKPIs(effiencyFilepath)
+                    
                     VehiclesThroughputArray.append(tempThroughput)
                     VehiclesEmmisionsArray.append(tempEmmisions)
+                    
 
                     safetyFiles.append(safetyFilepath)
                     effiencyFiles.append(effiencyFilepath)
                     # print("VehiclesTTCArray", VehiclesTTCArray)
                     # print("VehiclesThroughputArray", VehiclesThroughputArray)
+                    print("VehiclesDuration", len(VehiclesDuration))
 
                 IterationTTCArray.append(np.sum(VehiclesTTCArray))
                 IterationDRACArray.append(np.sum(VehiclesDRACArray))
                 IterationPETArray.append(np.sum(VehiclesPETArray))
-                IterationThroughputArray.append(np.mean(VehiclesThroughputArray))
-                IterationEmmisionsArray.append(np.mean(VehiclesEmmisionsArray))
+                IterationThroughputArray.append(np.sum(VehiclesThroughputArray))
+                IterationEmmisionsArray.append(np.sum(VehiclesEmmisionsArray))
+                IterationWaitingTimes = np.concatenate((IterationWaitingTimes, VehiclesWaitingTimes))
+                IterationDuration = np.concatenate((IterationDuration, VehiclesDuration))
+                # IterationDuration + VehiclesDuration
                 # print("IterationTTCArray", IterationTTCArray)
                 # print("IterationThroughputArray", IterationThroughputArray)
+                # print("IterationWaitingTimes", IterationWaitingTimes)
+                print("len(IterationWaitingTimes)", len(IterationWaitingTimes))
 
-            LOSTTCArray.append(np.mean(IterationTTCArray))
-            LOSDRACArray.append(np.mean(IterationDRACArray))
-            LOSPETArray.append(np.mean(IterationPETArray))
-            LOSThroughputArray.append(np.mean(IterationThroughputArray))
-            LOSEmmisionsArray.append(np.mean(IterationEmmisionsArray))
+            LOSTTCArray.append(np.array(IterationTTCArray).mean())
+            LOSDRACArray.append(np.array(IterationDRACArray).mean())
+            LOSPETArray.append(np.array(IterationPETArray).mean())
+            LOSThroughputArray.append(np.array(VehiclesThroughputArray).mean())
+            LOSEmmisionsArray.append(np.array(VehiclesEmmisionsArray).mean())
+            LOSWaitingTimesArray.append(np.array(IterationWaitingTimes).mean())
+            LOSDurationArray.append(np.array(IterationDuration).mean())
+
+            LOSTTCArrayStd.append(np.array(IterationTTCArray).std())
+            LOSDRACArrayStd.append(np.array(IterationDRACArray).std())
+            LOSPETArrayStd.append(np.array(IterationPETArray).std())
+            LOSThroughputArrayStd.append(np.array(IterationThroughputArray).std())
+            LOSEmmisionsArrayStd.append(np.array(IterationEmmisionsArray).std())
+            LOSWaitingTimesArrayStd.append(np.array(IterationWaitingTimes).std())
+            LOSDurationArrayStd.append(np.array(IterationDuration).std())
+
             # print("LOSTTCArray", LOSTTCArray)
+            # print("LOSTTCArrayStd", LOSTTCArrayStd)
             # print("LOSThroughputArray", LOSThroughputArray)
-
+            # print("LOSThroughputArrayStd", LOSThroughputArrayStd)
+            print("LOSWaitingTimesArray", LOSWaitingTimesArray)
+            print("LOSWaitingTimesArrayStd", LOSWaitingTimesArrayStd)
+        
         TTCArray.append(LOSTTCArray)
         DRACArray.append(LOSDRACArray)
         PETArray.append(LOSPETArray)
         ThroughputArray.append(LOSThroughputArray)
         EmmisionsArray.append(LOSEmmisionsArray)
+        WaitingTimesArray.append(LOSWaitingTimesArray)
+        DurationArray.append(LOSDurationArray)
+
+        StdTTCArray.append(LOSTTCArrayStd)
+        StdDRACArray.append(LOSDRACArrayStd)
+        StdPETArray.append(LOSPETArrayStd)
+        StdThroughputArray.append(LOSThroughputArrayStd)
+        StdEmmisionsArray.append(LOSEmmisionsArrayStd)
+        StdWaitingTimesArray.append(LOSWaitingTimesArrayStd)
+        StdDurationArray.append(LOSDurationArrayStd)
             
-    return safetyFiles, effiencyFiles, TTCArray, DRACArray, PETArray, ThroughputArray, EmmisionsArray
+    return (safetyFiles, effiencyFiles, TTCArray, DRACArray, PETArray, ThroughputArray, EmmisionsArray, WaitingTimesArray, DurationArray, 
+    StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray)
 
 def newGatheringTheData(safetyFiles, effiencyFiles):
     tempTTC = []
@@ -143,46 +202,65 @@ def effiencyKPIs(filename):
     emissions = document.getElementsByTagName('emissions')
     count = 0
     emissionsPerRun = []
+    waitingTimes = []
+    tripDuration = []
     for i in range(0, len(trips)):
         if(float(trips[i].getAttribute("arrival") ) < 3600):
             count = count + 1
             emissionsPerRun.append(float(emissions[i].getAttribute("CO2_abs")))
+        waitingTimes.append(float(trips[i].getAttribute("waitingTime")))
+        tripDuration.append(float(trips[i].getAttribute("duration")))
     
-    return count, np.mean(emissionsPerRun)
+    return count, np.mean(emissionsPerRun), waitingTimes, tripDuration
 
-def intialiseAxisAndTitle(j, TTC, DRAC, PET, THROUGHPUT, EMISSIONS, SCENARIO):
+def intialiseAxisAndTitle(j, TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray):
     if(j == 0):
         array = TTC
         yAxis = "Number of TTC"
         title = SCENARIO + ": TTC"
+        std = StdTTCArray
     elif (j==1):
         array = DRAC
         yAxis = "Number of DRAC"
         title = SCENARIO + ": DRAC"
+        std = StdDRACArray
     elif (j==2):
         array = PET
         yAxis = "Number of PET"
         title = SCENARIO + ": PET"
+        std = StdPETArray
     elif (j==3):
         array = THROUGHPUT
         yAxis = "Throughput of network"
         title = SCENARIO + ": Throughput"
+        std = StdThroughputArray
     elif (j==4):
         array = EMISSIONS
         yAxis = "CO2"
         title = SCENARIO + ": Environmental"
+        std = StdEmmisionsArray
+    elif (j==5):
+        array = WaitingTimesArray
+        yAxis = "Time"
+        title = SCENARIO + ": Waiting Times"
+        std = StdWaitingTimesArray
+    elif (j==6):
+        array = DurationArray
+        yAxis = "Time"
+        title = SCENARIO + ": TripDuration"
+        std = StdDurationArray
         
-    return array, yAxis, title
+    return array, yAxis, title, std
 
-def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, SCENARIO):
+def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray):
     xAxis = "Level of Service"
     array = []
-    for j in range(0, 5):
+    for j in range(0, 7):
         count = 0
         hdvArray = []
         l4CVArray = []
         
-        array, yAxis, title = intialiseAxisAndTitle(j, TTC, DRAC, PET, THROUGHPUT, EMISSIONS, SCENARIO)
+        array, yAxis, title, std = intialiseAxisAndTitle(j, TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray)
         
         plotdata = pd.DataFrame(
             {
@@ -195,13 +273,13 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, SCENARIO):
                 # "Real TMS P2": array[6],
                 # "Baseline P3": array[7],
                 # "Real TMS P3": array[8],
-                "Baseline P2": array[0],
-                "Real TMS P2": array[1],
+                "Baseline 100%": array[0],
+                "Real TMS 100%": array[1],
             }, 
-            index=["A", "B", "C", "D"]
-            # index=["B"]
+            # index=["A", "B", "C", "D"]
+            index=["A"]
         )
-        plotdata.plot(kind='bar')
+        plotdata.plot(kind='bar', yerr=std)
         plt.xlabel(xAxis)
         plt.ylabel(yAxis)
         plt.title(title)
@@ -220,31 +298,33 @@ PET = []
 THROUGHPUT = []
 EMISSIONS = []
 
-NUMBEROFITERATIONS = 1
+NUMBEROFITERATIONS = 2
 
-# SCENARIO = "Roadworks"
-SCENARIO = "Collision"
+SCENARIO = "Roadworks"
+# SCENARIO = "Collision"
 
-useCases = ["\BaselinePenetration2", "\RealTMSPenetration2",]
+useCases = ["\BaselineCAV", "\RealTMSCAV"]
 # useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
 #             "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
-# useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
-#             "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
+
 # LEVELOFSERVICE = ["A", "B", "C", "D"]
 LEVELOFSERVICE = ["A"]
 vehicleTypes = ["HDV", "L4-CV"]
 
-# safetyFiles, effiencyFiles = creatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes)
-safetyFiles, effiencyFiles, TTC, DRAC, PET, THROUGHPUT, EMISSIONS = newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes)
-# safetyFiles, effiencyFiles, TTCArray, DRACArray, PETArray, ThroughputArray, EmmisionsArray
-# TTC, THROUGHPUT, EMISSIONS = gatheringTheData(safetyFiles, effiencyFiles)
+
+safetyFiles, effiencyFiles, TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray = newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes)
+
     
 print("TTC", TTC)
 print("DRAC", DRAC)
 print("PET", PET)
 print("Throughput", THROUGHPUT)
 print("CO2", EMISSIONS)
+print("-----------------")
+print("StdTTCArray", StdTTCArray)
+print("StdDRACArray", StdDRACArray)
+print("StdPETArray", StdPETArray)
+print("StdThroughputArray", StdThroughputArray)
+print("StdEmmisionsArray", StdEmmisionsArray)
 
-# penetrations = ["BaselineHDV", "BaselineCAV", "RealTMSCAV", "RealTMSPenetration1"]
-graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, SCENARIO)
-
+graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray)

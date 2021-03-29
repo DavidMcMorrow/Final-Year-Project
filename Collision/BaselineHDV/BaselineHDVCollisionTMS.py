@@ -10,7 +10,7 @@ sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simu
 
 from generalFunctions import (collisionReRouteClockWiseFirst, collisionReRouteClockWiseSecond, baselineAlterOutputFiles, settingUpVehicles, 
                             removeVehiclesThatPassCenter, stoppingCrashedVehicles, monitoringSeenInLeftExit, allowingAccessToRightLaneCollisionBaseline,
-                            leftExitAfterIntersectionCollisionTMSBaseline, collisionFlowCorrection, collisionReRouting)
+                            leftExitAfterIntersectionCollisionTMSBaseline, collisionFlowCorrection, collisionReRouting, majorDelayDetectionHandlingCollision)
 
 def TMS(REROUTINGBOOLEAN):
     print("Running Baseline")
@@ -24,6 +24,14 @@ def TMS(REROUTINGBOOLEAN):
     leftExitUpwardToClastVehicleDetected = ["N/A", "N/A"]
     seenInLeftExit = []
     DETECTEDTOCTIME = 5
+    NUMBEROFVEHICLESREROUTED = 0
+    majorDelayLastVehicleDetected = ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"]
+    seenInLeftExit = []
+    vehiclesThatTORed = []
+    DETECTEDTOCTIME = 5
+    delayBeforeReRoute = 140
+    TIMETOPERFORMDELAYTOC = 30 ## Consider
+
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         

@@ -10,23 +10,27 @@ sys.path.append('c:/Users/david/OneDrive/Fifth Year/Final Year Project/SUMO/Simu
 
 from generalFunctions import (removeOldToC, collisionReRouteClockWiseFirst, collisionReRouteClockWiseSecond, baselineAlterOutputFiles, settingUpVehicles, 
                                 removeVehiclesThatPassCenter, stoppingCrashedVehicles, collisionFlowCorrection, allowingAccessToRightLaneCollisionBaseline,
-                                monitoringSeenInLeftExit, leftExitAfterIntersectionCollisionTMSBaseline, collisionReRouting)
+                                monitoringSeenInLeftExit, leftExitAfterIntersectionCollisionTMSBaseline, collisionReRouting, majorDelayDetectionHandlingCollision)
 
 def TMS(REROUTINGBOOLEAN):
     print("Running Baseline")
     step = 0
     delayBeforeReoute = 200 ### Needs to be considered
     vehiclesApproachingClosure = []
+    NUMBEROFVEHICLESREROUTED = 0
     step = 0
     minorWaitLengthBeforeAction = 30
     accessToRightLaneLastDetected = ["N/A"]
     standardRightTopBottomLastVehicleDetected = ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"]
     stuckInLeftExitlastVehicleDetected = ["N/A", "N/A"]
     leftExitUpwardToClastVehicleDetected = ["N/A", "N/A"]
+    majorDelayLastVehicleDetected = ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"]
     seenInLeftExit = []
     vehiclesThatTORed = []
     DETECTEDTOCTIME = 5
-
+    delayBeforeReRoute = 140
+    TIMETOPERFORMDELAYTOC = 30 ## Consider
+    
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         

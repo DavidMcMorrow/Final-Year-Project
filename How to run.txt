@@ -4,13 +4,13 @@ sumo-gui <Filename>.sumocfg
 ------------------------------------
 python createVehTypeDistribution.py <inputFileName>.txt --o <outputFileName>.add.xml --size <#ofVehicles> --name <Vehicle Type Name>
 
-python createVehTypeDistribution.py VehicleSetup/L4-CV.txt --o VehicleModels/L4-CV.add.xml --size 50 --name L4-CV
-python createVehTypeDistribution.py VehicleSetup/L2-CV.txt --o VehicleModels/L2-CV.add.xml --size 50 --name L2-CV
+python createVehTypeDistribution.py VehicleSetup/L4-CV.txt --o VehicleModels/L4-CV.add.xml --size 100 --name L4-CV
+python createVehTypeDistribution.py VehicleSetup/L2-CV.txt --o VehicleModels/L2-CV.add.xml --size 100 --name L2-CV
 
-python createVehTypeDistribution.py VehicleSetup/L4-Non-CV.txt --o VehicleModels/L4-Non-CV.add.xml --size 50 --name L4-Non-CV
-python createVehTypeDistribution.py VehicleSetup/L2-Non-CV.txt --o VehicleModels/L2-Non-CV.add.xml --size 50 --name L2-Non-CV
+python createVehTypeDistribution.py VehicleSetup/L4-Non-CV.txt --o VehicleModels/L4-Non-CV.add.xml --size 100 --name L4-Non-CV
+python createVehTypeDistribution.py VehicleSetup/L2-Non-CV.txt --o VehicleModels/L2-Non-CV.add.xml --size 100 --name L2-Non-CV
 
-python createVehTypeDistribution.py VehicleSetup/L0-HDV.txt --o VehicleModels/L0-HDV.add.xml --size 50 --name L0-HDV
+python createVehTypeDistribution.py VehicleSetup/L0-HDV.txt --o VehicleModels/L0-HDV.add.xml --size 100 --name L0-HDV
 -------------------------------------
 python ../PreparingVehicleModels/randomTrips.py -n RoadworksIntersection.net.xml -e <number of Vehicles> --fringe-factor <prob of trip ending on end node> -r <desiredOutputFile --trip-attributes="type=\"<VehicleType>\"" --additional-file <add-file-containing-vehcile> -l
 

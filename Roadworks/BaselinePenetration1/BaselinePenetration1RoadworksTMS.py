@@ -37,7 +37,7 @@ def TMS():
     topBottomRightTMSLastDetected = ["n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a"]
     upwardToCLastDetected = ["n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a", "n/a"]
     accessToRightLaneLastDetected = ["n/a", "n/a"]
-    majorDelayDetectionLastDetected = ["n/a", "n/a", "n/a"]
+    majorDelayLastVehicleDetected = ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"]
     minorWaitLengthBeforeAction = 20 ## Consider
     TIMETOPERFORMDELAYTOC = 30 ## Consider
 

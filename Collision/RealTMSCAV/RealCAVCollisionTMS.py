@@ -22,8 +22,8 @@ def TMS(REROUTINGBOOLEAN):
     majorDelayLastVehicleDetected = ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"]
     clearingCVsLastVehicleDetected = ["N/A", "N/A", "N/A"]
     seenInLeftExit = []
-    accessToRightLaneLastDetected = ["N/A", "N/A"]
-    
+    accessToRightLaneLastDetected = ["N/A", "N/A", "N/A"]
+    delayBeforeReRoute = 140
     step = 0
     vehiclesApproachingClosure = []
     vehiclesThatTORed = []
@@ -32,6 +32,7 @@ def TMS(REROUTINGBOOLEAN):
     DETECTEDTOCTIME = 5 ### Needs to be considered
     NUMBEROFVEHICLESREROUTED = 0
     minorWaitLengthBeforeAction = 30
+    TIMETOPERFORMDELAYTOC = 30 ## Consider
     
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
@@ -61,7 +62,7 @@ def TMS(REROUTINGBOOLEAN):
     sys.stdout.flush()
     
 
-def collisionRealCAVTMS(sumoBinary, LOS, ITERATION):
+def collisionRealCAVTMS(sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN):
     print("----------------------------------------")
     print("In collision Real TMS")
     rate = vehicleRates(LOS)

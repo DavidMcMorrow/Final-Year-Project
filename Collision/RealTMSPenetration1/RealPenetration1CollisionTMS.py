@@ -22,7 +22,7 @@ def TMS(REROUTINGBOOLEAN):
     majorDelayLastVehicleDetected = ["N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A"]
     clearingCVsLastVehicleDetected = ["N/A", "N/A", "N/A"]
     seenInLeftExit = []
-    accessToRightLaneLastDetected = ["N/A", "N/A"]
+    accessToRightLaneLastDetected = ["N/A", "N/A", "N/A"]
     
     step = 0
     vehiclesApproachingClosure = []
