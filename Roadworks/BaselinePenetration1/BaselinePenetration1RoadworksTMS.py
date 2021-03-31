@@ -49,7 +49,7 @@ def TMS():
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
 
-        if(step%3 == 0):
+        if(step%2 == 0):
             vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
             vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
             leftApproachingLastDetected = handlingLeftApproachingBaseline(vehiclesThatTORed, ENCOUNTEREDCLOSURETOC, leftApproachingLastDetected)

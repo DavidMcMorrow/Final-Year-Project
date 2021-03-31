@@ -163,7 +163,7 @@ def newGatheringTheData(safetyFiles, effiencyFiles):
     return TTC, THROUGHPUT, EMISSIONS
 
 def safetyKPIs(filename):
-    encounterTypes = ["2"]
+    encounterTypes = ["2", "3"]
     safetyIncidents = []
     print("filename", filename)
     document = minidom.parse(filename)
@@ -174,21 +174,21 @@ def safetyKPIs(filename):
     for ttc in TTC:
         typeOfConflict = ttc.getAttribute("type")
         desiredConflict = typeOfConflict in encounterTypes
-        if ttc.getAttribute("time") != "NA": #and desiredConflict == True:
+        if ttc.getAttribute("time") != "NA" and desiredConflict == True:
             numberOfTTC = numberOfTTC + 1
 
     DRAC = document.getElementsByTagName('maxDRAC')
     for drac in DRAC:
         typeOfConflict = ttc.getAttribute("type")
         desiredConflict = typeOfConflict in encounterTypes
-        if drac.getAttribute("time") != "NA":# and desiredConflict == True:
+        if drac.getAttribute("time") != "NA" and desiredConflict == True:
             numberOfDRAC = numberOfDRAC + 1
 
     PET = document.getElementsByTagName('PET')
     for pet in PET:
         typeOfConflict = ttc.getAttribute("type")
         desiredConflict = typeOfConflict in encounterTypes
-        if pet.getAttribute("time") != "NA":# and desiredConflict == True:
+        if pet.getAttribute("time") != "NA" and desiredConflict == True:
             numberOfPET = numberOfPET + 1
 
     return numberOfTTC, numberOfDRAC, numberOfPET
@@ -276,8 +276,9 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, Durat
                 # "Baseline 100%": array[0],
                 # "Real TMS 100%": array[1],
             }, 
-            index=["A", "B", "C", "D"]
-            # index=["A"]
+            # index=["A", "B", "C", "D"]
+            # index=["A", "B"]
+            index=["B"]
         )
         plotdata.plot(kind='bar', yerr=std)
         plt.xlabel(xAxis)
@@ -298,17 +299,21 @@ PET = []
 THROUGHPUT = []
 EMISSIONS = []
 
-NUMBEROFITERATIONS = 3
+# NUMBEROFITERATIONS = 3
+NUMBEROFITERATIONS = 1
 
-SCENARIO = "Roadworks"
-# SCENARIO = "Collision"
+# SCENARIO = "Roadworks"
+SCENARIO = "Collision"
 
-# useCases = ["\BaselineCAV", "\RealTMSCAV"]
+# useCases = ["\BaselinePenetration3", "\RealTMSPenetration3"]
 useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
             "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
 
-LEVELOFSERVICE = ["A", "B", "C", "D"]
-# LEVELOFSERVICE = ["A"]
+
+
+# LEVELOFSERVICE = ["A", "B", "C", "D"]
+# LEVELOFSERVICE = ["A", "B"]
+LEVELOFSERVICE = ["A"]
 vehicleTypes = ["HDV", "L4-CV"]
 
 

@@ -891,7 +891,7 @@ def clearingLeftLaneOfCVs(lastVehicleDetected):
             if lastVehicleDetected[count] != veh:
                 vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
                 if traci.vehicle.getVehicleClass(veh) == "custom2" and vehicleType == "CV":
-                    receivedTMSResult = random.randint(0, 66)
+                    receivedTMSResult = random.randint(0, 99)
                     if receivedTMSResult < 75:
                         # print("TMS", veh)
                         traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
@@ -917,7 +917,7 @@ def monitoringSeenInLeftExit(seenInLeftExit):
             laneID = traci.vehicle.getLaneID(vehicle).split('-')
             # print("laneID[len(laneID)-1]", laneID[len(laneID)-1])
             # print("traci.vehicle.getPosition(veh)", traci.vehicle.getPosition(vehicle)[0])
-            if(traci.vehicle.getPosition(vehicle)[0] > 873 and laneID[len(laneID)-1] == "blockage_0"):
+            if(traci.vehicle.getPosition(vehicle)[0] > 473 and laneID[len(laneID)-1] == "blockage_0"):
                 traci.vehicle.changeLane(vehicle, 1, 0.1)
                 # print("veh", vehicle)
     

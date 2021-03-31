@@ -39,7 +39,7 @@ def TMS(REROUTINGBOOLEAN):
             stoppingCrashedVehicles()
 
         if step > 1200 and step < 40000:
-            if step%3 == 0:
+            if step%2 == 0:
                 vehiclesApproachingClosure = removeVehiclesThatPassCenter(vehiclesApproachingClosure)
                 # vehiclesThatTORed = removeOldToC(vehiclesThatTORed)
                 seenInLeftExit = monitoringSeenInLeftExit(seenInLeftExit)
