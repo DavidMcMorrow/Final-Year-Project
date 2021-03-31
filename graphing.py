@@ -83,7 +83,7 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes):
                     effiencyFiles.append(effiencyFilepath)
                     # print("VehiclesTTCArray", VehiclesTTCArray)
                     # print("VehiclesThroughputArray", VehiclesThroughputArray)
-                    print("VehiclesDuration", len(VehiclesDuration))
+                    # print("VehiclesDuration", len(VehiclesDuration))
 
                 IterationTTCArray.append(np.sum(VehiclesTTCArray))
                 IterationDRACArray.append(np.sum(VehiclesDRACArray))
@@ -96,7 +96,7 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes):
                 # print("IterationTTCArray", IterationTTCArray)
                 # print("IterationThroughputArray", IterationThroughputArray)
                 # print("IterationWaitingTimes", IterationWaitingTimes)
-                print("len(IterationWaitingTimes)", len(IterationWaitingTimes))
+                # print("len(IterationWaitingTimes)", len(IterationWaitingTimes))
 
             LOSTTCArray.append(np.array(IterationTTCArray).mean())
             LOSDRACArray.append(np.array(IterationDRACArray).mean())
@@ -118,8 +118,8 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes):
             # print("LOSTTCArrayStd", LOSTTCArrayStd)
             # print("LOSThroughputArray", LOSThroughputArray)
             # print("LOSThroughputArrayStd", LOSThroughputArrayStd)
-            print("LOSWaitingTimesArray", LOSWaitingTimesArray)
-            print("LOSWaitingTimesArrayStd", LOSWaitingTimesArrayStd)
+            # print("LOSWaitingTimesArray", LOSWaitingTimesArray)
+            # print("LOSWaitingTimesArrayStd", LOSWaitingTimesArrayStd)
         
         TTCArray.append(LOSTTCArray)
         DRACArray.append(LOSDRACArray)
@@ -261,23 +261,23 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, Durat
         l4CVArray = []
         
         array, yAxis, title, std = intialiseAxisAndTitle(j, TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray)
-        
+        print("title", title)
         plotdata = pd.DataFrame(
             {
-                # "Baseline HDV": array[0],
-                # "Baseline 100% L4-CV": array[1],
-                # "Real TMS 100% L4-CV": array[2],
-                # "Baseline P1": array[3],
-                # "Real TMS P1": array[4],
-                # "Baseline P2": array[5],
-                # "Real TMS P2": array[6],
-                # "Baseline P3": array[7],
-                # "Real TMS P3": array[8],
-                "Baseline 100%": array[0],
-                "Real TMS 100%": array[1],
+                "Baseline HDV": array[0],
+                "Baseline 100% L4-CV": array[1],
+                "Real TMS 100% L4-CV": array[2],
+                "Baseline P1": array[3],
+                "Real TMS P1": array[4],
+                "Baseline P2": array[5],
+                "Real TMS P2": array[6],
+                "Baseline P3": array[7],
+                "Real TMS P3": array[8],
+                # "Baseline 100%": array[0],
+                # "Real TMS 100%": array[1],
             }, 
-            # index=["A", "B", "C", "D"]
-            index=["A"]
+            index=["A", "B", "C", "D"]
+            # index=["A"]
         )
         plotdata.plot(kind='bar', yerr=std)
         plt.xlabel(xAxis)
@@ -298,17 +298,17 @@ PET = []
 THROUGHPUT = []
 EMISSIONS = []
 
-NUMBEROFITERATIONS = 2
+NUMBEROFITERATIONS = 3
 
 SCENARIO = "Roadworks"
 # SCENARIO = "Collision"
 
-useCases = ["\BaselineCAV", "\RealTMSCAV"]
-# useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
-#             "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
+# useCases = ["\BaselineCAV", "\RealTMSCAV"]
+useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
+            "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
 
-# LEVELOFSERVICE = ["A", "B", "C", "D"]
-LEVELOFSERVICE = ["A"]
+LEVELOFSERVICE = ["A", "B", "C", "D"]
+# LEVELOFSERVICE = ["A"]
 vehicleTypes = ["HDV", "L4-CV"]
 
 
@@ -320,11 +320,15 @@ print("DRAC", DRAC)
 print("PET", PET)
 print("Throughput", THROUGHPUT)
 print("CO2", EMISSIONS)
+print("WaitingTimesArray", WaitingTimesArray)
+print("DurationArray", DurationArray)
 print("-----------------")
 print("StdTTCArray", StdTTCArray)
 print("StdDRACArray", StdDRACArray)
 print("StdPETArray", StdPETArray)
 print("StdThroughputArray", StdThroughputArray)
 print("StdEmmisionsArray", StdEmmisionsArray)
+print("StdWaitingTimesArray", StdWaitingTimesArray)
+print("StdDurationArray", StdDurationArray)
 
 graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray)
