@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes):
+def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes, NUMBEROFITERATIONS):
     safetyFiles = []
     effiencyFiles = []
     TTCArray = []
@@ -24,6 +24,7 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes):
     StdWaitingTimesArray = []
 
     for case in useCases:
+        print("Case", case)
         LOSTTCArray = []
         LOSDRACArray = []
         LOSPETArray = []
@@ -165,7 +166,7 @@ def newGatheringTheData(safetyFiles, effiencyFiles):
 def safetyKPIs(filename):
     encounterTypes = ["2", "3"]
     safetyIncidents = []
-    print("filename", filename)
+    # print("filename", filename)
     document = minidom.parse(filename)
     numberOfTTC = 0
     numberOfDRAC = 0
@@ -277,8 +278,8 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, Durat
                 # "Real TMS 100%": array[1],
             }, 
             # index=["A", "B", "C", "D"]
-            # index=["A", "B"]
-            index=["B"]
+            index=["A", "B"]
+            # index=["B"]
         )
         plotdata.plot(kind='bar', yerr=std)
         plt.xlabel(xAxis)
@@ -293,47 +294,104 @@ def graphingFunction(xLabel, yLabel, title, xData, yData):
     plt.title(title)
     plt.show()
 
-TTC = []
-DRAC = []
-PET = []
-THROUGHPUT = []
-EMISSIONS = []
+def graphingTTCs(ttcScenario, ttcUseCase, ttcLOS, i):
+    if ttcUseCase == "\BaselineHDV":
+        vehicleTypes = ["L0-HDV"]
+    elif ttcUseCase == "\BaselineCAV" or ttcUseCase == "\RealTMSCAV":
+        vehicleTypes = ["L4-CV"]
+    else:
+        vehicleTypes = ["L0-HDV", "L2-AV", "L2-CV", "L4-AV","L4-CV"]
+    followTTCXCoor = []
+    followTTCYCoor = []
+    otherTTCXCoor = []
+    otherTTCYCoor = []
 
-# NUMBEROFITERATIONS = 3
-NUMBEROFITERATIONS = 1
+    for types in vehicleTypes:
+        safetyFilepath = ttcScenario + ttcUseCase + "\Output-Files\LOS-" + ttcLOS + "\SSM-" + types + "-" + str(i) + ".xml"
+        followTTCXCoor, followTTCYCoor, otherTTCXCoor, otherTTCYCoor = gettingTTCPositions(safetyFilepath, followTTCXCoor, followTTCYCoor, otherTTCXCoor, otherTTCYCoor)
+    # print("ttcXCoor", ttcXCoor)
+    # print("ttcYCoor", ttcYCoor)
+    plt.plot(followTTCXCoor, followTTCYCoor, 'o', color='black')
+    plt.plot(otherTTCXCoor, otherTTCYCoor, 'o', color='red')
+    plt.xlabel("meters")
+    plt.ylabel("meters")
+    plt.show()
 
-# SCENARIO = "Roadworks"
-SCENARIO = "Collision"
-
-# useCases = ["\BaselinePenetration3", "\RealTMSPenetration3"]
-useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
-            "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
-
-
-
-# LEVELOFSERVICE = ["A", "B", "C", "D"]
-# LEVELOFSERVICE = ["A", "B"]
-LEVELOFSERVICE = ["A"]
-vehicleTypes = ["HDV", "L4-CV"]
-
-
-safetyFiles, effiencyFiles, TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray = newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes)
-
+def gettingTTCPositions(safetyFilepath, followTTCXCoor, followTTCYCoor, otherTTCXCoor, otherTTCYCoor):
+    document = minidom.parse(safetyFilepath)
+    TTC = document.getElementsByTagName('minTTC')
+    leadFollowTypes = ["2", "3"]
+    otherTypes = ["11", "12"]
+    for ttc in TTC:
+        typeOfConflict = ttc.getAttribute("type")
+        
+        if ttc.getAttribute("time") != "NA":
+            leadFollowIssue = ttc.getAttribute("type") in leadFollowTypes
+            otherIssue = ttc.getAttribute("type") in otherTypes
+            if leadFollowIssue == True:
+                tempCoor = ttc.getAttribute("position").split(",")
+                followTTCXCoor.append(float(tempCoor[0]))
+                followTTCYCoor.append(float(tempCoor[1]))
+            if otherIssue == True:
+                tempCoor = ttc.getAttribute("position").split(",")
+                otherTTCXCoor.append(float(tempCoor[0]))
+                otherTTCYCoor.append(float(tempCoor[1]))
     
-print("TTC", TTC)
-print("DRAC", DRAC)
-print("PET", PET)
-print("Throughput", THROUGHPUT)
-print("CO2", EMISSIONS)
-print("WaitingTimesArray", WaitingTimesArray)
-print("DurationArray", DurationArray)
-print("-----------------")
-print("StdTTCArray", StdTTCArray)
-print("StdDRACArray", StdDRACArray)
-print("StdPETArray", StdPETArray)
-print("StdThroughputArray", StdThroughputArray)
-print("StdEmmisionsArray", StdEmmisionsArray)
-print("StdWaitingTimesArray", StdWaitingTimesArray)
-print("StdDurationArray", StdDurationArray)
+    return followTTCXCoor, followTTCYCoor, otherTTCXCoor, otherTTCYCoor
 
-graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray)
+def plottingLocationsOfTTCs():
+    ttcScenario = "Collision"
+    ttcUseCase = "\RealTMSPenetration1"
+    ttcLOS = "A"
+    i = 0
+    graphingTTCs(ttcScenario, ttcUseCase, ttcLOS, i)
+
+def graphingPerformance():
+    TTC = []
+    DRAC = []
+    PET = []
+    THROUGHPUT = []
+    EMISSIONS = []
+
+    NUMBEROFITERATIONS = 3
+    # NUMBEROFITERATIONS = 1
+
+    # SCENARIO = "Roadworks"
+    SCENARIO = "Collision"
+
+    # useCases = ["\BaselinePenetration3", "\RealTMSPenetration3"]
+    useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
+                "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
+
+    # LEVELOFSERVICE = ["A", "B", "C", "D"]
+    LEVELOFSERVICE = ["A", "B"]
+    # LEVELOFSERVICE = ["A"]
+    vehicleTypes = ["HDV", "L4-CV"]
+
+    safetyFiles, effiencyFiles, TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray = newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes, NUMBEROFITERATIONS)
+
+    print("TTC", TTC)
+    print("DRAC", DRAC)
+    print("PET", PET)
+    print("Throughput", THROUGHPUT)
+    print("CO2", EMISSIONS)
+    print("WaitingTimesArray", WaitingTimesArray)
+    print("DurationArray", DurationArray)
+    print("-----------------")
+    print("StdTTCArray", StdTTCArray)
+    print("StdDRACArray", StdDRACArray)
+    print("StdPETArray", StdPETArray)
+    print("StdThroughputArray", StdThroughputArray)
+    print("StdEmmisionsArray", StdEmmisionsArray)
+    print("StdWaitingTimesArray", StdWaitingTimesArray)
+    print("StdDurationArray", StdDurationArray)
+
+    graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray)
+
+graphingPerformance()
+# plottingLocationsOfTTCs()
+
+
+
+        
+        
