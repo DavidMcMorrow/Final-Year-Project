@@ -135,18 +135,19 @@ def runningTheScenariosSimulation(SCENARIO, TYPE, sumoBinary, LOS, ITERATION, RE
 # SCENARIO = "Roadworks"
 SCENARIO = "Collision"
 
-TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV", "Baseline-Penetration1", "Penetration1", "Baseline-Penetration2", "Penetration2", "Baseline-Penetration3", "Penetration3"]
-# TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV", "Baseline-Penetration1", "Penetration1", "Baseline-Penetration2", "Penetration2"]
-# TYPES = [ "Penetration3"]
+# TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV", "Baseline-Penetration1", "Penetration1", "Baseline-Penetration2", "Penetration2", "Baseline-Penetration3", "Penetration3"]
+# TYPES = ["Baseline-Penetration1", "Penetration1", "Baseline-Penetration2", "Penetration2", "Baseline-Penetration3", "Penetration3"]
+TYPES = [ "Baseline-HDV"]
 # LOS = ["A", "B", "C", "D"]
-LOS = ["A", "B"]
+LOS = ["A"]
+# LOS = ["C"]
 
-ffff
+
 # ITERATION = 1
 # ITERATION = 2
 ITERATION = 3
 
-REROUTINGBOOLEAN = False
+REROUTINGBOOLEAN = True
 
 # we need to import some python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:

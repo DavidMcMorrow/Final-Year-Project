@@ -1,13 +1,13 @@
 <routes>
     <vType id="crashedCar"
-   			vClass="passenger" length="5" accel="5" decel="2.2"
+   			vClass="passenger" length="5" accel="2" decel="2.2"
    			sigma="1.0" maxSpeed="16" color="red"/>
 
     <vehicles>
-        <flow id="crashed-car-lane-zero" begin="0" end="10"  type="crashedCar" number="2" departLane="random">
+        <flow id="crashed-car-lane-zero" begin="0" end="5"  type="crashedCar" number="2" departLane="random">
             <route edges="top-approaching left-exit-blockage left-exit"  />
         </flow>
-        <flow id="crashed-car-lane-one" begin="0" end="10"  type="crashedCar" number="2" departLane="random">
+        <flow id="crashed-car-lane-one" begin="0" end="5"  type="crashedCar" number="2" departLane="random">
             <route edges="top-approaching left-exit-blockage left-exit"  />
         </flow>
     </vehicles>

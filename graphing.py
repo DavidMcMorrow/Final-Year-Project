@@ -166,7 +166,7 @@ def newGatheringTheData(safetyFiles, effiencyFiles):
 def safetyKPIs(filename):
     encounterTypes = ["2", "3"]
     safetyIncidents = []
-    # print("filename", filename)
+    print("filename", filename)
     document = minidom.parse(filename)
     numberOfTTC = 0
     numberOfDRAC = 0
@@ -278,7 +278,7 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, Durat
                 # "Real TMS 100%": array[1],
             }, 
             # index=["A", "B", "C", "D"]
-            index=["A", "B"]
+            index=["A", "B", "C"]
             # index=["B"]
         )
         plotdata.plot(kind='bar', yerr=std)
@@ -354,7 +354,7 @@ def graphingPerformance():
     EMISSIONS = []
 
     NUMBEROFITERATIONS = 3
-    # NUMBEROFITERATIONS = 1
+    # NUMBEROFITERATIONS = 2
 
     # SCENARIO = "Roadworks"
     SCENARIO = "Collision"
@@ -364,7 +364,7 @@ def graphingPerformance():
                 "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
 
     # LEVELOFSERVICE = ["A", "B", "C", "D"]
-    LEVELOFSERVICE = ["A", "B"]
+    LEVELOFSERVICE = ["A", "B", "C"]
     # LEVELOFSERVICE = ["A"]
     vehicleTypes = ["HDV", "L4-CV"]
 
