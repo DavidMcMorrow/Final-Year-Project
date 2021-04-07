@@ -66,7 +66,7 @@ def roadworksBaselineHDVTMS(sumoBinary, LOS, ITERATION):
     #traci starts sumo as a subprocess and then this script connects and runs
     traci.start([sumoBinary, "-c", "Roadworks\BaselineHDV\RoadworksBaselineHDV.sumocfg",
                 "--tripinfo-output", "Roadworks\BaselineHDV\Output-Files\TripInfo.xml", "--ignore-route-errors",
-                "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-S", "-Q", "-W"])
+                "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-Q", "-W"])
 
     TMS()
     baselineAlterOutputFiles("Roadworks", "HDV", LOS, ITERATION, ["L0-HDV"])

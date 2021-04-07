@@ -1,0 +1,2534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 04/05/21 20:35:32 by Eclipse SUMO sumo Version 1.8.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="Collision\BaselineCAV\../CollisionIntersection.net.xml"/>
+        <route-files value="Collision\BaselineCAV\../CrashedVehicleRoutes.rou.xml,Collision\BaselineCAV\Route-Files/L4-CV-Route.rou.xml"/>
+        <additional-files value="Collision\BaselineCAV\../Additional-Files/Collision-Detectors.add.xml,Collision\BaselineCAV\../Additional-Files/Collision-TMS-Rerouters.add.xml,Collision\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L4-CV.add.xml,Collision\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L4-CV-Left.add.xml,Collision\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L4-CV-Right.add.xml,Collision\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L0-HDV.add.xml,Collision\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L0-HDV-Left.add.xml,Collision\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L0-HDV-Straight.add.xml,Collision\BaselineCAV\../Additional-Files/Collision-Traffic-lights.add.xml,Collision\BaselineCAV\../Additional-Files/Collision-Traffic-Signs.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="Collision\BaselineCAV\Output-Files\Tripinfo.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <step-length value="0.1"/>
+    </time>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+        <waiting-time-memory value="300"/>
+        <default.action-step-length value="0.1"/>
+    </processing>
+
+    <report>
+        <no-warnings value="true"/>
+    </report>
+
+    <emissions>
+        <device.emissions.probability value="1"/>
+    </emissions>
+
+    <traci_server>
+        <remote-port value="65127"/>
+    </traci_server>
+
+    <gui_only>
+        <quit-on-end value="true"/>
+        <start value="true"/>
+        <tracker-interval value="0.1"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<SSMLog>
+    <conflict begin="207.70" end="225.60" ego="L4-CV-40" foe="L4-CV-5">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="217.75" position="496.20,498.76" type="17" value="0.86"/>
+    </conflict>
+    <conflict begin="222.50" end="230.80" ego="L4-CV-61" foe="L4-CV-60">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="226.95" position="503.80,501.24" type="17" value="1.74"/>
+    </conflict>
+    <conflict begin="222.50" end="233.20" ego="L4-CV-60" foe="L4-CV-61">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="226.95" position="503.80,501.24" type="17" value="1.74"/>
+    </conflict>
+    <conflict begin="275.40" end="285.90" ego="L4-CV-114" foe="L4-CV-29">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="279.61" position="503.54,498.60" type="17" value="1.23"/>
+    </conflict>
+    <conflict begin="295.30" end="302.50" ego="L4-CV-131" foe="L4-CV-45">
+        <minTTC time="295.40" position="484.47,498.40" type="111" value="0.00"/>
+        <maxDRAC time="295.30" position="483.42,498.40" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="275.10" end="283.80" ego="L4-CV-29" foe="L4-CV-114">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="279.61" position="503.54,498.60" type="17" value="1.23"/>
+    </conflict>
+    <conflict begin="340.30" end="350.90" ego="L4-CV-172" foe="L4-CV-161">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="344.46" position="503.80,501.24" type="17" value="1.17"/>
+    </conflict>
+    <conflict begin="324.50" end="354.80" ego="L4-CV-161" foe="L4-CV-139">
+        <minTTC time="328.90" position="503.80,501.24" type="11" value="0.69"/>
+        <maxDRAC time="324.60" position="503.80,501.24" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="328.40" end="355.40" ego="L4-CV-164" foe="L4-CV-147">
+        <minTTC time="345.60" position="499.54,506.64" type="11" value="0.50"/>
+        <maxDRAC time="329.30" position="499.54,506.64" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="324.50" end="355.80" ego="L4-CV-161" foe="L4-CV-122">
+        <minTTC time="328.80" position="503.80,501.24" type="11" value="0.68"/>
+        <maxDRAC time="324.50" position="503.80,501.24" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="328.40" end="356.40" ego="L4-CV-164" foe="L4-CV-146">
+        <minTTC time="345.60" position="499.54,506.64" type="11" value="0.50"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="324.50" end="356.60" ego="L4-CV-161" foe="L4-CV-100">
+        <minTTC time="328.90" position="503.80,501.24" type="11" value="0.69"/>
+        <maxDRAC time="324.60" position="503.80,501.24" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="324.50" end="357.40" ego="L4-CV-161" foe="L4-CV-89">
+        <minTTC time="328.80" position="503.80,501.24" type="11" value="0.68"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="326.80" end="353.60" ego="L4-CV-161" foe="L4-CV-143">
+        <minTTC time="328.80" position="503.80,501.24" type="11" value="0.68"/>
+        <maxDRAC time="326.90" position="503.80,501.24" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="340.00" end="348.80" ego="L4-CV-161" foe="L4-CV-172">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="344.46" position="503.80,501.24" type="17" value="1.17"/>
+    </conflict>
+    <conflict begin="383.20" end="393.70" ego="L4-CV-215" foe="L4-CV-56">
+        <minTTC time="387.00" position="481.76,492.00" type="111" value="0.00"/>
+        <maxDRAC time="388.60" position="492.66,490.73" type="3" value="0.07"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="378.70" end="395.70" ego="L4-CV-213" foe="L4-CV-6">
+        <minTTC time="379.40" position="496.46,501.40" type="11" value="2.73"/>
+        <maxDRAC time="384.20" position="496.46,501.40" type="11" value="0.44"/>
+        <PET time="390.66" position="496.46,501.40" type="17" value="1.12"/>
+    </conflict>
+    <conflict begin="201.80" end="222.60" ego="L4-CV-5" foe="L4-CV-40">
+        <minTTC time="205.00" position="496.20,498.76" type="11" value="0.84"/>
+        <maxDRAC time="203.50" position="496.20,498.76" type="11" value="0.13"/>
+        <PET time="217.75" position="496.20,498.76" type="17" value="0.86"/>
+    </conflict>
+    <conflict begin="383.00" end="393.80" ego="L4-CV-213" foe="L4-CV-56">
+        <minTTC time="383.10" position="484.00,498.40" type="111" value="0.00"/>
+        <maxDRAC time="388.70" position="491.24,499.09" type="3" value="6.58"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="297.90" end="408.00" ego="L4-CV-89" foe="L4-CV-12">
+        <minTTC time="370.90" position="503.54,498.60" type="11" value="0.73"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="297.90" end="407.30" ego="L4-CV-89" foe="L4-CV-20">
+        <minTTC time="370.90" position="503.54,498.60" type="11" value="0.73"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="297.90" end="406.60" ego="L4-CV-89" foe="L4-CV-38">
+        <minTTC time="370.90" position="503.54,498.60" type="11" value="0.73"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="297.90" end="405.80" ego="L4-CV-89" foe="L4-CV-63">
+        <minTTC time="370.90" position="503.54,498.60" type="11" value="0.73"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="351.20" end="385.70" ego="L4-CV-89" foe="L4-CV-182">
+        <minTTC time="370.90" position="503.54,498.60" type="11" value="0.73"/>
+        <maxDRAC time="370.80" position="503.54,498.60" type="11" value="0.07"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="368.10" end="404.80" ego="L4-CV-89" foe="L4-CV-101">
+        <minTTC time="370.90" position="503.54,498.60" type="11" value="0.73"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="406.60" end="448.70" ego="L4-CV-208" foe="L4-CV-233">
+        <minTTC time="433.50" position="503.80,501.24" type="11" value="0.70"/>
+        <maxDRAC time="433.40" position="503.80,501.24" type="11" value="0.12"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="413.50" end="461.60" ego="L4-CV-208" foe="L4-CV-207">
+        <minTTC time="433.60" position="503.80,501.24" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="422.50" end="460.90" ego="L4-CV-208" foe="L4-CV-251">
+        <minTTC time="433.70" position="503.80,501.24" type="11" value="0.69"/>
+        <maxDRAC time="433.00" position="503.80,501.24" type="11" value="0.06"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="430.20" end="450.70" ego="L4-CV-208" foe="L4-CV-237">
+        <minTTC time="433.60" position="503.80,501.24" type="11" value="0.69"/>
+        <maxDRAC time="433.50" position="503.80,501.24" type="11" value="0.03"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="409.00" end="472.30" ego="L4-CV-238" foe="L4-CV-90">
+        <minTTC time="461.20" position="500.18,505.57" type="11" value="0.37"/>
+        <maxDRAC time="409.00" position="500.18,505.57" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="409.00" end="473.30" ego="L4-CV-238" foe="L4-CV-53">
+        <minTTC time="461.20" position="500.18,505.57" type="11" value="0.37"/>
+        <maxDRAC time="409.10" position="500.18,505.57" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="409.00" end="474.10" ego="L4-CV-238" foe="L4-CV-52">
+        <minTTC time="461.20" position="500.18,505.57" type="11" value="0.37"/>
+        <maxDRAC time="409.00" position="500.18,505.57" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="409.00" end="474.90" ego="L4-CV-238" foe="L4-CV-42">
+        <minTTC time="461.20" position="500.18,505.57" type="11" value="0.37"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="454.90" end="465.60" ego="L4-CV-279" foe="L4-CV-220">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="459.20" position="503.80,501.24" type="17" value="1.28"/>
+    </conflict>
+    <conflict begin="454.60" end="463.40" ego="L4-CV-220" foe="L4-CV-279">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="459.20" position="503.80,501.24" type="17" value="1.28"/>
+    </conflict>
+    <conflict begin="452.30" end="471.30" ego="L4-CV-238" foe="L4-CV-98">
+        <minTTC time="461.20" position="500.18,505.57" type="11" value="0.37"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="422.50" end="511.40" ego="L4-CV-12" foe="L4-CV-251">
+        <minTTC time="506.50" position="446.79,501.60" type="13" value="0.14"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="506.64" position="446.79,501.60" type="17" value="0.11"/>
+    </conflict>
+    <conflict begin="445.50" end="511.40" ego="L4-CV-12" foe="L4-CV-272">
+        <minTTC time="506.60" position="446.79,501.60" type="11" value="0.04"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="507.88" position="503.54,498.60" type="17" value="0.77"/>
+    </conflict>
+    <conflict begin="458.40" end="511.40" ego="L4-CV-12" foe="L4-CV-281">
+        <minTTC time="506.60" position="439.75,501.60" type="13" value="0.49"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="507.13" position="439.75,501.60" type="17" value="0.51"/>
+    </conflict>
+    <conflict begin="469.10" end="511.30" ego="L4-CV-12" foe="L4-CV-296">
+        <minTTC time="507.10" position="439.75,501.60" type="11" value="0.03"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="481.30" end="511.30" ego="L4-CV-12" foe="L4-CV-307">
+        <minTTC time="506.60" position="446.79,501.60" type="11" value="0.04"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="487.50" end="511.30" ego="L4-CV-12" foe="L4-CV-287">
+        <minTTC time="507.10" position="439.75,501.60" type="11" value="0.03"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="508.01" position="493.36,499.54" type="17" value="0.38"/>
+    </conflict>
+    <conflict begin="493.70" end="511.30" ego="L4-CV-12" foe="L4-CV-313">
+        <minTTC time="507.10" position="439.75,501.60" type="11" value="0.03"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="495.50" end="511.30" ego="L4-CV-12" foe="L4-CV-319">
+        <minTTC time="506.60" position="446.79,501.60" type="11" value="0.04"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="496.50" end="511.30" ego="L4-CV-12" foe="L4-CV-322">
+        <minTTC time="507.10" position="439.75,501.60" type="11" value="0.03"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="505.50" end="511.30" ego="L4-CV-12" foe="L4-CV-326">
+        <minTTC time="507.10" position="439.75,501.60" type="11" value="0.03"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="378.70" end="398.90" ego="L4-CV-6" foe="L4-CV-213">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="384.20" position="496.46,501.40" type="10" value="0.44"/>
+        <PET time="390.66" position="496.46,501.40" type="17" value="1.12"/>
+    </conflict>
+    <conflict begin="481.30" end="511.30" ego="L4-CV-307" foe="L4-CV-12">
+        <minTTC time="506.60" position="446.79,501.60" type="10" value="0.04"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="493.60" end="506.00" ego="L4-CV-207" foe="L4-CV-308">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="501.57" position="503.54,498.60" type="17" value="1.14"/>
+    </conflict>
+    <conflict begin="422.50" end="511.30" ego="L4-CV-251" foe="L4-CV-12">
+        <minTTC time="506.50" position="446.79,501.60" type="12" value="0.14"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="506.64" position="446.79,501.60" type="17" value="0.11"/>
+    </conflict>
+    <conflict begin="512.70" end="519.80" ego="L4-CV-332" foe="L4-CV-6">
+        <minTTC time="512.80" position="484.48,498.40" type="111" value="0.00"/>
+        <maxDRAC time="512.70" position="483.39,498.40" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="445.50" end="511.30" ego="L4-CV-272" foe="L4-CV-12">
+        <minTTC time="506.60" position="446.79,501.60" type="10" value="0.04"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="507.88" position="503.54,498.60" type="17" value="0.77"/>
+    </conflict>
+    <conflict begin="458.40" end="511.30" ego="L4-CV-281" foe="L4-CV-12">
+        <minTTC time="506.60" position="439.75,501.60" type="12" value="0.49"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="507.13" position="439.75,501.60" type="17" value="0.51"/>
+    </conflict>
+    <conflict begin="482.80" end="527.50" ego="L4-CV-285" foe="L4-CV-310">
+        <minTTC time="483.40" position="542.04,508.00" type="3" value="1.46"/>
+        <maxDRAC time="482.80" position="542.08,508.00" type="3" value="6.04"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="482.80" end="527.50" ego="L4-CV-310" foe="L4-CV-285">
+        <minTTC time="483.40" position="542.04,508.00" type="2" value="1.46"/>
+        <maxDRAC time="482.80" position="542.08,508.00" type="2" value="6.04"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="494.60" end="508.50" ego="L4-CV-308" foe="L4-CV-207">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="501.57" position="503.54,498.60" type="17" value="1.14"/>
+    </conflict>
+    <conflict begin="487.50" end="511.30" ego="L4-CV-287" foe="L4-CV-12">
+        <minTTC time="507.10" position="439.75,501.60" type="10" value="0.03"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="508.01" position="493.36,499.54" type="17" value="0.38"/>
+    </conflict>
+    <conflict begin="495.50" end="511.30" ego="L4-CV-319" foe="L4-CV-12">
+        <minTTC time="506.60" position="446.79,501.60" type="10" value="0.04"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="496.50" end="511.30" ego="L4-CV-322" foe="L4-CV-12">
+        <minTTC time="507.10" position="439.75,501.60" type="10" value="0.03"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="493.70" end="511.30" ego="L4-CV-313" foe="L4-CV-12">
+        <minTTC time="507.10" position="439.75,501.60" type="10" value="0.03"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="564.50" end="575.40" ego="L4-CV-384" foe="L4-CV-343">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="568.53" position="503.80,501.24" type="17" value="0.89"/>
+    </conflict>
+    <conflict begin="542.00" end="579.80" ego="L4-CV-343" foe="L4-CV-355">
+        <minTTC time="562.90" position="503.80,501.24" type="11" value="0.71"/>
+        <maxDRAC time="544.40" position="506.64,500.46" type="10" value="0.81"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="553.00" end="579.20" ego="L4-CV-343" foe="L4-CV-373">
+        <minTTC time="562.80" position="503.80,501.24" type="11" value="0.72"/>
+        <maxDRAC time="553.10" position="506.64,500.46" type="10" value="0.32"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="564.20" end="573.10" ego="L4-CV-343" foe="L4-CV-384">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="568.53" position="503.80,501.24" type="17" value="0.89"/>
+    </conflict>
+    <conflict begin="546.60" end="564.30" ego="L4-CV-348" foe="L4-CV-305">
+        <minTTC time="548.00" position="504.80,499.74" type="11" value="16.65"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="556.79" position="503.80,501.24" type="17" value="1.10"/>
+    </conflict>
+    <conflict begin="541.10" end="561.40" ego="L4-CV-305" foe="L4-CV-348">
+        <minTTC time="544.40" position="503.80,501.24" type="11" value="0.81"/>
+        <maxDRAC time="543.70" position="503.80,501.24" type="11" value="0.05"/>
+        <PET time="556.79" position="503.80,501.24" type="17" value="1.10"/>
+    </conflict>
+    <conflict begin="529.80" end="615.50" ego="L4-CV-347" foe="L4-CV-90">
+        <minTTC time="595.80" position="496.46,501.40" type="11" value="0.65"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="529.80" end="616.50" ego="L4-CV-347" foe="L4-CV-53">
+        <minTTC time="595.80" position="496.46,501.40" type="11" value="0.65"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="529.80" end="617.40" ego="L4-CV-347" foe="L4-CV-52">
+        <minTTC time="595.80" position="496.46,501.40" type="11" value="0.65"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="529.80" end="618.20" ego="L4-CV-347" foe="L4-CV-42">
+        <minTTC time="595.80" position="496.46,501.40" type="11" value="0.65"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="593.10" end="615.50" ego="L4-CV-347" foe="L4-CV-98">
+        <minTTC time="595.80" position="496.46,501.40" type="11" value="0.65"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="628.20" end="636.00" ego="L4-CV-436" foe="L4-CV-58">
+        <minTTC time="628.30" position="484.01,498.40" type="111" value="0.00"/>
+        <maxDRAC time="628.20" position="483.19,498.40" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="663.60" end="674.90" ego="L4-CV-473" foe="L4-CV-429">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="668.40" position="503.80,501.24" type="17" value="1.43"/>
+    </conflict>
+    <conflict begin="663.20" end="676.80" ego="L4-CV-474" foe="L4-CV-20">
+        <minTTC time="664.10" position="495.20,500.26" type="11" value="3.70"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="669.50" position="496.20,498.76" type="17" value="1.06"/>
+    </conflict>
+    <conflict begin="663.30" end="672.50" ego="L4-CV-429" foe="L4-CV-473">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="668.40" position="503.80,501.24" type="17" value="1.43"/>
+    </conflict>
+    <conflict begin="647.10" end="694.00" ego="L4-CV-42" foe="L4-CV-460">
+        <minTTC time="689.70" position="439.57,501.60" type="11" value="0.07"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="663.00" end="694.00" ego="L4-CV-42" foe="L4-CV-478">
+        <minTTC time="689.70" position="439.57,501.60" type="11" value="0.07"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="680.30" end="694.00" ego="L4-CV-42" foe="L4-CV-491">
+        <minTTC time="689.40" position="445.03,501.60" type="11" value="0.04"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="687.20" end="694.00" ego="L4-CV-42" foe="L4-CV-496">
+        <minTTC time="689.40" position="445.03,501.60" type="11" value="0.04"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="715.80" end="729.90" ego="L4-CV-524" foe="L4-CV-451">
+        <minTTC time="716.90" position="500.74,496.69" type="11" value="3.96"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="722.67" position="503.54,498.60" type="17" value="1.21"/>
+    </conflict>
+    <conflict begin="663.00" end="694.00" ego="L4-CV-478" foe="L4-CV-42">
+        <minTTC time="689.70" position="439.57,501.60" type="10" value="0.07"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="715.40" end="727.10" ego="L4-CV-451" foe="L4-CV-524">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="722.67" position="503.54,498.60" type="17" value="1.21"/>
+    </conflict>
+    <conflict begin="662.80" end="674.10" ego="L4-CV-20" foe="L4-CV-474">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="669.50" position="496.20,498.76" type="17" value="1.06"/>
+    </conflict>
+    <conflict begin="714.90" end="773.10" ego="L4-CV-530" foe="L4-CV-509">
+        <minTTC time="715.80" position="571.40,501.60" type="2" value="1.44"/>
+        <maxDRAC time="714.90" position="571.73,501.60" type="2" value="6.06"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="714.90" end="773.10" ego="L4-CV-509" foe="L4-CV-530">
+        <minTTC time="715.80" position="571.40,501.60" type="3" value="1.44"/>
+        <maxDRAC time="714.90" position="571.73,501.60" type="3" value="6.06"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="725.20" end="784.90" ego="L4-CV-533" foe="L4-CV-513">
+        <minTTC time="772.20" position="503.80,501.24" type="11" value="0.68"/>
+        <maxDRAC time="771.50" position="503.80,501.24" type="11" value="0.40"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="767.70" end="797.40" ego="L4-CV-533" foe="L4-CV-567">
+        <minTTC time="772.20" position="503.80,501.24" type="11" value="0.68"/>
+        <maxDRAC time="769.50" position="506.64,500.46" type="10" value="1.43"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="769.00" end="788.90" ego="L4-CV-533" foe="L4-CV-526">
+        <minTTC time="772.20" position="503.80,501.24" type="11" value="0.68"/>
+        <maxDRAC time="771.80" position="503.80,501.24" type="11" value="0.04"/>
+        <PET time="786.15" position="503.80,501.24" type="17" value="2.97"/>
+    </conflict>
+    <conflict begin="776.90" end="790.80" ego="L4-CV-533" foe="L4-CV-527">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="786.15" position="503.80,501.24" type="17" value="1.05"/>
+    </conflict>
+    <conflict begin="773.90" end="791.00" ego="L4-CV-560" foe="L4-CV-38">
+        <minTTC time="774.70" position="495.20,500.26" type="11" value="24.06"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="784.44" position="496.20,498.76" type="17" value="1.84"/>
+    </conflict>
+    <conflict begin="778.40" end="793.50" ego="L4-CV-527" foe="L4-CV-533">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="786.15" position="503.80,501.24" type="17" value="1.05"/>
+    </conflict>
+    <conflict begin="781.40" end="846.50" ego="L4-CV-581" foe="L4-CV-98">
+        <minTTC time="824.40" position="496.46,501.40" type="11" value="0.65"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="781.40" end="847.70" ego="L4-CV-581" foe="L4-CV-90">
+        <minTTC time="824.40" position="496.46,501.40" type="11" value="0.65"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="781.40" end="848.70" ego="L4-CV-581" foe="L4-CV-53">
+        <minTTC time="824.40" position="496.46,501.40" type="11" value="0.65"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="781.40" end="849.70" ego="L4-CV-581" foe="L4-CV-52">
+        <minTTC time="824.40" position="496.46,501.40" type="11" value="0.65"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="821.40" end="846.50" ego="L4-CV-581" foe="L4-CV-140">
+        <minTTC time="824.40" position="496.46,501.40" type="11" value="0.65"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="844.30" end="855.90" ego="L4-CV-639" foe="L4-CV-567">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="849.18" position="503.54,498.60" type="17" value="1.07"/>
+    </conflict>
+    <conflict begin="843.80" end="853.60" ego="L4-CV-567" foe="L4-CV-639">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="849.18" position="503.54,498.60" type="17" value="1.07"/>
+    </conflict>
+    <conflict begin="887.80" end="904.90" ego="L4-CV-669" foe="L4-CV-626">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="897.96" position="503.80,501.24" type="17" value="1.53"/>
+    </conflict>
+    <conflict begin="883.00" end="902.10" ego="L4-CV-626" foe="L4-CV-669">
+        <minTTC time="886.30" position="503.80,501.24" type="11" value="0.78"/>
+        <maxDRAC time="886.20" position="503.80,501.24" type="11" value="0.04"/>
+        <PET time="897.96" position="503.80,501.24" type="17" value="1.53"/>
+    </conflict>
+    <conflict begin="907.60" end="918.00" ego="L4-CV-700" foe="L4-CV-637">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="911.67" position="503.80,501.24" type="17" value="1.19"/>
+    </conflict>
+    <conflict begin="909.60" end="932.60" ego="L4-CV-706" foe="L4-CV-690">
+        <minTTC time="910.20" position="498.40,537.69" type="2" value="1.45"/>
+        <maxDRAC time="909.60" position="498.40,537.98" type="2" value="6.05"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="895.70" end="924.60" ego="L4-CV-637" foe="L4-CV-691">
+        <minTTC time="901.20" position="503.80,501.24" type="11" value="0.63"/>
+        <maxDRAC time="898.80" position="506.64,500.46" type="10" value="0.65"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="907.30" end="915.90" ego="L4-CV-637" foe="L4-CV-700">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="911.67" position="503.80,501.24" type="17" value="1.19"/>
+    </conflict>
+    <conflict begin="909.60" end="932.60" ego="L4-CV-690" foe="L4-CV-706">
+        <minTTC time="910.20" position="498.40,537.69" type="3" value="1.45"/>
+        <maxDRAC time="909.60" position="498.40,537.98" type="3" value="6.05"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="875.30" end="955.70" ego="L4-CV-677" foe="L4-CV-98">
+        <minTTC time="937.50" position="496.46,501.40" type="11" value="0.72"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="896.10" end="955.80" ego="L4-CV-691" foe="L4-CV-116">
+        <minTTC time="937.90" position="503.54,498.60" type="11" value="0.72"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="875.30" end="956.60" ego="L4-CV-677" foe="L4-CV-90">
+        <minTTC time="937.50" position="496.46,501.40" type="11" value="0.72"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="896.10" end="956.60" ego="L4-CV-691" foe="L4-CV-108">
+        <minTTC time="937.90" position="503.54,498.60" type="11" value="0.72"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="896.10" end="957.30" ego="L4-CV-691" foe="L4-CV-101">
+        <minTTC time="937.90" position="503.54,498.60" type="11" value="0.72"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="875.30" end="957.40" ego="L4-CV-677" foe="L4-CV-53">
+        <minTTC time="937.50" position="496.46,501.40" type="11" value="0.72"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="896.10" end="957.90" ego="L4-CV-691" foe="L4-CV-63">
+        <minTTC time="937.90" position="503.54,498.60" type="11" value="0.72"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="875.30" end="958.00" ego="L4-CV-677" foe="L4-CV-52">
+        <minTTC time="937.50" position="496.46,501.40" type="11" value="0.72"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="931.90" end="959.00" ego="L4-CV-677" foe="L4-CV-727">
+        <minTTC time="937.50" position="496.46,501.40" type="11" value="0.72"/>
+        <maxDRAC time="934.90" position="499.54,506.64" type="10" value="0.70"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="935.00" end="955.70" ego="L4-CV-677" foe="L4-CV-140">
+        <minTTC time="937.50" position="496.46,501.40" type="11" value="0.72"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="922.00" end="950.20" ego="L4-CV-691" foe="L4-CV-720">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="937.70" position="503.54,498.60" type="11" value="0.19"/>
+        <PET time="945.65" position="503.54,498.60" type="17" value="1.14"/>
+    </conflict>
+    <conflict begin="935.10" end="954.90" ego="L4-CV-691" foe="L4-CV-123">
+        <minTTC time="937.90" position="503.54,498.60" type="11" value="0.72"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="768.30" end="788.30" ego="L4-CV-38" foe="L4-CV-560">
+        <minTTC time="772.40" position="496.20,498.76" type="11" value="0.79"/>
+        <maxDRAC time="772.00" position="496.20,498.76" type="11" value="0.05"/>
+        <PET time="784.44" position="496.20,498.76" type="17" value="1.84"/>
+    </conflict>
+    <conflict begin="955.20" end="965.40" ego="L4-CV-748" foe="L4-CV-735">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="955.20" position="503.54,498.60" type="10" value="0.38"/>
+        <PET time="959.02" position="503.54,498.60" type="17" value="0.98"/>
+    </conflict>
+    <conflict begin="956.30" end="963.50" ego="L4-CV-748" foe="L4-CV-38">
+        <minTTC time="956.90" position="482.17,495.20" type="111" value="0.00"/>
+        <maxDRAC time="957.20" position="487.59,495.27" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="940.10" end="967.90" ego="L4-CV-737" foe="L4-CV-52">
+        <minTTC time="956.40" position="496.46,501.40" type="11" value="1.11"/>
+        <maxDRAC time="957.30" position="496.46,501.40" type="11" value="0.27"/>
+        <PET time="963.05" position="496.46,501.40" type="17" value="1.10"/>
+    </conflict>
+    <conflict begin="955.00" end="963.40" ego="L4-CV-735" foe="L4-CV-748">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="955.00" position="503.54,498.60" type="11" value="0.66"/>
+        <PET time="959.02" position="503.54,498.60" type="17" value="0.98"/>
+    </conflict>
+    <conflict begin="922.00" end="953.10" ego="L4-CV-720" foe="L4-CV-691">
+        <minTTC time="922.00" position="500.74,496.69" type="11" value="4.81"/>
+        <maxDRAC time="937.70" position="503.54,498.60" type="10" value="0.19"/>
+        <PET time="945.65" position="503.54,498.60" type="17" value="1.14"/>
+    </conflict>
+    <conflict begin="940.10" end="971.60" ego="L4-CV-52" foe="L4-CV-737">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="957.30" position="496.46,501.40" type="10" value="0.27"/>
+        <PET time="963.05" position="496.46,501.40" type="17" value="1.10"/>
+    </conflict>
+    <conflict begin="1009.40" end="1022.10" ego="L4-CV-790" foe="L4-CV-63">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="1015.35" position="496.20,498.76" type="17" value="1.22"/>
+    </conflict>
+    <conflict begin="982.70" end="1033.00" ego="L4-CV-741" foe="L4-CV-776">
+        <minTTC time="1013.20" position="503.80,501.24" type="11" value="0.68"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1010.20" end="1032.30" ego="L4-CV-741" foe="L4-CV-803">
+        <minTTC time="1013.20" position="503.80,501.24" type="11" value="0.68"/>
+        <maxDRAC time="1010.20" position="506.64,500.46" type="10" value="1.69"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1003.50" end="1073.00" ego="L4-CV-793" foe="L4-CV-140">
+        <minTTC time="1049.20" position="496.46,501.40" type="11" value="0.69"/>
+        <maxDRAC time="1003.60" position="496.46,501.40" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1003.50" end="1074.10" ego="L4-CV-793" foe="L4-CV-98">
+        <minTTC time="1049.20" position="496.46,501.40" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1003.50" end="1075.10" ego="L4-CV-793" foe="L4-CV-90">
+        <minTTC time="1049.20" position="496.46,501.40" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1003.50" end="1075.90" ego="L4-CV-793" foe="L4-CV-53">
+        <minTTC time="1049.20" position="496.46,501.40" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="938.50" end="1010.30" ego="L4-CV-63" foe="L4-CV-732">
+        <minTTC time="997.60" position="496.20,498.76" type="11" value="0.66"/>
+        <maxDRAC time="997.40" position="496.20,498.76" type="11" value="0.33"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="951.10" end="1012.40" ego="L4-CV-63" foe="L4-CV-743">
+        <minTTC time="997.70" position="496.20,498.76" type="11" value="0.66"/>
+        <maxDRAC time="997.50" position="496.20,498.76" type="11" value="0.11"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="993.40" end="1014.30" ego="L4-CV-63" foe="L4-CV-745">
+        <minTTC time="997.50" position="496.20,498.76" type="11" value="0.67"/>
+        <maxDRAC time="997.40" position="496.20,498.76" type="11" value="0.04"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1008.60" end="1019.70" ego="L4-CV-63" foe="L4-CV-790">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="1015.35" position="496.20,498.76" type="17" value="1.22"/>
+    </conflict>
+    <conflict begin="1063.80" end="1075.20" ego="L4-CV-843" foe="L4-CV-776">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="1068.45" position="503.54,498.60" type="17" value="1.16"/>
+    </conflict>
+    <conflict begin="1046.20" end="1073.00" ego="L4-CV-793" foe="L4-CV-144">
+        <minTTC time="1049.20" position="496.46,501.40" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1063.40" end="1072.80" ego="L4-CV-776" foe="L4-CV-843">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="1068.45" position="503.54,498.60" type="17" value="1.16"/>
+    </conflict>
+    <conflict begin="1078.10" end="1085.90" ego="L4-CV-859" foe="L4-CV-210">
+        <minTTC time="1078.20" position="484.16,498.40" type="111" value="0.00"/>
+        <maxDRAC time="1078.10" position="483.48,498.40" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1108.60" end="1155.60" ego="L4-CV-879" foe="L4-CV-899">
+        <minTTC time="1109.30" position="495.20,557.10" type="3" value="1.44"/>
+        <maxDRAC time="1108.60" position="495.20,557.10" type="3" value="6.17"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1108.60" end="1155.60" ego="L4-CV-899" foe="L4-CV-879">
+        <minTTC time="1109.30" position="495.20,557.10" type="2" value="1.44"/>
+        <maxDRAC time="1108.60" position="495.20,557.10" type="2" value="6.17"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1114.30" end="1174.60" ego="L4-CV-884" foe="L4-CV-875">
+        <minTTC time="1163.00" position="503.54,498.60" type="11" value="0.72"/>
+        <maxDRAC time="1163.10" position="503.54,498.60" type="11" value="0.38"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1100.80" end="1194.80" ego="L4-CV-885" foe="L4-CV-140">
+        <minTTC time="1163.60" position="496.46,501.40" type="11" value="0.66"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1100.80" end="1196.10" ego="L4-CV-885" foe="L4-CV-98">
+        <minTTC time="1163.60" position="496.46,501.40" type="11" value="0.66"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1114.30" end="1196.40" ego="L4-CV-884" foe="L4-CV-123">
+        <minTTC time="1163.20" position="503.54,498.60" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1100.80" end="1197.20" ego="L4-CV-885" foe="L4-CV-90">
+        <minTTC time="1163.60" position="496.46,501.40" type="11" value="0.66"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1114.30" end="1197.30" ego="L4-CV-884" foe="L4-CV-116">
+        <minTTC time="1163.20" position="503.54,498.60" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1114.30" end="1198.10" ego="L4-CV-884" foe="L4-CV-108">
+        <minTTC time="1163.20" position="503.54,498.60" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1100.80" end="1198.10" ego="L4-CV-885" foe="L4-CV-53">
+        <minTTC time="1163.60" position="496.46,501.40" type="11" value="0.66"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1114.30" end="1198.80" ego="L4-CV-884" foe="L4-CV-101">
+        <minTTC time="1163.20" position="503.54,498.60" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1120.00" end="1178.80" ego="L4-CV-884" foe="L4-CV-903">
+        <minTTC time="1163.10" position="503.54,498.60" type="11" value="0.70"/>
+        <maxDRAC time="1163.00" position="503.54,498.60" type="11" value="0.07"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1160.40" end="1194.80" ego="L4-CV-885" foe="L4-CV-144">
+        <minTTC time="1163.60" position="496.46,501.40" type="11" value="0.66"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1160.30" end="1195.40" ego="L4-CV-884" foe="L4-CV-163">
+        <minTTC time="1163.20" position="503.54,498.60" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1243.70" end="1253.60" ego="L4-CV-1021" foe="L4-CV-952">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="1247.20" position="503.80,501.24" type="17" value="0.88"/>
+    </conflict>
+    <conflict begin="1243.50" end="1254.40" ego="L4-CV-1008" foe="L4-CV-101">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="1247.99" position="496.20,498.76" type="17" value="1.35"/>
+    </conflict>
+    <conflict begin="1230.10" end="1266.90" ego="L4-CV-53" foe="L4-CV-1006">
+        <minTTC time="1262.70" position="439.57,504.80" type="11" value="0.02"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1249.50" end="1266.90" ego="L4-CV-53" foe="L4-CV-1012">
+        <minTTC time="1262.90" position="435.39,504.80" type="11" value="0.09"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1252.40" end="1266.90" ego="L4-CV-53" foe="L4-CV-1022">
+        <minTTC time="1262.30" position="445.03,504.80" type="11" value="0.06"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1256.40" end="1266.90" ego="L4-CV-53" foe="L4-CV-1028">
+        <minTTC time="1262.30" position="445.03,504.80" type="11" value="0.06"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1257.40" end="1266.90" ego="L4-CV-53" foe="L4-CV-1030">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="1262.63" position="440.86,504.80" type="17" value="1.22"/>
+    </conflict>
+    <conflict begin="1257.40" end="1266.90" ego="L4-CV-1030" foe="L4-CV-53">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="1262.63" position="440.86,504.80" type="17" value="1.22"/>
+    </conflict>
+    <conflict begin="1243.40" end="1251.70" ego="L4-CV-952" foe="L4-CV-1021">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="1247.20" position="503.80,501.24" type="17" value="0.88"/>
+    </conflict>
+    <conflict begin="1213.60" end="1286.50" ego="L4-CV-993" foe="L4-CV-986">
+        <minTTC time="1277.00" position="503.54,498.60" type="10" value="0.74"/>
+        <maxDRAC time="1277.00" position="503.54,498.60" type="10" value="2.32"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1275.30" end="1283.60" ego="L4-CV-993" foe="L4-CV-241">
+        <minTTC time="1275.40" position="485.87,495.20" type="111" value="0.00"/>
+        <maxDRAC time="1275.30" position="485.44,495.20" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1230.10" end="1295.20" ego="L4-CV-1006" foe="L4-CV-140">
+        <minTTC time="1277.60" position="496.46,501.40" type="11" value="0.72"/>
+        <maxDRAC time="1277.30" position="496.46,501.40" type="11" value="0.02"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1230.10" end="1296.60" ego="L4-CV-1006" foe="L4-CV-98">
+        <minTTC time="1277.70" position="496.46,501.40" type="11" value="0.73"/>
+        <maxDRAC time="1277.20" position="496.46,501.40" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1285.20" end="1298.30" ego="L4-CV-1048" foe="L4-CV-90">
+        <minTTC time="1288.50" position="496.46,501.40" type="11" value="1.27"/>
+        <maxDRAC time="1289.50" position="496.46,501.40" type="11" value="0.37"/>
+        <PET time="1296.04" position="496.46,501.40" type="17" value="1.22"/>
+    </conflict>
+    <conflict begin="1230.10" end="1298.60" ego="L4-CV-1006" foe="L4-CV-90">
+        <minTTC time="1277.60" position="496.46,501.40" type="11" value="0.72"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="1293.52" position="500.26,504.80" type="17" value="6.16"/>
+    </conflict>
+    <conflict begin="1270.90" end="1298.50" ego="L4-CV-1006" foe="L4-CV-1042">
+        <minTTC time="1277.60" position="496.46,501.40" type="11" value="0.72"/>
+        <maxDRAC time="1274.10" position="499.54,506.64" type="10" value="0.43"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1274.40" end="1293.90" ego="L4-CV-1006" foe="L4-CV-149">
+        <minTTC time="1277.40" position="496.46,501.40" type="11" value="0.75"/>
+        <maxDRAC time="1277.30" position="496.46,501.40" type="11" value="0.07"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1209.30" end="1305.60" ego="L4-CV-986" foe="L4-CV-123">
+        <minTTC time="1277.40" position="503.54,498.60" type="11" value="0.65"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1209.30" end="1306.40" ego="L4-CV-986" foe="L4-CV-116">
+        <minTTC time="1277.40" position="503.54,498.60" type="11" value="0.65"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1209.30" end="1307.20" ego="L4-CV-986" foe="L4-CV-108">
+        <minTTC time="1277.40" position="503.54,498.60" type="11" value="0.65"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1213.60" end="1283.60" ego="L4-CV-986" foe="L4-CV-993">
+        <minTTC time="1277.00" position="503.54,498.60" type="11" value="0.74"/>
+        <maxDRAC time="1277.00" position="503.54,498.60" type="11" value="2.32"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1225.20" end="1304.60" ego="L4-CV-986" foe="L4-CV-163">
+        <minTTC time="1277.40" position="503.54,498.60" type="11" value="0.65"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1275.30" end="1285.30" ego="L4-CV-1037" foe="L4-CV-241">
+        <minTTC time="1279.90" position="482.03,495.20" type="111" value="0.00"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1275.30" end="1285.30" ego="L4-CV-995" foe="L4-CV-241">
+        <minTTC time="1277.40" position="481.63,495.20" type="111" value="0.00"/>
+        <maxDRAC time="1278.30" position="486.88,495.23" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1274.40" end="1303.50" ego="L4-CV-986" foe="L4-CV-168">
+        <minTTC time="1277.40" position="503.54,498.60" type="11" value="0.65"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1304.00" end="1380.20" ego="L4-CV-1074" foe="L4-CV-140">
+        <minTTC time="1366.50" position="500.18,505.57" type="11" value="0.55"/>
+        <maxDRAC time="1304.00" position="500.18,505.57" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1304.00" end="1379.30" ego="L4-CV-1074" foe="L4-CV-144">
+        <minTTC time="1366.50" position="500.18,505.57" type="11" value="0.55"/>
+        <maxDRAC time="1304.00" position="500.18,505.57" type="11" value="0.10"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1304.00" end="1378.30" ego="L4-CV-1074" foe="L4-CV-149">
+        <minTTC time="1366.50" position="500.18,505.57" type="11" value="0.55"/>
+        <maxDRAC time="1304.00" position="500.18,505.57" type="11" value="0.20"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1304.00" end="1380.90" ego="L4-CV-1074" foe="L4-CV-98">
+        <minTTC time="1366.50" position="500.18,505.57" type="11" value="0.55"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1349.80" end="1377.30" ego="L4-CV-1074" foe="L4-CV-155">
+        <minTTC time="1366.50" position="500.18,505.57" type="11" value="0.55"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1405.20" end="1418.80" ego="L4-CV-1173" foe="L4-CV-98">
+        <minTTC time="1408.40" position="496.46,501.40" type="11" value="1.44"/>
+        <maxDRAC time="1409.80" position="496.46,501.40" type="11" value="0.89"/>
+        <PET time="1413.99" position="496.46,501.40" type="17" value="1.14"/>
+    </conflict>
+    <conflict begin="1285.20" end="1298.30" ego="L4-CV-90" foe="L4-CV-1048">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="1289.50" position="496.46,501.40" type="10" value="0.37"/>
+        <PET time="1296.04" position="496.46,501.40" type="17" value="1.22"/>
+    </conflict>
+    <conflict begin="1405.20" end="1422.60" ego="L4-CV-98" foe="L4-CV-1173">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="1409.80" position="496.46,501.40" type="10" value="0.89"/>
+        <PET time="1413.99" position="496.46,501.40" type="17" value="1.14"/>
+    </conflict>
+    <conflict begin="1470.30" end="1484.80" ego="L4-CV-303" foe="L4-CV-1232">
+        <minTTC time="1473.40" position="454.90,498.40" type="20" value="0.06"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1465.40" end="1478.80" ego="L4-CV-1208" foe="L4-CV-108">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="1471.72" position="496.20,498.76" type="17" value="1.05"/>
+    </conflict>
+    <conflict begin="1470.30" end="1484.80" ego="L4-CV-1232" foe="L4-CV-303">
+        <minTTC time="1473.40" position="454.90,498.40" type="20" value="0.06"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1517.90" end="1525.80" ego="L4-CV-1039" foe="L4-CV-1272">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="1522.20" position="503.54,498.60" type="17" value="1.84"/>
+    </conflict>
+    <conflict begin="1516.40" end="1525.80" ego="L4-CV-1272" foe="L4-CV-309">
+        <minTTC time="1519.20" position="482.77,495.20" type="111" value="0.00"/>
+        <maxDRAC time="1519.50" position="487.88,495.29" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1507.50" end="1526.10" ego="L4-CV-1256" foe="L4-CV-140">
+        <minTTC time="1507.80" position="496.46,501.40" type="11" value="15.87"/>
+        <maxDRAC time="1515.90" position="496.46,501.40" type="11" value="0.53"/>
+        <PET time="1521.59" position="496.46,501.40" type="17" value="1.43"/>
+    </conflict>
+    <conflict begin="1517.90" end="1527.80" ego="L4-CV-1272" foe="L4-CV-1039">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="1522.20" position="503.54,498.60" type="17" value="1.84"/>
+    </conflict>
+    <conflict begin="1507.50" end="1531.90" ego="L4-CV-1256" foe="L4-CV-155">
+        <minTTC time="1516.30" position="496.46,501.40" type="11" value="0.72"/>
+        <maxDRAC time="1516.20" position="496.46,501.40" type="11" value="0.01"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1507.50" end="1533.10" ego="L4-CV-1256" foe="L4-CV-149">
+        <minTTC time="1516.20" position="496.46,501.40" type="11" value="0.73"/>
+        <maxDRAC time="1516.40" position="496.46,501.40" type="11" value="0.03"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1514.70" end="1522.20" ego="L4-CV-1270" foe="L4-CV-309">
+        <minTTC time="1515.00" position="481.85,495.20" type="111" value="0.00"/>
+        <maxDRAC time="1515.40" position="487.14,495.24" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1507.50" end="1534.10" ego="L4-CV-1256" foe="L4-CV-144">
+        <minTTC time="1516.10" position="496.46,501.40" type="11" value="0.74"/>
+        <maxDRAC time="1516.00" position="496.46,501.40" type="11" value="0.12"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1514.40" end="1530.80" ego="L4-CV-1256" foe="L4-CV-169">
+        <minTTC time="1516.20" position="496.46,501.40" type="11" value="0.73"/>
+        <maxDRAC time="1516.50" position="496.46,501.40" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1514.70" end="1522.60" ego="L4-CV-1233" foe="L4-CV-309">
+        <minTTC time="1514.80" position="482.00,492.00" type="111" value="0.00"/>
+        <maxDRAC time="1515.50" position="486.51,491.99" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1405.20" end="1468.80" ego="L4-CV-108" foe="L4-CV-1152">
+        <minTTC time="1452.60" position="496.20,498.76" type="11" value="0.68"/>
+        <maxDRAC time="1452.50" position="496.20,498.76" type="11" value="0.07"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1449.30" end="1470.80" ego="L4-CV-108" foe="L4-CV-1172">
+        <minTTC time="1452.80" position="496.20,498.76" type="11" value="0.64"/>
+        <maxDRAC time="1452.30" position="496.20,498.76" type="11" value="0.02"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1464.60" end="1476.30" ego="L4-CV-108" foe="L4-CV-1208">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="1471.72" position="496.20,498.76" type="17" value="1.05"/>
+    </conflict>
+    <conflict begin="1507.50" end="1530.80" ego="L4-CV-140" foe="L4-CV-1256">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="1515.90" position="496.46,501.40" type="10" value="0.53"/>
+        <PET time="1521.59" position="496.46,501.40" type="17" value="1.43"/>
+    </conflict>
+    <conflict begin="1533.80" end="1581.60" ego="L4-CV-1283" foe="L4-CV-116">
+        <minTTC time="1533.80" position="495.20,500.26" type="11" value="12.00"/>
+        <maxDRAC time="1563.60" position="496.20,498.76" type="10" value="0.06"/>
+        <PET time="1573.91" position="496.20,498.76" type="17" value="0.89"/>
+    </conflict>
+    <conflict begin="1619.90" end="1631.90" ego="L4-CV-1352" foe="L4-CV-385">
+        <minTTC time="1626.30" position="482.13,492.00" type="111" value="0.00"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1533.80" end="1578.80" ego="L4-CV-116" foe="L4-CV-1283">
+        <minTTC time="1563.70" position="496.20,498.76" type="11" value="0.66"/>
+        <maxDRAC time="1563.60" position="496.20,498.76" type="11" value="0.06"/>
+        <PET time="1573.91" position="496.20,498.76" type="17" value="0.89"/>
+    </conflict>
+    <conflict begin="1619.70" end="1627.10" ego="L4-CV-1343" foe="L4-CV-385">
+        <minTTC time="1619.80" position="484.45,492.00" type="111" value="0.00"/>
+        <maxDRAC time="1619.70" position="483.67,492.00" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1619.70" end="1628.90" ego="L4-CV-1345" foe="L4-CV-385">
+        <minTTC time="1621.80" position="482.07,492.00" type="111" value="0.00"/>
+        <maxDRAC time="1622.50" position="487.06,491.94" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1619.70" end="1630.50" ego="L4-CV-1350" foe="L4-CV-385">
+        <minTTC time="1624.10" position="481.72,492.00" type="111" value="0.00"/>
+        <maxDRAC time="1624.70" position="486.45,492.00" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1665.20" end="1694.30" ego="L4-CV-1299" foe="L4-CV-1087">
+        <minTTC time="1668.90" position="503.80,501.24" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1734.80" end="1748.40" ego="L4-CV-1477" foe="L4-CV-144">
+        <minTTC time="1737.50" position="496.46,501.40" type="11" value="1.20"/>
+        <maxDRAC time="1738.60" position="496.46,501.40" type="11" value="0.58"/>
+        <PET time="1743.60" position="496.46,501.40" type="17" value="1.05"/>
+    </conflict>
+    <conflict begin="1734.80" end="1752.80" ego="L4-CV-1477" foe="L4-CV-169">
+        <minTTC time="1739.00" position="496.46,501.40" type="11" value="0.70"/>
+        <maxDRAC time="1738.90" position="496.46,501.40" type="11" value="0.01"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1734.80" end="1753.80" ego="L4-CV-1477" foe="L4-CV-155">
+        <minTTC time="1738.80" position="496.46,501.40" type="11" value="0.72"/>
+        <maxDRAC time="1738.70" position="496.46,501.40" type="11" value="0.03"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1734.80" end="1754.60" ego="L4-CV-1477" foe="L4-CV-149">
+        <minTTC time="1738.90" position="496.46,501.40" type="11" value="0.70"/>
+        <maxDRAC time="1738.60" position="496.46,501.40" type="11" value="0.15"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1734.80" end="1754.90" ego="L4-CV-1477" foe="L4-CV-1372">
+        <minTTC time="1738.90" position="496.46,501.40" type="11" value="0.70"/>
+        <maxDRAC time="1735.00" position="496.46,501.40" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1734.80" end="1755.60" ego="L4-CV-1477" foe="L4-CV-1366">
+        <minTTC time="1739.00" position="496.46,501.40" type="11" value="0.70"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1737.20" end="1752.00" ego="L4-CV-1477" foe="L4-CV-177">
+        <minTTC time="1739.00" position="496.46,501.40" type="11" value="0.70"/>
+        <maxDRAC time="1739.30" position="496.46,501.40" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1775.00" end="1790.50" ego="L4-CV-1366" foe="L4-CV-1087">
+        <minTTC time="1778.20" position="503.80,501.24" type="11" value="0.71"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1734.80" end="1752.00" ego="L4-CV-144" foe="L4-CV-1477">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="1738.60" position="496.46,501.40" type="10" value="0.58"/>
+        <PET time="1743.60" position="496.46,501.40" type="17" value="1.05"/>
+    </conflict>
+    <conflict begin="1292.30" end="1850.80" ego="L4-CV-1072" foe="L4-CV-1070">
+        <minTTC time="1304.70" position="598.95,508.00" type="2" value="0.75"/>
+        <maxDRAC time="1304.60" position="598.95,508.00" type="2" value="2.77"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1838.30" end="1852.50" ego="L4-CV-1569" foe="L4-CV-149">
+        <minTTC time="1839.80" position="496.46,501.40" type="11" value="3.29"/>
+        <maxDRAC time="1843.30" position="496.46,501.40" type="11" value="0.83"/>
+        <PET time="1847.83" position="496.46,501.40" type="17" value="1.16"/>
+    </conflict>
+    <conflict begin="1292.30" end="1855.40" ego="L4-CV-1070" foe="L4-CV-1072">
+        <minTTC time="1304.70" position="598.95,508.00" type="3" value="0.75"/>
+        <maxDRAC time="1304.60" position="598.95,508.00" type="3" value="2.77"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1838.30" end="1857.50" ego="L4-CV-1569" foe="L4-CV-177">
+        <minTTC time="1843.80" position="496.46,501.40" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1838.30" end="1858.80" ego="L4-CV-1569" foe="L4-CV-169">
+        <minTTC time="1843.80" position="496.46,501.40" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1838.30" end="1860.10" ego="L4-CV-1569" foe="L4-CV-1494">
+        <minTTC time="1843.70" position="496.46,501.40" type="11" value="0.70"/>
+        <maxDRAC time="1839.90" position="499.54,506.64" type="10" value="0.50"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1838.30" end="1860.90" ego="L4-CV-1569" foe="L4-CV-1489">
+        <minTTC time="1843.80" position="496.46,501.40" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1842.00" end="1856.80" ego="L4-CV-1569" foe="L4-CV-219">
+        <minTTC time="1843.80" position="496.46,501.40" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1854.40" end="1863.20" ego="L4-CV-1582" foe="L4-CV-431">
+        <minTTC time="1854.50" position="484.17,498.40" type="111" value="0.00"/>
+        <maxDRAC time="1854.40" position="483.56,498.40" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1838.30" end="1856.80" ego="L4-CV-149" foe="L4-CV-1569">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="1843.30" position="496.46,501.40" type="10" value="0.83"/>
+        <PET time="1847.83" position="496.46,501.40" type="17" value="1.16"/>
+    </conflict>
+    <conflict begin="1842.30" end="1851.00" ego="L4-CV-1540" foe="L4-CV-144">
+        <minTTC time="1843.30" position="481.57,495.20" type="111" value="0.00"/>
+        <maxDRAC time="1843.90" position="487.17,495.24" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1842.30" end="1850.70" ego="L4-CV-1574" foe="L4-CV-144">
+        <minTTC time="1843.70" position="481.77,492.00" type="111" value="0.00"/>
+        <maxDRAC time="1844.40" position="486.68,491.97" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1842.30" end="1852.30" ego="L4-CV-1581" foe="L4-CV-144">
+        <minTTC time="1845.80" position="481.77,492.00" type="111" value="0.00"/>
+        <maxDRAC time="1846.50" position="487.01,491.94" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1941.80" end="1958.20" ego="L4-CV-1672" foe="L4-CV-155">
+        <minTTC time="1941.80" position="496.46,501.40" type="11" value="2.81"/>
+        <maxDRAC time="1946.60" position="496.46,501.40" type="11" value="0.35"/>
+        <PET time="1952.82" position="496.46,501.40" type="17" value="0.68"/>
+    </conflict>
+    <conflict begin="1941.80" end="1961.70" ego="L4-CV-1672" foe="L4-CV-219">
+        <minTTC time="1947.00" position="496.46,501.40" type="11" value="0.72"/>
+        <maxDRAC time="1952.10" position="500.26,504.80" type="10" value="0.02"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1941.80" end="1962.60" ego="L4-CV-1672" foe="L4-CV-177">
+        <minTTC time="1946.90" position="496.46,501.40" type="11" value="0.72"/>
+        <maxDRAC time="1947.10" position="496.46,501.40" type="11" value="0.02"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1941.80" end="1964.30" ego="L4-CV-1672" foe="L4-CV-169">
+        <minTTC time="1947.10" position="496.46,501.40" type="11" value="0.73"/>
+        <maxDRAC time="1947.00" position="496.46,501.40" type="11" value="0.10"/>
+        <PET time="1962.43" position="500.26,504.80" type="17" value="7.69"/>
+    </conflict>
+    <conflict begin="1945.20" end="1960.90" ego="L4-CV-1672" foe="L4-CV-224">
+        <minTTC time="1946.90" position="496.46,501.40" type="11" value="0.72"/>
+        <maxDRAC time="1947.20" position="496.46,501.40" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1945.40" end="1957.40" ego="L4-CV-1672" foe="L4-CV-123">
+        <minTTC time="1945.50" position="483.85,498.40" type="111" value="0.00"/>
+        <maxDRAC time="1951.90" position="491.24,499.09" type="3" value="4.10"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1941.80" end="1960.90" ego="L4-CV-155" foe="L4-CV-1672">
+        <minTTC time="1945.50" position="500.26,504.80" type="11" value="154.26"/>
+        <maxDRAC time="1946.60" position="496.46,501.40" type="10" value="0.35"/>
+        <PET time="1952.82" position="496.46,501.40" type="17" value="0.68"/>
+    </conflict>
+    <conflict begin="1945.40" end="1957.40" ego="L4-CV-1651" foe="L4-CV-123">
+        <minTTC time="1951.50" position="482.13,495.20" type="111" value="0.00"/>
+        <maxDRAC time="1952.00" position="486.67,495.22" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1906.00" end="1984.30" ego="L4-CV-1624" foe="L4-CV-1641">
+        <minTTC time="1906.60" position="457.87,492.00" type="3" value="1.45"/>
+        <maxDRAC time="1906.00" position="457.85,492.00" type="3" value="6.05"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1906.00" end="1984.30" ego="L4-CV-1641" foe="L4-CV-1624">
+        <minTTC time="1906.60" position="457.87,492.00" type="2" value="1.45"/>
+        <maxDRAC time="1906.00" position="457.85,492.00" type="2" value="6.05"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1980.00" end="1987.40" ego="L4-CV-1702" foe="L4-CV-169">
+        <minTTC time="1980.10" position="484.03,498.40" type="111" value="0.00"/>
+        <maxDRAC time="1980.00" position="483.04,498.40" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1986.10" end="2013.00" ego="L4-CV-1546" foe="L4-CV-163">
+        <minTTC time="2002.90" position="496.20,498.76" type="10" value="1.10"/>
+        <maxDRAC time="2002.90" position="496.20,498.76" type="10" value="1.91"/>
+        <PET time="2004.79" position="496.20,498.76" type="17" value="0.14"/>
+    </conflict>
+    <conflict begin="1986.10" end="2010.60" ego="L4-CV-163" foe="L4-CV-1546">
+        <minTTC time="2002.90" position="496.20,498.76" type="11" value="1.10"/>
+        <maxDRAC time="2002.90" position="496.20,498.76" type="11" value="1.91"/>
+        <PET time="2004.79" position="496.20,498.76" type="17" value="0.14"/>
+    </conflict>
+    <conflict begin="1990.60" end="2061.90" ego="L4-CV-163" foe="L4-CV-1718">
+        <minTTC time="2004.50" position="496.20,498.76" type="11" value="0.33"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="2054.23" position="493.36,499.54" type="17" value="47.11"/>
+    </conflict>
+    <conflict begin="2063.80" end="2080.40" ego="L4-CV-1779" foe="L4-CV-177">
+        <minTTC time="2070.20" position="496.46,501.40" type="11" value="1.18"/>
+        <maxDRAC time="2071.20" position="496.46,501.40" type="11" value="0.47"/>
+        <PET time="2075.44" position="496.46,501.40" type="17" value="1.00"/>
+    </conflict>
+    <conflict begin="2070.10" end="2077.70" ego="L4-CV-1755" foe="L4-CV-163">
+        <minTTC time="2070.20" position="485.52,492.00" type="111" value="0.00"/>
+        <maxDRAC time="2070.10" position="484.78,492.00" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2070.10" end="2079.40" ego="L4-CV-1759" foe="L4-CV-163">
+        <minTTC time="2071.90" position="481.42,492.00" type="111" value="0.00"/>
+        <maxDRAC time="2072.60" position="486.67,491.98" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2070.10" end="2081.00" ego="L4-CV-1780" foe="L4-CV-163">
+        <minTTC time="2074.20" position="481.92,492.00" type="111" value="0.00"/>
+        <maxDRAC time="2074.80" position="486.66,491.98" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2071.00" end="2082.80" ego="L4-CV-1790" foe="L4-CV-163">
+        <minTTC time="2076.30" position="481.41,492.00" type="111" value="0.00"/>
+        <maxDRAC time="2077.00" position="487.20,491.93" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2063.80" end="2083.70" ego="L4-CV-177" foe="L4-CV-1779">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="2071.20" position="496.46,501.40" type="10" value="0.47"/>
+        <PET time="2075.44" position="496.46,501.40" type="17" value="1.00"/>
+    </conflict>
+    <conflict begin="2178.50" end="2185.70" ego="L4-CV-1865" foe="L4-CV-177">
+        <minTTC time="2178.60" position="484.62,495.20" type="111" value="0.00"/>
+        <maxDRAC time="2178.50" position="483.55,495.20" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2185.30" end="2195.30" ego="L4-CV-1893" foe="L4-CV-465">
+        <minTTC time="2189.50" position="481.73,492.00" type="111" value="0.00"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2175.40" end="2196.00" ego="L4-CV-1892" foe="L4-CV-252">
+        <minTTC time="2179.90" position="496.46,501.40" type="11" value="0.66"/>
+        <maxDRAC time="2185.50" position="500.26,504.80" type="10" value="0.02"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2175.40" end="2197.00" ego="L4-CV-1892" foe="L4-CV-244">
+        <minTTC time="2179.90" position="496.46,501.40" type="11" value="0.66"/>
+        <maxDRAC time="2179.80" position="496.46,501.40" type="11" value="0.05"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2175.40" end="2197.80" ego="L4-CV-1892" foe="L4-CV-224">
+        <minTTC time="2179.70" position="496.46,501.40" type="11" value="0.69"/>
+        <maxDRAC time="2179.60" position="496.46,501.40" type="11" value="0.15"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2178.50" end="2187.90" ego="L4-CV-1870" foe="L4-CV-177">
+        <minTTC time="2182.20" position="481.68,495.20" type="111" value="0.00"/>
+        <maxDRAC time="2182.70" position="486.46,495.20" type="3" value="0.17"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2178.30" end="2195.10" ego="L4-CV-1892" foe="L4-CV-260">
+        <minTTC time="2180.00" position="496.46,501.40" type="11" value="0.67"/>
+        <maxDRAC time="2180.10" position="496.46,501.40" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2141.50" end="2201.90" ego="L4-CV-1414" foe="L4-CV-1061">
+        <minTTC time="2165.90" position="503.54,498.60" type="11" value="0.68"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2141.50" end="2203.00" ego="L4-CV-1414" foe="L4-CV-168">
+        <minTTC time="2165.90" position="503.54,498.60" type="11" value="0.68"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2141.50" end="2180.00" ego="L4-CV-1414" foe="L4-CV-1826">
+        <minTTC time="2165.70" position="503.54,498.60" type="11" value="0.70"/>
+        <maxDRAC time="2165.60" position="503.54,498.60" type="11" value="0.14"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2141.50" end="2201.20" ego="L4-CV-1414" foe="L4-CV-185">
+        <minTTC time="2165.90" position="503.54,498.60" type="11" value="0.68"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2141.50" end="2200.30" ego="L4-CV-1414" foe="L4-CV-194">
+        <minTTC time="2165.90" position="503.54,498.60" type="11" value="0.68"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2163.10" end="2199.30" ego="L4-CV-1414" foe="L4-CV-1124">
+        <minTTC time="2165.90" position="503.54,498.60" type="11" value="0.68"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2163.10" end="2182.10" ego="L4-CV-1414" foe="L4-CV-1831">
+        <minTTC time="2165.90" position="503.54,498.60" type="11" value="0.68"/>
+        <maxDRAC time="2165.40" position="503.54,498.60" type="11" value="0.04"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1351.80" end="2242.00" ego="L4-CV-1124" foe="L4-CV-1130">
+        <minTTC time="1366.40" position="504.80,439.37" type="3" value="0.65"/>
+        <maxDRAC time="1366.20" position="504.80,439.37" type="3" value="3.90"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1351.80" end="2244.90" ego="L4-CV-1130" foe="L4-CV-1124">
+        <minTTC time="1366.40" position="504.80,439.37" type="2" value="0.65"/>
+        <maxDRAC time="1366.20" position="504.80,439.37" type="2" value="3.90"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2279.80" end="2294.50" ego="L4-CV-1988" foe="L4-CV-224">
+        <minTTC time="2279.80" position="496.46,501.40" type="11" value="3.64"/>
+        <maxDRAC time="2286.00" position="496.46,501.40" type="11" value="1.17"/>
+        <PET time="2289.58" position="496.46,501.40" type="17" value="0.90"/>
+    </conflict>
+    <conflict begin="2279.80" end="2298.30" ego="L4-CV-1988" foe="L4-CV-260">
+        <minTTC time="2286.50" position="496.46,501.40" type="11" value="0.69"/>
+        <maxDRAC time="2286.40" position="496.46,501.40" type="11" value="0.01"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2279.80" end="2299.30" ego="L4-CV-1988" foe="L4-CV-252">
+        <minTTC time="2286.30" position="496.46,501.40" type="11" value="0.70"/>
+        <maxDRAC time="2286.20" position="496.46,501.40" type="11" value="0.04"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2279.80" end="2300.10" ego="L4-CV-1988" foe="L4-CV-244">
+        <minTTC time="2286.30" position="496.46,501.40" type="11" value="0.70"/>
+        <maxDRAC time="2289.30" position="500.26,504.80" type="10" value="0.39"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2284.60" end="2297.70" ego="L4-CV-1988" foe="L4-CV-263">
+        <minTTC time="2286.50" position="496.46,501.40" type="11" value="0.69"/>
+        <maxDRAC time="2286.60" position="496.46,501.40" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2284.90" end="2296.00" ego="L4-CV-1988" foe="L4-CV-477">
+        <minTTC time="2285.00" position="484.01,498.40" type="111" value="0.00"/>
+        <maxDRAC time="2288.80" position="491.43,499.12" type="3" value="2.58"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2290.20" end="2300.80" ego="L4-CV-1997" foe="L4-CV-1095">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="2290.20" position="503.54,498.60" type="10" value="0.58"/>
+        <PET time="2293.99" position="503.54,498.60" type="17" value="0.77"/>
+    </conflict>
+    <conflict begin="2287.00" end="2302.60" ego="L4-CV-1095" foe="L4-CV-194">
+        <minTTC time="2289.90" position="503.54,498.60" type="11" value="0.67"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2287.00" end="2303.20" ego="L4-CV-1095" foe="L4-CV-185">
+        <minTTC time="2289.90" position="503.54,498.60" type="11" value="0.67"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2287.00" end="2303.80" ego="L4-CV-1095" foe="L4-CV-1061">
+        <minTTC time="2289.90" position="503.54,498.60" type="11" value="0.67"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2287.00" end="2304.30" ego="L4-CV-1095" foe="L4-CV-1056">
+        <minTTC time="2289.90" position="503.54,498.60" type="11" value="0.67"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2287.10" end="2302.00" ego="L4-CV-1095" foe="L4-CV-1124">
+        <minTTC time="2289.90" position="503.54,498.60" type="11" value="0.67"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2289.90" end="2298.60" ego="L4-CV-1095" foe="L4-CV-1997">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="2289.90" position="503.54,498.60" type="11" value="1.10"/>
+        <PET time="2293.99" position="503.54,498.60" type="17" value="0.77"/>
+    </conflict>
+    <conflict begin="2279.80" end="2297.70" ego="L4-CV-224" foe="L4-CV-1988">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="2286.00" position="496.46,501.40" type="10" value="1.17"/>
+        <PET time="2289.58" position="496.46,501.40" type="17" value="0.90"/>
+    </conflict>
+    <conflict begin="2284.90" end="2294.30" ego="L4-CV-1950" foe="L4-CV-477">
+        <minTTC time="2287.60" position="481.82,492.00" type="111" value="0.00"/>
+        <maxDRAC time="2288.40" position="486.87,491.96" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2284.90" end="2296.00" ego="L4-CV-1971" foe="L4-CV-477">
+        <minTTC time="2290.10" position="482.10,492.00" type="111" value="0.00"/>
+        <maxDRAC time="2290.90" position="488.05,491.85" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="1380.40" end="2342.70" ego="L4-CV-1154" foe="L4-CV-1139">
+        <minTTC time="1381.20" position="504.80,425.00" type="2" value="1.36"/>
+        <maxDRAC time="1380.40" position="504.80,425.00" type="2" value="6.44"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2325.50" end="2346.90" ego="L4-CV-1632" foe="L4-CV-1056">
+        <minTTC time="2339.70" position="495.20,492.99" type="111" value="0.00"/>
+        <maxDRAC time="2339.50" position="496.20,498.76" type="12" value="12.87"/>
+        <PET time="2338.81" position="495.20,487.25" type="111" value="0.00"/>
+    </conflict>
+    <conflict begin="2328.10" end="2356.00" ego="L4-CV-1166" foe="L4-CV-1629">
+        <minTTC time="2340.10" position="504.80,499.74" type="11" value="9.92"/>
+        <maxDRAC time="2340.20" position="503.80,501.24" type="10" value="0.52"/>
+        <PET time="2347.55" position="503.80,501.24" type="17" value="1.24"/>
+    </conflict>
+    <conflict begin="2328.10" end="2352.30" ego="L4-CV-1629" foe="L4-CV-1166">
+        <minTTC time="2340.10" position="504.80,499.74" type="10" value="9.92"/>
+        <maxDRAC time="2340.20" position="503.80,501.24" type="11" value="0.52"/>
+        <PET time="2347.55" position="503.80,501.24" type="17" value="1.24"/>
+    </conflict>
+    <conflict begin="2325.50" end="2345.40" ego="L4-CV-1056" foe="L4-CV-1632">
+        <minTTC time="2339.70" position="495.94,498.91" type="111" value="0.00"/>
+        <maxDRAC time="2339.50" position="496.20,498.76" type="13" value="12.87"/>
+        <PET time="2339.57" position="494.28,499.91" type="111" value="0.00"/>
+    </conflict>
+    <conflict begin="2338.00" end="2397.60" ego="L4-CV-1056" foe="L4-CV-2039">
+        <minTTC time="2339.30" position="496.20,498.76" type="11" value="0.35"/>
+        <maxDRAC time="2339.00" position="493.36,499.54" type="10" value="1.39"/>
+        <PET time="2390.00" position="493.36,499.54" type="17" value="48.78"/>
+    </conflict>
+    <conflict begin="2360.20" end="2421.00" ego="L4-CV-1456" foe="L4-CV-1061">
+        <minTTC time="2390.90" position="503.54,498.60" type="11" value="0.73"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2360.20" end="2418.80" ego="L4-CV-1456" foe="L4-CV-1124">
+        <minTTC time="2390.90" position="503.54,498.60" type="11" value="0.73"/>
+        <maxDRAC time="2360.70" position="503.54,498.60" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2360.20" end="2420.30" ego="L4-CV-1456" foe="L4-CV-185">
+        <minTTC time="2390.90" position="503.54,498.60" type="11" value="0.73"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2360.20" end="2419.60" ego="L4-CV-1456" foe="L4-CV-194">
+        <minTTC time="2390.90" position="503.54,498.60" type="11" value="0.73"/>
+        <maxDRAC time="2360.20" position="503.54,498.60" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2388.10" end="2417.80" ego="L4-CV-1456" foe="L4-CV-195">
+        <minTTC time="2390.90" position="503.54,498.60" type="11" value="0.73"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2386.40" end="2421.00" ego="L4-CV-2079" foe="L4-CV-260">
+        <minTTC time="2399.00" position="496.46,501.40" type="11" value="0.75"/>
+        <maxDRAC time="2398.70" position="496.46,501.40" type="11" value="0.01"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2411.70" end="2421.30" ego="L4-CV-2108" foe="L4-CV-531">
+        <minTTC time="2414.60" position="482.20,495.20" type="111" value="0.00"/>
+        <maxDRAC time="2414.90" position="487.02,495.24" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2397.80" end="2408.90" ego="L4-CV-2079" foe="L4-CV-1056">
+        <minTTC time="2397.90" position="486.31,498.40" type="111" value="0.00"/>
+        <maxDRAC time="2403.80" position="491.24,499.09" type="3" value="10.44"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2412.70" end="2423.50" ego="L4-CV-2108" foe="L4-CV-1461">
+        <minTTC time="2415.00" position="503.54,498.60" type="10" value="0.81"/>
+        <maxDRAC time="2415.00" position="503.54,498.60" type="10" value="0.12"/>
+        <PET time="2416.78" position="503.54,498.60" type="17" value="0.91"/>
+    </conflict>
+    <conflict begin="2397.80" end="2408.50" ego="L4-CV-2082" foe="L4-CV-1056">
+        <minTTC time="2400.20" position="481.47,495.20" type="111" value="0.00"/>
+        <maxDRAC time="2400.90" position="486.69,495.22" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2397.80" end="2408.90" ego="L4-CV-2091" foe="L4-CV-1056">
+        <minTTC time="2402.50" position="481.59,495.20" type="111" value="0.00"/>
+        <maxDRAC time="2403.80" position="492.98,495.58" type="3" value="0.05"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2363.70" end="2428.40" ego="L4-CV-1461" foe="L4-CV-1061">
+        <minTTC time="2411.90" position="503.54,498.60" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2363.70" end="2426.40" ego="L4-CV-1461" foe="L4-CV-1124">
+        <minTTC time="2411.90" position="503.54,498.60" type="11" value="0.69"/>
+        <maxDRAC time="2363.70" position="503.54,498.60" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2363.70" end="2427.80" ego="L4-CV-1461" foe="L4-CV-185">
+        <minTTC time="2411.90" position="503.54,498.60" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2363.70" end="2427.10" ego="L4-CV-1461" foe="L4-CV-194">
+        <minTTC time="2411.90" position="503.54,498.60" type="11" value="0.69"/>
+        <maxDRAC time="2363.80" position="503.54,498.60" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2392.50" end="2425.60" ego="L4-CV-1461" foe="L4-CV-195">
+        <minTTC time="2411.90" position="503.54,498.60" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2412.40" end="2421.30" ego="L4-CV-1461" foe="L4-CV-2108">
+        <minTTC time="2415.00" position="503.54,498.60" type="11" value="0.81"/>
+        <maxDRAC time="2412.40" position="503.54,498.60" type="11" value="0.30"/>
+        <PET time="2416.78" position="503.54,498.60" type="17" value="0.91"/>
+    </conflict>
+    <conflict begin="2494.90" end="2514.50" ego="L4-CV-1496" foe="L4-CV-2140">
+        <minTTC time="2500.70" position="503.54,498.60" type="11" value="0.73"/>
+        <maxDRAC time="2499.80" position="503.54,498.60" type="11" value="0.11"/>
+        <PET time="2511.95" position="503.54,498.60" type="17" value="3.18"/>
+    </conflict>
+    <conflict begin="2494.90" end="2516.50" ego="L4-CV-1496" foe="L4-CV-2158">
+        <minTTC time="2500.60" position="503.54,498.60" type="11" value="0.69"/>
+        <maxDRAC time="2499.80" position="503.54,498.60" type="11" value="0.03"/>
+        <PET time="2511.95" position="503.54,498.60" type="17" value="1.11"/>
+    </conflict>
+    <conflict begin="2494.90" end="2521.30" ego="L4-CV-1496" foe="L4-CV-195">
+        <minTTC time="2500.50" position="503.54,498.60" type="11" value="0.68"/>
+        <maxDRAC time="2495.00" position="503.54,498.60" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2494.90" end="2522.00" ego="L4-CV-1496" foe="L4-CV-1124">
+        <minTTC time="2500.50" position="503.54,498.60" type="11" value="0.68"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2494.90" end="2523.00" ego="L4-CV-1496" foe="L4-CV-194">
+        <minTTC time="2500.50" position="503.54,498.60" type="11" value="0.68"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2494.90" end="2523.50" ego="L4-CV-1496" foe="L4-CV-185">
+        <minTTC time="2500.50" position="503.54,498.60" type="11" value="0.68"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2498.60" end="2520.30" ego="L4-CV-1496" foe="L4-CV-203">
+        <minTTC time="2500.50" position="503.54,498.60" type="11" value="0.68"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2494.90" end="2519.50" ego="L4-CV-2158" foe="L4-CV-1496">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="2499.80" position="503.54,498.60" type="10" value="0.03"/>
+        <PET time="2511.95" position="503.54,498.60" type="17" value="1.11"/>
+    </conflict>
+    <conflict begin="2522.80" end="2531.70" ego="L4-CV-2216" foe="L4-CV-1061">
+        <minTTC time="2525.10" position="482.64,495.20" type="111" value="0.00"/>
+        <maxDRAC time="2525.40" position="487.59,495.27" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2522.80" end="2530.90" ego="L4-CV-2212" foe="L4-CV-1061">
+        <minTTC time="2522.90" position="485.13,498.40" type="111" value="0.00"/>
+        <maxDRAC time="2522.80" position="484.50,498.40" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="353.70" end="2585.80" ego="L4-CV-185" foe="L4-CV-194">
+        <minTTC time="354.30" position="501.60,406.05" type="3" value="1.46"/>
+        <maxDRAC time="353.70" position="501.60,405.95" type="3" value="6.14"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="353.70" end="2594.00" ego="L4-CV-194" foe="L4-CV-185">
+        <minTTC time="354.30" position="501.60,406.05" type="2" value="1.46"/>
+        <maxDRAC time="353.70" position="501.60,405.95" type="2" value="6.14"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2560.30" end="2580.60" ego="L4-CV-185" foe="L4-CV-1696">
+        <minTTC time="2564.10" position="496.20,498.76" type="11" value="0.76"/>
+        <maxDRAC time="2563.10" position="496.20,498.76" type="11" value="0.02"/>
+        <PET time="2575.09" position="496.20,498.76" type="17" value="0.19"/>
+    </conflict>
+    <conflict begin="2566.00" end="2583.00" ego="L4-CV-1696" foe="L4-CV-185">
+        <minTTC time="2567.50" position="495.20,500.26" type="11" value="17.58"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="2575.09" position="496.20,498.76" type="17" value="0.19"/>
+    </conflict>
+    <conflict begin="2609.00" end="2633.70" ego="L4-CV-2294" foe="L4-CV-280">
+        <minTTC time="2613.10" position="496.46,501.40" type="11" value="0.70"/>
+        <maxDRAC time="2613.20" position="496.46,501.40" type="11" value="0.01"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2609.00" end="2634.60" ego="L4-CV-2294" foe="L4-CV-263">
+        <minTTC time="2613.20" position="496.46,501.40" type="11" value="0.70"/>
+        <maxDRAC time="2612.80" position="496.46,501.40" type="11" value="0.06"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2627.40" end="2636.10" ego="L4-CV-2308" foe="L4-CV-621">
+        <minTTC time="2629.30" position="482.17,495.20" type="111" value="0.00"/>
+        <maxDRAC time="2629.60" position="486.81,495.22" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2609.00" end="2636.20" ego="L4-CV-2294" foe="L4-CV-260">
+        <minTTC time="2613.10" position="496.46,501.40" type="11" value="0.70"/>
+        <maxDRAC time="2612.60" position="496.46,501.40" type="11" value="0.21"/>
+        <PET time="2631.57" position="500.26,504.80" type="17" value="5.01"/>
+    </conflict>
+    <conflict begin="2611.70" end="2620.40" ego="L4-CV-2245" foe="L4-CV-576">
+        <minTTC time="2611.80" position="485.82,495.20" type="111" value="0.00"/>
+        <maxDRAC time="2611.70" position="485.34,495.20" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2611.70" end="2622.50" ego="L4-CV-2266" foe="L4-CV-576">
+        <minTTC time="2613.70" position="481.62,495.20" type="111" value="0.00"/>
+        <maxDRAC time="2614.60" position="486.92,495.23" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2627.40" end="2638.30" ego="L4-CV-2308" foe="L4-CV-1121">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="2631.61" position="503.54,498.60" type="17" value="0.99"/>
+    </conflict>
+    <conflict begin="2627.00" end="2636.10" ego="L4-CV-1121" foe="L4-CV-2308">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="2631.61" position="503.54,498.60" type="17" value="0.99"/>
+    </conflict>
+    <conflict begin="2611.50" end="2632.70" ego="L4-CV-2294" foe="L4-CV-304">
+        <minTTC time="2613.20" position="496.46,501.40" type="11" value="0.70"/>
+        <maxDRAC time="2613.30" position="496.46,501.40" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2611.70" end="2622.70" ego="L4-CV-2294" foe="L4-CV-576">
+        <minTTC time="2611.80" position="484.05,498.40" type="111" value="0.00"/>
+        <maxDRAC time="2617.60" position="491.24,499.09" type="3" value="6.17"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2611.70" end="2622.70" ego="L4-CV-2268" foe="L4-CV-576">
+        <minTTC time="2616.20" position="481.66,495.20" type="111" value="0.00"/>
+        <maxDRAC time="2616.90" position="486.62,495.21" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2666.40" end="2682.50" ego="L4-CV-1607" foe="L4-CV-1721">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="2668.00" position="503.80,501.24" type="10" value="0.60"/>
+        <PET time="2674.55" position="503.80,501.24" type="17" value="1.15"/>
+    </conflict>
+    <conflict begin="2666.40" end="2679.40" ego="L4-CV-1721" foe="L4-CV-1607">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="2668.00" position="503.80,501.24" type="11" value="0.60"/>
+        <PET time="2674.55" position="503.80,501.24" type="17" value="1.15"/>
+    </conflict>
+    <conflict begin="2677.90" end="2688.50" ego="L4-CV-1735" foe="L4-CV-194">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="2681.81" position="496.20,498.76" type="17" value="0.93"/>
+    </conflict>
+    <conflict begin="2736.10" end="2752.10" ego="L4-CV-2410" foe="L4-CV-263">
+        <minTTC time="2737.70" position="496.46,501.40" type="11" value="2.67"/>
+        <maxDRAC time="2741.00" position="496.46,501.40" type="11" value="0.53"/>
+        <PET time="2746.70" position="496.46,501.40" type="17" value="0.75"/>
+    </conflict>
+    <conflict begin="2736.10" end="2755.40" ego="L4-CV-2410" foe="L4-CV-318">
+        <minTTC time="2741.30" position="496.46,501.40" type="11" value="0.69"/>
+        <maxDRAC time="2741.40" position="496.46,501.40" type="11" value="0.01"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2746.80" end="2756.30" ego="L4-CV-634" foe="L4-CV-2425">
+        <minTTC time="2750.90" position="453.50,498.40" type="20" value="0.07"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2746.80" end="2756.30" ego="L4-CV-2425" foe="L4-CV-634">
+        <minTTC time="2750.90" position="453.50,498.40" type="20" value="0.07"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2736.10" end="2756.40" ego="L4-CV-2410" foe="L4-CV-304">
+        <minTTC time="2741.30" position="496.46,501.40" type="11" value="0.69"/>
+        <maxDRAC time="2746.00" position="500.26,504.80" type="10" value="0.04"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2736.10" end="2757.10" ego="L4-CV-2410" foe="L4-CV-280">
+        <minTTC time="2741.20" position="496.46,501.40" type="11" value="0.70"/>
+        <maxDRAC time="2741.10" position="496.46,501.40" type="11" value="0.14"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2739.60" end="2754.70" ego="L4-CV-2410" foe="L4-CV-328">
+        <minTTC time="2741.40" position="496.46,501.40" type="11" value="0.69"/>
+        <maxDRAC time="2741.70" position="496.46,501.40" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2739.80" end="2754.70" ego="L4-CV-2410" foe="L4-CV-634">
+        <minTTC time="2739.90" position="483.70,498.40" type="111" value="0.00"/>
+        <maxDRAC time="2745.30" position="491.24,499.09" type="3" value="3.22"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2736.10" end="2754.70" ego="L4-CV-263" foe="L4-CV-2410">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="2741.00" position="496.46,501.40" type="10" value="0.53"/>
+        <PET time="2746.70" position="496.46,501.40" type="17" value="0.75"/>
+    </conflict>
+    <conflict begin="2848.80" end="2860.70" ego="L4-CV-2517" foe="L4-CV-280">
+        <minTTC time="2850.80" position="496.46,501.40" type="11" value="1.76"/>
+        <maxDRAC time="2852.60" position="496.46,501.40" type="11" value="1.96"/>
+        <PET time="2855.87" position="496.46,501.40" type="17" value="1.15"/>
+    </conflict>
+    <conflict begin="2851.70" end="2861.10" ego="L4-CV-2522" foe="L4-CV-263">
+        <minTTC time="2854.20" position="481.54,492.00" type="111" value="0.00"/>
+        <maxDRAC time="2854.90" position="486.93,491.95" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2851.70" end="2863.90" ego="L4-CV-2517" foe="L4-CV-263">
+        <minTTC time="2851.80" position="483.79,498.40" type="111" value="0.00"/>
+        <maxDRAC time="2855.10" position="491.45,499.12" type="3" value="0.93"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2835.50" end="2844.40" ego="L4-CV-2441" foe="L4-CV-651">
+        <minTTC time="2836.10" position="481.45,495.20" type="111" value="0.00"/>
+        <maxDRAC time="2839.30" position="502.58,497.03" type="3" value="0.41"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2835.50" end="2844.40" ego="L4-CV-2467" foe="L4-CV-651">
+        <minTTC time="2839.20" position="481.87,495.20" type="111" value="0.00"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2868.50" end="2900.90" ego="L4-CV-1637" foe="L4-CV-1792">
+        <minTTC time="2889.50" position="504.80,499.74" type="11" value="1.96"/>
+        <maxDRAC time="2889.60" position="503.80,501.24" type="10" value="2.03"/>
+        <PET time="2893.02" position="503.80,501.24" type="17" value="0.78"/>
+    </conflict>
+    <conflict begin="2868.50" end="2898.30" ego="L4-CV-1792" foe="L4-CV-1637">
+        <minTTC time="2889.50" position="504.80,499.74" type="10" value="1.96"/>
+        <maxDRAC time="2889.60" position="503.80,501.24" type="11" value="2.03"/>
+        <PET time="2893.02" position="503.80,501.24" type="17" value="0.78"/>
+    </conflict>
+    <conflict begin="2895.80" end="2906.10" ego="L4-CV-1373" foe="L4-CV-1794">
+        <minTTC time="2895.90" position="504.80,499.74" type="11" value="3.24"/>
+        <maxDRAC time="2895.90" position="504.80,499.74" type="11" value="1.38"/>
+        <PET time="2899.85" position="503.80,501.24" type="17" value="1.16"/>
+    </conflict>
+    <conflict begin="2895.80" end="2904.10" ego="L4-CV-1794" foe="L4-CV-1373">
+        <minTTC time="2895.90" position="504.80,499.74" type="10" value="3.24"/>
+        <maxDRAC time="2895.90" position="504.80,499.74" type="10" value="1.38"/>
+        <PET time="2899.85" position="503.80,501.24" type="17" value="1.16"/>
+    </conflict>
+    <conflict begin="2660.20" end="2727.30" ego="L4-CV-194" foe="L4-CV-2340">
+        <minTTC time="2667.80" position="496.20,498.76" type="11" value="0.64"/>
+        <maxDRAC time="2664.10" position="493.36,499.54" type="10" value="0.04"/>
+        <PET time="2719.48" position="493.36,499.54" type="17" value="35.03"/>
+    </conflict>
+    <conflict begin="2666.00" end="2680.40" ego="L4-CV-194" foe="L4-CV-1722">
+        <minTTC time="2667.80" position="496.20,498.76" type="11" value="0.64"/>
+        <maxDRAC time="2666.00" position="495.20,500.26" type="10" value="0.79"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2667.90" end="2682.20" ego="L4-CV-194" foe="L4-CV-1728">
+        <minTTC time="2667.90" position="496.20,498.76" type="11" value="0.64"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2677.60" end="2686.40" ego="L4-CV-194" foe="L4-CV-1735">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="2681.81" position="496.20,498.76" type="17" value="0.93"/>
+    </conflict>
+    <conflict begin="2949.40" end="2963.50" ego="L4-CV-2613" foe="L4-CV-304">
+        <minTTC time="2952.60" position="496.46,501.40" type="11" value="1.44"/>
+        <maxDRAC time="2953.80" position="496.46,501.40" type="11" value="0.69"/>
+        <PET time="2958.59" position="496.46,501.40" type="17" value="1.15"/>
+    </conflict>
+    <conflict begin="2848.80" end="2864.60" ego="L4-CV-280" foe="L4-CV-2517">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="2852.60" position="496.46,501.40" type="10" value="1.96"/>
+        <PET time="2855.87" position="496.46,501.40" type="17" value="1.15"/>
+    </conflict>
+    <conflict begin="2952.60" end="2962.70" ego="L4-CV-2613" foe="L4-CV-194">
+        <minTTC time="2952.70" position="483.91,498.40" type="111" value="0.00"/>
+        <maxDRAC time="2957.60" position="491.37,499.11" type="3" value="8.48"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2949.40" end="2967.20" ego="L4-CV-304" foe="L4-CV-2613">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="2953.80" position="496.46,501.40" type="10" value="0.69"/>
+        <PET time="2958.59" position="496.46,501.40" type="17" value="1.15"/>
+    </conflict>
+    <conflict begin="1380.40" end="2342.70" ego="L4-CV-1139" foe="L4-CV-1154">
+        <minTTC time="1381.20" position="504.80,425.00" type="3" value="1.36"/>
+        <maxDRAC time="1380.40" position="504.80,425.00" type="3" value="6.44"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2952.60" end="2961.60" ego="L4-CV-2590" foe="L4-CV-194">
+        <minTTC time="2953.80" position="481.62,495.20" type="111" value="0.00"/>
+        <maxDRAC time="2954.40" position="487.01,495.24" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="2952.60" end="2962.70" ego="L4-CV-2601" foe="L4-CV-194">
+        <minTTC time="2955.90" position="482.26,495.20" type="111" value="0.00"/>
+        <maxDRAC time="2956.40" position="487.26,495.25" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3060.00" end="3075.70" ego="L4-CV-2690" foe="L4-CV-318">
+        <minTTC time="3066.50" position="500.26,504.80" type="10" value="9.66"/>
+        <maxDRAC time="3067.10" position="496.46,501.40" type="11" value="1.08"/>
+        <PET time="3070.85" position="496.46,501.40" type="17" value="0.98"/>
+    </conflict>
+    <conflict begin="3060.00" end="3079.70" ego="L4-CV-2690" foe="L4-CV-354">
+        <minTTC time="3067.50" position="496.46,501.40" type="11" value="0.68"/>
+        <maxDRAC time="3067.60" position="496.46,501.40" type="11" value="0.01"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3060.00" end="3080.80" ego="L4-CV-2690" foe="L4-CV-352">
+        <minTTC time="3067.50" position="496.46,501.40" type="11" value="0.68"/>
+        <maxDRAC time="3067.40" position="496.46,501.40" type="11" value="0.04"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3065.70" end="3079.10" ego="L4-CV-2690" foe="L4-CV-365">
+        <minTTC time="3067.60" position="496.46,501.40" type="11" value="0.69"/>
+        <maxDRAC time="3067.70" position="496.46,501.40" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3066.00" end="3075.30" ego="L4-CV-2690" foe="L4-CV-1186">
+        <minTTC time="3066.10" position="483.95,498.40" type="111" value="0.00"/>
+        <maxDRAC time="3070.20" position="491.45,499.12" type="3" value="11.26"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3060.00" end="3079.10" ego="L4-CV-318" foe="L4-CV-2690">
+        <minTTC time="3066.50" position="500.26,504.80" type="11" value="9.66"/>
+        <maxDRAC time="3067.10" position="496.46,501.40" type="10" value="1.08"/>
+        <PET time="3070.85" position="496.46,501.40" type="17" value="0.98"/>
+    </conflict>
+    <conflict begin="3135.00" end="3181.30" ego="L4-CV-2784" foe="L4-CV-328">
+        <minTTC time="3135.00" position="496.46,501.40" type="11" value="4.17"/>
+        <maxDRAC time="3170.30" position="496.46,501.40" type="11" value="0.53"/>
+        <PET time="3176.40" position="496.46,501.40" type="17" value="1.17"/>
+    </conflict>
+    <conflict begin="3135.00" end="3185.50" ego="L4-CV-2784" foe="L4-CV-365">
+        <minTTC time="3170.80" position="496.46,501.40" type="11" value="0.70"/>
+        <maxDRAC time="3170.90" position="496.46,501.40" type="11" value="0.01"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3135.00" end="3184.80" ego="L4-CV-328" foe="L4-CV-2784">
+        <minTTC time="3170.00" position="500.26,504.80" type="11" value="14.09"/>
+        <maxDRAC time="3170.30" position="496.46,501.40" type="10" value="0.53"/>
+        <PET time="3176.40" position="496.46,501.40" type="17" value="1.17"/>
+    </conflict>
+    <conflict begin="3135.00" end="3186.60" ego="L4-CV-2784" foe="L4-CV-354">
+        <minTTC time="3170.90" position="496.46,501.40" type="11" value="0.70"/>
+        <maxDRAC time="3170.50" position="496.46,501.40" type="11" value="0.05"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3135.00" end="3188.50" ego="L4-CV-2784" foe="L4-CV-352">
+        <minTTC time="3170.90" position="496.46,501.40" type="11" value="0.70"/>
+        <maxDRAC time="3170.50" position="496.46,501.40" type="11" value="0.14"/>
+        <PET time="3186.49" position="500.26,504.80" type="17" value="8.00"/>
+    </conflict>
+    <conflict begin="3168.80" end="3184.80" ego="L4-CV-2784" foe="L4-CV-366">
+        <minTTC time="3170.90" position="496.46,501.40" type="11" value="0.70"/>
+        <maxDRAC time="3171.00" position="496.46,501.40" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3169.20" end="3179.50" ego="L4-CV-2784" foe="L4-CV-1124">
+        <minTTC time="3169.30" position="483.77,498.40" type="111" value="0.00"/>
+        <maxDRAC time="3174.40" position="491.24,499.09" type="3" value="11.35"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3177.20" end="3187.50" ego="L4-CV-2810" foe="L4-CV-686">
+        <minTTC time="3180.70" position="481.55,492.00" type="111" value="0.00"/>
+        <maxDRAC time="3182.40" position="492.75,490.70" type="3" value="0.15"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3169.20" end="3176.80" ego="L4-CV-2769" foe="L4-CV-1124">
+        <minTTC time="3169.30" position="483.89,492.00" type="111" value="0.00"/>
+        <maxDRAC time="3169.20" position="483.35,492.00" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3169.20" end="3178.20" ego="L4-CV-2773" foe="L4-CV-1124">
+        <minTTC time="3171.50" position="481.66,492.00" type="111" value="0.00"/>
+        <maxDRAC time="3172.30" position="486.99,491.95" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3169.20" end="3179.50" ego="L4-CV-2754" foe="L4-CV-1124">
+        <minTTC time="3173.10" position="482.13,495.20" type="111" value="0.00"/>
+        <maxDRAC time="3174.40" position="493.30,495.60" type="3" value="0.12"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3172.50" end="3200.00" ego="L4-CV-1179" foe="L4-CV-1175">
+        <minTTC time="3177.00" position="503.54,498.60" type="11" value="0.65"/>
+        <maxDRAC time="3176.90" position="503.54,498.60" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3172.50" end="3202.30" ego="L4-CV-1179" foe="L4-CV-195">
+        <minTTC time="3177.00" position="503.54,498.60" type="11" value="0.65"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3172.50" end="3198.90" ego="L4-CV-1179" foe="L4-CV-239">
+        <minTTC time="3177.10" position="503.54,498.60" type="11" value="0.66"/>
+        <maxDRAC time="3177.00" position="503.54,498.60" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3172.60" end="3197.60" ego="L4-CV-1179" foe="L4-CV-245">
+        <minTTC time="3177.00" position="503.54,498.60" type="11" value="0.65"/>
+        <maxDRAC time="3176.90" position="503.54,498.60" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3177.20" end="3184.70" ego="L4-CV-2807" foe="L4-CV-686">
+        <minTTC time="3177.30" position="481.85,495.20" type="111" value="0.00"/>
+        <maxDRAC time="3177.80" position="487.04,495.24" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3177.20" end="3185.40" ego="L4-CV-2803" foe="L4-CV-686">
+        <minTTC time="3178.50" position="481.69,492.00" type="111" value="0.00"/>
+        <maxDRAC time="3179.20" position="487.20,491.93" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3185.70" end="3194.30" ego="L4-CV-2833" foe="L4-CV-328">
+        <minTTC time="3187.00" position="481.86,492.00" type="111" value="0.00"/>
+        <maxDRAC time="3187.70" position="486.71,491.97" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3211.50" end="3288.10" ego="L4-CV-2860" foe="L4-CV-399">
+        <minTTC time="3277.90" position="496.46,501.40" type="11" value="0.72"/>
+        <maxDRAC time="3211.50" position="496.46,501.40" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3211.50" end="3289.10" ego="L4-CV-2860" foe="L4-CV-366">
+        <minTTC time="3277.90" position="496.46,501.40" type="11" value="0.72"/>
+        <maxDRAC time="3211.60" position="496.46,501.40" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3211.50" end="3290.00" ego="L4-CV-2860" foe="L4-CV-365">
+        <minTTC time="3277.90" position="496.46,501.40" type="11" value="0.72"/>
+        <maxDRAC time="3211.50" position="496.46,501.40" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3211.50" end="3290.80" ego="L4-CV-2860" foe="L4-CV-354">
+        <minTTC time="3277.90" position="496.46,501.40" type="11" value="0.72"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3275.10" end="3288.10" ego="L4-CV-2860" foe="L4-CV-407">
+        <minTTC time="3277.90" position="496.46,501.40" type="11" value="0.72"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3292.70" end="3308.00" ego="L4-CV-2936" foe="L4-CV-354">
+        <minTTC time="3296.00" position="496.46,501.40" type="11" value="1.48"/>
+        <maxDRAC time="3297.40" position="496.46,501.40" type="11" value="0.43"/>
+        <PET time="3303.00" position="496.46,501.40" type="17" value="1.03"/>
+    </conflict>
+    <conflict begin="3296.00" end="3308.30" ego="L4-CV-2936" foe="L4-CV-352">
+        <minTTC time="3296.10" position="484.06,498.40" type="111" value="0.00"/>
+        <maxDRAC time="3302.10" position="491.39,499.11" type="3" value="2.80"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3318.90" end="3326.30" ego="L4-CV-2956" foe="L4-CV-698">
+        <minTTC time="3319.00" position="484.22,498.40" type="111" value="0.00"/>
+        <maxDRAC time="3318.90" position="483.26,498.40" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3292.70" end="3311.40" ego="L4-CV-354" foe="L4-CV-2936">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="3297.40" position="496.46,501.40" type="10" value="0.43"/>
+        <PET time="3303.00" position="496.46,501.40" type="17" value="1.03"/>
+    </conflict>
+    <conflict begin="3400.20" end="3409.50" ego="L4-CV-3037" foe="L4-CV-729">
+        <minTTC time="3403.10" position="482.75,495.20" type="111" value="0.00"/>
+        <maxDRAC time="3403.40" position="487.83,495.28" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3391.90" end="3409.70" ego="L4-CV-3023" foe="L4-CV-365">
+        <minTTC time="3391.90" position="496.46,501.40" type="11" value="7.49"/>
+        <maxDRAC time="3399.40" position="496.46,501.40" type="11" value="0.57"/>
+        <PET time="3404.50" position="496.46,501.40" type="17" value="0.81"/>
+    </conflict>
+    <conflict begin="3391.90" end="3413.20" ego="L4-CV-365" foe="L4-CV-3023">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="3399.40" position="496.46,501.40" type="10" value="0.57"/>
+        <PET time="3404.50" position="496.46,501.40" type="17" value="0.81"/>
+    </conflict>
+    <conflict begin="3407.70" end="3417.40" ego="L4-CV-3045" foe="L4-CV-1590">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="3411.54" position="503.54,498.60" type="17" value="1.27"/>
+    </conflict>
+    <conflict begin="3408.60" end="3415.60" ego="L4-CV-3045" foe="L4-CV-733">
+        <minTTC time="3409.20" position="481.75,495.20" type="111" value="0.00"/>
+        <maxDRAC time="3409.50" position="487.62,495.27" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3407.40" end="3415.60" ego="L4-CV-1590" foe="L4-CV-3045">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="3411.54" position="503.54,498.60" type="17" value="1.27"/>
+    </conflict>
+    <conflict begin="3398.20" end="3406.20" ego="L4-CV-3029" foe="L4-CV-729">
+        <minTTC time="3398.80" position="481.73,492.00" type="111" value="0.00"/>
+        <maxDRAC time="3399.50" position="486.91,491.95" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3429.30" end="3436.40" ego="L4-CV-3062" foe="L4-CV-366">
+        <minTTC time="3429.40" position="484.33,498.40" type="111" value="0.00"/>
+        <maxDRAC time="3429.30" position="483.21,498.40" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="402.30" end="3462.00" ego="L4-CV-239" foe="L4-CV-203">
+        <minTTC time="403.00" position="501.60,383.80" type="2" value="1.44"/>
+        <maxDRAC time="402.30" position="501.60,383.80" type="2" value="6.12"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3437.20" end="3466.20" ego="L4-CV-1904" foe="L4-CV-203">
+        <minTTC time="3438.40" position="495.20,500.26" type="11" value="2.97"/>
+        <maxDRAC time="3453.50" position="496.20,498.76" type="10" value="1.90"/>
+        <PET time="3457.63" position="496.20,498.76" type="17" value="1.23"/>
+    </conflict>
+    <conflict begin="402.30" end="3466.90" ego="L4-CV-203" foe="L4-CV-239">
+        <minTTC time="403.00" position="501.60,383.80" type="3" value="1.44"/>
+        <maxDRAC time="402.30" position="501.60,383.80" type="3" value="6.12"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3506.50" end="3524.40" ego="L4-CV-3127" foe="L4-CV-399">
+        <minTTC time="3506.50" position="496.46,501.40" type="11" value="6.42"/>
+        <maxDRAC time="3514.10" position="496.46,501.40" type="11" value="0.61"/>
+        <PET time="3519.88" position="496.46,501.40" type="17" value="1.55"/>
+    </conflict>
+    <conflict begin="3525.20" end="3533.10" ego="L4-CV-3146" foe="L4-CV-758">
+        <minTTC time="3526.30" position="481.74,495.20" type="111" value="0.00"/>
+        <maxDRAC time="3526.70" position="487.90,495.29" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3512.80" end="3521.50" ego="L4-CV-3115" foe="L4-CV-754">
+        <minTTC time="3513.80" position="481.87,495.20" type="111" value="0.00"/>
+        <maxDRAC time="3514.30" position="486.41,495.20" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3512.80" end="3522.10" ego="L4-CV-3118" foe="L4-CV-754">
+        <minTTC time="3516.20" position="482.25,495.20" type="111" value="0.00"/>
+        <maxDRAC time="3517.00" position="490.34,495.43" type="3" value="0.05"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3437.20" end="3462.40" ego="L4-CV-203" foe="L4-CV-1904">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="3453.50" position="496.20,498.76" type="11" value="1.90"/>
+        <PET time="3457.63" position="496.20,498.76" type="17" value="1.23"/>
+    </conflict>
+    <conflict begin="3447.10" end="3512.60" ego="L4-CV-203" foe="L4-CV-3074">
+        <minTTC time="3454.30" position="496.20,498.76" type="11" value="0.69"/>
+        <maxDRAC time="3450.50" position="493.36,499.54" type="10" value="0.17"/>
+        <PET time="3505.09" position="493.36,499.54" type="17" value="45.25"/>
+    </conflict>
+    <conflict begin="3525.20" end="3533.60" ego="L4-CV-3153" foe="L4-CV-758">
+        <minTTC time="3525.30" position="483.69,498.40" type="111" value="0.00"/>
+        <maxDRAC time="3525.20" position="483.05,498.40" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3506.50" end="3529.50" ego="L4-CV-399" foe="L4-CV-3127">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="3514.10" position="496.46,501.40" type="10" value="0.61"/>
+        <PET time="3519.88" position="496.46,501.40" type="17" value="1.55"/>
+    </conflict>
+    <conflict begin="3618.60" end="3632.50" ego="L4-CV-3236" foe="L4-CV-407">
+        <minTTC time="3621.30" position="496.46,501.40" type="11" value="1.24"/>
+        <maxDRAC time="3622.50" position="496.46,501.40" type="11" value="0.68"/>
+        <PET time="3627.96" position="496.46,501.40" type="17" value="1.45"/>
+    </conflict>
+    <conflict begin="3626.90" end="3635.30" ego="L4-CV-399" foe="L4-CV-3249">
+        <minTTC time="3631.80" position="453.15,498.40" type="20" value="0.09"/>
+        <maxDRAC time="3626.90" position="405.04,498.40" type="2" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3627.60" end="3635.30" ego="L4-CV-3249" foe="L4-CV-399">
+        <minTTC time="3631.80" position="453.15,498.40" type="20" value="0.09"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3618.60" end="3637.30" ego="L4-CV-3236" foe="L4-CV-462">
+        <minTTC time="3622.80" position="496.46,501.40" type="11" value="0.70"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3626.00" end="3637.50" ego="L4-CV-3245" foe="L4-CV-399">
+        <minTTC time="3630.80" position="482.04,492.00" type="111" value="0.00"/>
+        <maxDRAC time="3631.50" position="486.83,491.96" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3618.60" end="3638.80" ego="L4-CV-3236" foe="L4-CV-443">
+        <minTTC time="3622.80" position="496.46,501.40" type="11" value="0.70"/>
+        <maxDRAC time="3626.90" position="500.26,504.80" type="10" value="0.01"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3621.30" end="3637.10" ego="L4-CV-3236" foe="L4-CV-399">
+        <minTTC time="3621.40" position="483.77,498.40" type="111" value="0.00"/>
+        <maxDRAC time="3626.50" position="491.24,499.09" type="3" value="3.24"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3621.30" end="3630.40" ego="L4-CV-3215" foe="L4-CV-399">
+        <minTTC time="3623.40" position="481.79,492.00" type="111" value="0.00"/>
+        <maxDRAC time="3624.10" position="486.61,491.98" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3641.70" end="3650.30" ego="L4-CV-3249" foe="L4-CV-766">
+        <minTTC time="3641.80" position="484.13,498.40" type="111" value="0.00"/>
+        <maxDRAC time="3641.70" position="483.50,498.40" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3618.60" end="3637.10" ego="L4-CV-407" foe="L4-CV-3236">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="3622.50" position="496.46,501.40" type="10" value="0.68"/>
+        <PET time="3627.96" position="496.46,501.40" type="17" value="1.45"/>
+    </conflict>
+    <conflict begin="3621.30" end="3632.50" ego="L4-CV-3230" foe="L4-CV-399">
+        <minTTC time="3625.80" position="481.99,492.00" type="111" value="0.00"/>
+        <maxDRAC time="3626.50" position="486.75,491.97" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3621.30" end="3634.70" ego="L4-CV-3243" foe="L4-CV-399">
+        <minTTC time="3628.10" position="481.63,492.00" type="111" value="0.00"/>
+        <maxDRAC time="3628.80" position="486.77,491.97" type="3" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3747.10" end="3759.30" ego="L4-CV-1221" foe="L4-CV-1290">
+        <minTTC time="3751.60" position="503.54,498.60" type="11" value="0.90"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="3754.64" position="475.89,504.80" type="17" value="1.26"/>
+    </conflict>
+    <conflict begin="3754.20" end="3759.30" ego="L4-CV-1258" foe="L4-CV-1290">
+        <minTTC time="3754.60" position="475.89,504.80" type="10" value="0.04"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="3757.98" position="503.54,498.60" type="17" value="2.88"/>
+    </conflict>
+    <conflict begin="3747.10" end="3759.30" ego="L4-CV-1290" foe="L4-CV-1221">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="3754.64" position="475.89,504.80" type="17" value="1.26"/>
+    </conflict>
+    <conflict begin="3754.20" end="3759.30" ego="L4-CV-1290" foe="L4-CV-1258">
+        <minTTC time="3754.60" position="475.89,504.80" type="11" value="0.04"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="3757.98" position="503.54,498.60" type="17" value="2.88"/>
+    </conflict>
+    <conflict begin="3855.90" end="3936.90" ego="L4-CV-1963" foe="L4-CV-1275">
+        <minTTC time="3901.90" position="503.80,501.24" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3898.20" end="3934.10" ego="L4-CV-1963" foe="L4-CV-1291">
+        <minTTC time="3901.90" position="503.80,501.24" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3875.20" end="3939.70" ego="L4-CV-1982" foe="L4-CV-537">
+        <minTTC time="3927.30" position="500.18,505.57" type="11" value="0.66"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3875.20" end="3938.90" ego="L4-CV-1982" foe="L4-CV-569">
+        <minTTC time="3927.30" position="500.18,505.57" type="11" value="0.66"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3875.20" end="3938.10" ego="L4-CV-1982" foe="L4-CV-570">
+        <minTTC time="3927.30" position="500.18,505.57" type="11" value="0.66"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3902.00" end="3937.20" ego="L4-CV-1982" foe="L4-CV-579">
+        <minTTC time="3927.30" position="500.18,505.57" type="11" value="0.66"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3943.00" end="4018.40" ego="L4-CV-2034" foe="L4-CV-1669">
+        <minTTC time="4011.70" position="496.20,498.76" type="12" value="0.06"/>
+        <maxDRAC time="4011.70" position="496.20,498.76" type="12" value="26.27"/>
+        <PET time="4011.09" position="496.20,498.76" type="111" value="0.00"/>
+    </conflict>
+    <conflict begin="3943.00" end="4017.40" ego="L4-CV-1669" foe="L4-CV-2034">
+        <minTTC time="4011.70" position="496.20,498.76" type="13" value="0.06"/>
+        <maxDRAC time="4011.70" position="496.20,498.76" type="13" value="26.27"/>
+        <PET time="4011.76" position="496.20,498.76" type="111" value="0.00"/>
+    </conflict>
+    <conflict begin="3950.80" end="4018.40" ego="L4-CV-1669" foe="L4-CV-2068">
+        <minTTC time="4011.10" position="496.20,498.76" type="11" value="0.74"/>
+        <maxDRAC time="4010.60" position="496.20,498.76" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4008.70" end="4018.40" ego="L4-CV-1669" foe="L4-CV-2101">
+        <minTTC time="4011.10" position="496.20,498.76" type="11" value="0.74"/>
+        <maxDRAC time="4010.60" position="496.20,498.76" type="11" value="0.01"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="3946.30" end="4028.70" ego="L4-CV-316" foe="L4-CV-2022">
+        <minTTC time="4015.90" position="496.20,498.76" type="11" value="0.63"/>
+        <maxDRAC time="4015.20" position="496.20,498.76" type="11" value="0.38"/>
+        <PET time="4022.63" position="495.20,500.26" type="17" value="2.92"/>
+    </conflict>
+    <conflict begin="3950.80" end="4026.10" ego="L4-CV-316" foe="L4-CV-2068">
+        <minTTC time="4016.00" position="496.20,498.76" type="11" value="0.63"/>
+        <maxDRAC time="4015.40" position="496.20,498.76" type="11" value="0.27"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4012.90" end="4025.30" ego="L4-CV-316" foe="L4-CV-2101">
+        <minTTC time="4015.60" position="496.20,498.76" type="11" value="0.69"/>
+        <maxDRAC time="4015.50" position="496.20,498.76" type="11" value="0.13"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4019.70" end="4032.90" ego="L4-CV-2121" foe="L4-CV-1946">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="4029.01" position="503.80,501.24" type="17" value="1.84"/>
+    </conflict>
+    <conflict begin="4023.10" end="4034.80" ego="L4-CV-2121" foe="L4-CV-2006">
+        <minTTC time="4029.20" position="504.65,500.73" type="111" value="0.00"/>
+        <maxDRAC time="4029.00" position="503.80,501.24" type="13" value="62.06"/>
+        <PET time="4029.01" position="507.08,499.33" type="111" value="0.00"/>
+    </conflict>
+    <conflict begin="4028.40" end="4041.50" ego="L4-CV-2103" foe="L4-CV-1382">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="4034.53" position="496.20,498.76" type="17" value="0.89"/>
+    </conflict>
+    <conflict begin="4019.70" end="4035.80" ego="L4-CV-1946" foe="L4-CV-2121">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="4029.01" position="503.80,501.24" type="17" value="1.84"/>
+    </conflict>
+    <conflict begin="4023.10" end="4035.80" ego="L4-CV-2006" foe="L4-CV-2121">
+        <minTTC time="4029.20" position="504.80,507.06" type="111" value="0.00"/>
+        <maxDRAC time="4029.00" position="503.80,501.24" type="12" value="62.06"/>
+        <PET time="4028.50" position="504.80,512.53" type="111" value="0.00"/>
+    </conflict>
+    <conflict begin="4027.40" end="4039.20" ego="L4-CV-1382" foe="L4-CV-2103">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="4034.53" position="496.20,498.76" type="17" value="0.89"/>
+    </conflict>
+    <conflict begin="4133.50" end="4155.10" ego="L4-CV-2229" foe="L4-CV-376">
+        <minTTC time="4133.90" position="495.20,500.26" type="11" value="8.40"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="4147.61" position="496.20,498.76" type="17" value="1.02"/>
+    </conflict>
+    <conflict begin="4120.10" end="4140.70" ego="L4-CV-376" foe="L4-CV-2201">
+        <minTTC time="4123.30" position="496.20,498.76" type="11" value="0.69"/>
+        <maxDRAC time="4123.20" position="496.20,498.76" type="11" value="0.03"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4132.50" end="4152.30" ego="L4-CV-376" foe="L4-CV-2229">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="4147.61" position="496.20,498.76" type="17" value="1.02"/>
+    </conflict>
+    <conflict begin="4162.00" end="4249.40" ego="L4-CV-391" foe="L4-CV-2263">
+        <minTTC time="4236.90" position="496.20,498.76" type="11" value="0.72"/>
+        <maxDRAC time="4236.70" position="496.20,498.76" type="11" value="0.42"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4356.50" end="4375.10" ego="L4-CV-2199" foe="L4-CV-2557">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="4367.38" position="503.80,501.24" type="17" value="1.24"/>
+    </conflict>
+    <conflict begin="4348.20" end="4371.90" ego="L4-CV-2557" foe="L4-CV-2199">
+        <minTTC time="4351.80" position="503.80,501.24" type="11" value="0.83"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="4367.38" position="503.80,501.24" type="17" value="1.24"/>
+    </conflict>
+    <conflict begin="4483.50" end="4489.10" ego="L4-CV-1109" foe="L4-CV-2366">
+        <minTTC time="4485.00" position="465.49,501.60" type="11" value="0.09"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="4487.20" position="495.20,505.70" type="17" value="1.69"/>
+    </conflict>
+    <conflict begin="4483.50" end="4489.10" ego="L4-CV-1109" foe="L4-CV-2677">
+        <minTTC time="4484.70" position="470.96,501.60" type="13" value="0.05"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="4484.75" position="470.96,501.60" type="111" value="-3.55"/>
+    </conflict>
+    <conflict begin="4483.50" end="4489.10" ego="L4-CV-1109" foe="L4-CV-2678">
+        <minTTC time="4484.70" position="470.96,501.60" type="11" value="0.05"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4483.50" end="4489.90" ego="L4-CV-1109" foe="L4-CV-2701">
+        <minTTC time="4484.70" position="470.96,501.60" type="11" value="0.05"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4483.50" end="4491.00" ego="L4-CV-1109" foe="L4-CV-2449">
+        <minTTC time="4485.20" position="495.20,505.70" type="12" value="0.06"/>
+        <maxDRAC time="4485.20" position="495.20,505.70" type="12" value="53.11"/>
+        <PET time="4485.09" position="495.20,505.70" type="111" value="0.00"/>
+    </conflict>
+    <conflict begin="4482.40" end="4493.90" ego="L4-CV-1558" foe="L4-CV-2366">
+        <minTTC time="4487.40" position="496.20,498.76" type="11" value="0.69"/>
+        <maxDRAC time="4487.40" position="496.20,498.76" type="11" value="0.49"/>
+        <PET time="4489.05" position="496.20,498.76" type="17" value="0.77"/>
+    </conflict>
+    <conflict begin="4483.20" end="4496.30" ego="L4-CV-2366" foe="L4-CV-1558">
+        <minTTC time="4487.40" position="496.20,498.76" type="10" value="0.69"/>
+        <maxDRAC time="4487.40" position="496.20,498.76" type="10" value="0.49"/>
+        <PET time="4489.05" position="496.20,498.76" type="17" value="0.77"/>
+    </conflict>
+    <conflict begin="4483.50" end="4489.10" ego="L4-CV-2366" foe="L4-CV-1109">
+        <minTTC time="4485.00" position="465.49,501.60" type="10" value="0.09"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="4487.20" position="495.20,505.70" type="17" value="1.69"/>
+    </conflict>
+    <conflict begin="4480.10" end="4498.30" ego="L4-CV-2677" foe="L4-CV-2485">
+        <minTTC time="4482.20" position="503.80,501.24" type="11" value="0.70"/>
+        <maxDRAC time="4487.10" position="504.80,499.74" type="10" value="0.06"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4483.50" end="4489.10" ego="L4-CV-2677" foe="L4-CV-1109">
+        <minTTC time="4484.70" position="470.96,501.60" type="12" value="0.05"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="4484.75" position="470.96,501.60" type="111" value="-3.55"/>
+    </conflict>
+    <conflict begin="4478.40" end="4500.60" ego="L4-CV-2678" foe="L4-CV-1449">
+        <minTTC time="4489.20" position="500.18,505.57" type="11" value="0.75"/>
+        <maxDRAC time="4488.10" position="501.54,504.80" type="10" value="0.04"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4478.40" end="4501.20" ego="L4-CV-2678" foe="L4-CV-981">
+        <minTTC time="4489.20" position="500.18,505.57" type="11" value="0.75"/>
+        <maxDRAC time="4487.20" position="501.54,504.80" type="10" value="0.18"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4483.50" end="4489.10" ego="L4-CV-2678" foe="L4-CV-1109">
+        <minTTC time="4484.70" position="470.96,501.60" type="10" value="0.05"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4483.50" end="4489.10" ego="L4-CV-2449" foe="L4-CV-1109">
+        <minTTC time="4485.20" position="495.20,505.70" type="13" value="0.06"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="4485.26" position="495.20,505.70" type="111" value="0.00"/>
+    </conflict>
+    <conflict begin="4586.90" end="4600.50" ego="L4-CV-2519" foe="L4-CV-2776">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="4593.66" position="503.80,501.24" type="17" value="1.28"/>
+    </conflict>
+    <conflict begin="4221.20" end="4621.50" ego="L4-CV-2527" foe="L4-CV-2516">
+        <minTTC time="4221.70" position="495.20,729.48" type="2" value="1.44"/>
+        <maxDRAC time="4221.20" position="495.20,729.64" type="2" value="6.19"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4221.20" end="4621.50" ego="L4-CV-2516" foe="L4-CV-2527">
+        <minTTC time="4221.70" position="495.20,729.48" type="3" value="1.44"/>
+        <maxDRAC time="4221.20" position="495.20,729.64" type="3" value="6.19"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4585.90" end="4598.00" ego="L4-CV-2776" foe="L4-CV-2519">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="4593.66" position="503.80,501.24" type="17" value="1.28"/>
+    </conflict>
+    <conflict begin="4598.50" end="4608.20" ego="L4-CV-632" foe="L4-CV-2716">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="4604.09" position="496.20,498.76" type="17" value="1.43"/>
+    </conflict>
+    <conflict begin="4599.00" end="4610.40" ego="L4-CV-2716" foe="L4-CV-632">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="4604.09" position="496.20,498.76" type="17" value="1.43"/>
+    </conflict>
+    <conflict begin="4620.00" end="4705.60" ego="L4-CV-2771" foe="L4-CV-2627">
+        <minTTC time="4692.30" position="495.20,500.26" type="11" value="6.27"/>
+        <maxDRAC time="4692.20" position="496.20,498.76" type="10" value="1.00"/>
+        <PET time="4697.98" position="496.20,498.76" type="17" value="1.03"/>
+    </conflict>
+    <conflict begin="4620.00" end="4702.90" ego="L4-CV-2627" foe="L4-CV-2771">
+        <minTTC time="4622.10" position="496.20,498.76" type="11" value="5.00"/>
+        <maxDRAC time="4692.20" position="496.20,498.76" type="11" value="1.00"/>
+        <PET time="4697.98" position="496.20,498.76" type="17" value="1.03"/>
+    </conflict>
+    <conflict begin="4674.10" end="4716.30" ego="L4-CV-2963" foe="L4-CV-1475">
+        <minTTC time="4693.90" position="503.80,501.24" type="11" value="0.69"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4690.20" end="4713.00" ego="L4-CV-2963" foe="L4-CV-2606">
+        <minTTC time="4693.90" position="503.80,501.24" type="11" value="0.69"/>
+        <maxDRAC time="4702.70" position="504.80,499.74" type="10" value="0.02"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4712.20" end="4724.10" ego="L4-CV-2878" foe="L4-CV-1565">
+        <minTTC time="4715.30" position="496.20,498.76" type="10" value="1.05"/>
+        <maxDRAC time="4715.30" position="496.20,498.76" type="10" value="0.08"/>
+        <PET time="4717.40" position="496.20,498.76" type="17" value="1.02"/>
+    </conflict>
+    <conflict begin="4711.70" end="4721.90" ego="L4-CV-1565" foe="L4-CV-2878">
+        <minTTC time="4715.30" position="496.20,498.76" type="11" value="1.05"/>
+        <maxDRAC time="4715.30" position="496.20,498.76" type="11" value="0.08"/>
+        <PET time="4717.40" position="496.20,498.76" type="17" value="1.02"/>
+    </conflict>
+    <conflict begin="4747.60" end="4821.30" ego="L4-CV-3059" foe="L4-CV-2735">
+        <minTTC time="4804.40" position="503.80,501.24" type="11" value="0.72"/>
+        <maxDRAC time="4803.60" position="503.80,501.24" type="11" value="0.13"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4784.80" end="4837.60" ego="L4-CV-3059" foe="L4-CV-1661">
+        <minTTC time="4804.50" position="503.80,501.24" type="11" value="0.72"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4820.60" end="4832.60" ego="L4-CV-3092" foe="L4-CV-2142">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="4826.37" position="496.20,498.76" type="17" value="1.64"/>
+    </conflict>
+    <conflict begin="4732.00" end="4817.50" ego="L4-CV-2142" foe="L4-CV-3019">
+        <minTTC time="4804.50" position="496.20,498.76" type="11" value="0.64"/>
+        <maxDRAC time="4804.90" position="496.20,498.76" type="11" value="0.03"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4801.10" end="4821.50" ego="L4-CV-2142" foe="L4-CV-2989">
+        <minTTC time="4804.60" position="496.20,498.76" type="11" value="0.64"/>
+        <maxDRAC time="4804.90" position="496.20,498.76" type="11" value="0.00"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4820.10" end="4830.30" ego="L4-CV-2142" foe="L4-CV-3092">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="NA" position="NA" type="NA" value="NA"/>
+        <PET time="4826.37" position="496.20,498.76" type="17" value="1.64"/>
+    </conflict>
+    <conflict begin="4845.70" end="4933.70" ego="L4-CV-774" foe="L4-CV-3158">
+        <minTTC time="4918.10" position="496.20,498.76" type="11" value="0.69"/>
+        <maxDRAC time="4917.40" position="496.20,498.76" type="11" value="0.06"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4915.00" end="4935.60" ego="L4-CV-774" foe="L4-CV-3163">
+        <minTTC time="4918.20" position="496.20,498.76" type="11" value="0.68"/>
+        <maxDRAC time="4917.50" position="496.20,498.76" type="11" value="0.03"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="4936.30" end="4946.50" ego="L4-CV-774" foe="L4-CV-3211">
+        <minTTC time="4939.80" position="496.20,498.76" type="11" value="0.94"/>
+        <maxDRAC time="4939.80" position="496.20,498.76" type="11" value="0.23"/>
+        <PET time="4941.85" position="496.20,498.76" type="17" value="0.93"/>
+    </conflict>
+    <conflict begin="4936.80" end="4948.90" ego="L4-CV-3211" foe="L4-CV-774">
+        <minTTC time="4939.80" position="496.20,498.76" type="10" value="0.94"/>
+        <maxDRAC time="4939.80" position="496.20,498.76" type="10" value="0.23"/>
+        <PET time="4941.85" position="496.20,498.76" type="17" value="0.93"/>
+    </conflict>
+    <conflict begin="5268.80" end="5569.20" ego="L4-CV-2693" foe="L4-CV-2696">
+        <minTTC time="5269.60" position="682.31,501.60" type="3" value="1.39"/>
+        <maxDRAC time="5268.80" position="682.31,501.60" type="3" value="6.37"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="5268.80" end="5569.20" ego="L4-CV-2696" foe="L4-CV-2693">
+        <minTTC time="5269.60" position="682.31,501.60" type="2" value="1.39"/>
+        <maxDRAC time="5268.80" position="682.31,501.60" type="2" value="6.37"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="5764.80" end="5896.20" ego="L4-CV-2664" foe="L4-CV-2975">
+        <minTTC time="5765.50" position="616.03,501.60" type="3" value="1.43"/>
+        <maxDRAC time="5764.80" position="616.03,501.60" type="3" value="6.22"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <conflict begin="5764.80" end="5896.20" ego="L4-CV-2975" foe="L4-CV-2664">
+        <minTTC time="5765.50" position="616.03,501.60" type="2" value="1.43"/>
+        <maxDRAC time="5764.80" position="616.03,501.60" type="2" value="6.22"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+</SSMLog>

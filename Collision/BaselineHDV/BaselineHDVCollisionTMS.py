@@ -66,7 +66,7 @@ def collisionBaselineHDVTMS(sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN):
     collisionFlowCorrection(['Collision/BaselineHDV/Route-Files/L0-HDV-Route.rou.xml'], ["L0-HDV"])
     traci.start([sumoBinary, "-c", "Collision\BaselineHDV\CollisionIntersectionBaselineHDV.sumocfg",
                                 "--tripinfo-output", "Collision\BaselineHDV\Output-Files\Tripinfo.xml", "--ignore-route-errors", 
-                                "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-S", "-Q", "-W"])
+                                "--device.emissions.probability", "1", "--waiting-time-memory", "300",  "-Q", "-W"])
 
     TMS(REROUTINGBOOLEAN)
     baselineAlterOutputFiles("Collision", "HDV", LOS, ITERATION, ["L0-HDV"])

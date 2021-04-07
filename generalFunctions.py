@@ -449,7 +449,7 @@ def allowingAccessToRightLaneLate(lastVehicleDetected, delayRealisation, vehicle
                     traci.vehicle.requestToC(veh, TIMETOPERFORMDELAYTOC)
                     vehiclesThatTORed.append(veh)
                     traci.vehicle.updateBestLanes(veh)
-                elif vehicleType == "HDV" and scenarioRecognitionResult < 80:
+                elif vehicleType == "HDV" and scenarioRecognitionResult < 75:
                     # print("GOT THE MESSAGE", veh)
                     traci.vehicle.setVehicleClass(veh, "passenger")
                     traci.vehicle.updateBestLanes(veh)
@@ -651,7 +651,7 @@ def leftExitAfterIntersectionCollisionTMSBaseline(standardRightTopBottomLastVehi
     stuckInLeftExitlastVehicleDetected, seenInLeftExit = standardSituationHandlingInLeftExit(stuckInLeftExitlastVehicleDetected, seenInLeftExit)  
     leftExitUpwardToClastVehicleDetected, seenInLeftExit = upwardToCDownstream(leftExitUpwardToClastVehicleDetected, seenInLeftExit)      
     return standardRightTopBottomLastVehicleDetected, stuckInLeftExitlastVehicleDetected, leftExitUpwardToClastVehicleDetected, vehiclesApproachingClosure, seenInLeftExit
-##### Here 25th
+
 def leftExitAfterIntersectionCollisionTMS(TMSRightTopBottomlastVehicleDetected, standardRightTopBottomLastVehicleDetected, stuckInLeftExitlastVehicleDetected, leftExitUpwardToClastVehicleDetected, DETECTEDTOCTIME, vehiclesApproachingClosure, seenInLeftExit):
     TMSRightTopBottomlastVehicleDetected, vehiclesApproachingClosure = TMSRightTopBottom(TMSRightTopBottomlastVehicleDetected, vehiclesApproachingClosure)
     standardRightTopBottomLastVehicleDetected, vehiclesApproachingClosure = standardHandlingRightTopBottom(standardRightTopBottomLastVehicleDetected, DETECTEDTOCTIME, vehiclesApproachingClosure)
@@ -924,22 +924,22 @@ def monitoringSeenInLeftExit(seenInLeftExit):
     return seenInLeftExit
 
 def allowingAccessToRightLaneLateCollision(lastVehicleDetected, delayRealisation):
-    det_vehs = traci.inductionloop.getLastStepVehicleIDs("allowingRightLaneAccessLate")
-    for veh in det_vehs:
-        if lastVehicleDetected != veh:
-            route = traci.vehicle.getRoute(veh)
-            target = route[len(route) - 1]
-            vehicleClass = traci.vehicle.getVehicleClass(veh)
-            if target == "right-exit" and traci.vehicle.getAccumulatedWaitingTime(veh) >= delayRealisation and vehicleClass != "passenger":
-                vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
-                scenarioRecognitionResult = random.randint(0, 99) ## CONSIDER
-                if vehicleType == "HDV" and scenarioRecognitionResult < 80:
-                    # print("GOT THE MESSAGE", veh)
-                    traci.vehicle.setVehicleClass(veh, "passenger")
-                    traci.vehicle.updateBestLanes(veh)
-                # else:
-                #     print("JUST MISSED THE MESSAGE", veh)
-        lastVehicleDetected = veh
+    # det_vehs = traci.inductionloop.getLastStepVehicleIDs("allowingRightLaneAccessLate")
+    # for veh in det_vehs:
+    #     if lastVehicleDetected != veh:
+    #         route = traci.vehicle.getRoute(veh)
+    #         target = route[len(route) - 1]
+    #         vehicleClass = traci.vehicle.getVehicleClass(veh)
+    #         if target == "right-exit" and traci.vehicle.getAccumulatedWaitingTime(veh) >= delayRealisation and vehicleClass != "passenger":
+    #             vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
+    #             scenarioRecognitionResult = random.randint(0, 99) ## CONSIDER
+    #             if vehicleType == "HDV" and scenarioRecognitionResult < 80:
+    #                 # print("GOT THE MESSAGE", veh)
+    #                 traci.vehicle.setVehicleClass(veh, "passenger")
+    #                 traci.vehicle.updateBestLanes(veh)
+    #             # else:
+    #             #     print("JUST MISSED THE MESSAGE", veh)
+    #     lastVehicleDetected = veh
     return lastVehicleDetected
 
 def collisionReRouting(lastVehicleDetected):

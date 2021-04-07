@@ -265,21 +265,21 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, Durat
         print("title", title)
         plotdata = pd.DataFrame(
             {
-                "Baseline HDV": array[0],
-                "Baseline 100% L4-CV": array[1],
-                "Real TMS 100% L4-CV": array[2],
-                "Baseline P1": array[3],
-                "Real TMS P1": array[4],
-                "Baseline P2": array[5],
-                "Real TMS P2": array[6],
-                "Baseline P3": array[7],
-                "Real TMS P3": array[8],
-                # "Baseline 100%": array[0],
-                # "Real TMS 100%": array[1],
+                # "Baseline HDV": array[0],
+                # "Baseline 100% L4-CV": array[1],
+                # "Real TMS 100% L4-CV": array[2],
+                # "Baseline P1": array[3],
+                # "Real TMS P1": array[4],
+                # "Baseline P2": array[5],
+                # "Real TMS P2": array[6],
+                # "Baseline P3": array[7],
+                # "Real TMS P3": array[8],
+                "Baseline 100%": array[0],
+                "Real TMS 100%": array[1],
             }, 
             # index=["A", "B", "C", "D"]
-            index=["A", "B"]
-            # index=["B"]
+            # index=["A", "B", "C"]
+            index=["B", "C"]
         )
         plotdata.plot(kind='bar', yerr=std)
         plt.xlabel(xAxis)
@@ -359,13 +359,13 @@ def graphingPerformance():
     # SCENARIO = "Roadworks"
     SCENARIO = "Collision"
 
-    # useCases = ["\BaselinePenetration3", "\RealTMSPenetration3"]
-    useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
-                "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
+    useCases = ["\BaselineHDV", "\BaselineCAV"]
+    # useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
+    #             "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
 
     # LEVELOFSERVICE = ["A", "B", "C", "D"]
-    LEVELOFSERVICE = ["A", "B"]
-    # LEVELOFSERVICE = ["A"]
+    # LEVELOFSERVICE = ["A", "B", "C"]
+    LEVELOFSERVICE = ["B", "C"]
     vehicleTypes = ["HDV", "L4-CV"]
 
     safetyFiles, effiencyFiles, TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray = newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes, NUMBEROFITERATIONS)
