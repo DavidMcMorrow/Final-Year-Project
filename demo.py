@@ -137,9 +137,9 @@ SCENARIO = "Collision"
 
 # TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV", "Baseline-Penetration1", "Penetration1", "Baseline-Penetration2", "Penetration2", "Baseline-Penetration3", "Penetration3"]
 # TYPES = ["Baseline-Penetration1", "Penetration1", "Baseline-Penetration2", "Penetration2", "Baseline-Penetration3", "Penetration3"]
-TYPES = [ "Baseline-HDV"]
+TYPES = [ "Penetration2", "Baseline-Penetration3", "Penetration3"]
 # LOS = ["A", "B", "C", "D"]
-LOS = ["A"]
+LOS = ["A", "B", "C"]
 # LOS = ["C"]
 
 
