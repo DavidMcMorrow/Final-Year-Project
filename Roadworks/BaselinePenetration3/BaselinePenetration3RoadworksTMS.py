@@ -71,17 +71,17 @@ def roadworksBaselinePenetration3(sumoBinary, LOS, ITERATION):
             'Roadworks/BaselinePenetration3/Route-Files/L0-HDV-Route.rou.xml']
     vehicleTypes = ["L4-CV", "L4-AV", "L2-CV", "L2-AV", "L0-HDV"]
     rate = vehiclePenetrationRates3(LOS)
-    settingUpVehicles("Roadworks", "\BaselinePenetration3", LOS, rate)
-    flowCorrection(['Roadworks/BaselinePenetration3/Route-Files/L4-CV-Route.rou.xml'], ["L4-CV"], "Penetration3")
-    flowCorrection(['Roadworks/BaselinePenetration3/Route-Files/L4-AV-Route.rou.xml'], ["L4-AV"], "Penetration3")
-    flowCorrection(['Roadworks/BaselinePenetration3/Route-Files/L2-CV-Route.rou.xml'], ["L2-CV"], "Penetration3")
-    flowCorrection(['Roadworks/BaselinePenetration3/Route-Files/L2-AV-Route.rou.xml'], ["L2-AV"], "Penetration3")
-    flowCorrection(['Roadworks/BaselinePenetration3/Route-Files/L0-HDV-Route.rou.xml'], ["L0-HDV"], "Penetration3")
+    # settingUpVehicles("Roadworks", "\BaselinePenetration3", LOS, rate)
+    # flowCorrection(['Roadworks/BaselinePenetration3/Route-Files/L4-CV-Route.rou.xml'], ["L4-CV"], "Penetration3")
+    # flowCorrection(['Roadworks/BaselinePenetration3/Route-Files/L4-AV-Route.rou.xml'], ["L4-AV"], "Penetration3")
+    # flowCorrection(['Roadworks/BaselinePenetration3/Route-Files/L2-CV-Route.rou.xml'], ["L2-CV"], "Penetration3")
+    # flowCorrection(['Roadworks/BaselinePenetration3/Route-Files/L2-AV-Route.rou.xml'], ["L2-AV"], "Penetration3")
+    # flowCorrection(['Roadworks/BaselinePenetration3/Route-Files/L0-HDV-Route.rou.xml'], ["L0-HDV"], "Penetration3")
     
     # #traci starts sumo as a subprocess and then this script connects and runs
     traci.start([sumoBinary, "-c", "Roadworks\BaselinePenetration3\RoadworksBaselineTMSPenetration3.sumocfg",
                 "--tripinfo-output", "Roadworks\BaselinePenetration3\Output-Files\TripInfo.xml", "--ignore-route-errors",
-                "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-S", "-Q", "-W"])
+                "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-W"])
 
     TMS()
     baselineAlterOutputFiles("Roadworks", "Penetration3", LOS, ITERATION, vehicleTypes)

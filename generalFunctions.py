@@ -289,7 +289,7 @@ def roadworksTMSTopRightBottom(topBottomRightTMSDetectors, lastVehicleDetected):
             vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
             if traci.vehicle.getVehicleClass(veh) != "passenger" and target == "left-exit" and checkingPriorDetection == False and vehicleType == "CV":
                 receivedTMSResult = random.randint(0, 99) ## CONSIDER
-                if receivedTMSResult < 66:
+                if receivedTMSResult < 99:
                     traci.vehicle.setVehicleClass(veh, "passenger")
 
     return lastVehicleDetected
@@ -305,7 +305,7 @@ def lateVehicleIndidentDetectionTopRightBottom(topBottomRightLateDetectors, vehi
             if temp == False and traci.vehicle.getVehicleClass(veh) != "passenger" and target == "left-exit":
                 result = random.randint(0, 99) ## CONSIDER
                 waitingTime = traci.vehicle.getWaitingTime(veh)
-                if(result < 25 and checkingPriorDetection == False):
+                if(result < 0 and checkingPriorDetection == False):
                     traci.vehicle.setVehicleClass(veh, "passenger")
                 # elif waitingTime > 5:
                 #     traci.vehicle.setParameter(veh, "device.toc.requestToC", ENCOUNTEREDCOLLISIONTOC)
@@ -350,7 +350,7 @@ def standardVehicleScenarioDetection(leftApproachingLastDetected):
             # print("veh", veh)
             figuredOutScenario = random.randint(0,99) ## Needs to be considered
             # print("figuredOutScenario", figuredOutScenario)
-            if(figuredOutScenario < 25 and (typeOfVehicle == "L4" or typeOfVehicle == "L2")):
+            if(figuredOutScenario < 0 and (typeOfVehicle == "L4" or typeOfVehicle == "L2")):
                 # print("Did detect blockage", veh)
                 if traci.vehicle.getParameter(veh, "has.toc.device") == "true":
                     traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
@@ -359,7 +359,7 @@ def standardVehicleScenarioDetection(leftApproachingLastDetected):
                 traci.vehicle.updateBestLanes(veh)
             # else:
             #     print("Didn't detect blockage", veh)
-            elif (figuredOutScenario < 75 and typeOfVehicle == "L0"):
+            elif (figuredOutScenario < 99 and typeOfVehicle == "L0"):
                 traci.vehicle.setVehicleClass(veh, "custom1")
                 roadworksReRoutingLeftVehicles(veh)
                 traci.vehicle.updateBestLanes(veh)
@@ -440,16 +440,16 @@ def allowingAccessToRightLaneLate(lastVehicleDetected, delayRealisation, vehicle
             if target == "right-exit" and traci.vehicle.getAccumulatedWaitingTime(veh) >= delayRealisation and vehicleClass != "passenger":
                 vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
                 scenarioRecognitionResult = random.randint(0, 99) ## CONSIDER
-                if vehicleType != "HDV" and scenarioRecognitionResult < 25:
+                if vehicleType != "HDV" and scenarioRecognitionResult < 0:
                     #  print("GOT TMS the second time", veh)
                      traci.vehicle.setVehicleClass(veh, "passenger")
                      traci.vehicle.updateBestLanes(veh)
-                elif vehicleType != "HDV" and scenarioRecognitionResult > 90:
+                elif vehicleType != "HDV" and scenarioRecognitionResult > 99:
                     # print("HAD TO ToC because of TMS", veh)
                     traci.vehicle.requestToC(veh, TIMETOPERFORMDELAYTOC)
                     vehiclesThatTORed.append(veh)
                     traci.vehicle.updateBestLanes(veh)
-                elif vehicleType == "HDV" and scenarioRecognitionResult < 75:
+                elif vehicleType == "HDV" and scenarioRecognitionResult < 99:
                     # print("GOT THE MESSAGE", veh)
                     traci.vehicle.setVehicleClass(veh, "passenger")
                     traci.vehicle.updateBestLanes(veh)
