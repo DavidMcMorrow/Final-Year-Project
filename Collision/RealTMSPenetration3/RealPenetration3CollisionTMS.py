@@ -67,19 +67,19 @@ def collisionRealTMSPenetration3(sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN):
     files = ['Collision/RealTMSPenetration3/Route-Files/L4-CV-Route.rou.xml', 'Collision/RealTMSPenetration3/Route-Files/L4-AV-Route.rou.xml', 
             'Collision/RealTMSPenetration3/Route-Files/L2-CV-Route.rou.xml', 'Collision/RealTMSPenetration3/Route-Files/L2-AV-Route.rou.xml',
             'Collision/RealTMSPenetration3/Route-Files/L0-HDV-Route.rou.xml']
-    vehicleTypes = ["L4-CV", "L4-AV", "L2-CV", "L2-AV", "L0-HDV"]
-    rate = vehiclePenetrationRates3(LOS)
-    settingUpVehicles("Collision", "\RealTMSPenetration3", LOS, rate)
-    collisionFlowCorrection(['Collision/RealTMSPenetration3/Route-Files/L4-CV-Route.rou.xml'], ["L4-CV"])
-    collisionFlowCorrection(['Collision/RealTMSPenetration3/Route-Files/L4-AV-Route.rou.xml'], ["L4-AV"])
-    collisionFlowCorrection(['Collision/RealTMSPenetration3/Route-Files/L2-CV-Route.rou.xml'], ["L2-CV"])
-    collisionFlowCorrection(['Collision/RealTMSPenetration3/Route-Files/L2-AV-Route.rou.xml'], ["L2-AV"])
-    collisionFlowCorrection(['Collision/RealTMSPenetration3/Route-Files/L0-HDV-Route.rou.xml'], ["L0-HDV"])
+    # vehicleTypes = ["L4-CV", "L4-AV", "L2-CV", "L2-AV", "L0-HDV"]
+    # rate = vehiclePenetrationRates3(LOS)
+    # settingUpVehicles("Collision", "\RealTMSPenetration3", LOS, rate)
+    # collisionFlowCorrection(['Collision/RealTMSPenetration3/Route-Files/L4-CV-Route.rou.xml'], ["L4-CV"])
+    # collisionFlowCorrection(['Collision/RealTMSPenetration3/Route-Files/L4-AV-Route.rou.xml'], ["L4-AV"])
+    # collisionFlowCorrection(['Collision/RealTMSPenetration3/Route-Files/L2-CV-Route.rou.xml'], ["L2-CV"])
+    # collisionFlowCorrection(['Collision/RealTMSPenetration3/Route-Files/L2-AV-Route.rou.xml'], ["L2-AV"])
+    # collisionFlowCorrection(['Collision/RealTMSPenetration3/Route-Files/L0-HDV-Route.rou.xml'], ["L0-HDV"])
     
     # #traci starts sumo as a subprocess and then this script connects and runs
     traci.start([sumoBinary, "-c", "Collision\RealTMSPenetration3\CollisionRealTMSPenetration3.sumocfg",
                 "--tripinfo-output", "Collision\RealTMSPenetration3\Output-Files\TripInfo.xml", "--ignore-route-errors",
-                "--device.emissions.probability", "1", "--waiting-time-memory", "300", "-S", "-Q", "-W"])
+                "--device.emissions.probability", "1", "--waiting-time-memory", "300"])
 
     TMS(REROUTINGBOOLEAN)
     TMSAlterOutputFiles("Collision", "Penetration3", LOS, ITERATION, vehicleTypes)

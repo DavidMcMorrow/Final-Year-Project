@@ -302,7 +302,8 @@ def lateVehicleIndidentDetectionTopRightBottom(topBottomRightLateDetectors, vehi
             target = route[len(route) - 1]
             temp = veh in vehiclesThatTORed
             checkingPriorDetection = veh in lastVehicleDetected
-            if temp == False and traci.vehicle.getVehicleClass(veh) != "passenger" and target == "left-exit":
+            vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
+            if temp == False and traci.vehicle.getVehicleClass(veh) != "passenger" and target == "left-exit" and vehicleType != "HDV" :
                 result = random.randint(0, 99) ## CONSIDER
                 waitingTime = traci.vehicle.getWaitingTime(veh)
                 if(result < 0 and checkingPriorDetection == False):
@@ -330,7 +331,7 @@ def leftUpStreamTMS(leftApproachingLastDetected):
         vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
         if traci.vehicle.getVehicleClass(veh) == "custom2" and vehicleType == "CV" and leftApproachingLastDetected != veh:
             receivedTMSResult = random.randint(0, 99)
-            if receivedTMSResult < 66:
+            if receivedTMSResult < 99:
                 # print("Did get TMS", veh)
                 traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
                 traci.vehicle.setVehicleClass(veh, "custom1")
@@ -420,7 +421,7 @@ def allowingAccessToRightLaneTMS(lastVehicleDetected):
                 vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
                 if target == "right-exit" and vehicleType == "CV":
                     receivedTMSResult = random.randint(0, 99) ## CONSIDER
-                    if receivedTMSResult < 66:
+                    if receivedTMSResult < 99:
                         # print("GOT TMS", veh)
                         traci.vehicle.setVehicleClass(veh, "passenger")
                         traci.vehicle.updateBestLanes(veh)
@@ -892,7 +893,7 @@ def clearingLeftLaneOfCVs(lastVehicleDetected):
                 vehicleType = (traci.vehicle.getTypeID(veh)).split('-')[1]
                 if traci.vehicle.getVehicleClass(veh) == "custom2" and vehicleType == "CV":
                     receivedTMSResult = random.randint(0, 99)
-                    if receivedTMSResult < 75:
+                    if receivedTMSResult < 99:
                         # print("TMS", veh)
                         traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
                         traci.vehicle.setVehicleClass(veh, "custom1")

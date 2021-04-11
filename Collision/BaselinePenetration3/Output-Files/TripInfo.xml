@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 04/09/21 17:26:28 by Eclipse SUMO GUI Version 1.8.0
+<!-- generated on 04/10/21 15:47:33 by Eclipse SUMO GUI Version 1.8.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="Collision\BaselinePenetration3\../CollisionIntersection.net.xml"/>
-        <route-files value="Collision\BaselinePenetration3\../CrashedVehicleRoutes.rou.xml,Collision\BaselinePenetration3\Route-Files/L4-CV-Route.rou.xml,Collision\BaselinePenetration3\Route-Files/L4-AV-Route.rou.xml,Collision\BaselinePenetration3\Route-Files/L2-CV-Route.rou.xml,Collision\BaselinePenetration3\Route-Files/L2-AV-Route.rou.xml,Collision\BaselinePenetration3\Route-Files/L0-HDV-Route.rou.xml"/>
+        <route-files value="Collision\BaselinePenetration3\../CrashedVehicleRoutes.rou.xml,Collision\BaselinePenetration3\../PresentationRoute.xml"/>
         <additional-files value="Collision\BaselinePenetration3\../Additional-Files/Collision-Detectors.add.xml,Collision\BaselinePenetration3\../Additional-Files/Collision-TMS-Rerouters.add.xml,Collision\BaselinePenetration3\PreparingVehicleModels/Vehicle-Models/L4-CV.add.xml,Collision\BaselinePenetration3\PreparingVehicleModels/Vehicle-Models/L4-CV-Left.add.xml,Collision\BaselinePenetration3\PreparingVehicleModels/Vehicle-Models/L4-CV-Right.add.xml,Collision\BaselinePenetration3\PreparingVehicleModels/Vehicle-Models/L4-AV.add.xml,Collision\BaselinePenetration3\PreparingVehicleModels/Vehicle-Models/L4-AV-Left.add.xml,Collision\BaselinePenetration3\PreparingVehicleModels/Vehicle-Models/L4-AV-Right.add.xml,Collision\BaselinePenetration3\PreparingVehicleModels/Vehicle-Models/L2-CV.add.xml,Collision\BaselinePenetration3\PreparingVehicleModels/Vehicle-Models/L2-CV-Left.add.xml,Collision\BaselinePenetration3\PreparingVehicleModels/Vehicle-Models/L2-CV-Right.add.xml,Collision\BaselinePenetration3\PreparingVehicleModels/Vehicle-Models/L2-AV.add.xml,Collision\BaselinePenetration3\PreparingVehicleModels/Vehicle-Models/L2-AV-Left.add.xml,Collision\BaselinePenetration3\PreparingVehicleModels/Vehicle-Models/L2-AV-Right.add.xml,Collision\BaselinePenetration3\PreparingVehicleModels/Vehicle-Models/L0-HDV.add.xml,Collision\BaselinePenetration3\PreparingVehicleModels/Vehicle-Models/L0-HDV-Left.add.xml,Collision\BaselinePenetration3\PreparingVehicleModels/Vehicle-Models/L0-HDV-Straight.add.xml,Collision\BaselinePenetration3\../Additional-Files/Collision-Traffic-lights.add.xml,Collision\BaselinePenetration3\../Additional-Files/Collision-Traffic-Signs.add.xml"/>
     </input>
 
@@ -24,20 +24,15 @@
         <default.action-step-length value="0.1"/>
     </processing>
 
-    <report>
-        <no-warnings value="true"/>
-    </report>
-
     <emissions>
         <device.emissions.probability value="1"/>
     </emissions>
 
     <traci_server>
-        <remote-port value="57945"/>
+        <remote-port value="53459"/>
     </traci_server>
 
     <gui_only>
-        <start value="true"/>
         <tracker-interval value="0.1"/>
     </gui_only>
 
@@ -45,4 +40,13 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="L4-CV-0.0" depart="170.00" departLane="left-long-approaching_2" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="271.60" arrivalLane="top-exit_0" arrivalPos="486.40" arrivalSpeed="16.85" duration="101.60" routeLength="992.31" waitingTime="30.00" waitingCount="1" stopTime="0.00" timeLoss="41.80" rerouteNo="0" devices="tripinfo_L4-CV-0.0 emissions_L4-CV-0.0 ssm_L4-CV-0.0 toc_L4-CV-0.0 driverstateL4-CV-0.0" vType="L4-CV-Left-32" speedFactor="1.01" vaporized="">
+        <emissions CO_abs="7456.177796" CO2_abs="324089.616065" HC_abs="38.723489" PMx_abs="5.280996" NOx_abs="124.630822" fuel_abs="139.315047" electricity_abs="0"/>
+    </tripinfo>
+    <tripinfo id="L4-CV-1.0" depart="170.00" departLane="bottom-approaching_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="274.60" arrivalLane="left-exit_1" arrivalPos="410.00" arrivalSpeed="16.95" duration="104.60" routeLength="992.31" waitingTime="30.70" waitingCount="1" stopTime="0.00" timeLoss="45.12" rerouteNo="0" devices="tripinfo_L4-CV-1.0 emissions_L4-CV-1.0 ssm_L4-CV-1.0 toc_L4-CV-1.0 driverstateL4-CV-1.0" vType="L0-HDV-82@L4-CV-1.0" speedFactor="1.02" vaporized="">
+        <emissions CO_abs="7746.809120" CO2_abs="303009.578223" HC_abs="40.747165" PMx_abs="5.361039" NOx_abs="120.492613" fuel_abs="130.253536" electricity_abs="0"/>
+    </tripinfo>
+    <tripinfo id="L4-CV-2.0" depart="175.00" departLane="left-long-approaching_1" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="285.40" arrivalLane="top-exit_0" arrivalPos="486.40" arrivalSpeed="12.93" duration="110.40" routeLength="992.31" waitingTime="12.00" waitingCount="22" stopTime="0.00" timeLoss="32.50" rerouteNo="0" devices="tripinfo_L4-CV-2.0 emissions_L4-CV-2.0 ssm_L4-CV-2.0 toc_L4-CV-2.0 driverstateL4-CV-2.0" vType="L4-CV-Left-88" speedFactor="0.78" vaporized="">
+        <emissions CO_abs="4528.896308" CO2_abs="274623.143399" HC_abs="26.422017" PMx_abs="3.329796" NOx_abs="100.238422" fuel_abs="118.051486" electricity_abs="0"/>
+    </tripinfo>
 </tripinfos>
