@@ -217,38 +217,38 @@ def effiencyKPIs(filename):
 def intialiseAxisAndTitle(j, TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray):
     if(j == 0):
         array = TTC
-        yAxis = "Number of TTC"
-        title = SCENARIO + ": TTC"
+        yAxis = "Number of TTC Incidents"
+        title = SCENARIO + ": TTC Incidents"
         std = StdTTCArray
     elif (j==1):
         array = DRAC
-        yAxis = "Number of DRAC"
+        yAxis = "Number of DRAC Incidents"
         title = SCENARIO + ": DRAC"
         std = StdDRACArray
     elif (j==2):
         array = PET
-        yAxis = "Number of PET"
+        yAxis = "Number of PET Incidents"
         title = SCENARIO + ": PET"
         std = StdPETArray
     elif (j==3):
         array = THROUGHPUT
-        yAxis = "Throughput of network"
+        yAxis = "Throughput of network (veh/hr)"
         title = SCENARIO + ": Throughput"
         std = StdThroughputArray
     elif (j==4):
         array = EMISSIONS
-        yAxis = "CO2"
+        yAxis = "CO2 (mg)"
         title = SCENARIO + ": Environmental"
         std = StdEmmisionsArray
     elif (j==5):
         array = WaitingTimesArray
-        yAxis = "Time"
-        title = SCENARIO + ": Waiting Times"
+        yAxis = "Time (s)"
+        title = SCENARIO + ": Mean Waiting Times"
         std = StdWaitingTimesArray
     elif (j==6):
         array = DurationArray
-        yAxis = "Time"
-        title = SCENARIO + ": TripDuration"
+        yAxis = "Time (s)"
+        title = SCENARIO + ": Mean Trip Duration"
         std = StdDurationArray
         
     return array, yAxis, title, std
@@ -265,25 +265,28 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, Durat
         print("title", title)
         plotdata = pd.DataFrame(
             {
-                "Baseline HDV": array[0],
-                "Baseline 100% L4-CV": array[1],
-                "Real TMS 100% L4-CV": array[2],
-                "Baseline P1": array[3],
-                "Real TMS P1": array[4],
-                "Baseline P2": array[5],
-                "Real TMS P2": array[6],
-                "Baseline P3": array[7],
-                "Real TMS P3": array[8],
-                # "Baseline 100%": array[0],
-                # "Real TMS 100%": array[1],
+                # "Baseline HDV": array[0],
+                # "Baseline 100% L4-CV": array[1],
+                # "Real TMS 100% L4-CV": array[2],
+                # "Baseline P1": array[3],
+                # "Real TMS P1": array[4],
+                # "Baseline P2": array[5],
+                # "Real TMS P2": array[6],
+                # "Baseline P3": array[7],
+                # "Real TMS P3": array[8],
+                "Baseline 100% L4-CV": array[0],
+                "TMS 100% L4-CV": array[1],
             }, 
-            # index=["A", "B", "C", "D"]
-            index=["A", "B", "C"]
+            index=["A", "B", "C", "D"]
+            # index=["A", "B", "C"]
             # index=["B", "C"]
         )
         plotdata.plot(kind='bar', yerr=std)
-        plt.xlabel(xAxis)
-        plt.ylabel(yAxis)
+        plt.rc('font', size=22)
+        plt.xlabel(xAxis, size=20)
+        plt.ylabel(yAxis, size=20)
+        plt.xticks(size = 18)
+        plt.yticks(size = 18)
         plt.title(title)
     plt.show()
 
@@ -356,15 +359,15 @@ def graphingPerformance():
     NUMBEROFITERATIONS = 3
     # NUMBEROFITERATIONS = 1
 
-    # SCENARIO = "Roadworks"
-    SCENARIO = "Collision"
+    SCENARIO = "Roadworks"
+    # SCENARIO = "Collision"
 
-    # useCases = ["\BaselineHDV", "\BaselineCAV"]
-    useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
-                "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
+    useCases = ["\BaselineCAV", "\RealTMSCAV"]
+    # useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
+    #             "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
 
-    # LEVELOFSERVICE = ["A", "B", "C", "D"]
-    LEVELOFSERVICE = ["A", "B", "C"]
+    LEVELOFSERVICE = ["A", "B", "C", "D"]
+    # LEVELOFSERVICE = ["A", "B", "C"]
     # LEVELOFSERVICE = ["B", "C"]
     vehicleTypes = ["HDV", "L4-CV"]
 
