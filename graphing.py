@@ -189,7 +189,7 @@ def safetyKPIs(filename):
     for pet in PET:
         typeOfConflict = ttc.getAttribute("type")
         desiredConflict = typeOfConflict in encounterTypes
-        if pet.getAttribute("time") != "NA":# and desiredConflict == True:
+        if pet.getAttribute("time") != "NA" and float(pet.getAttribute("value")) < 1.5:# and desiredConflict == True:
             numberOfPET = numberOfPET + 1
 
     return numberOfTTC, numberOfDRAC, numberOfPET
@@ -282,14 +282,17 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, Durat
             # index=["B", "C"]
         )
         plotdata.plot(kind='bar', yerr=std)
-        plt.rc('font', size=22)
+        plt.rc('font', size=14)
+        ax = plt.subplot(111)
         plt.xlabel(xAxis, size=20)
         # plt.yscale("log")
-        plt.legend(bbox_to_anchor =(0.75, 1.15), ncol = 2)
+        chartBox = ax.get_position()
+        ax.set_position([chartBox.x0, chartBox.y0, chartBox.width*0.7, chartBox.height])
+        ax.legend(loc='upper center', bbox_to_anchor=(1.25, 0.8), shadow=True, ncol=1)
         plt.ylabel(yAxis, size=20)
         plt.xticks(size = 18)
         plt.yticks(size = 18)
-        plt.title(title)
+        plt.title(title, size=20)
     plt.show()
 
 def graphingFunction(xLabel, yLabel, title, xData, yData):
@@ -316,15 +319,44 @@ def graphingTTCs(ttcScenario, ttcUseCase, ttcLOS, i):
         followTTCXCoor, followTTCYCoor, otherTTCXCoor, otherTTCYCoor = gettingTTCPositions(safetyFilepath, followTTCXCoor, followTTCYCoor, otherTTCXCoor, otherTTCYCoor)
     # print("ttcXCoor", ttcXCoor)
     # print("ttcYCoor", ttcYCoor)
+    from matplotlib.offsetbox import TextArea, DrawingArea, OffsetImage, AnnotationBbox
+
+    import matplotlib.pyplot as plt
+    import matplotlib.image as mpimg
+   
+
+   
+
+    ab = AnnotationBbox(imagebox, (10, 10))
+    
+    
+    plt.show()
+    fig, ax = plt.subplots()
+
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, 1)
+
+    arr_lena = mpimg.imread('Incident background.PNG')
+
+
+    imagebox = OffsetImage(arr_lena, zoom=0.2)
+
+    ab = AnnotationBbox(imagebox, (10, 10))
+
+    ax.add_artist(ab)
     plt.plot(followTTCXCoor, followTTCYCoor, 'o', color='black')
     plt.plot(otherTTCXCoor, otherTTCYCoor, 'o', color='red')
+
+    plt.grid()
+    plt.draw()
     plt.xlabel("meters")
     plt.ylabel("meters")
+    # plt.savefig('add_picture_matplotlib_figure.png',bbox_inches='tight')
     plt.show()
 
 def gettingTTCPositions(safetyFilepath, followTTCXCoor, followTTCYCoor, otherTTCXCoor, otherTTCYCoor):
     document = minidom.parse(safetyFilepath)
-    TTC = document.getElementsByTagName('minTTC')
+    TTC = document.getElementsByTagName('PET')
     leadFollowTypes = ["2", "3"]
     otherTypes = ["11", "12"]
     for ttc in TTC:
@@ -333,22 +365,39 @@ def gettingTTCPositions(safetyFilepath, followTTCXCoor, followTTCYCoor, otherTTC
         if ttc.getAttribute("time") != "NA":
             leadFollowIssue = ttc.getAttribute("type") in leadFollowTypes
             otherIssue = ttc.getAttribute("type") in otherTypes
-            if leadFollowIssue == True:
-                tempCoor = ttc.getAttribute("position").split(",")
-                followTTCXCoor.append(float(tempCoor[0]))
-                followTTCYCoor.append(float(tempCoor[1]))
-            if otherIssue == True:
-                tempCoor = ttc.getAttribute("position").split(",")
-                otherTTCXCoor.append(float(tempCoor[0]))
-                otherTTCYCoor.append(float(tempCoor[1]))
-    
+            # if leadFollowIssue == True:
+            tempCoor = ttc.getAttribute("position").split(",")
+            followTTCXCoor.append(float(tempCoor[0]))
+            followTTCYCoor.append(float(tempCoor[1]))
+            # if otherIssue == True:
+            tempCoor = ttc.getAttribute("position").split(",")
+            otherTTCXCoor.append(float(tempCoor[0]))
+            otherTTCYCoor.append(float(tempCoor[1]))
+    from statistics import mode
+    # print("mode X", mode(followTTCXCoor))
+    # print("mode Y", mode(followTTCYCoor))
+    print("X", set(followTTCXCoor))
+    print("mode Y", set(followTTCYCoor))
+    # findingWhereIncidentsOccur(followTTCXCoor, followTTCYCoor)
     return followTTCXCoor, followTTCYCoor, otherTTCXCoor, otherTTCYCoor
+
+# def findingWhereIncidentsOccur(followTTCXCoor, followTTCYCoor):
+#     setOfX = set(followTTCXCoor)
+#     setOfY = set(followTTCYCoor)
+#     print("setOfX", setOfX.__getattribute__(0))
+#     occurence = [0] * len(setOfX)
+#     for i in range(0, len(followTTCXCoor)):
+#         for j in range(0, len(setOfX)):
+#             if (setOfX[j] == followTTCXCoor[i] and setOfY[i] == followTTCYCoor[i]):
+#                 occurence[j] = occurence[j] + 1
+
+#     print("occurence", occurence )
 
 def plottingLocationsOfTTCs():
     ttcScenario = "Collision"
-    ttcUseCase = "\RealTMSPenetration1"
+    ttcUseCase = "\BaselineCAV"
     ttcLOS = "A"
-    i = 0
+    i = 1
     graphingTTCs(ttcScenario, ttcUseCase, ttcLOS, i)
 
 def graphingPerformance():
@@ -364,7 +413,7 @@ def graphingPerformance():
     SCENARIO = "Roadworks"
     # SCENARIO = "Collision"
 
-    # useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV"]
+    # useCases = ["\BaselineHDV", "\BaselineCAV"]
     useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
                 "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
 
@@ -393,8 +442,16 @@ def graphingPerformance():
 
     graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray)
 
-graphingPerformance()
-# plottingLocationsOfTTCs()
+# def plottingLocationsOfTTCs():
+#     petScenario = "Collision"
+#     petUseCase = "\RealTMSPenetration1"
+#     ttcLOS = "A"
+#     i = 0
+#     graphingTTCs(petScenario, petUseCase, petLOS, i)
+
+# graphingPerformance()
+plottingLocationsOfTTCs()
+# plottingLocationsOfPETs()
 
 
 
