@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 04/06/21 11:58:00 by Eclipse SUMO GUI Version 1.8.0
+<!-- generated on 04/13/21 19:38:13 by Eclipse SUMO GUI Version 1.8.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="Roadworks\BaselineHDV\../RoadworksIntersection.net.xml"/>
-        <route-files value="Roadworks\BaselineHDV\Route-Files/L0-HDV-Route.rou.xml"/>
-        <additional-files value="Roadworks\BaselineHDV\../Additional-Files/Roadworks-Detectors.add.xml,Roadworks\BaselineHDV\Additional-Files/Roadworks-Baseline-HDV-Rerouters.add.xml,Roadworks\BaselineHDV\../Additional-Files/Roadworks-Traffic-lights.add.xml,Roadworks\BaselineHDV\PreparingVehicleModels/Vehicle-Models/L0-HDV.add.xml,Roadworks\BaselineHDV\PreparingVehicleModels/Vehicle-Models/L0-HDV-Straight.add.xml,Roadworks\BaselineHDV\PreparingVehicleModels/Vehicle-Models/L0-HDV-Left.add.xml,Roadworks\BaselineHDV\../Additional-Files/Roadworks-Traffic-Signs.add.xml"/>
+        <net-file value="Roadworks\BaselineCAV\../RoadworksIntersection.net.xml"/>
+        <route-files value="Roadworks\BaselineCAV\Route-Files/L4-CV-Route.rou.xml"/>
+        <additional-files value="Roadworks\BaselineCAV\../Additional-Files/Roadworks-Detectors.add.xml,Roadworks\BaselineCAV\../Additional-Files/Roadworks-Rerouters.add.xml,Roadworks\BaselineCAV\../Additional-Files/Roadworks-Traffic-lights.add.xml,Roadworks\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L4-CV.add.xml,Roadworks\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L4-CV-Left.add.xml,Roadworks\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L0-HDV.add.xml,Roadworks\BaselineCAV\PreparingVehicleModels/Vehicle-Models/L4-CV-Right.add.xml,Roadworks\BaselineCAV\../Additional-Files/Roadworks-Traffic-Signs.add.xml"/>
     </input>
 
     <output>
-        <tripinfo-output value="Roadworks\BaselineHDV\Output-Files\TripInfo.xml"/>
+        <tripinfo-output value="Roadworks\BaselineCAV\Output-Files\TripInfo.xml"/>
     </output>
 
     <time>
@@ -33,11 +33,12 @@
     </emissions>
 
     <traci_server>
-        <remote-port value="62025"/>
+        <remote-port value="58492"/>
     </traci_server>
 
     <gui_only>
         <quit-on-end value="true"/>
+        <start value="true"/>
         <tracker-interval value="0.1"/>
     </gui_only>
 
@@ -45,30 +46,30 @@
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
-    <interval begin="0.00" end="0.10" id="allowingRightLaneAccessTMS" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="allowingRightLaneAccess2TMS" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="allowingRightLaneAccessLate" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="advanceRight_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="advanceRight_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="advanceRight_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="advanceBottom_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="advanceBottom_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="advanceBottom_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="lateRight_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="lateRight_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="lateRight_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="lateBottom_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="lateBottom_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="lateBottom_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="majorDelayDetection_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="majorDelayDetection_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="majorDelayDetection_2" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="upstreamTMSTop_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="upstreamTMSTop_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="upstreamTMSRight_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="upstreamTMSRight_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="upstreamTMSBottom_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="upstreamTMSBottom_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="upstreamTMSLeft_0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="0.10" id="upstreamTMSLeft_1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="0.00" end="619.20" id="allowingRightLaneAccessTMS" nVehContrib="22" flow="127.91" occupancy="1.08" speed="16.61" harmonicMeanSpeed="16.52" length="5.00" nVehEntered="22"/>
+    <interval begin="0.00" end="619.20" id="allowingRightLaneAccess2TMS" nVehContrib="25" flow="145.35" occupancy="1.21" speed="17.17" harmonicMeanSpeed="16.63" length="5.00" nVehEntered="25"/>
+    <interval begin="0.00" end="619.20" id="allowingRightLaneAccessLate" nVehContrib="26" flow="151.16" occupancy="1.60" speed="14.29" harmonicMeanSpeed="13.15" length="5.00" nVehEntered="26"/>
+    <interval begin="0.00" end="619.20" id="advanceRight_0" nVehContrib="23" flow="133.72" occupancy="1.18" speed="15.91" harmonicMeanSpeed="15.76" length="5.00" nVehEntered="23"/>
+    <interval begin="0.00" end="619.20" id="advanceRight_1" nVehContrib="16" flow="93.02" occupancy="0.80" speed="16.37" harmonicMeanSpeed="16.23" length="5.00" nVehEntered="16"/>
+    <interval begin="0.00" end="619.20" id="advanceRight_2" nVehContrib="19" flow="110.47" occupancy="0.95" speed="16.27" harmonicMeanSpeed="16.20" length="5.00" nVehEntered="19"/>
+    <interval begin="0.00" end="619.20" id="advanceBottom_0" nVehContrib="19" flow="110.47" occupancy="0.92" speed="16.82" harmonicMeanSpeed="16.70" length="5.00" nVehEntered="19"/>
+    <interval begin="0.00" end="619.20" id="advanceBottom_1" nVehContrib="19" flow="110.47" occupancy="0.96" speed="16.12" harmonicMeanSpeed="15.93" length="5.00" nVehEntered="19"/>
+    <interval begin="0.00" end="619.20" id="advanceBottom_2" nVehContrib="18" flow="104.65" occupancy="0.89" speed="16.65" harmonicMeanSpeed="16.42" length="5.00" nVehEntered="18"/>
+    <interval begin="0.00" end="619.20" id="lateRight_0" nVehContrib="22" flow="127.91" occupancy="3.62" speed="5.77" harmonicMeanSpeed="4.91" length="5.00" nVehEntered="22"/>
+    <interval begin="0.00" end="619.20" id="lateRight_1" nVehContrib="16" flow="93.02" occupancy="3.15" speed="4.53" harmonicMeanSpeed="4.11" length="5.00" nVehEntered="16"/>
+    <interval begin="0.00" end="619.20" id="lateRight_2" nVehContrib="19" flow="110.47" occupancy="4.60" speed="5.42" harmonicMeanSpeed="3.34" length="5.00" nVehEntered="19"/>
+    <interval begin="0.00" end="619.20" id="lateBottom_0" nVehContrib="18" flow="104.65" occupancy="24.51" speed="4.63" harmonicMeanSpeed="0.60" length="5.00" nVehEntered="19"/>
+    <interval begin="0.00" end="619.20" id="lateBottom_1" nVehContrib="19" flow="110.47" occupancy="17.77" speed="7.90" harmonicMeanSpeed="0.86" length="5.00" nVehEntered="19"/>
+    <interval begin="0.00" end="619.20" id="lateBottom_2" nVehContrib="18" flow="104.65" occupancy="11.31" speed="4.91" harmonicMeanSpeed="1.28" length="5.00" nVehEntered="18"/>
+    <interval begin="0.00" end="619.20" id="majorDelayDetection_0" nVehContrib="23" flow="133.72" occupancy="1.12" speed="16.62" harmonicMeanSpeed="16.54" length="5.00" nVehEntered="23"/>
+    <interval begin="0.00" end="619.20" id="majorDelayDetection_1" nVehContrib="17" flow="98.84" occupancy="0.85" speed="16.29" harmonicMeanSpeed="16.16" length="5.00" nVehEntered="17"/>
+    <interval begin="0.00" end="619.20" id="majorDelayDetection_2" nVehContrib="22" flow="127.91" occupancy="1.06" speed="16.89" harmonicMeanSpeed="16.78" length="5.00" nVehEntered="22"/>
+    <interval begin="0.00" end="619.20" id="upstreamTMSTop_0" nVehContrib="32" flow="186.05" occupancy="1.65" speed="15.71" harmonicMeanSpeed="15.62" length="5.00" nVehEntered="32"/>
+    <interval begin="0.00" end="619.20" id="upstreamTMSTop_1" nVehContrib="23" flow="133.72" occupancy="1.07" speed="17.42" harmonicMeanSpeed="17.32" length="5.00" nVehEntered="23"/>
+    <interval begin="0.00" end="619.20" id="upstreamTMSRight_0" nVehContrib="35" flow="203.49" occupancy="1.78" speed="15.91" harmonicMeanSpeed="15.84" length="5.00" nVehEntered="35"/>
+    <interval begin="0.00" end="619.20" id="upstreamTMSRight_1" nVehContrib="16" flow="93.02" occupancy="0.72" speed="18.08" harmonicMeanSpeed="18.00" length="5.00" nVehEntered="16"/>
+    <interval begin="0.00" end="619.20" id="upstreamTMSBottom_0" nVehContrib="34" flow="197.67" occupancy="1.72" speed="16.02" harmonicMeanSpeed="15.94" length="5.00" nVehEntered="34"/>
+    <interval begin="0.00" end="619.20" id="upstreamTMSBottom_1" nVehContrib="15" flow="87.21" occupancy="0.69" speed="17.58" harmonicMeanSpeed="17.52" length="5.00" nVehEntered="15"/>
+    <interval begin="0.00" end="619.20" id="upstreamTMSLeft_0" nVehContrib="20" flow="116.28" occupancy="1.09" speed="15.05" harmonicMeanSpeed="14.84" length="5.00" nVehEntered="20"/>
+    <interval begin="0.00" end="619.20" id="upstreamTMSLeft_1" nVehContrib="28" flow="162.79" occupancy="1.31" speed="17.40" harmonicMeanSpeed="17.33" length="5.00" nVehEntered="29"/>
 </detector>

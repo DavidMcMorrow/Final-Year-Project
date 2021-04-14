@@ -132,12 +132,12 @@ def runningTheScenariosSimulation(SCENARIO, TYPE, sumoBinary, LOS, ITERATION, RE
                         collisionRealTMSPenetration3(sumoBinary, los, i, REROUTINGBOOLEAN)
                 print("Finished running", name)
 
-# SCENARIO = "Roadworks"
-SCENARIO = "Collision"
+SCENARIO = "Roadworks"
+# SCENARIO = "Collision"
 
 TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV", "Baseline-Penetration1", "Penetration1", "Baseline-Penetration2", "Penetration2", "Baseline-Penetration3", "Penetration3"]
 # TYPES = ["Baseline-HDV", "Baseline-CAV", "TMS-CAV", "Baseline-Penetration1", "Penetration1", "Baseline-Penetration2", "Penetration2"]
-# TYPES = [ "Baseline-HDV"]
+TYPES = [ "Baseline-CAV"]
 # LOS = ["A", "B", "C", "D"]
 LOS = ["A", "B", "C"]
 # LOS = ["C"]
@@ -161,10 +161,10 @@ if __name__ == "__main__":
     options = get_options()
     sumoBinary = checkBinary('sumo')
     # check binary
-    # if options.nogui:
-    #     sumoBinary = checkBinary('sumo')
-    # else:
-    #     sumoBinary = checkBinary('sumo-gui')
+    if options.nogui:
+        sumoBinary = checkBinary('sumo')
+    else:
+        sumoBinary = checkBinary('sumo-gui')
 
     # runningTheScenariosDeveloping(SCENARIO, TYPES[0], sumoBinary, LOS[0], ITERATION, REROUTINGBOOLEAN)
     runningTheScenariosSimulation(SCENARIO, TYPES, sumoBinary, LOS, ITERATION, REROUTINGBOOLEAN)

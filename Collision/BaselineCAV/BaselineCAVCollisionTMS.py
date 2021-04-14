@@ -28,7 +28,7 @@ def TMS(REROUTINGBOOLEAN):
     seenInLeftExit = []
     vehiclesThatTORed = []
     DETECTEDTOCTIME = 5
-    delayBeforeReRoute = 140
+    delayBeforeReRoute = 120
     TIMETOPERFORMDELAYTOC = 30 ## Consider
     
     while traci.simulation.getMinExpectedNumber() > 0:

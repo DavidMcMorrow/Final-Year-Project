@@ -27,7 +27,7 @@ def TMS(REROUTINGBOOLEAN):
     step = 0
     vehiclesApproachingClosure = []
     # vehiclesThatTORed = []
-    # delayBeforeReRoute = 80 ### Needs to be considered
+    delayBeforeReRoute = 120 ### Needs to be considered
     # TIMETOPERFORMDELAYTOC = 30 ### Needs to be considered
     DETECTEDTOCTIME = 5 ### Needs to be considered
     NUMBEROFVEHICLESREROUTED = 0
