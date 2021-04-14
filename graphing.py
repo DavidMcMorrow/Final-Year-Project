@@ -303,12 +303,16 @@ def graphingFunction(xLabel, yLabel, title, xData, yData):
     plt.show()
 
 def graphingTTCs(ttcScenario, ttcUseCase, ttcLOS, i):
+    NumberOfTTCPerVehicle = []
     if ttcUseCase == "\BaselineHDV":
         vehicleTypes = ["L0-HDV"]
+        
     elif ttcUseCase == "\BaselineCAV" or ttcUseCase == "\RealTMSCAV":
         vehicleTypes = ["L4-CV"]
+        
     else:
         vehicleTypes = ["L0-HDV", "L2-AV", "L2-CV", "L4-AV","L4-CV"]
+        
     followTTCXCoor = []
     followTTCYCoor = []
     otherTTCXCoor = []
@@ -317,42 +321,39 @@ def graphingTTCs(ttcScenario, ttcUseCase, ttcLOS, i):
     for types in vehicleTypes:
         safetyFilepath = ttcScenario + ttcUseCase + "\Output-Files\LOS-" + ttcLOS + "\SSM-" + types + "-" + str(i) + ".xml"
         followTTCXCoor, followTTCYCoor, otherTTCXCoor, otherTTCYCoor = gettingTTCPositions(safetyFilepath, followTTCXCoor, followTTCYCoor, otherTTCXCoor, otherTTCYCoor)
+        NumberOfTTCPerVehicle.append(len(followTTCXCoor))
     # print("ttcXCoor", ttcXCoor)
     # print("ttcYCoor", ttcYCoor)
     from matplotlib.offsetbox import TextArea, DrawingArea, OffsetImage, AnnotationBbox
-
+    # print("NumberOfTTCPerVehicle", NumberOfTTCPerVehicle)
+    # print("sum", sum(NumberOfTTCPerVehicle))
     import matplotlib.pyplot as plt
     import matplotlib.image as mpimg
    
-
-   
-
-    ab = AnnotationBbox(imagebox, (10, 10))
-    
-    
-    plt.show()
     fig, ax = plt.subplots()
 
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, 1)
+    # ax.set_xlim(0, 1)
+    # ax.set_ylim(0, 1)
 
     arr_lena = mpimg.imread('Incident background.PNG')
 
 
     imagebox = OffsetImage(arr_lena, zoom=0.2)
 
-    ab = AnnotationBbox(imagebox, (10, 10))
+    ab = AnnotationBbox(imagebox, (500, 500))
 
-    ax.add_artist(ab)
+    
+    # plt.draw()
     plt.plot(followTTCXCoor, followTTCYCoor, 'o', color='black')
     plt.plot(otherTTCXCoor, otherTTCYCoor, 'o', color='red')
-
-    plt.grid()
-    plt.draw()
+    ax.add_artist(ab)
+    # plt.grid()
+    
     plt.xlabel("meters")
     plt.ylabel("meters")
     # plt.savefig('add_picture_matplotlib_figure.png',bbox_inches='tight')
-    plt.show()
+    # plt.show()
+    return NumberOfTTCPerVehicle
 
 def gettingTTCPositions(safetyFilepath, followTTCXCoor, followTTCYCoor, otherTTCXCoor, otherTTCYCoor):
     document = minidom.parse(safetyFilepath)
@@ -370,14 +371,14 @@ def gettingTTCPositions(safetyFilepath, followTTCXCoor, followTTCYCoor, otherTTC
             followTTCXCoor.append(float(tempCoor[0]))
             followTTCYCoor.append(float(tempCoor[1]))
             # if otherIssue == True:
-            tempCoor = ttc.getAttribute("position").split(",")
-            otherTTCXCoor.append(float(tempCoor[0]))
-            otherTTCYCoor.append(float(tempCoor[1]))
+            # tempCoor = ttc.getAttribute("position").split(",")
+            # otherTTCXCoor.append(float(tempCoor[0]))
+            # otherTTCYCoor.append(float(tempCoor[1]))
     from statistics import mode
     # print("mode X", mode(followTTCXCoor))
     # print("mode Y", mode(followTTCYCoor))
-    print("X", set(followTTCXCoor))
-    print("mode Y", set(followTTCYCoor))
+    # print("X", set(followTTCXCoor))
+    # print("mode Y", set(followTTCYCoor))
     # findingWhereIncidentsOccur(followTTCXCoor, followTTCYCoor)
     return followTTCXCoor, followTTCYCoor, otherTTCXCoor, otherTTCYCoor
 
@@ -394,11 +395,21 @@ def gettingTTCPositions(safetyFilepath, followTTCXCoor, followTTCYCoor, otherTTC
 #     print("occurence", occurence )
 
 def plottingLocationsOfTTCs():
-    ttcScenario = "Collision"
-    ttcUseCase = "\BaselineCAV"
-    ttcLOS = "A"
-    i = 1
-    graphingTTCs(ttcScenario, ttcUseCase, ttcLOS, i)
+    ttcScenario = "Roadworks"
+    ttcUseCase = ["\BaselinePenetration1", "\RealTMSPenetration1"]
+    # ttcUseCase = "\RealTMSPenetration3"
+    # print("ttcUseCase", ttcUseCase)
+    ttcLOS = "D"
+    i = 0
+    import numpy as np
+    for uc in ttcUseCase:
+        Total = [0, 0, 0, 0, 0]
+        for i in range(0, 3):
+            print("ttcUseCase", ttcUseCase)
+            print("i", i)
+            value = graphingTTCs(ttcScenario, uc, ttcLOS, i)
+            Total = np.add(Total, value)
+        print("total", Total)
 
 def graphingPerformance():
     TTC = []
