@@ -283,6 +283,7 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, Durat
         )
         plotdata.plot(kind='bar', yerr=std)
         plt.xlabel(xAxis)
+        plt.legend(bbox_to_anchor =(0.75, 1.15), ncol = 5)
         plt.ylabel(yAxis)
         plt.title(title)
     plt.show()

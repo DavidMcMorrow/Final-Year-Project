@@ -714,7 +714,7 @@ def standardHandlingRightTopBottom(lastVehicleDetected, DETECTEDTOCTIME, vehicle
                         # print("HEre - 1", veh) 
                         # print("HEre", traci.vehicle.getParameter(veh, "device.toc.dynamicToCThreshold")) 
                         detectedSituation = random.randint(0, 99)
-                        if(detectedSituation < 25 ):
+                        if(detectedSituation < 99 ):
                             ## Detected the situation and decided best solution was to go for it
                             # print("Going for it", veh)
                             traci.vehicle.setParameter(veh, "device.toc.dynamicToCThreshold", 0)
