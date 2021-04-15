@@ -60,8 +60,8 @@ def TMS():
 
 def roadworksBaselineCAVTMS(sumoBinary, LOS, ITERATION):
     rate = vehicleRates(LOS)
-    settingUpVehicles("Roadworks", "\BaselineCAV", LOS, rate)
-    flowCorrection(['Roadworks/BaselineCAV/Route-Files/L4-CV-Route.rou.xml'], ["L4-CV"], "CAV")
+    # settingUpVehicles("Roadworks", "\BaselineCAV", LOS, rate)
+    # flowCorrection(['Roadworks/BaselineCAV/Route-Files/L4-CV-Route.rou.xml'], ["L4-CV"], "CAV")
     
     #traci starts sumo as a subprocess and then this script connects and runs
     traci.start([sumoBinary, "-c", "Roadworks\BaselineCAV\RoadworksBaselineCAV.sumocfg",

@@ -268,27 +268,28 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, Durat
                 "Baseline HDV": array[0],
                 "Baseline 100% L4-CV": array[1],
                 "Real TMS 100% L4-CV": array[2],
-                "Baseline P1": array[3],
-                "Real TMS P1": array[4],
-                "Baseline P2": array[5],
-                "Real TMS P2": array[6],
-                "Baseline P3": array[7],
-                "Real TMS P3": array[8],
+                # "Baseline P1": array[3],
+                # "Real TMS P1": array[4],
+                # "Baseline P2": array[5],
+                # "Real TMS P2": array[6],
+                # "Baseline P3": array[7],
+                # "Real TMS P3": array[8],
                 # "Baseline 100% L4-CV": array[0],
                 # "TMS 100% L4-CV": array[1],
             }, 
-            index=["A", "B", "C", "D"]
-            # index=["A", "B", "C"]
+            # index=["A", "B", "C", "D"]
+            index=["A", "B", "C"]
             # index=["B", "C"]
         )
         plotdata.plot(kind='bar', yerr=std)
         plt.rc('font', size=14)
-        ax = plt.subplot(111)
+       
         plt.xlabel(xAxis, size=20)
         # plt.yscale("log")
-        chartBox = ax.get_position()
-        ax.set_position([chartBox.x0, chartBox.y0, chartBox.width*0.7, chartBox.height])
-        ax.legend(loc='upper center', bbox_to_anchor=(1.25, 0.8), shadow=True, ncol=1)
+        # ax = plt.subplot(111)
+        # chartBox = ax.get_position()
+        # ax.set_position([chartBox.x0, chartBox.y0, chartBox.width*0.7, chartBox.height])
+        # ax.legend(loc='upper center', bbox_to_anchor=(1.25, 0.8), shadow=True, ncol=1)
         plt.ylabel(yAxis, size=20)
         plt.xticks(size = 18)
         plt.yticks(size = 18)
@@ -302,7 +303,7 @@ def graphingFunction(xLabel, yLabel, title, xData, yData):
     plt.title(title)
     plt.show()
 
-def graphingTTCs(ttcScenario, ttcUseCase, ttcLOS, i):
+def graphingIncidents(ttcScenario, ttcUseCase, ttcLOS, i):
     NumberOfTTCPerVehicle = []
     if ttcUseCase == "\BaselineHDV":
         vehicleTypes = ["L0-HDV"]
@@ -330,29 +331,42 @@ def graphingTTCs(ttcScenario, ttcUseCase, ttcLOS, i):
     import matplotlib.pyplot as plt
     import matplotlib.image as mpimg
    
-    fig, ax = plt.subplots()
+    # fig, ax = plt.subplots()
 
     # ax.set_xlim(0, 1)
     # ax.set_ylim(0, 1)
 
-    arr_lena = mpimg.imread('Incident background.PNG')
+    import matplotlib.pyplot as plt
+    im = plt.imread("Incident background.PNG")
+    implot = plt.imshow(im)
 
 
-    imagebox = OffsetImage(arr_lena, zoom=0.2)
+    # imagebox = OffsetImage(arr_lena, zoom=0.2)
 
-    ab = AnnotationBbox(imagebox, (500, 500))
+    # ab = AnnotationBbox(imagebox, (500, 500))
+
+    # plt.scatter(x=[(505 * 0.7), (498 * 0.7)], y=[(500 * 0.7), (505 * 0.7)], c='r', s=1)
+    # plt.plot(followTTCXCoor, followTTCYCoor, 'o', color='black')
+    # print("followTTCXCoor", followTTCXCoor)
+    fittedX = [element  for element in followTTCXCoor]
+    # print("fittedX", fittedX)
+    # print("followTTCYCoor", followTTCYCoor)
+    fittedY = [element  for element in followTTCYCoor]
+    # print("fittedX", fittedY)
+    
+    plt.plot(fittedX, fittedY, 'o', color='red')
+    plt.show()
 
     
     # plt.draw()
-    plt.plot(followTTCXCoor, followTTCYCoor, 'o', color='black')
-    plt.plot(otherTTCXCoor, otherTTCYCoor, 'o', color='red')
+    
     ax.add_artist(ab)
     # plt.grid()
     
     plt.xlabel("meters")
     plt.ylabel("meters")
     # plt.savefig('add_picture_matplotlib_figure.png',bbox_inches='tight')
-    # plt.show()
+    plt.show()
     return NumberOfTTCPerVehicle
 
 def gettingTTCPositions(safetyFilepath, followTTCXCoor, followTTCYCoor, otherTTCXCoor, otherTTCYCoor):
@@ -382,19 +396,7 @@ def gettingTTCPositions(safetyFilepath, followTTCXCoor, followTTCYCoor, otherTTC
     # findingWhereIncidentsOccur(followTTCXCoor, followTTCYCoor)
     return followTTCXCoor, followTTCYCoor, otherTTCXCoor, otherTTCYCoor
 
-# def findingWhereIncidentsOccur(followTTCXCoor, followTTCYCoor):
-#     setOfX = set(followTTCXCoor)
-#     setOfY = set(followTTCYCoor)
-#     print("setOfX", setOfX.__getattribute__(0))
-#     occurence = [0] * len(setOfX)
-#     for i in range(0, len(followTTCXCoor)):
-#         for j in range(0, len(setOfX)):
-#             if (setOfX[j] == followTTCXCoor[i] and setOfY[i] == followTTCYCoor[i]):
-#                 occurence[j] = occurence[j] + 1
-
-#     print("occurence", occurence )
-
-def plottingLocationsOfTTCs():
+def plottingLocationsOfIncidents():
     ttcScenario = "Roadworks"
     ttcUseCase = ["\BaselinePenetration1", "\RealTMSPenetration1"]
     # ttcUseCase = "\RealTMSPenetration3"
@@ -407,7 +409,7 @@ def plottingLocationsOfTTCs():
         for i in range(0, 3):
             print("ttcUseCase", ttcUseCase)
             print("i", i)
-            value = graphingTTCs(ttcScenario, uc, ttcLOS, i)
+            value = graphingIncidents(ttcScenario, uc, ttcLOS, i)
             Total = np.add(Total, value)
         print("total", Total)
 
@@ -421,15 +423,15 @@ def graphingPerformance():
     NUMBEROFITERATIONS = 3
     # NUMBEROFITERATIONS = 1
 
-    SCENARIO = "Roadworks"
-    # SCENARIO = "Collision"
+    # SCENARIO = "Roadworks"
+    SCENARIO = "Collision"
 
-    # useCases = ["\BaselineHDV", "\BaselineCAV"]
-    useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
-                "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
+    useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV"]
+    # useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
+    #             "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
 
-    LEVELOFSERVICE = ["A", "B", "C", "D"]
-    # LEVELOFSERVICE = ["A", "B", "C"]
+    # LEVELOFSERVICE = ["A", "B", "C", "D"]
+    LEVELOFSERVICE = ["A", "B", "C"]
     # LEVELOFSERVICE = ["B", "C"]
     vehicleTypes = ["HDV", "L4-CV"]
 
@@ -453,18 +455,113 @@ def graphingPerformance():
 
     graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray)
 
-# def plottingLocationsOfTTCs():
-#     petScenario = "Collision"
-#     petUseCase = "\RealTMSPenetration1"
-#     ttcLOS = "A"
-#     i = 0
-#     graphingTTCs(petScenario, petUseCase, petLOS, i)
+def metricGathering(trips, emissions, start, end, count, TYPE):
+    metric = 0
+    hit = 0
+    if (trips.getAttribute("departLane").split("-")[0] == start):
+        if (trips.getAttribute("arrivalLane").split("-")[0] == end):
+            if TYPE == "waitingTime":
+                metric = float(trips.getAttribute("waitingTime"))
+                hit = 1
+            elif TYPE == "duration":
+                metric = float(trips.getAttribute("duration"))
+                hit = 1
+            elif TYPE == "CO2_abs":
+                metric = float(emissions[count].getAttribute("CO2_abs"))
+                hit = 1
+            elif TYPE == "Throughput":
+                if (float(trips.getAttribute("arrival")) < 3600):
+                    metric = 1
+                    hit = 1
+    return metric, hit
+
+def depthEfficiency():
+    SCENARIO = "Collision"
+
+    useCases = ["\RealTMSCAV"]
+
+    # LEVELOFSERVICE = ["A", "B", "C", "D"]
+    LEVELOFSERVICE = ["A"]
+    # LEVELOFSERVICE = ["B", "C"]
+    vehicleTypes = ["HDV", "L4-CV"]
+
+    TYPE = "waitingTime"
+    # TYPE = "duration"
+    # TYPE = "CO2_abs"
+    # TYPE = "Throughput"
+
+    iteration = 0
+    effiencyFilepath = SCENARIO + useCases[0] + "\Output-Files\LOS-" + LEVELOFSERVICE[0] + "\Trips-" + str(iteration) + ".xml"
+
+    document = minidom.parse(effiencyFilepath)
+    trips = document.getElementsByTagName('tripinfo')
+    emissions = document.getElementsByTagName('emissions')
+    count = 0
+    metric = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    number = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    for trip in trips:
+        temp1, temp2 = metricGathering(trip, emissions, "left", "top", count, TYPE)
+        metric[0] = metric[0] + temp1
+        number[0] = number[0] + temp2
+        temp1, temp2 = metricGathering(trip, emissions, "left", "right", count, TYPE)
+        metric[1] = metric[1] + temp1
+        number[1] = number[1] + temp2
+        temp1, temp2 = metricGathering(trip, emissions, "left", "bottom", count, TYPE)
+        metric[2] = metric[2] + temp1
+        number[2] = number[2] + temp2
+
+        temp1, temp2 = metricGathering(trip, emissions, "top", "right", count, TYPE)
+        metric[3] = metric[3] + temp1
+        number[3] = number[3] + temp2
+        temp1, temp2 = metricGathering(trip, emissions, "top", "bottom", count, TYPE)
+        metric[4] = metric[4] + temp1
+        number[4] = number[4] + temp2
+        temp1, temp2 = metricGathering(trip, emissions, "top", "left", count, TYPE)
+        metric[5] = metric[5] + temp1
+        number[5] = number[5] + temp2
+
+        temp1, temp2 =  metricGathering(trip, emissions, "right", "bottom", count, TYPE)
+        metric[6] = metric[6] + temp1
+        number[6] = number[6] + temp2
+        temp1, temp2 = metricGathering(trip, emissions, "right", "left", count, TYPE)
+        metric[7] = metric[7] + temp1
+        number[7] = number[7] + temp2
+        temp1, temp2 = metricGathering(trip, emissions, "right", "top", count, TYPE)
+        metric[8] = metric[8] + temp1
+        number[8] = number[8] + temp2
+
+        temp1, temp2 = metricGathering(trip, emissions, "bottom", "left", count, TYPE)
+        metric[9] = metric[9] + temp1
+        number[9] = number[9] + temp2
+        temp1, temp2 = metricGathering(trip, emissions, "bottom", "top", count, TYPE)
+        metric[10] = metric[10] + temp1
+        number[10] = number[10] + temp2
+        temp1, temp2 = metricGathering(trip, emissions, "bottom", "right", count, TYPE)
+        metric[11] = metric[11] + temp1
+        number[11] = number[11] + temp2
+        
+        count = count + 1
+    
+    print("metric", metric)
+    print("number", number)
+    print("metric", sum(metric))
+
 
 # graphingPerformance()
-plottingLocationsOfTTCs()
-# plottingLocationsOfPETs()
+
+depthEfficiency()
 
 
 
-        
-        
+
+# if (trips.getAttribute("departLane").split("-") == "left"):
+#             if (trips.getAttribute("arrivalLane").split("-") == "top"):
+#                 if TYPE == "waitingTime":
+#                     metric[0] = metric[0] + float(trips.getAttribute("waitingTime"))
+#                 elif TYPE == "duration":
+#                     metric[0] = metric[0] + float(trips.getAttribute("duration"))
+#                 elif TYPE == "CO2_abs":
+#                     metric[0] = metric[0] + float(emissions[count].getAttribute("duration"))
+#                 elif TYPE == "Throughput":
+#                     if (float(trips.getAttribute("arrival")) > 3600):
+#                         metric[0] = metric[0] + float(emissions[count].getAttribute("duration"))
