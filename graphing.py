@@ -546,6 +546,47 @@ def depthEfficiency():
     print("number", number)
     print("metric", sum(metric))
 
+    if TYPE == "duration" or TYPE == "waitingTime":
+        for i in range(len(metric)):
+            metric[i] = metric[i] / number[i]
+
+    print("metric", metric)
+    print("number", number)
+    print("metric", sum(metric))
+    xAxis = "Level of Service"
+    plotdata = pd.DataFrame(
+            {
+                "Left -> Top": metric[0],
+                "Left -> Right": metric[1],
+                "Left -> Bottom": metric[2],
+                "Top -> Right": metric[3],
+                "Top -> Bottom": metric[4],
+                "Top -> Left": metric[5],
+                "Right -> Bottom": metric[6],
+                "Right -> Left": metric[7],
+                "Right -> Top": metric[8],
+                "Bottom -> Left": metric[9],
+                "Bottom -> Top": metric[10],
+                "Bottom -> Right": metric[11],
+            }, 
+            # index=["A", "B", "C", "D"]
+            # index=["A", "B", "C"]
+            index=[LEVELOFSERVICE[0]]
+        )
+    plotdata.plot(kind='bar',) #yerr=std)
+    plt.rc('font', size=14)
+       
+    plt.xlabel(xAxis, size=20)
+    # plt.yscale("log")
+    # ax = plt.subplot(111)
+    # chartBox = ax.get_position()
+    # ax.set_position([chartBox.x0, chartBox.y0, chartBox.width*0.7, chartBox.height])
+    # ax.legend(loc='upper center', bbox_to_anchor=(1.25, 0.8), shadow=True, ncol=1)
+    # plt.ylabel(yAxis, size=20)
+    plt.xticks(size = 18)
+    plt.yticks(size = 18)
+    # plt.title(title, size=20)
+    plt.show()
 
 # graphingPerformance()
 
