@@ -166,7 +166,7 @@ def newGatheringTheData(safetyFiles, effiencyFiles):
 def safetyKPIs(filename):
     encounterTypes = ["2", "3"]
     safetyIncidents = []
-    print("filename", filename)
+    # print("filename", filename)
     document = minidom.parse(filename)
     numberOfTTC = 0
     numberOfDRAC = 0
@@ -175,21 +175,21 @@ def safetyKPIs(filename):
     for ttc in TTC:
         typeOfConflict = ttc.getAttribute("type")
         desiredConflict = typeOfConflict in encounterTypes
-        if ttc.getAttribute("time") != "NA" and desiredConflict == True:
+        if ttc.getAttribute("time") != "NA": #and desiredConflict == True:
             numberOfTTC = numberOfTTC + 1
 
     DRAC = document.getElementsByTagName('maxDRAC')
     for drac in DRAC:
         typeOfConflict = ttc.getAttribute("type")
         desiredConflict = typeOfConflict in encounterTypes
-        if drac.getAttribute("time") != "NA" and desiredConflict == True:
+        if drac.getAttribute("time") != "NA":# and desiredConflict == True:
             numberOfDRAC = numberOfDRAC + 1
 
     PET = document.getElementsByTagName('PET')
     for pet in PET:
         typeOfConflict = ttc.getAttribute("type")
         desiredConflict = typeOfConflict in encounterTypes
-        if pet.getAttribute("time") != "NA" and desiredConflict == True:
+        if pet.getAttribute("time") != "NA":# and desiredConflict == True:
             numberOfPET = numberOfPET + 1
 
     return numberOfTTC, numberOfDRAC, numberOfPET
@@ -215,40 +215,42 @@ def effiencyKPIs(filename):
     return count, np.mean(emissionsPerRun), waitingTimes, tripDuration
 
 def intialiseAxisAndTitle(j, TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray):
+    if SCENARIO == "Collision":
+        SCENARIO = SCENARIO + "(With Vehicle Rerouting)"
     if(j == 0):
         array = TTC
-        yAxis = "Number of TTC"
-        title = SCENARIO + ": TTC"
+        yAxis = "Number of TTC Incidents"
+        title = SCENARIO + ": TTC Incidents"
         std = StdTTCArray
     elif (j==1):
         array = DRAC
-        yAxis = "Number of DRAC"
-        title = SCENARIO + ": DRAC"
+        yAxis = "Number of DRAC Incidents"
+        title = SCENARIO + ": DRAC Incidents"
         std = StdDRACArray
     elif (j==2):
         array = PET
-        yAxis = "Number of PET"
-        title = SCENARIO + ": PET"
+        yAxis = "Number of PET Incidents"
+        title = SCENARIO + ": PET Incidents"
         std = StdPETArray
     elif (j==3):
         array = THROUGHPUT
-        yAxis = "Throughput of network"
+        yAxis = "Throughput of network (veh/hr)"
         title = SCENARIO + ": Throughput"
         std = StdThroughputArray
     elif (j==4):
         array = EMISSIONS
-        yAxis = "CO2"
+        yAxis = "CO2 (mg)"
         title = SCENARIO + ": Environmental"
         std = StdEmmisionsArray
     elif (j==5):
         array = WaitingTimesArray
-        yAxis = "Time"
-        title = SCENARIO + ": Waiting Times"
+        yAxis = "Time (s)"
+        title = SCENARIO + ": Mean Waiting Times"
         std = StdWaitingTimesArray
     elif (j==6):
         array = DurationArray
-        yAxis = "Time"
-        title = SCENARIO + ": TripDuration"
+        yAxis = "Time (s)"
+        title = SCENARIO + ": Mean Trip Duration"
         std = StdDurationArray
         
     return array, yAxis, title, std
@@ -282,10 +284,20 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, Durat
             # index=["B"]
         )
         plotdata.plot(kind='bar', yerr=std)
-        plt.xlabel(xAxis)
-        plt.ylabel(yAxis)
-        plt.title(title)
+        plt.rc('font', size=14)
+       
+        plt.xlabel(xAxis, size=20)
+        # plt.yscale("log")
+        ax = plt.subplot(111)
+        chartBox = ax.get_position()
+        ax.set_position([chartBox.x0, chartBox.y0, chartBox.width*0.7, chartBox.height])
+        ax.legend(loc='upper center', bbox_to_anchor=(1.25, 0.8), shadow=True, ncol=1)
+        plt.ylabel(yAxis, size=20)
+        plt.xticks(size = 18)
+        plt.yticks(size = 18)
+        plt.title(title, size=20)
     plt.show()
+
 
 def graphingFunction(xLabel, yLabel, title, xData, yData):
     plt.bar(xData, yData, align='center', alpha=0.5)
@@ -395,3 +407,12 @@ graphingPerformance()
 
         
         
+
+
+
+
+
+#
+#
+#
+#
