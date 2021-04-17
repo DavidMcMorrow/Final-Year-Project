@@ -215,6 +215,8 @@ def effiencyKPIs(filename):
     return count, np.mean(emissionsPerRun), waitingTimes, tripDuration
 
 def intialiseAxisAndTitle(j, TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray):
+    if SCENARIO == "Collision":
+        SCENARIO = SCENARIO + "(No Vehicle Rerouting)"
     if(j == 0):
         array = TTC
         yAxis = "Number of TTC Incidents"
@@ -268,12 +270,12 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, Durat
                 "Baseline HDV": array[0],
                 "Baseline 100% L4-CV": array[1],
                 "Real TMS 100% L4-CV": array[2],
-                # "Baseline P1": array[3],
-                # "Real TMS P1": array[4],
-                # "Baseline P2": array[5],
-                # "Real TMS P2": array[6],
-                # "Baseline P3": array[7],
-                # "Real TMS P3": array[8],
+                "Baseline P1": array[3],
+                "Real TMS P1": array[4],
+                "Baseline P2": array[5],
+                "Real TMS P2": array[6],
+                "Baseline P3": array[7],
+                "Real TMS P3": array[8],
                 # "Baseline 100% L4-CV": array[0],
                 # "TMS 100% L4-CV": array[1],
             }, 
@@ -286,10 +288,10 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, Durat
        
         plt.xlabel(xAxis, size=20)
         # plt.yscale("log")
-        # ax = plt.subplot(111)
-        # chartBox = ax.get_position()
-        # ax.set_position([chartBox.x0, chartBox.y0, chartBox.width*0.7, chartBox.height])
-        # ax.legend(loc='upper center', bbox_to_anchor=(1.25, 0.8), shadow=True, ncol=1)
+        ax = plt.subplot(111)
+        chartBox = ax.get_position()
+        ax.set_position([chartBox.x0, chartBox.y0, chartBox.width*0.7, chartBox.height])
+        ax.legend(loc='upper center', bbox_to_anchor=(1.25, 0.8), shadow=True, ncol=1)
         plt.ylabel(yAxis, size=20)
         plt.xticks(size = 18)
         plt.yticks(size = 18)
@@ -426,9 +428,9 @@ def graphingPerformance():
     # SCENARIO = "Roadworks"
     SCENARIO = "Collision"
 
-    useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV"]
-    # useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
-    #             "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
+    # useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV"]
+    useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
+                "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
 
     # LEVELOFSERVICE = ["A", "B", "C", "D"]
     LEVELOFSERVICE = ["A", "B", "C"]
@@ -588,9 +590,9 @@ def depthEfficiency():
     # plt.title(title, size=20)
     plt.show()
 
-# graphingPerformance()
+graphingPerformance()
 
-depthEfficiency()
+# depthEfficiency()
 
 
 
