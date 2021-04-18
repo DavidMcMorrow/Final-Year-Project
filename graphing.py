@@ -65,6 +65,11 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes, NUMBEROFI
                 VehiclesEmmisionsArray = []
                 VehiclesWaitingTimes = []
                 VehiclesDuration = []
+                effiencyFilepath = SCENARIO + case + "\Output-Files\LOS-" + los + "\Trips-" + str(i) + ".xml"
+                tempThroughput, tempEmmisions, VehiclesWaitingTimes, VehiclesDuration = effiencyKPIs(effiencyFilepath)
+                    
+                VehiclesThroughputArray.append(tempThroughput)
+                VehiclesEmmisionsArray.append(tempEmmisions)
                 for types in vehicleTypes:
                     safetyFilepath = SCENARIO + case + "\Output-Files\LOS-" + los + "\SSM-" + types + "-" + str(i) + ".xml"
                     effiencyFilepath = SCENARIO + case + "\Output-Files\LOS-" + los + "\Trips-" + str(i) + ".xml"
@@ -74,10 +79,7 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes, NUMBEROFI
                     VehiclesDRACArray.append(tempDRAC)
                     VehiclesPETArray.append(tempPET)
 
-                    tempThroughput, tempEmmisions, VehiclesWaitingTimes, VehiclesDuration = effiencyKPIs(effiencyFilepath)
                     
-                    VehiclesThroughputArray.append(tempThroughput)
-                    VehiclesEmmisionsArray.append(tempEmmisions)
                     
 
                     safetyFiles.append(safetyFilepath)
@@ -102,8 +104,8 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes, NUMBEROFI
             LOSTTCArray.append(np.array(IterationTTCArray).mean())
             LOSDRACArray.append(np.array(IterationDRACArray).mean())
             LOSPETArray.append(np.array(IterationPETArray).mean())
-            LOSThroughputArray.append(np.array(VehiclesThroughputArray).mean())
-            LOSEmmisionsArray.append(np.array(VehiclesEmmisionsArray).mean())
+            LOSThroughputArray.append(np.array(IterationThroughputArray).mean())
+            LOSEmmisionsArray.append(np.array(IterationEmmisionsArray).mean())
             LOSWaitingTimesArray.append(np.array(IterationWaitingTimes).mean())
             LOSDurationArray.append(np.array(IterationDuration).mean())
 
@@ -212,7 +214,7 @@ def effiencyKPIs(filename):
         waitingTimes.append(float(trips[i].getAttribute("waitingTime")))
         tripDuration.append(float(trips[i].getAttribute("duration")))
     
-    return count, np.mean(emissionsPerRun), waitingTimes, tripDuration
+    return count, emissionsPerRun, waitingTimes, tripDuration
 
 def intialiseAxisAndTitle(j, TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray):
     if SCENARIO == "Collision":
@@ -295,7 +297,7 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, Durat
         plt.ylabel(yAxis, size=20)
         plt.xticks(size = 18)
         plt.yticks(size = 18)
-        plt.title(title, size=20)
+        plt.title(title, size=18)
     plt.show()
 
 
@@ -400,15 +402,165 @@ def graphingPerformance():
 
     graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray)
 
-graphingPerformance()
+# graphingPerformance()
 # plottingLocationsOfTTCs()
 
 
-
+def metricGathering(trips, emissions, start, end, count, TYPE):
+    metric = 0
+    hit = 0
+    if (trips.getAttribute("departLane").split("-")[0] == start):
+        if (trips.getAttribute("arrivalLane").split("-")[0] == end):
+            if TYPE == "waitingTime":
+                metric = float(trips.getAttribute("waitingTime"))
+                hit = 1
+            elif TYPE == "duration":
+                metric = float(trips.getAttribute("duration"))
+                hit = 1
+            elif TYPE == "CO2_abs":
+                metric = float(emissions[count].getAttribute("CO2_abs"))
+                hit = 1
+            elif TYPE == "Throughput":
+                if (float(trips.getAttribute("arrival")) < 3600):
+                    metric = 1
+                    hit = 1
+    return metric, hit
         
         
 
+def depthEfficiency():
+    SCENARIO = "Collision"
+    # useCases = ["\BaselinePenetration3"]
+    useCases = ["\RealTMSPenetration3"]
 
+    # LEVELOFSERVICE = ["A", "B", "C", "D"]
+    LEVELOFSERVICE = ["C"]
+    # LEVELOFSERVICE = ["B", "C"]
+    vehicleTypes = ["HDV", "L4-CV"]
+
+    metric = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    number = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+    realOrFake = "TMS"
+    # realOrFake = "Baseline"
+    
+    # TYPE = "waitingTime"
+    TYPE = "duration"
+    # TYPE = "CO2_abs"
+    # TYPE = "Throughput"
+
+    # TITLE = realOrFake + ": Throughput by route"
+    # TITLE = realOrFake + ": Amount of CO2 emitted by route"
+    # TITLE = realOrFake + ": Mean Waiting Times per route"
+    TITLE = realOrFake + ": Mean Trip Duration per route"
+
+    # YAXIS = "Throughput of network (veh/hr)"
+    # YAXIS = "CO2 (mg)"
+    YAXIS = "Time (s)"
+    # YAXIS = "Time (s)"
+    iteration = 0
+    for i in range(3):
+        print("i", i)
+        effiencyFilepath = SCENARIO + useCases[0] + "\Output-Files\LOS-" + LEVELOFSERVICE[0] + "\Trips-" + str(i) + ".xml"
+
+        document = minidom.parse(effiencyFilepath)
+        trips = document.getElementsByTagName('tripinfo')
+        emissions = document.getElementsByTagName('emissions')
+        count = 0
+    
+        for trip in trips:
+            temp1, temp2 = metricGathering(trip, emissions, "left", "top", count, TYPE)
+            metric[0] = metric[0] + temp1
+            number[0] = number[0] + temp2
+            temp1, temp2 = metricGathering(trip, emissions, "left", "right", count, TYPE)
+            metric[1] = metric[1] + temp1
+            number[1] = number[1] + temp2
+            temp1, temp2 = metricGathering(trip, emissions, "left", "bottom", count, TYPE)
+            metric[2] = metric[2] + temp1
+            number[2] = number[2] + temp2
+
+            temp1, temp2 = metricGathering(trip, emissions, "top", "right", count, TYPE)
+            metric[3] = metric[3] + temp1
+            number[3] = number[3] + temp2
+            temp1, temp2 = metricGathering(trip, emissions, "top", "bottom", count, TYPE)
+            metric[4] = metric[4] + temp1
+            number[4] = number[4] + temp2
+            temp1, temp2 = metricGathering(trip, emissions, "top", "left", count, TYPE)
+            metric[5] = metric[5] + temp1
+            number[5] = number[5] + temp2
+
+            temp1, temp2 =  metricGathering(trip, emissions, "right", "bottom", count, TYPE)
+            metric[6] = metric[6] + temp1
+            number[6] = number[6] + temp2
+            temp1, temp2 = metricGathering(trip, emissions, "right", "left", count, TYPE)
+            metric[7] = metric[7] + temp1
+            number[7] = number[7] + temp2
+            temp1, temp2 = metricGathering(trip, emissions, "right", "top", count, TYPE)
+            metric[8] = metric[8] + temp1
+            number[8] = number[8] + temp2
+
+            temp1, temp2 = metricGathering(trip, emissions, "bottom", "left", count, TYPE)
+            metric[9] = metric[9] + temp1
+            number[9] = number[9] + temp2
+            temp1, temp2 = metricGathering(trip, emissions, "bottom", "top", count, TYPE)
+            metric[10] = metric[10] + temp1
+            number[10] = number[10] + temp2
+            temp1, temp2 = metricGathering(trip, emissions, "bottom", "right", count, TYPE)
+            metric[11] = metric[11] + temp1
+            number[11] = number[11] + temp2
+            
+            count = count + 1
+        
+        print("metric", metric)
+        print("number", number)
+        print("metric", sum(metric))
+
+    if TYPE == "duration" or TYPE == "waitingTime":
+        for i in range(len(metric)):
+            metric[i] = metric[i] / number[i]
+
+    print("metric", metric)
+    print("number", number)
+    print("metric", sum(metric))
+    xAxis = "Level of Service"
+    plotdata = pd.DataFrame(
+            {
+                "Left -> Top": metric[0],
+                "Left -> Right": metric[1],
+                "Left -> Bottom": metric[2],
+                "Top -> Right": metric[3],
+                "Top -> Bottom": metric[4],
+                "Top -> Left": metric[5],
+                "Right -> Bottom": metric[6],
+                "Right -> Left": metric[7],
+                "Right -> Top": metric[8],
+                "Bottom -> Left": metric[9],
+                "Bottom -> Top": metric[10],
+                "Bottom -> Right": metric[11],
+            }, 
+            # index=["A", "B", "C", "D"]
+            # index=["A", "B", "C"]
+            index=[LEVELOFSERVICE[0]]
+        )
+    plotdata.plot(kind='bar',) #yerr=std)
+    plt.rc('font', size=14)
+       
+    plt.xlabel(xAxis, size=20)
+    plt.ylabel(YAXIS, size=20)
+    # plt.yscale("log")
+    # ax = plt.subplot(111)
+    # chartBox = ax.get_position()
+    # ax.set_position([chartBox.x0, chartBox.y0, chartBox.width*0.7, chartBox.height])
+    # ax.legend(loc='upper center', bbox_to_anchor=(1.25, 0.8), shadow=True, ncol=1)
+    # plt.ylabel(yAxis, size=20)
+    plt.xticks(size = 18)
+    plt.yticks(size = 18)
+    plt.title(TITLE, size=20)
+    plt.show()
+
+# graphingPerformance()
+
+depthEfficiency()
 
 
 
