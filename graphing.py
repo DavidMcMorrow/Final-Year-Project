@@ -483,70 +483,73 @@ def depthEfficiency():
     useCases = ["\RealTMSCAV"]
 
     # LEVELOFSERVICE = ["A", "B", "C", "D"]
-    LEVELOFSERVICE = ["A"]
+    LEVELOFSERVICE = ["C"]
     # LEVELOFSERVICE = ["B", "C"]
     vehicleTypes = ["HDV", "L4-CV"]
 
-    TYPE = "waitingTime"
+    metric = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    number = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    # TYPE = "waitingTime"
     # TYPE = "duration"
-    # TYPE = "CO2_abs"
+    TYPE = "CO2_abs"
     # TYPE = "Throughput"
 
     iteration = 0
-    effiencyFilepath = SCENARIO + useCases[0] + "\Output-Files\LOS-" + LEVELOFSERVICE[0] + "\Trips-" + str(iteration) + ".xml"
+    for i in range(3):
+        print("i", i)
+        effiencyFilepath = SCENARIO + useCases[0] + "\Output-Files\LOS-" + LEVELOFSERVICE[0] + "\Trips-" + str(i) + ".xml"
 
-    document = minidom.parse(effiencyFilepath)
-    trips = document.getElementsByTagName('tripinfo')
-    emissions = document.getElementsByTagName('emissions')
-    count = 0
-    metric = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    number = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    for trip in trips:
-        temp1, temp2 = metricGathering(trip, emissions, "left", "top", count, TYPE)
-        metric[0] = metric[0] + temp1
-        number[0] = number[0] + temp2
-        temp1, temp2 = metricGathering(trip, emissions, "left", "right", count, TYPE)
-        metric[1] = metric[1] + temp1
-        number[1] = number[1] + temp2
-        temp1, temp2 = metricGathering(trip, emissions, "left", "bottom", count, TYPE)
-        metric[2] = metric[2] + temp1
-        number[2] = number[2] + temp2
-
-        temp1, temp2 = metricGathering(trip, emissions, "top", "right", count, TYPE)
-        metric[3] = metric[3] + temp1
-        number[3] = number[3] + temp2
-        temp1, temp2 = metricGathering(trip, emissions, "top", "bottom", count, TYPE)
-        metric[4] = metric[4] + temp1
-        number[4] = number[4] + temp2
-        temp1, temp2 = metricGathering(trip, emissions, "top", "left", count, TYPE)
-        metric[5] = metric[5] + temp1
-        number[5] = number[5] + temp2
-
-        temp1, temp2 =  metricGathering(trip, emissions, "right", "bottom", count, TYPE)
-        metric[6] = metric[6] + temp1
-        number[6] = number[6] + temp2
-        temp1, temp2 = metricGathering(trip, emissions, "right", "left", count, TYPE)
-        metric[7] = metric[7] + temp1
-        number[7] = number[7] + temp2
-        temp1, temp2 = metricGathering(trip, emissions, "right", "top", count, TYPE)
-        metric[8] = metric[8] + temp1
-        number[8] = number[8] + temp2
-
-        temp1, temp2 = metricGathering(trip, emissions, "bottom", "left", count, TYPE)
-        metric[9] = metric[9] + temp1
-        number[9] = number[9] + temp2
-        temp1, temp2 = metricGathering(trip, emissions, "bottom", "top", count, TYPE)
-        metric[10] = metric[10] + temp1
-        number[10] = number[10] + temp2
-        temp1, temp2 = metricGathering(trip, emissions, "bottom", "right", count, TYPE)
-        metric[11] = metric[11] + temp1
-        number[11] = number[11] + temp2
-        
-        count = count + 1
+        document = minidom.parse(effiencyFilepath)
+        trips = document.getElementsByTagName('tripinfo')
+        emissions = document.getElementsByTagName('emissions')
+        count = 0
     
-    print("metric", metric)
-    print("number", number)
-    print("metric", sum(metric))
+        for trip in trips:
+            temp1, temp2 = metricGathering(trip, emissions, "left", "top", count, TYPE)
+            metric[0] = metric[0] + temp1
+            number[0] = number[0] + temp2
+            temp1, temp2 = metricGathering(trip, emissions, "left", "right", count, TYPE)
+            metric[1] = metric[1] + temp1
+            number[1] = number[1] + temp2
+            temp1, temp2 = metricGathering(trip, emissions, "left", "bottom", count, TYPE)
+            metric[2] = metric[2] + temp1
+            number[2] = number[2] + temp2
+
+            temp1, temp2 = metricGathering(trip, emissions, "top", "right", count, TYPE)
+            metric[3] = metric[3] + temp1
+            number[3] = number[3] + temp2
+            temp1, temp2 = metricGathering(trip, emissions, "top", "bottom", count, TYPE)
+            metric[4] = metric[4] + temp1
+            number[4] = number[4] + temp2
+            temp1, temp2 = metricGathering(trip, emissions, "top", "left", count, TYPE)
+            metric[5] = metric[5] + temp1
+            number[5] = number[5] + temp2
+
+            temp1, temp2 =  metricGathering(trip, emissions, "right", "bottom", count, TYPE)
+            metric[6] = metric[6] + temp1
+            number[6] = number[6] + temp2
+            temp1, temp2 = metricGathering(trip, emissions, "right", "left", count, TYPE)
+            metric[7] = metric[7] + temp1
+            number[7] = number[7] + temp2
+            temp1, temp2 = metricGathering(trip, emissions, "right", "top", count, TYPE)
+            metric[8] = metric[8] + temp1
+            number[8] = number[8] + temp2
+
+            temp1, temp2 = metricGathering(trip, emissions, "bottom", "left", count, TYPE)
+            metric[9] = metric[9] + temp1
+            number[9] = number[9] + temp2
+            temp1, temp2 = metricGathering(trip, emissions, "bottom", "top", count, TYPE)
+            metric[10] = metric[10] + temp1
+            number[10] = number[10] + temp2
+            temp1, temp2 = metricGathering(trip, emissions, "bottom", "right", count, TYPE)
+            metric[11] = metric[11] + temp1
+            number[11] = number[11] + temp2
+            
+            count = count + 1
+        
+        print("metric", metric)
+        print("number", number)
+        print("metric", sum(metric))
 
     if TYPE == "duration" or TYPE == "waitingTime":
         for i in range(len(metric)):
@@ -590,21 +593,6 @@ def depthEfficiency():
     # plt.title(title, size=20)
     plt.show()
 
-graphingPerformance()
+# graphingPerformance()
 
-# depthEfficiency()
-
-
-
-
-# if (trips.getAttribute("departLane").split("-") == "left"):
-#             if (trips.getAttribute("arrivalLane").split("-") == "top"):
-#                 if TYPE == "waitingTime":
-#                     metric[0] = metric[0] + float(trips.getAttribute("waitingTime"))
-#                 elif TYPE == "duration":
-#                     metric[0] = metric[0] + float(trips.getAttribute("duration"))
-#                 elif TYPE == "CO2_abs":
-#                     metric[0] = metric[0] + float(emissions[count].getAttribute("duration"))
-#                 elif TYPE == "Throughput":
-#                     if (float(trips.getAttribute("arrival")) > 3600):
-#                         metric[0] = metric[0] + float(emissions[count].getAttribute("duration"))
+depthEfficiency()
