@@ -210,7 +210,7 @@ def effiencyKPIs(filename):
     for i in range(0, len(trips)):
         if(float(trips[i].getAttribute("arrival") ) < 3600):
             count = count + 1
-            emissionsPerRun.append(float(emissions[i].getAttribute("CO2_abs")))
+        emissionsPerRun.append(float(emissions[i].getAttribute("CO2_abs")))
         waitingTimes.append(float(trips[i].getAttribute("waitingTime")))
         tripDuration.append(float(trips[i].getAttribute("duration")))
     
@@ -558,9 +558,9 @@ def depthEfficiency():
     plt.title(TITLE, size=20)
     plt.show()
 
-# graphingPerformance()
+graphingPerformance()
 
-depthEfficiency()
+# depthEfficiency()
 
 
 
