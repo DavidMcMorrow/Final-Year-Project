@@ -55,7 +55,9 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes, NUMBEROFI
             IterationThroughputArray = []
             IterationEmmisionsArray = []
             IterationWaitingTimes = []
-            IterationDuration = []      
+            IterationDuration = []  
+              
+            
             for i in range(0, NUMBEROFITERATIONS):
                 # print("i", i)
                 VehiclesTTCArray = []
@@ -65,19 +67,21 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes, NUMBEROFI
                 VehiclesEmmisionsArray = []
                 VehiclesWaitingTimes = []
                 VehiclesDuration = []
+                effiencyFilepath = SCENARIO + case + "\Output-Files\LOS-" + los + "\Trips-" + str(i) + ".xml" 
+                tempThroughput, tempEmmisions, VehiclesWaitingTimes, VehiclesDuration = effiencyKPIs(effiencyFilepath)
+                        
+                VehiclesThroughputArray.append(tempThroughput)
+                VehiclesEmmisionsArray.append(tempEmmisions) 
                 for types in vehicleTypes:
                     safetyFilepath = SCENARIO + case + "\Output-Files\LOS-" + los + "\SSM-" + types + "-" + str(i) + ".xml"
-                    effiencyFilepath = SCENARIO + case + "\Output-Files\LOS-" + los + "\Trips-" + str(i) + ".xml"
+                    
                     
                     tempTTC, tempDRAC, tempPET = safetyKPIs(safetyFilepath)
                     VehiclesTTCArray.append(tempTTC)
                     VehiclesDRACArray.append(tempDRAC)
                     VehiclesPETArray.append(tempPET)
 
-                    tempThroughput, tempEmmisions, VehiclesWaitingTimes, VehiclesDuration = effiencyKPIs(effiencyFilepath)
-                    
-                    VehiclesThroughputArray.append(tempThroughput)
-                    VehiclesEmmisionsArray.append(tempEmmisions)
+                   
                     
 
                     safetyFiles.append(safetyFilepath)
@@ -102,8 +106,8 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes, NUMBEROFI
             LOSTTCArray.append(np.array(IterationTTCArray).mean())
             LOSDRACArray.append(np.array(IterationDRACArray).mean())
             LOSPETArray.append(np.array(IterationPETArray).mean())
-            LOSThroughputArray.append(np.array(VehiclesThroughputArray).mean())
-            LOSEmmisionsArray.append(np.array(VehiclesEmmisionsArray).mean())
+            LOSThroughputArray.append(np.array(IterationThroughputArray).mean())
+            LOSEmmisionsArray.append(np.array(IterationEmmisionsArray).mean())
             LOSWaitingTimesArray.append(np.array(IterationWaitingTimes).mean())
             LOSDurationArray.append(np.array(IterationDuration).mean())
 
@@ -208,11 +212,11 @@ def effiencyKPIs(filename):
     for i in range(0, len(trips)):
         if(float(trips[i].getAttribute("arrival") ) < 3600):
             count = count + 1
-            emissionsPerRun.append(float(emissions[i].getAttribute("CO2_abs")))
+        emissionsPerRun.append(float(emissions[i].getAttribute("CO2_abs")))
         waitingTimes.append(float(trips[i].getAttribute("waitingTime")))
         tripDuration.append(float(trips[i].getAttribute("duration")))
     
-    return count, np.mean(emissionsPerRun), waitingTimes, tripDuration
+    return count, emissionsPerRun, waitingTimes, tripDuration
 
 def intialiseAxisAndTitle(j, TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray):
     if SCENARIO == "Collision":
@@ -295,7 +299,7 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, Durat
         plt.ylabel(yAxis, size=20)
         plt.xticks(size = 18)
         plt.yticks(size = 18)
-        plt.title(title, size=20)
+        plt.title(title, size=18)
     plt.show()
 
 def graphingFunction(xLabel, yLabel, title, xData, yData):
@@ -478,9 +482,10 @@ def metricGathering(trips, emissions, start, end, count, TYPE):
     return metric, hit
 
 def depthEfficiency():
-    SCENARIO = "Collision"
+    SCENARIO = "Roadworks"
 
-    useCases = ["\RealTMSCAV"]
+    # useCases = ["\BaselinePenetration3"]
+    useCases = ["\RealTMSPenetration3"]
 
     # LEVELOFSERVICE = ["A", "B", "C", "D"]
     LEVELOFSERVICE = ["C"]
@@ -490,9 +495,27 @@ def depthEfficiency():
     metric = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     number = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     # TYPE = "waitingTime"
-    # TYPE = "duration"
-    TYPE = "CO2_abs"
+    TYPE = "duration"
+    # TYPE = "CO2_abs"
     # TYPE = "Throughput"
+
+    realOrFake = "TMS"
+    # realOrFake = "Baseline"
+    
+    # TYPE = "waitingTime"
+    TYPE = "duration"
+    # TYPE = "CO2_abs"
+    # TYPE = "Throughput"
+
+    # TITLE = realOrFake + ": Throughput by route"
+    # TITLE = realOrFake + ": Amount of CO2 emitted by route"
+    # TITLE = realOrFake + ": Mean Waiting Times per route"
+    TITLE = realOrFake + ": Mean Trip Duration per route"
+
+    # YAXIS = "Throughput of network (veh/hr)"
+    # YAXIS = "CO2 (mg)"
+    YAXIS = "Time (s)"
+    # YAXIS = "Time (s)"
 
     iteration = 0
     for i in range(3):
@@ -582,6 +605,7 @@ def depthEfficiency():
     plt.rc('font', size=14)
        
     plt.xlabel(xAxis, size=20)
+    plt.ylabel(YAXIS, size=20)
     # plt.yscale("log")
     # ax = plt.subplot(111)
     # chartBox = ax.get_position()
@@ -590,9 +614,9 @@ def depthEfficiency():
     # plt.ylabel(yAxis, size=20)
     plt.xticks(size = 18)
     plt.yticks(size = 18)
-    # plt.title(title, size=20)
+    plt.title(TITLE, size=20)
     plt.show()
 
-# graphingPerformance()
+graphingPerformance()
 
-depthEfficiency()
+# depthEfficiency()
