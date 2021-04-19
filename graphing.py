@@ -604,14 +604,15 @@ def depthEfficiency():
     plotdata.plot(kind='bar',) #yerr=std)
     plt.rc('font', size=14)
        
-    plt.xlabel(xAxis, size=20)
-    plt.ylabel(YAXIS, size=20)
+    
     # plt.yscale("log")
     # ax = plt.subplot(111)
     # chartBox = ax.get_position()
     # ax.set_position([chartBox.x0, chartBox.y0, chartBox.width*0.7, chartBox.height])
     # ax.legend(loc='upper center', bbox_to_anchor=(1.25, 0.8), shadow=True, ncol=1)
     # plt.ylabel(yAxis, size=20)
+    plt.xlabel(xAxis, size=20)
+    plt.ylabel(YAXIS, size=20)
     plt.xticks(size = 18)
     plt.yticks(size = 18)
     plt.title(TITLE, size=20)
