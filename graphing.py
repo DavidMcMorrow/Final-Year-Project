@@ -55,9 +55,7 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes, NUMBEROFI
             IterationThroughputArray = []
             IterationEmmisionsArray = []
             IterationWaitingTimes = []
-            IterationDuration = []  
-              
-            
+            IterationDuration = []      
             for i in range(0, NUMBEROFITERATIONS):
                 # print("i", i)
                 VehiclesTTCArray = []
@@ -67,23 +65,22 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes, NUMBEROFI
                 VehiclesEmmisionsArray = []
                 VehiclesWaitingTimes = []
                 VehiclesDuration = []
-                effiencyFilepath = SCENARIO + case + "\Output-Files\LOS-" + los + "\Trips-" + str(i) + ".xml" 
+                effiencyFilepath = SCENARIO + case + "\Output-Files\LOS-" + los + "\Trips-" + str(i) + ".xml"
                 tempThroughput, tempEmmisions, VehiclesWaitingTimes, VehiclesDuration = effiencyKPIs(effiencyFilepath)
-                        
+                    
                 VehiclesThroughputArray.append(tempThroughput)
-                VehiclesEmmisionsArray.append(tempEmmisions) 
+                # VehiclesEmmisionsArray.append(tempEmmisions)
                 for types in vehicleTypes:
                     safetyFilepath = SCENARIO + case + "\Output-Files\LOS-" + los + "\SSM-" + types + "-" + str(i) + ".xml"
-                    
+                    effiencyFilepath = SCENARIO + case + "\Output-Files\LOS-" + los + "\Trips-" + str(i) + ".xml"
                     
                     tempTTC, tempDRAC, tempPET = safetyKPIs(safetyFilepath)
                     VehiclesTTCArray.append(tempTTC)
                     VehiclesDRACArray.append(tempDRAC)
                     VehiclesPETArray.append(tempPET)
 
-                   
                     
-
+                
                     safetyFiles.append(safetyFilepath)
                     effiencyFiles.append(effiencyFilepath)
                     # print("VehiclesTTCArray", VehiclesTTCArray)
@@ -94,7 +91,8 @@ def newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes, NUMBEROFI
                 IterationDRACArray.append(np.sum(VehiclesDRACArray))
                 IterationPETArray.append(np.sum(VehiclesPETArray))
                 IterationThroughputArray.append(np.sum(VehiclesThroughputArray))
-                IterationEmmisionsArray.append(np.sum(VehiclesEmmisionsArray))
+                # IterationEmmisionsArray.append(np.sum(VehiclesEmmisionsArray))
+                IterationEmmisionsArray = np.concatenate((IterationEmmisionsArray, tempEmmisions))
                 IterationWaitingTimes = np.concatenate((IterationWaitingTimes, VehiclesWaitingTimes))
                 IterationDuration = np.concatenate((IterationDuration, VehiclesDuration))
                 # IterationDuration + VehiclesDuration
@@ -179,21 +177,21 @@ def safetyKPIs(filename):
     for ttc in TTC:
         typeOfConflict = ttc.getAttribute("type")
         desiredConflict = typeOfConflict in encounterTypes
-        if ttc.getAttribute("time") != "NA":# and desiredConflict == True:
+        if ttc.getAttribute("time") != "NA": #and desiredConflict == True:
             numberOfTTC = numberOfTTC + 1
 
     DRAC = document.getElementsByTagName('maxDRAC')
     for drac in DRAC:
         typeOfConflict = ttc.getAttribute("type")
         desiredConflict = typeOfConflict in encounterTypes
-        if drac.getAttribute("time") != "NA": #and desiredConflict == True:
+        if drac.getAttribute("time") != "NA":# and desiredConflict == True:
             numberOfDRAC = numberOfDRAC + 1
 
     PET = document.getElementsByTagName('PET')
     for pet in PET:
         typeOfConflict = ttc.getAttribute("type")
         desiredConflict = typeOfConflict in encounterTypes
-        if pet.getAttribute("time") != "NA" and float(pet.getAttribute("value")) < 1.5:# and desiredConflict == True:
+        if pet.getAttribute("time") != "NA":# and desiredConflict == True:
             numberOfPET = numberOfPET + 1
 
     return numberOfTTC, numberOfDRAC, numberOfPET
@@ -220,7 +218,7 @@ def effiencyKPIs(filename):
 
 def intialiseAxisAndTitle(j, TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray):
     if SCENARIO == "Collision":
-        SCENARIO = SCENARIO + "(No Vehicle Rerouting)"
+        SCENARIO = SCENARIO + "(With Vehicle Rerouting)"
     if(j == 0):
         array = TTC
         yAxis = "Number of TTC Incidents"
@@ -229,12 +227,12 @@ def intialiseAxisAndTitle(j, TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimes
     elif (j==1):
         array = DRAC
         yAxis = "Number of DRAC Incidents"
-        title = SCENARIO + ": DRAC"
+        title = SCENARIO + ": DRAC Incidents"
         std = StdDRACArray
     elif (j==2):
         array = PET
         yAxis = "Number of PET Incidents"
-        title = SCENARIO + ": PET"
+        title = SCENARIO + ": PET Incidents"
         std = StdPETArray
     elif (j==3):
         array = THROUGHPUT
@@ -280,13 +278,15 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, Durat
                 "Real TMS P2": array[6],
                 "Baseline P3": array[7],
                 "Real TMS P3": array[8],
-                # "Baseline 100% L4-CV": array[0],
-                # "TMS 100% L4-CV": array[1],
+                # "Baseline 100%": array[0],
+                # "Real TMS 100%": array[1],
             }, 
             # index=["A", "B", "C", "D"]
             index=["A", "B", "C"]
-            # index=["B", "C"]
+            # index=["B"]
         )
+        print("array", array[0])
+        print("std", std[0])
         plotdata.plot(kind='bar', yerr=std)
         plt.rc('font', size=14)
        
@@ -302,6 +302,7 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, Durat
         plt.title(title, size=18)
     plt.show()
 
+
 def graphingFunction(xLabel, yLabel, title, xData, yData):
     plt.bar(xData, yData, align='center', alpha=0.5)
     plt.xlabel(xLabel)
@@ -309,17 +310,13 @@ def graphingFunction(xLabel, yLabel, title, xData, yData):
     plt.title(title)
     plt.show()
 
-def graphingIncidents(ttcScenario, ttcUseCase, ttcLOS, i):
-    NumberOfTTCPerVehicle = []
+def graphingTTCs(ttcScenario, ttcUseCase, ttcLOS, i):
     if ttcUseCase == "\BaselineHDV":
         vehicleTypes = ["L0-HDV"]
-        
     elif ttcUseCase == "\BaselineCAV" or ttcUseCase == "\RealTMSCAV":
         vehicleTypes = ["L4-CV"]
-        
     else:
         vehicleTypes = ["L0-HDV", "L2-AV", "L2-CV", "L4-AV","L4-CV"]
-        
     followTTCXCoor = []
     followTTCYCoor = []
     otherTTCXCoor = []
@@ -328,56 +325,17 @@ def graphingIncidents(ttcScenario, ttcUseCase, ttcLOS, i):
     for types in vehicleTypes:
         safetyFilepath = ttcScenario + ttcUseCase + "\Output-Files\LOS-" + ttcLOS + "\SSM-" + types + "-" + str(i) + ".xml"
         followTTCXCoor, followTTCYCoor, otherTTCXCoor, otherTTCYCoor = gettingTTCPositions(safetyFilepath, followTTCXCoor, followTTCYCoor, otherTTCXCoor, otherTTCYCoor)
-        NumberOfTTCPerVehicle.append(len(followTTCXCoor))
     # print("ttcXCoor", ttcXCoor)
     # print("ttcYCoor", ttcYCoor)
-    from matplotlib.offsetbox import TextArea, DrawingArea, OffsetImage, AnnotationBbox
-    # print("NumberOfTTCPerVehicle", NumberOfTTCPerVehicle)
-    # print("sum", sum(NumberOfTTCPerVehicle))
-    import matplotlib.pyplot as plt
-    import matplotlib.image as mpimg
-   
-    # fig, ax = plt.subplots()
-
-    # ax.set_xlim(0, 1)
-    # ax.set_ylim(0, 1)
-
-    import matplotlib.pyplot as plt
-    im = plt.imread("Incident background.PNG")
-    implot = plt.imshow(im)
-
-
-    # imagebox = OffsetImage(arr_lena, zoom=0.2)
-
-    # ab = AnnotationBbox(imagebox, (500, 500))
-
-    # plt.scatter(x=[(505 * 0.7), (498 * 0.7)], y=[(500 * 0.7), (505 * 0.7)], c='r', s=1)
-    # plt.plot(followTTCXCoor, followTTCYCoor, 'o', color='black')
-    # print("followTTCXCoor", followTTCXCoor)
-    fittedX = [element  for element in followTTCXCoor]
-    # print("fittedX", fittedX)
-    # print("followTTCYCoor", followTTCYCoor)
-    fittedY = [element  for element in followTTCYCoor]
-    # print("fittedX", fittedY)
-    
-    plt.plot(fittedX, fittedY, 'o', color='red')
-    plt.show()
-
-    
-    # plt.draw()
-    
-    ax.add_artist(ab)
-    # plt.grid()
-    
+    plt.plot(followTTCXCoor, followTTCYCoor, 'o', color='black')
+    plt.plot(otherTTCXCoor, otherTTCYCoor, 'o', color='red')
     plt.xlabel("meters")
     plt.ylabel("meters")
-    # plt.savefig('add_picture_matplotlib_figure.png',bbox_inches='tight')
     plt.show()
-    return NumberOfTTCPerVehicle
 
 def gettingTTCPositions(safetyFilepath, followTTCXCoor, followTTCYCoor, otherTTCXCoor, otherTTCYCoor):
     document = minidom.parse(safetyFilepath)
-    TTC = document.getElementsByTagName('PET')
+    TTC = document.getElementsByTagName('minTTC')
     leadFollowTypes = ["2", "3"]
     otherTypes = ["11", "12"]
     for ttc in TTC:
@@ -386,38 +344,23 @@ def gettingTTCPositions(safetyFilepath, followTTCXCoor, followTTCYCoor, otherTTC
         if ttc.getAttribute("time") != "NA":
             leadFollowIssue = ttc.getAttribute("type") in leadFollowTypes
             otherIssue = ttc.getAttribute("type") in otherTypes
-            # if leadFollowIssue == True:
-            tempCoor = ttc.getAttribute("position").split(",")
-            followTTCXCoor.append(float(tempCoor[0]))
-            followTTCYCoor.append(float(tempCoor[1]))
-            # if otherIssue == True:
-            # tempCoor = ttc.getAttribute("position").split(",")
-            # otherTTCXCoor.append(float(tempCoor[0]))
-            # otherTTCYCoor.append(float(tempCoor[1]))
-    from statistics import mode
-    # print("mode X", mode(followTTCXCoor))
-    # print("mode Y", mode(followTTCYCoor))
-    # print("X", set(followTTCXCoor))
-    # print("mode Y", set(followTTCYCoor))
-    # findingWhereIncidentsOccur(followTTCXCoor, followTTCYCoor)
+            if leadFollowIssue == True:
+                tempCoor = ttc.getAttribute("position").split(",")
+                followTTCXCoor.append(float(tempCoor[0]))
+                followTTCYCoor.append(float(tempCoor[1]))
+            if otherIssue == True:
+                tempCoor = ttc.getAttribute("position").split(",")
+                otherTTCXCoor.append(float(tempCoor[0]))
+                otherTTCYCoor.append(float(tempCoor[1]))
+    
     return followTTCXCoor, followTTCYCoor, otherTTCXCoor, otherTTCYCoor
 
-def plottingLocationsOfIncidents():
-    ttcScenario = "Roadworks"
-    ttcUseCase = ["\BaselinePenetration1", "\RealTMSPenetration1"]
-    # ttcUseCase = "\RealTMSPenetration3"
-    # print("ttcUseCase", ttcUseCase)
-    ttcLOS = "D"
+def plottingLocationsOfTTCs():
+    ttcScenario = "Collision"
+    ttcUseCase = "\RealTMSPenetration1"
+    ttcLOS = "A"
     i = 0
-    import numpy as np
-    for uc in ttcUseCase:
-        Total = [0, 0, 0, 0, 0]
-        for i in range(0, 3):
-            print("ttcUseCase", ttcUseCase)
-            print("i", i)
-            value = graphingIncidents(ttcScenario, uc, ttcLOS, i)
-            Total = np.add(Total, value)
-        print("total", Total)
+    graphingTTCs(ttcScenario, ttcUseCase, ttcLOS, i)
 
 def graphingPerformance():
     TTC = []
@@ -427,18 +370,18 @@ def graphingPerformance():
     EMISSIONS = []
 
     NUMBEROFITERATIONS = 3
-    # NUMBEROFITERATIONS = 1
+    # NUMBEROFITERATIONS = 2
 
     # SCENARIO = "Roadworks"
     SCENARIO = "Collision"
 
-    # useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV"]
+    # useCases = ["\BaselinePenetration3", "\RealTMSPenetration3"]
     useCases = ["\BaselineHDV", "\BaselineCAV", "\RealTMSCAV", "\BaselinePenetration1", "\RealTMSPenetration1", 
                 "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
 
     # LEVELOFSERVICE = ["A", "B", "C", "D"]
     LEVELOFSERVICE = ["A", "B", "C"]
-    # LEVELOFSERVICE = ["B", "C"]
+    # LEVELOFSERVICE = ["A"]
     vehicleTypes = ["HDV", "L4-CV"]
 
     safetyFiles, effiencyFiles, TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray = newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes, NUMBEROFITERATIONS)
@@ -461,43 +404,48 @@ def graphingPerformance():
 
     graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray)
 
-def metricGathering(trips, emissions, start, end, count, TYPE):
-    metric = 0
+# graphingPerformance()
+# plottingLocationsOfTTCs()
+
+
+def metricGathering(trips, emissions, start, end, count, TYPE, metric):
+    # metric = 0
     hit = 0
+    
     if (trips.getAttribute("departLane").split("-")[0] == start):
         if (trips.getAttribute("arrivalLane").split("-")[0] == end):
             if TYPE == "waitingTime":
-                metric = float(trips.getAttribute("waitingTime"))
+                metric.append(float(trips.getAttribute("waitingTime")))
                 hit = 1
             elif TYPE == "duration":
-                metric = float(trips.getAttribute("duration"))
+                metric.append(float(trips.getAttribute("duration")))
                 hit = 1
             elif TYPE == "CO2_abs":
-                metric = float(emissions[count].getAttribute("CO2_abs"))
+                metric.append(float(emissions[count].getAttribute("CO2_abs")))
                 hit = 1
             elif TYPE == "Throughput":
                 if (float(trips.getAttribute("arrival")) < 3600):
-                    metric = 1
+                    metric.append(1)
                     hit = 1
-    return metric, hit
+    return metric
+        
+        
 
 def depthEfficiency():
-    SCENARIO = "Roadworks"
+    SCENARIO = "Collision"
+    # SCENARIO = "Roadworks"
+    # useCases = ["\BaselineCAV"]
+    # useCases = ["\RealTMSCAV"]
 
     # useCases = ["\BaselinePenetration3"]
-    useCases = ["\RealTMSPenetration3"]
-
+    useCases = ["\RealTMSPenetration3"] 
     # LEVELOFSERVICE = ["A", "B", "C", "D"]
     LEVELOFSERVICE = ["C"]
     # LEVELOFSERVICE = ["B", "C"]
     vehicleTypes = ["HDV", "L4-CV"]
 
-    metric = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    metric = [[], [], [], [], [], [], [], [], [], [], [], []]
     number = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-    # TYPE = "waitingTime"
-    TYPE = "duration"
-    # TYPE = "CO2_abs"
-    # TYPE = "Throughput"
 
     realOrFake = "TMS"
     # realOrFake = "Baseline"
@@ -514,9 +462,8 @@ def depthEfficiency():
 
     # YAXIS = "Throughput of network (veh/hr)"
     # YAXIS = "CO2 (mg)"
-    YAXIS = "Time (s)"
     # YAXIS = "Time (s)"
-
+    YAXIS = "Time (s)"
     iteration = 0
     for i in range(3):
         print("i", i)
@@ -528,91 +475,114 @@ def depthEfficiency():
         count = 0
     
         for trip in trips:
-            temp1, temp2 = metricGathering(trip, emissions, "left", "top", count, TYPE)
-            metric[0] = metric[0] + temp1
-            number[0] = number[0] + temp2
-            temp1, temp2 = metricGathering(trip, emissions, "left", "right", count, TYPE)
-            metric[1] = metric[1] + temp1
-            number[1] = number[1] + temp2
-            temp1, temp2 = metricGathering(trip, emissions, "left", "bottom", count, TYPE)
-            metric[2] = metric[2] + temp1
-            number[2] = number[2] + temp2
+            metric[0] = metricGathering(trip, emissions, "left", "top", count, TYPE, metric[0])
+            # metric[0] = metric[0] + temp1
+            # number[0] = number[0] + temp2
+            metric[1] = metricGathering(trip, emissions, "left", "right", count, TYPE, metric[1])
+            # metric[1] = metric[1] + temp1
+            # number[1] = number[1] + temp2
+            metric[2] = metricGathering(trip, emissions, "left", "bottom", count, TYPE, metric[2])
+            # metric[2] = metric[2] + temp1
+            # number[2] = number[2] + temp2
 
-            temp1, temp2 = metricGathering(trip, emissions, "top", "right", count, TYPE)
-            metric[3] = metric[3] + temp1
-            number[3] = number[3] + temp2
-            temp1, temp2 = metricGathering(trip, emissions, "top", "bottom", count, TYPE)
-            metric[4] = metric[4] + temp1
-            number[4] = number[4] + temp2
-            temp1, temp2 = metricGathering(trip, emissions, "top", "left", count, TYPE)
-            metric[5] = metric[5] + temp1
-            number[5] = number[5] + temp2
+            metric[3] = metricGathering(trip, emissions, "top", "right", count, TYPE, metric[3])
+            # metric[3] = metric[3] + temp1
+            # number[3] = number[3] + temp2
+            metric[4] = metricGathering(trip, emissions, "top", "bottom", count, TYPE, metric[4])
+            # metric[4] = metric[4] + temp1
+            # number[4] = number[4] + temp2
+            metric[5] = metricGathering(trip, emissions, "top", "left", count, TYPE, metric[5])
+            # metric[5] = metric[5] + temp1
+            # number[5] = number[5] + temp2
 
-            temp1, temp2 =  metricGathering(trip, emissions, "right", "bottom", count, TYPE)
-            metric[6] = metric[6] + temp1
-            number[6] = number[6] + temp2
-            temp1, temp2 = metricGathering(trip, emissions, "right", "left", count, TYPE)
-            metric[7] = metric[7] + temp1
-            number[7] = number[7] + temp2
-            temp1, temp2 = metricGathering(trip, emissions, "right", "top", count, TYPE)
-            metric[8] = metric[8] + temp1
-            number[8] = number[8] + temp2
+            metric[6] =  metricGathering(trip, emissions, "right", "bottom", count, TYPE, metric[6])
+            # metric[6] = metric[6] + temp1
+            # number[6] = number[6] + temp2
+            metric[7] = metricGathering(trip, emissions, "right", "left", count, TYPE, metric[7])
+            # metric[7] = metric[7] + temp1
+            # number[7] = number[7] + temp2
+            metric[8] = metricGathering(trip, emissions, "right", "top", count, TYPE, metric[8])
+            # metric[8] = metric[8] + temp1
+            # number[8] = number[8] + temp2
 
-            temp1, temp2 = metricGathering(trip, emissions, "bottom", "left", count, TYPE)
-            metric[9] = metric[9] + temp1
-            number[9] = number[9] + temp2
-            temp1, temp2 = metricGathering(trip, emissions, "bottom", "top", count, TYPE)
-            metric[10] = metric[10] + temp1
-            number[10] = number[10] + temp2
-            temp1, temp2 = metricGathering(trip, emissions, "bottom", "right", count, TYPE)
-            metric[11] = metric[11] + temp1
-            number[11] = number[11] + temp2
+            metric[9] = metricGathering(trip, emissions, "bottom", "left", count, TYPE, metric[9])
+            # metric[9] = metric[9] + temp1
+            # number[9] = number[9] + temp2
+            metric[10] = metricGathering(trip, emissions, "bottom", "top", count, TYPE, metric[10])
+            # metric[10] = metric[10] + temp1
+            # number[10] = number[10] + temp2
+            metric[11] = metricGathering(trip, emissions, "bottom", "right", count, TYPE, metric[11])
+            # metric[11] = metric[11] + temp1
+            # number[11] = number[11] + temp2
             
             count = count + 1
         
-        print("metric", metric)
-        print("number", number)
-        print("metric", sum(metric))
-
-    if TYPE == "duration" or TYPE == "waitingTime":
+        print("metric", metric[0])
+        # print("number", number)
+        # print("metric", sum(metric))
+    mean = [[], [], [], [], [], [], [], [], [], [], [], []]
+    std = [[], [], [], [], [], [], [], [], [], [], [], []]
+    if TYPE == "duration" or TYPE == "waitingTime" or TYPE == "CO2_abs":
         for i in range(len(metric)):
-            metric[i] = metric[i] / number[i]
+            mean[i].append(np.array(metric[i]).mean())
+            std[i].append(np.array(metric[i]).std())
+    else:
+        for i in range(len(metric)):
+            mean[i].append(sum(metric[i]))
+            std[i].append(0)
+    # print("metric", metric)
+    
+    print("Left -> Top", mean[0])
+    print("Left -> Right", mean[1])
+    print("Left -> Bottom", mean[2])
+    print("Top -> Right", mean[3])
+    print("Top -> Bottom", mean[4])
+    print("Top -> Left", mean[5])
+    print("Right -> Bottom", mean[6])
+    print("Right -> Left", mean[7])
+    print("Right -> Top", mean[8])
+    print("Bottom -> Left", mean[9])
+    print("Bottom -> Top", mean[10])
+    print("Bottom -> Right", mean[11])
 
-    print("metric", metric)
-    print("number", number)
-    print("metric", sum(metric))
+   
+
     xAxis = "Level of Service"
     plotdata = pd.DataFrame(
             {
-                "Left -> Top": metric[0],
-                "Left -> Right": metric[1],
-                "Left -> Bottom": metric[2],
-                "Top -> Right": metric[3],
-                "Top -> Bottom": metric[4],
-                "Top -> Left": metric[5],
-                "Right -> Bottom": metric[6],
-                "Right -> Left": metric[7],
-                "Right -> Top": metric[8],
-                "Bottom -> Left": metric[9],
-                "Bottom -> Top": metric[10],
-                "Bottom -> Right": metric[11],
+                "Left -> Top": mean[0],
+                "Left -> Right": mean[1],
+                "Left -> Bottom": mean[2],
+                "Top -> Right": mean[3],
+                "Top -> Bottom": mean[4],
+                "Top -> Left": mean[5],
+                "Right -> Bottom": mean[6],
+                "Right -> Left": mean[7],
+                "Right -> Top": mean[8],
+                "Bottom -> Left": mean[9],
+                "Bottom -> Top": mean[10],
+                "Bottom -> Right": mean[11],
             }, 
             # index=["A", "B", "C", "D"]
             # index=["A", "B", "C"]
             index=[LEVELOFSERVICE[0]]
         )
-    plotdata.plot(kind='bar',) #yerr=std)
+    print("std", std)
+    print("mean", mean)
+    print("std", len(std))
+    print("mean", len(mean))
+    plotdata.plot(kind='bar', yerr=std)
+    
     plt.rc('font', size=14)
        
-    
+    plt.xlabel(xAxis, size=20)
+    plt.ylabel(YAXIS, size=20)
     # plt.yscale("log")
     # ax = plt.subplot(111)
     # chartBox = ax.get_position()
     # ax.set_position([chartBox.x0, chartBox.y0, chartBox.width*0.7, chartBox.height])
     # ax.legend(loc='upper center', bbox_to_anchor=(1.25, 0.8), shadow=True, ncol=1)
     # plt.ylabel(yAxis, size=20)
-    plt.xlabel(xAxis, size=20)
-    plt.ylabel(YAXIS, size=20)
     plt.xticks(size = 18)
     plt.yticks(size = 18)
     plt.title(TITLE, size=20)
@@ -621,3 +591,10 @@ def depthEfficiency():
 graphingPerformance()
 
 # depthEfficiency()
+
+
+
+#
+#
+#
+#
