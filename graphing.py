@@ -282,8 +282,8 @@ def graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, Durat
                 # "Real TMS 100%": array[1],
             }, 
             # index=["A", "B", "C", "D"]
-            index=["A", "B", "C"]
-            # index=["B"]
+            # index=["A", "B", "C"]
+            index=["A"]
         )
         print("array", array[0])
         print("std", std[0])
@@ -380,29 +380,43 @@ def graphingPerformance():
                 "\BaselinePenetration2", "\RealTMSPenetration2", "\BaselinePenetration3", "\RealTMSPenetration3"]
 
     # LEVELOFSERVICE = ["A", "B", "C", "D"]
-    LEVELOFSERVICE = ["A", "B", "C"]
-    # LEVELOFSERVICE = ["A"]
+    # LEVELOFSERVICE = ["A", "B", "C"]
+    LEVELOFSERVICE = ["C"]
     vehicleTypes = ["HDV", "L4-CV"]
 
     safetyFiles, effiencyFiles, TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray = newCreatingFiles(SCENARIO, useCases, LEVELOFSERVICE, vehicleTypes, NUMBEROFITERATIONS)
 
-    print("TTC", TTC)
-    print("DRAC", DRAC)
-    print("PET", PET)
-    print("Throughput", THROUGHPUT)
-    print("CO2", EMISSIONS)
-    print("WaitingTimesArray", WaitingTimesArray)
-    print("DurationArray", DurationArray)
-    print("-----------------")
-    print("StdTTCArray", StdTTCArray)
-    print("StdDRACArray", StdDRACArray)
-    print("StdPETArray", StdPETArray)
-    print("StdThroughputArray", StdThroughputArray)
-    print("StdEmmisionsArray", StdEmmisionsArray)
-    print("StdWaitingTimesArray", StdWaitingTimesArray)
-    print("StdDurationArray", StdDurationArray)
+    print("HDV             ", DurationArray[0])
+    print("BASELINE - L4-CV", DurationArray[1])
+    print("TMS -      L4-CV", DurationArray[2])
+    print("BASELINE -    P1", DurationArray[3])
+    print("TMS -         P1", DurationArray[4])
+    print("BASELINE -    P2", DurationArray[5])
+    print("TMS -         P2", DurationArray[6])
+    print("BASELINE -    P3", DurationArray[7])
+    print("TMS -         P3", DurationArray[8])
 
-    graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray)
+    # print("TTC", TTC)
+    print("Change L4-CV", (DurationArray[2][0]/DurationArray[1][0]-1) * 100)
+    print("Change P1", (DurationArray[4][0]/DurationArray[3][0]-1) * 100)
+    print("Change P2", (DurationArray[6][0]/DurationArray[5][0]-1) * 100)
+    print("Change P3", (DurationArray[8][0]/DurationArray[7][0]-1) * 100)
+    # print("DRAC", DRAC)
+    # print("PET", PET)
+    # print("Throughput", THROUGHPUT)
+    # print("CO2", EMISSIONS)
+    # print("WaitingTimesArray", WaitingTimesArray)
+    # print("DurationArray", DurationArray)
+    # print("-----------------")
+    # print("StdTTCArray", StdTTCArray)
+    # print("StdDRACArray", StdDRACArray)
+    # print("StdPETArray", StdPETArray)
+    # print("StdThroughputArray", StdThroughputArray)
+    # print("StdEmmisionsArray", StdEmmisionsArray)
+    # # print("StdWaitingTimesArray", StdWaitingTimesArray)
+    # print("StdDurationArray", StdDurationArray)
+
+    # graphingKPIs(TTC, DRAC, PET, THROUGHPUT, EMISSIONS, WaitingTimesArray, DurationArray, SCENARIO, StdTTCArray, StdDRACArray, StdPETArray, StdThroughputArray, StdEmmisionsArray, StdWaitingTimesArray, StdDurationArray)
 
 # graphingPerformance()
 # plottingLocationsOfTTCs()
@@ -432,7 +446,7 @@ def metricGathering(trips, emissions, start, end, count, TYPE, metric):
         
 
 def depthEfficiency():
-    SCENARIO = "Collision"
+    # SCENARIO = "Collision"
     # SCENARIO = "Roadworks"
     # useCases = ["\BaselineCAV"]
     # useCases = ["\RealTMSCAV"]
